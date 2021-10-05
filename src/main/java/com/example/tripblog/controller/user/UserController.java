@@ -71,13 +71,13 @@ public class UserController {
     }
 
     //驗證會員登入
+    @ResponseBody
     @PostMapping("/login")
-    public String signup(@RequestParam String account,
-                         @RequestParam String password,
-                         HttpSession session,
-                         RedirectAttributes attributes) {
+    public int signup(@RequestBody User user,
+                      HttpSession session
+    ) {
 
-        User user = userService.checkUser(account, password);
+        user = userService.checkUser(user.getAccount(), user.getPassword());
 
         System.out.println("登入資料:" + user);
 
@@ -89,12 +89,11 @@ public class UserController {
             userSession.setNickname(user.getNickname());
 
             session.setAttribute("user", userSession);
-            return "/index";
+            return 1;
 
         } else {
             System.out.println("登入失敗");
-            attributes.addFlashAttribute("message", "帳號或密碼錯誤");
-            return "redirect:/user/login";
+            return 0;
         }
 
     }
