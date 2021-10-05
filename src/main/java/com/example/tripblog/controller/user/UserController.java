@@ -115,23 +115,16 @@ public class UserController {
     }
 
     //註冊會員
+    @ResponseBody
     @PostMapping("/signup")
-    public String signup(@Valid User user,
-                         BindingResult result,
-                         RedirectAttributes attributes) {
+    public boolean signup(@RequestBody User user) {
+
+        System.out.println(user);
 
         User userSaved = userService.showUserData(user.getAccount());
 
-        if (userSaved != null) {
-            result.rejectValue("name", "repeatError", "該帳號已被使用");
-        }
-
-        if ("".equals(user.getPassword()) || user.getPassword() == null) {
-            result.rejectValue("name", "formatError", "密碼格式錯誤");
-        }
-
-        if (result.hasErrors()) {
-            return "/user/signup";
+        if (userSaved != null || "".equals(user.getPassword()) || user.getPassword() == null) {
+            return false;
         }
 
         try {
@@ -140,16 +133,7 @@ public class UserController {
             e.printStackTrace();
         }
 
-        if (userSaved != null) {
-            attributes.addFlashAttribute("message", "註冊成功!");
-            attributes.addFlashAttribute("nickname", userSaved.getNickname());
-        } else {
-            attributes.addFlashAttribute("message", "註冊失敗");
-            attributes.addFlashAttribute("nickname", userSaved.getNickname());
-        }
-
-        return "redirect:/user/signup-success";
-
+        return userSaved != null;
     }
 
 }
