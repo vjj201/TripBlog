@@ -23,6 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
                addPathPatterns("/user/**").
                excludePathPatterns("/user/login").
                excludePathPatterns("/user/signup").
-               excludePathPatterns("/user/signup-success");
+               excludePathPatterns("/user/signup-success").
+               excludePathPatterns("/user/accountCheck");
     }
 }
