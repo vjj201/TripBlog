@@ -101,10 +101,10 @@ public class UserController {
 
     //確認會員帳號是否重複
     @ResponseBody
-    @PostMapping("/accountCheck")
-    public boolean findUserByAccount(@RequestBody User user) {
-        User u = userService.showUserData(user.getAccount());
-        return u != null;
+    @GetMapping("/accountCheck")
+    public boolean findUserByAccount(@RequestParam String account) {
+        User user = userService.showUserData(account);
+        return user != null;
     }
 
     //帳號登出

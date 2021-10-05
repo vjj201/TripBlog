@@ -140,7 +140,6 @@
                         <div class="alert alert-dark text-center mt-4" role="alert"
                              th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 
-                        <div id="message" class=" text-center fs-3"></div>
 
                         <!-- Name input-->
                         <div class="form-floating mb-3 my-4">
@@ -231,8 +230,10 @@
                         <div class="d-grid w-50 mt-4 mx-auto">
                             <button class="btn btn-primary btn-lg mb-4" id="submitButton" type="submit">提交</button>
                         </div>
-
+                        <!--錯誤提示-->
+                        <div id="message" class=" text-center mb-2 fs-3"></div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -259,7 +260,7 @@
 
 <script>
 
-        //按鈕帳號註冊
+        //帳號確認按鈕註冊
         $('#account').blur(function (e) {
             //取消原按鈕功能
             e.preventDefault();
@@ -270,20 +271,21 @@
                 return;
             }
             //創建物件
-            let dataJson = {};
-            dataJson['account'] = account;
+            let data = {};
+            data['account'] = account;
 
             $.ajax({
                 url: '/user/accountCheck',
-                contentType : 'application/json;charset=utf-8',
-                type: 'POST',
-                data: JSON.stringify(dataJson),
+                type: 'GET',
+                data: data,
                 success: function (response) {
                     if(response) {
                         $('#account').addClass('border border-1 border border-danger');
+                        $('#submitButton').addClass('disabled');
                         $('#message').text('帳號已存在，請重新輸入');
                     }else {
                         $('#account').removeClass('border border-1 border border-danger');
+                        $('#submitButton').removeClass('disabled');
                         $('#message').text('帳號可以使用');
                     }
                 }
