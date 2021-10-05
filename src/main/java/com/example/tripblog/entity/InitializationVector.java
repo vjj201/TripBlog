@@ -16,13 +16,11 @@ public class InitializationVector {
     //編號
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     //向量值
     @NotEmpty(message = "向量不能為空值")
     @Lob
-    @Column(name = "iv")
     private byte[] iv;
 
     public Long getId() {

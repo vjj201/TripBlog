@@ -22,56 +22,47 @@ public class User {
     //會員編號
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
 
     //帳號
     @NotBlank(message = "帳號不能為空值")
-    @Column(name = "account")
     private String account;
 
     //密碼
     @NotBlank(message = "密碼不能為空值")
-    @Column(name = "password")
     private String password;
 
     //姓名
     @NotBlank(message = "姓名不能為空值")
-    @Column(name = "name")
     private String name;
 
     //暱稱
     @NotBlank(message = "暱稱不能為空值")
-    @Column(name = "nickname")
     private String nickname;
 
     //性別
-    @Column(name = "gender")
     private String gender;
 
     //生日
-    @DateTimeFormat( pattern = "yyyy-MM-dd")
-    @Column(name = "birthday")
+//    @DateTimeFormat( pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     //信箱
-    @Column(name = "email")
     private String email;
 
     //手機
-    @Column(name = "phone")
     private Long phone;
 
     //註冊日期
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    @Column(name = "signDate")
     private Date signDate;
 
     //IV外來鍵
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "iv", referencedColumnName = "id")
+    @JoinColumn(name = "iv",referencedColumnName = "id")
     private InitializationVector iv;
 
 
