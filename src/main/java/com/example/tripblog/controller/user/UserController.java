@@ -5,12 +5,10 @@ import com.example.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+
 
 /**
  * @author YuCheng
@@ -40,7 +38,7 @@ public class UserController {
     //跳轉註冊成功畫面
     @GetMapping("/signup-success")
     public String signupOkPage() {
-        return "user/signup-success";
+        return "user/signup_success";
     }
 
     //跳轉會員資料頁
@@ -67,7 +65,7 @@ public class UserController {
         profile.setIv(null);
 
         model.addAttribute("profile", profile);
-        return "user/profile";
+        return "user/my_profile";
     }
 
     //驗證會員登入

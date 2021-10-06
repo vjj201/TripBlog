@@ -5,33 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TripBlog Signup</title>
-    <meta name="description" content="SignupPage">
+    <meta name="description" content="Signup">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
-
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <!-- 自訂css -->
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/signup.js" th:src="@{/js/signup.js}"></script>
 </head>
 
 <body>
 
-<!-- 導覽列 -->
-<nav th:replace="fragments :: nav(0)" class="navbar sticky-top navbar-expand-lg navbar-light shadow p-2 rounded"
-     style="background-color: #e3f2fd;">
+<!-- 總導覽列 -->
+<nav class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
     <div class="container-fluid">
 
         <!-- 左邊網站名稱 -->
-        <a class="navbar-brand fs-3 fw-bold" href="#" th:href="@{/}">TripBlog</a>
-
+        <div class="col-2 mb-2">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../../static/images/nav_logo_05.svg" class="w-100" th:src="@{/images/nav_logo_05.svg}">
+            </a>
+        </div>
         <!-- 折疊插件 -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -42,36 +39,29 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- 中間連接清單 -->
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav mx-auto mb-0 mb-lg-0">
 
-
-                <li class="nav-item me-5">
-                    <a class="nav-link" href="#" th:href="@{/}">
-                        <div class="fs-5 fw-bolder">Home</div>
+                <li class="nav-item me-5 d-flex">
+                    <a class="nav-link p-0 mt-3 " href="../article_travel.html">
+                        <div class="fs-5 fw-bolder ">Travel</div>
                     </a>
                 </li>
 
                 <li class="nav-item me-5">
-                    <a class="nav-link" href="#">
-                        <div class="fs-5 fw-bolder">Travel</div>
+                    <a class="nav-link  p-0 mt-3" href="../article_eat.html">
+                        <div class="fs-5 fw-bolder ">Eat</div>
                     </a>
                 </li>
 
                 <li class="nav-item me-5">
-                    <a class="nav-link" href="#">
-                        <div class="fs-5 fw-bolder">Eat</div>
+                    <a class="nav-link  p-0 mt-3" href="../map_search.html">
+                        <div class="fs-5 fw-bolder">MapSearch</div>
                     </a>
                 </li>
 
                 <li class="nav-item me-5">
-                    <a class="nav-link" href="#">
-                        <div class="fs-5 fw-bolder">Search</div>
-                    </a>
-                </li>
-
-                <li class="nav-item me-5">
-                    <a class="nav-link" href="#">
-                        <div class="fs-5 fw-bolder">About</div>
+                    <a class="nav-link  p-0 mt-3" href="../about.html">
+                        <div class="fs-5 fw-bolder">AboutUs</div>
                     </a>
                 </li>
 
@@ -89,18 +79,22 @@
                 <!-- 下拉選單 -->
                 <div class="dropdown">
                     <!-- 選單標題 -->
-                    <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                       data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="btn  btn-info dropdown-toggle btn-milkyellow text-bl04 fw-bold rounded-pill" href="#"
+                       role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         訪客
                     </a>
                     <!-- 選單內容 -->
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">會員資料</a></li>
-                        <li><a class="dropdown-item" href="#">我的文章</a></li>
-                        <li><a class="dropdown-item" href="#">旅遊規劃</a></li>
-                        <hr class="dropdown-divider">
-                        <li><a class="dropdown-item" href="#" th:href="@{/user/signup}">註冊</a></li>
-                        <li><a class="dropdown-item" href="#" th:href="@{/user/login}">登入</a></li>
+                    <ul class="dropdown-menu dropdown-menu-end border-5 border-jumpBorderGreen rounded"
+                        aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item rounded fw-bold" href="../user/write_article.html">撰寫文章</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="../user/my_space.html"
+                               th:href="@{/user/profile}">我的空間</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="../user/my_notify.html">訊息通知</a></li>
+                        <hr class="dropdown-divider rounded fw-bold">
+                        <li><a class="dropdown-item rounded fw-bold" href="../user/signup.html"
+                               th:href="@{/user/signup}">註冊</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="../user/login.html" th:href="@{/user/login}">登入</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -109,7 +103,7 @@
         </div>
     </div>
 </nav>
-<!-- 導覽列結束 -->
+<!-- 結束:總導覽列 -->
 
 
 <!-- 註冊 -->
@@ -119,10 +113,10 @@
         <div class="container px-4 px-lg-5">
             <!-- 表單標題 -->
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-lg-8 col-xl-6 text-center">
+                <div class="col-lg-8 col-xl-6 text-center text-bl04 fw-bold">
                     <h2 class="mt-0">會員註冊</h2>
-                    <hr class="divider"/>
-                    <p class="text-muted mb-5">
+                    <hr class="divider border-2 border-bl04"/>
+                    <p class=" mb-5 ">
                         現在就開始紀錄和分享旅遊生活吧!
                         <br>
                         各種新鮮有趣的事物也正等著您去探索
@@ -132,49 +126,40 @@
 
 
             <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
-                <div class="col-lg-6 bg-light shadow">
+                <div class="col-lg-6 bg-milkyellow shadow rounded-3">
 
                     <form action="#" method="post" th:action="@{/user/signup}" th:object="${user}">
 
-
                         <!-- Name input-->
                         <div class="form-floating mb-3 my-4">
-                            <input class="form-control" id="name" name="name" type="text"
-                                   placeholder="Enter your name..." required minlength="2" maxlength="20"/>
-                            <label for="name">姓名</label>
+                            <input class="form-control " id="name" name="name" type="text"
+                                   placeholder="Enter your name..." minlength="1" maxlength="20"/>
+                            <label for="name" class="text-bl04 fw-bold">姓名</label>
                         </div>
 
                         <!-- Nickname input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="nickname" name="nickname" type="text"
-                                   placeholder="Enter your nickname..." required minlength="1" maxlength="20"/>
-                            <label for="nickname">暱稱</label>
-                        </div>
-
-                        <!-- Birthday input-->
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="birthday" name="birthday" type="date"
-                                   placeholder="Enter your birthday..." required min="1921-01-01" max="2021-01-01"/>
-                            <label for="birthday">生日</label>
+                                   placeholder="Enter your nickname..." minlength="1" maxlength="20"/>
+                            <label for="nickname" class="text-bl04 fw-bold">暱稱</label>
                         </div>
 
                         <!-- Gender input -->
-                        <div class="form-floating mb-3 py-3 text-start border border-1 rounded  bg-white">
-                            <span class="ms-2 me-3">性別</span>
+                        <div class="form-floating mb-3 py-3 text-start border border-1 rounded bg-white gender">
+                            <span class="ms-2 me-3 text-bl04 fw-bold">性別</span>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" id="male" value="male"
-                                       required>
-                                <label class="form-check-label" for="male">男生</label>
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                <label class="form-check-label text-bl04 fw-bold" for="male">男生</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="female"
                                        value="female">
-                                <label class="form-check-label" for="female">女生</label>
+                                <label class="form-check-label text-bl04 fw-bold" for="female">女生</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="unknow"
                                        value="unknow">
-                                <label class="form-check-label" for="unknow">未知</label>
+                                <label class="form-check-label text-bl04 fw-bold" for="unknow">其他</label>
                             </div>
                         </div>
 
@@ -182,52 +167,47 @@
                         <!-- Email address input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="email" name="email" type="email"
-                                   placeholder="name@example.com" required/>
-                            <label for="email">信箱</label>
+                                   placeholder="name@example.com"/>
+                            <label for="email" class="text-bl04 fw-bold">信箱</label>
 
-                        </div>
-
-                        <!-- Phone number input-->
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="phone" name="phone" type="tel"
-                                   placeholder="(04) 224-56789" required maxlength="11" pattern="09\d{8}"/>
-                            <label for="phone">手機</label>
-                            <div class="invalid-feedback" data-sb-feedback="phone:required">請填寫電話或手機號碼
-                            </div>
                         </div>
 
                         <!-- Account input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="account" name="account" type="text"
-                                   placeholder="123456789" required minlength="3" maxlength="20"/>
-                            <label for="account">帳號 : 3~20</label>
+                                   placeholder="123456789" minlength="4" maxlength="20"/>
+                            <label for="account" class="text-bl04 fw-bold">帳號 : 4~20英文數字</label>
 
                         </div>
 
                         <!-- Password input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="password" name="password" type="password"
-                                   placeholder="***********" required maxlength="20"
-                                   pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"/>
+                                   placeholder="***********" maxlength="20"
+                                   pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$"/>
                             <!--至少要使用 6 個位元，至少使用一個英文字元，至少使用一個數字-->
-                            <label for="password">密碼 : 6~20英文數字</label>
+                            <label for="password" class="text-bl04 fw-bold">密碼 : 6~20英文數字</label>
 
                         </div>
 
                         <!--Check password-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="confirmPassword" name="confirmPassword" type="password"
-                                   placeholder="確認密碼" required oninput="setCustomValidity('');"
-                                   onchange="if(document.getElementById('password').value != document.getElementById('confirmPassword').value){setCustomValidity('密碼不吻合');}"/>
-                            <label for="confirmPassword">密碼確認</label>
+                                   placeholder="確認密碼" maxlength="20" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$"/>
+                            <label for="confirmPassword" class="text-bl04 fw-bold">密碼確認</label>
                         </div>
 
                         <!-- Submit Button-->
                         <div class="d-grid w-50 mt-4 mx-auto">
-                            <button class="btn btn-primary btn-lg mb-4" id="submitButton" type="submit">提交</button>
+                            <button
+                                    class="btn btn-light btn-lg mb-4  border-2 border-bl03 rounded-pill text-bl03 fw-bold"
+                                    id="submitButton" type="submit">提交
+                            </button>
                         </div>
+
                         <!--錯誤提示-->
-                        <div id="message" class=" text-center mb-2 fs-3"></div>
+                        <div id="message" class=" text-center mb-4 fs-4"></div>
+
                     </form>
 
                 </div>
@@ -238,91 +218,24 @@
 
 <!-- 註冊-end -->
 
-
-<!-- 底部 -->
-<footer class="bg-light py-5">
+<!-- 尾頁 -->
+<footer class="bg-bl04 py-5">
     <div class="container px-4 px-lg-5 py-2">
-        <div class="small text-center text-muted">Copyright &copy; 2021 - TripBlog</div>
+        <div class="small text-center text-milkyellow ">
+            Copyright &copy; 2021 - TripBlog
+        </div>
+        <div class="small text-center text-milkyellow ">
+            國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
+        </div>
     </div>
 </footer>
-<!-- 底部-end -->
-
+<!-- 結束:尾頁 -->
 
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
-
-<script>
-
-        //帳號確認按鈕註冊
-        $('#account').blur(function (e) {
-            //取消原按鈕功能
-            e.preventDefault();
-            //獲取帳號密碼
-            let account = $('#account').val();
-            //判斷條件
-            if(3 > account.toString().length || 20 < account.toString().length) {
-                return;
-            }
-            //創建物件
-            let data = {};
-            data['account'] = account;
-
-            $.ajax({
-                url: '/user/accountCheck',
-                type: 'GET',
-                data: data,
-                success: function (response) {
-                    if(response) {
-                        $('#account').addClass('border border-1 border border-danger');
-                        $('#submitButton').addClass('disabled');
-                        $('#message').text('帳號已存在，請重新輸入');
-                    }else {
-                        $('#account').removeClass('border border-1 border border-danger');
-                        $('#submitButton').removeClass('disabled');
-                        $('#message').text('帳號可以使用');
-                    }
-                }
-            });
-        });
-
-        //提交按鈕註冊
-        $('#submitButton').click(function (e) {
-
-            e.preventDefault();
-
-            //創建物件
-            let user = {};
-            user['name'] = $('#name').val();
-            user['nickname'] = $('#nickname').val();
-            user['birthday'] = $('#birthday').val();
-            user['gender'] = $("input[name='gender']:checked").val();
-            user['email'] = $('#email').val();
-            user['phone'] = $('#phone').val();
-            user['account'] = $('#account').val();
-            user['password'] = $('#password').val();
-
-
-            $.ajax({
-                url: '/user/signup',
-                type: 'POST',
-                async: false,
-                contentType : 'application/json;charset=utf-8',
-                data: JSON.stringify(user),
-                success: function (response) {
-                    alert("login");
-                    alert(response);
-                    if(response) {
-                        document.location.href="/user/signup-success";
-                    }else {
-                        $('#message').text('註冊失敗，請重新輸入');
-                    }
-                }
-            });
-        });
-</script>
 
 </body>
 
