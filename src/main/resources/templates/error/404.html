@@ -13,13 +13,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../static/css/all_css.css">
+    <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
 </head>
 
 <body class="bg-milkyellow">
 
     <!-- 總導覽列 -->
-    <nav class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
+    <nav th:replace="fragments ::nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
         <div class="container-fluid">
 
             <!-- 左邊網站名稱 -->

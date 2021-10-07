@@ -9,16 +9,16 @@
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../static/css/all_css.css">
+    <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <!-- 自訂css -->
-    <link rel="stylesheet" href="../../static/css/article_style.css">
+    <link rel="stylesheet" href="../../static/css/article_style.css" th:href="@{/css/article_style.css}">
 
 </head>
 
 <body>
 
     <!-- 總導覽列 -->
-    <nav class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
+    <nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
         <div class="container-fluid">
 
             <!-- 左邊網站名稱 -->
@@ -102,7 +102,7 @@
 
 
     <!-- 首頁背景圖 cover photo -->
-    <div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400;">
+    <div class="container-fluid  overflow-hidden px-0" style="width: auto;">
         <img src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
     </div>
     <!-- 首頁背景圖 cover photo 結束-->
@@ -126,10 +126,10 @@
                 <div class="row h-25"></div>
                 <div class="row h-50 ms-2">
                     <h3>
-                        <span th:text="${session.user.nickname}" class="text-bl04 fw-bold ">會員暱稱</span>
+                        <span class="text-bl04 fw-bold ">會員暱稱</span>
                     </h3>
                     <div class="item d-none d-lg-block">
-                        <span th:text="${session.user.registerDate}" class="text-bl04">註冊日期：yyyy/mm/dd</span>
+                        <span class="text-bl04">註冊日期：yyyy/mm/dd</span>
                     </div>
                 </div>
             </div>
@@ -138,13 +138,13 @@
             <div class="col-4 d-none d-lg-flex">
                 <ul class="list-group list-group-horizontal align-items-end mb-2">
                     <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總閱讀：
-                        <span th:text="${session.user.totalRead}"></span>
+                        <span></span>
                     </li>
                     <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總推薦：
-                        <span th:text="${session.user.totalLike}"></span>
+                        <span></span>
                     </li>
                     <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總收藏：
-                        <span th:text="${session.user.totalSave}"></span>
+                        <span></span>
                     </li>
                 </ul>
             </div>
@@ -159,7 +159,7 @@
                 <div class="card border border-2 rounded-0 border-top-0">
 
                     <!-- 會員導航欄 -->
-                    <div class="card-header d-flex sticky-top bg-gr0201 rounded-3">
+                    <div th:replace="user/fragments :: userNav(3)" class="card-header d-flex sticky-top bg-gr0201 rounded-3">
                         <ul class="nav nav-tabs card-header-tabs h4 mx-auto">
                             <li class="nav-item me-3">
                                 <a class="nav-link " href="my_space.html">Introduce</a>
@@ -229,10 +229,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/3.jpg" alt="">
+                                                <img src="../../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,9 +240,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -253,18 +250,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -278,10 +267,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/4.jpg" alt="">
+                                                <img src="../../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -290,9 +278,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -302,18 +288,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -327,10 +305,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/3.jpg" alt="">
+                                                <img src="../../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -339,9 +316,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -351,18 +326,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -376,10 +343,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/4.jpg" alt="">
+                                                <img src="../../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -388,9 +354,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -400,18 +364,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -425,10 +381,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/3.jpg" alt="">
+                                                <img src="../../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -437,9 +392,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -449,18 +402,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -474,10 +419,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/4.jpg" alt="">
+                                                <img src="../../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -486,9 +430,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -498,18 +440,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -523,10 +457,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/3.jpg" alt="">
+                                                <img src="../../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -535,9 +468,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -547,18 +478,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -572,10 +495,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/4.jpg" alt="">
+                                                <img src="../../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -584,9 +506,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -596,18 +516,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -621,10 +533,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/3.jpg" alt="">
+                                                <img src="../../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -633,9 +544,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -645,18 +554,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -670,10 +571,9 @@
                                     <div class="row align-items-center">
                                         <div class="col-12 col-md-6">
                                             <div class="single-blog-thumbnail">
-                                                <img src="../../static/images/4.jpg" alt="">
+                                                <img src="../../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
                                                 <div class="post-date">
-                                                    <a href="#" class="text-bl04">12 <span
-                                                            class="text-bl04">march</span></a>
+                                                    <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -682,9 +582,7 @@
                                             <div class="single-blog-content text-bl04">
                                                 <div class="line"></div>
                                                 <a href="#" class="post-tag text">Lifestyle</a>
-                                                <h4><a href="#"
-                                                        class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party
-                                                        people in the house</a>
+                                                <h4><a href="#" class="post-headline btn-outline-bl01 text-bl04 fw-bold">Party people in the house</a>
                                                 </h4>
                                                 <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
                                                     tempor cursus.
@@ -694,18 +592,10 @@
                                                 </p>
 
                                                 <div class="post-meta">
-                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james
-                                                            smith</a></p>
+                                                    <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
                                                     <p>3 comments</p>
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="推薦">
-                                                    <input
-                                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="收藏">
-                                                    <input
-                                                        class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                        type="submit" value="檢舉">
+                                                    <input class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="編輯">
+                                                    <input class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="submit" value="刪除">
 
                                                 </div>
                                             </div>
@@ -713,9 +603,6 @@
 
                                     </div>
                                 </div>
-
-
-
 
 
                             </div>
@@ -759,7 +646,6 @@
     </div>
 
 
-    </div>
     <!-- 中間內容END -->
 
 

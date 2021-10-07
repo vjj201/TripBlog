@@ -21,7 +21,7 @@
 <body class=" bg-milkyellow">
 
     <!-- 總導覽列 -->
-    <nav class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
+    <nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
         <div class="container-fluid">
 
             <!-- 左邊網站名稱 -->
@@ -155,7 +155,7 @@
 
                             <a href="#" class="forgot-password-link fw-bold text-pk03">忘記密碼?</a>
                             <p class="login-card-footer-text fw-bold text-bl04">還不是會員? <a href="signup.html"
-                                    class="text-reset">立即註冊</a>
+                                    class="text-reset" th:href="@{/user/signup}">立即註冊</a>
                             </p>
 
                         </div>

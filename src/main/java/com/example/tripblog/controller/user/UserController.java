@@ -48,24 +48,45 @@ public class UserController {
         User user = (User) session.getAttribute("user");
 
         User profile = userService.showUserData(user.getId());
-        //密碼保留末三位
-        String password = profile.getPassword();
-        int size = password.length();
 
-        String substring = password.substring(size - 3);
-        String prefix = "";
-        for (int i = 0; i < size - 3; i++) {
-            prefix += "*";
-        }
-        password = prefix + substring;
 
         //保留必要資料
-        profile.setPassword(password);
+        profile.setPassword(null);
         profile.setId(null);
         profile.setIv(null);
 
         model.addAttribute("profile", profile);
         return "user/my_profile";
+    }
+
+    //跳轉會員自介
+    @GetMapping("/space")
+    public String spacePage() {
+        return "/user/my_space";
+    }
+
+    //跳轉我的旅遊文章
+    @GetMapping("/travel")
+    public String travelPage() {
+        return "/user/my_article_travel";
+    }
+
+    //跳轉我的美食文章
+    @GetMapping("/eat")
+    public String eatPage() {
+        return "/user/my_article_eat";
+    }
+
+    //跳轉收藏頁
+    @GetMapping("/collection")
+    public String collectionPage() {
+        return "/user/my_collection";
+    }
+
+    //跳轉通知頁
+    @GetMapping("/notify")
+    public String notifyPage() {
+        return "/user/my_notify";
     }
 
     //驗證會員登入
