@@ -5,7 +5,6 @@ $(function () {
     $('#edit').click(function (e) {
         e.preventDefault();
 
-
         $('#editZone > button').toggle();
 
         if (flag) {
@@ -40,10 +39,22 @@ $(function () {
     $('#cancel').click(function (e) {
         e.preventDefault();
 
+
         $.ajax({
-            url: '/user/my_profile',
-            type: 'GET'
+            url: '/user/getUser',
+            type: 'GET',
+            success: function (response) {
+
+                $('#name').val(response.name);
+                $('#nickname').val(response.nickname);
+                $('#birthday').val(response.birthday);
+                $('#email').val(response.email);
+                $('#phone').val(response.phone);
+                $('#edit').trigger('click');
+            }
+
         });
+
     });
 
     //密碼更改按鈕註冊
@@ -117,18 +128,18 @@ $(function () {
         let phone = $('#phone').val();
         let pass = /09\d{8}/;
 
-        if (!pass.test(phone)) {
-            $('#phone').addClass('border border-1 border border-danger');
-            $('#submit').addClass('disabled');
-            $('#message').show().text('手機格式錯誤');
-        } else {
+
+        if (pass.test(phone) || phone.trim() < 1) {
             $('#phone').removeClass('border border-1 border border-danger');
             $('#submit').removeClass('disabled');
             $('#message').empty();
+        } else {
+            $('#phone').addClass('border border-1 border border-danger');
+            $('#submit').addClass('disabled');
+            $('#message').show().text('手機格式錯誤');
         }
 
     });
-
 
 
 
@@ -139,10 +150,11 @@ $(function () {
 
         let name = $('#name').val();
         let nickname = $('#nickname').val();
+        let birthday = $('#birthday').val();
         let email = $('#email').val();
         let phone = $('#phone').val();
 
-        if (name.trim() < 1 || nickname.trim() < 1 || email.trim() < 1 || phone.trim() < 1) {
+        if (name.trim() < 1 || nickname.trim() < 1 || email.trim() < 1) {
             $('#message').show().text('麻煩請先填寫完成');
             return;
         } else {
@@ -154,23 +166,23 @@ $(function () {
         let user = {};
         user['name'] = name;
         user['nickname'] = nickname;
-        user['gender'] = gender;
+        user['birthday'] = birthday;
         user['email'] = email;
         user['phone'] = phone;
 
 
         $.ajax({
-            url: '/user/update',
+            url: '/user/updateUser',
             type: 'POST',
             async: false,
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(user),
             success: function (response) {
-
-                if (response) {
-                    document.location.href = "/user/my_profile";
+                if(response) {
+                    $('#cancel').trigger('click');
+                    $('#result').text('修改成功').hide(3000);
                 } else {
-                    $('#message').text('更新失敗，請重新輸入');
+                    $('#result').text('修改失敗').hide(3000);
                 }
             }
         });

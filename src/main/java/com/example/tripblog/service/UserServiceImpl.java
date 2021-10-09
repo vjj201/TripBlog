@@ -21,9 +21,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private InitializationVectorRepository ivRepository;
-
     private final String KEY = "TravelAndEatBlog";
     private SecureRandom secureRandom = new SecureRandom();
 
@@ -82,23 +79,23 @@ public class UserServiceImpl implements UserService {
     public User showUserData(Long id) {
         User user = userRepository.findById(id).orElse(null);
 
-        //解密
-        String encrypt = user.getPassword();
-        String decrypt = "";
-        byte[] iv = user.getIv().getIv();
-
-        try {
-            decrypt = CipherUtils.decryptString(KEY, encrypt, iv);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        user.setPassword(decrypt);
+//        //解密
+//        String encrypt = user.getPassword();
+//        String decrypt = "";
+//        byte[] iv = user.getIv().getIv();
+//
+//        try {
+//            decrypt = CipherUtils.decryptString(KEY, encrypt, iv);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        user.setPassword(decrypt);
         return user;
     }
 
     @Override//修改會員資料
     public User editorUserData(User user) {
-        return null;
+        return userRepository.save(user);
     }
 }

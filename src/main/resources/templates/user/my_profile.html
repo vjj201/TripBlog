@@ -249,7 +249,7 @@
                                             <div class="col-md-6">
                                                 <label class="labels text-bl05 fw-bold" for="gender">性別</label>
                                                 <input type="text" id="gender" class="form-control bg-white"
-                                                    placeholder="gender" disabled th:value="${profile.gender}">
+                                                    placeholder="gender" disabled th:value="${profile.gender} =='male' ? '男生' : (${profile.gender}=='female' ? '女生' : '未知')">
                                             </div>
 
 
@@ -316,6 +316,10 @@
 
                                         <div id="message" class="text-center fs-4 m-4 bg-pk03 w-25 mx-auto">
                                         </div>
+
+                                        <div id="result" class="text-center fs-4 m-4 bg-pk03 w-25 mx-auto">
+                                        </div>
+
                                     </div>
 
                             </form>

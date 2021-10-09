@@ -92,7 +92,7 @@ public class UserController {
     //驗證會員登入
     @ResponseBody
     @PostMapping("/login")
-    public int signup(@RequestBody User user,
+    public int login(@RequestBody User user,
                       HttpSession session
     ) {
 
@@ -136,9 +136,13 @@ public class UserController {
     //註冊會員
     @ResponseBody
     @PostMapping("/signup")
-    public boolean signup(@RequestBody User user) {
+    public boolean signup(@RequestBody User user, HttpSession session) {
 
         System.out.println(user);
+        User newUser = new User();
+        newUser.setNickname(user.getNickname());
+
+        session.setAttribute("signup", newUser);
 
         User userSaved = userService.showUserData(user.getAccount());
 
@@ -153,6 +157,40 @@ public class UserController {
         }
 
         return userSaved != null;
+    }
+
+
+    //查詢會員資料
+    @ResponseBody
+    @GetMapping("/getUser")
+    public User getUser(HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        user = userService.showUserData(user.getId());
+        user.setPassword(null);
+        user.setId(null);
+        user.setIv(null);
+
+        return user;
+    }
+
+    //更新會員資料
+    @ResponseBody
+    @PostMapping("/updateUser")
+    public boolean updateUser(@RequestBody User userUpdate, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        user = userService.showUserData(user.getId());
+
+        user.setName(userUpdate.getName());
+        user.setNickname(userUpdate.getNickname());
+        user.setBirthday(userUpdate.getBirthday());
+        user.setEmail(userUpdate.getEmail());
+        user.setPhone((userUpdate.getPhone()));
+
+        if(userService.editorUserData(user) != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -153,7 +153,6 @@ $(function () {
             $('#message').empty();
         }
 
-        alert('OK');
 
         //創建物件
         let user = {};
