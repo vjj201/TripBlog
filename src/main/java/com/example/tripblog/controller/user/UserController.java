@@ -177,6 +177,7 @@ public class UserController {
     @ResponseBody
     @PostMapping("/updateUser")
     public boolean updateUser(@RequestBody User userUpdate, HttpSession session) {
+
         User user = (User) session.getAttribute("user");
         user = userService.showUserData(user.getId());
 
@@ -187,6 +188,9 @@ public class UserController {
         user.setPhone((userUpdate.getPhone()));
 
         if(userService.editorUserData(user) != null) {
+
+
+
             return true;
         } else {
             return false;

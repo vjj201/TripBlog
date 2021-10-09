@@ -13,9 +13,7 @@ public class Intro {
 
     //主鍵 會員編號外鍵
     @Id
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "FK_User_id")
-    private User id;
+    private Long id;
 
     //自我介紹頁首圖 先抄網路的不確定用法對不對
     @Lob
@@ -43,11 +41,11 @@ public class Intro {
     private String emailLink;
 
 
-    public User getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(User id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -65,6 +65,11 @@ public class User {
     @JoinColumn(name = "iv",referencedColumnName = "id")
     private InitializationVector iv;
 
+    //自我介紹外來鍵
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "intro", referencedColumnName = "id")
+    private Intro intro;
+
 
     public Long getId() {
         return id;
