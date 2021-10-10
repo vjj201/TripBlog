@@ -10,7 +10,11 @@
     <meta name="author" content="Sandy">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
-
+    <!--  jquery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/intro.js" th:src="@{/js/intro.js}"></script>
     <style>
         .navbar a div {
             filter: drop-shadow(1px 1px 2px rgba(22, 47, 189, 0.4))
@@ -204,18 +208,13 @@
                                 <!-- 中間區塊 -->
                                 <div class="col-10 col-md-6">
                                     <div class="introTitle mt-5">
-                                        <h1 class="text-secondary">
-                                            Hello~ 大家好，我是嗅聞
+                                        <h1 class="text-secondary" id="introduceTitle">
+                                            和大家打個招呼吧！
                                         </h1>
                                     </div>
                                     <div class="introContent mx-2 my-5">
-                                        <p class="text-secondary">
-                                            我喜歡四處吃喝玩樂，也喜歡動手做卡片<br>
-                                            喜歡拍照，喜歡做小短片<br>
-                                            如何讓人生精彩一點，開心過每一天?<br>
-                                            請開始追蹤我吧!<br>
-                                            嗅 x 及時行樂的氣息<br>
-                                            聞 x 幸福快樂的味道<br>
+                                        <p class="text-secondary" id="introduceContent">
+                                            介紹一下自己，讓大家好好認識你吧！
                                         </p>
                                     </div>
                                 </div>
@@ -275,13 +274,13 @@
                                             <div class="modal-body">
                                                 <!-- 視窗內容 -->
                                                 <div class="mb-3">
-                                                    <label for="introduceTitle" class="form-label">自我介紹標題</label>
-                                                    <input type="text" class="form-control" id="introduceTitle"
-                                                           placeholder="Hello 大家好">
+                                                    <label for="editIntroduceTitle" class="form-label">自我介紹標題</label>
+                                                    <input type="text" class="form-control" id="editIntroduceTitle"
+                                                           placeholder="大家好~ 我是....">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="introduceContent" class="form-label">自我介紹內容</label>
-                                                    <textarea class="form-control" id="introduceContent"
+                                                    <label for="editIntroduceContent" class="form-label">自我介紹內容</label>
+                                                    <textarea class="form-control" id="editIntroduceContent"
                                                               rows="3"></textarea>
                                                 </div>
                                                 <!-- 視窗內容 結束-->
@@ -289,7 +288,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">離開</button>
-                                                <button type="button" class="btn btn-primary">更新</button>
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateIntro">更新</button>
                                             </div>
                                         </div>
                                     </div>
@@ -331,7 +330,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">離開</button>
-                                                <button type="button" class="btn btn-primary">更新</button>
+                                                <button type="button" class="btn btn-primary" id="updateLink">更新</button>
                                             </div>
                                         </div>
                                     </div>
@@ -368,7 +367,7 @@
                 <section class="links row align-items-center d-flex my-4 ms-2 ps-2">
                     <div class="col-lg-2"></div>
                     <div class="col-3 col-lg-2">
-                        <a href="#"><img src="../../static/images/facebook.svg" alt="facebook" th:src="@{/images/facebook.svg}"></a>
+                        <a href="https://www.facebook.com/sandy50829"><img src="../../static/images/facebook.svg" alt="facebook" th:src="@{/images/facebook.svg}"></a>
                     </div>
                     <div class="col-3 col-lg-2">
                         <a href="#"><img src="../../static/images/instagram.svg" alt="instagram" th:src="@{/images/instagram.svg}"></a>
