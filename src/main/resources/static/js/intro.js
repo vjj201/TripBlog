@@ -17,7 +17,32 @@ $(function(){
         let intro = {};
         intro['introTitle'] = editIntroduceTitle;
         intro['introContent'] = editIntroduceContent;
+    });
+
+    //Link更新按鈕
+    $('#updateLink').click(function(e) {
+    
+        e.preventDefault();
         
+        //抓取彈跳式表單中輸入的值
+        let fbLink = $('#fbLink').val();
+        let igLink = $('#igLink').val();
+        let ytLink = $('#ytLink').val();
+        let mailLink = $('#mailLink').val();
+
+        //修改a標籤的href連結
+        $('#fbAddr').attr('href', fbLink);
+        $('#igAddr').attr('href', igLink);
+        $('#ytAddr').attr('href', ytLink);
+        $('#mailAddr').attr('href', 'mailto:' + mailLink);
+        
+        //創建物件
+        let intro = {};
+        intro['fbLink'] = fbLink;
+        intro['igLink'] = igLink;
+        intro['ytLink'] = ytLink;
+        intro['emailLink'] = mailLink;
+
     });
 });
 
