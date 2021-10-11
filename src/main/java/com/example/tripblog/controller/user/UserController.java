@@ -141,6 +141,7 @@ public class UserController {
         System.out.println(user);
         User newUser = new User();
         newUser.setNickname(user.getNickname());
+        newUser.setEmail(user.getEmail());
 
         session.setAttribute("signup", newUser);
 

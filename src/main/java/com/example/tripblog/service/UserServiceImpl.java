@@ -1,6 +1,5 @@
 package com.example.tripblog.service;
 
-import com.example.tripblog.dao.InitializationVectorRepository;
 import com.example.tripblog.dao.UserRepository;
 import com.example.tripblog.entity.InitializationVector;
 import com.example.tripblog.entity.User;
