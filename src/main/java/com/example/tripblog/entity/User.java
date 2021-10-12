@@ -159,6 +159,10 @@ public class User {
         this.iv = iv;
     }
 
+    public Intro getIntro() { return intro; }
+
+    public void setIntro(Intro intro) { this.intro = intro; }
+
     @Override
     public String toString() {
         return "User{" +
@@ -173,6 +177,7 @@ public class User {
                 ", phone=" + phone +
                 ", signDate=" + signDate +
                 ", iv=" + iv +
+                ", intro=" + intro +
                 '}';
     }
 }

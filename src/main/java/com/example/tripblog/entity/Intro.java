@@ -1,6 +1,7 @@
 package com.example.tripblog.entity;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 /**
  * @author Sandy
@@ -13,6 +14,7 @@ public class Intro {
 
     //主鍵 會員編號外鍵
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //自我介紹頁首圖 先抄網路的不確定用法對不對
@@ -104,4 +106,19 @@ public class Intro {
     public void setEmailLink(String emailLink) {
         this.emailLink = emailLink;
     }
+
+    @Override
+    public String toString() {
+        return "Intro{" +
+                "id=" + id +
+                ", bannerPic=" + Arrays.toString(bannerPic) +
+                ", introTitle='" + introTitle + '\'' +
+                ", introContent='" + introContent + '\'' +
+                ", fbLink='" + fbLink + '\'' +
+                ", igLink='" + igLink + '\'' +
+                ", ytLink='" + ytLink + '\'' +
+                ", emailLink='" + emailLink + '\'' +
+                '}';
+    }
 }
+
