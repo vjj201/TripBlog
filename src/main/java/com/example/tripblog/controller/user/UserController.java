@@ -1,6 +1,8 @@
 package com.example.tripblog.controller.user;
 
+import com.example.tripblog.entity.Intro;
 import com.example.tripblog.entity.User;
+import com.example.tripblog.service.IntroService;
 import com.example.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 
 /**
@@ -21,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private IntroService introService;
 
     //跳轉登入畫面
     @GetMapping("/login")
@@ -61,7 +67,14 @@ public class UserController {
 
     //跳轉會員自介
     @GetMapping("/space")
-    public String spacePage() {
+    public String spacePage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        Long introId = user.getId();
+
+        Intro intro = introService.showIntroData(introId);
+
+        model.addAttribute("intro", intro);
+
         return "/user/my_space";
     }
 
@@ -188,13 +201,51 @@ public class UserController {
         user.setPhone((userUpdate.getPhone()));
 
         if(userService.editorUserData(user) != null) {
-
-
-
             return true;
         } else {
             return false;
         }
     }
 
+    //更新會員自我介紹頁面
+    @ResponseBody
+    @PostMapping ("/updateIntro")
+    public boolean updateIntro(@RequestBody Intro introUpdate, HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        Long introId = user.getId();
+
+        Intro intro = introService.showIntroData(introId);
+
+        intro.setIntroTitle(introUpdate.getIntroTitle());
+        intro.setIntroContent(introUpdate.getIntroContent());
+
+        if(introService.editIntro(intro) != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    //更新會員自我介紹Link
+    @ResponseBody
+    @PostMapping ("/updateIntroLink")
+    public boolean updateIntroLink(@RequestBody Intro introUpdate, HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        Long introId = user.getId();
+
+        Intro intro = introService.showIntroData(introId);
+
+        intro.setFbLink(introUpdate.getFbLink());
+        intro.setIgLink(introUpdate.getIgLink());
+        intro.setYtLink(introUpdate.getYtLink());
+        intro.setEmailLink(introUpdate.getEmailLink());
+
+        if(introService.editIntro(intro) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -17,6 +17,17 @@ $(function(){
         let intro = {};
         intro['introTitle'] = editIntroduceTitle;
         intro['introContent'] = editIntroduceContent;
+
+        $.ajax({
+            url: '/user/updateIntro',
+            type: 'POST',
+            async: false,
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(intro),
+            success: function (response) {
+                $('#updateIntro').trigger('click');
+            }
+        });
     });
 
     //Link更新按鈕
@@ -42,6 +53,17 @@ $(function(){
         intro['igLink'] = igLink;
         intro['ytLink'] = ytLink;
         intro['emailLink'] = mailLink;
+
+        $.ajax({
+            url: '/user/updateIntroLink',
+            type: 'POST',
+            async: false,
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(intro),
+            success: function (response) {
+                $('#updateLink').trigger('click');
+            }
+        });
 
     });
 });
