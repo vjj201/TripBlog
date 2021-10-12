@@ -3,6 +3,7 @@ package com.example.tripblog.service;
 import com.example.tripblog.dao.InitializationVectorRepository;
 import com.example.tripblog.dao.UserRepository;
 import com.example.tripblog.entity.InitializationVector;
+import com.example.tripblog.entity.Intro;
 import com.example.tripblog.entity.User;
 import com.example.tripblog.util.CipherUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class UserServiceImpl implements UserService {
         secureRandom.nextBytes(iv);
         InitializationVector vector = new InitializationVector();
         vector.setIv(iv);
+        Intro intro = new Intro();
 
         try {
             encrypt = CipherUtils.encryptString(KEY, user.getPassword(), iv);
@@ -67,6 +69,7 @@ public class UserServiceImpl implements UserService {
         //保存
         user.setPassword(encrypt);
         user.setIv(vector);
+        user.setIntro(intro);
         return userRepository.save(user);
     }
 
