@@ -208,12 +208,12 @@
                                 <!-- 中間區塊 -->
                                 <div class="col-10 col-md-6">
                                     <div class="introTitle mt-5">
-                                        <h1 class="text-secondary" id="introduceTitle">
+                                        <h1 class="text-secondary" id="introduceTitle" th:text="${intro.introTitle}">
                                             和大家打個招呼吧！
                                         </h1>
                                     </div>
                                     <div class="introContent mx-2 my-5">
-                                        <p class="text-secondary" id="introduceContent">
+                                        <p class="text-secondary" id="introduceContent" th:text="${intro.introContent}">
                                             介紹一下自己，讓大家好好認識你吧！
                                         </p>
                                     </div>
@@ -368,16 +368,16 @@
                 <section class="links row align-items-center d-flex my-4 ms-2 ps-2">
                     <div class="col-lg-2"></div>
                     <div class="col-3 col-lg-2">
-                        <a href="#" id="fbAddr" target="_blank"><img src="../../static/images/facebook.svg" alt="facebook" th:src="@{/images/facebook.svg}"></a>
+                        <a th:href="${intro.fbLink}" id="fbAddr" target="_blank"><img src="../../static/images/facebook.svg" alt="facebook" th:src="@{/images/facebook.svg}"></a>
                     </div>
                     <div class="col-3 col-lg-2">
-                        <a href="#" id="igAddr" target="_blank"><img src="../../static/images/instagram.svg" alt="instagram" th:src="@{/images/instagram.svg}"></a>
+                        <a th:href="${intro.igLink}" id="igAddr" target="_blank"><img src="../../static/images/instagram.svg" alt="instagram" th:src="@{/images/instagram.svg}"></a>
                     </div>
                     <div class="col-3 col-lg-2">
-                        <a href="#" id="ytAddr" target="_blank"><img src="../../static/images/youtube.svg" alt="youtube" th:src="@{/images/youtube.svg}"></a>
+                        <a th:href="${intro.ytLink}" id="ytAddr" target="_blank"><img src="../../static/images/youtube.svg" alt="youtube" th:src="@{/images/youtube.svg}"></a>
                     </div>
                     <div class="col-3 col-lg-2">
-                        <a href="#" id="mailAddr" target="_blank"><img src="../../static/images/mail.svg" alt="mail" th:src="@{/images/mail.svg}"></a>
+                        <a th:href="${intro.emailLink}" id="mailAddr" target="_blank"><img src="../../static/images/mail.svg" alt="mail" th:src="@{/images/mail.svg}"></a>
                     </div>
                 </section>
             </div>
