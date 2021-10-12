@@ -78,6 +78,8 @@ $(function () {
             success: function (response) {
                 if (response == 1) {
                     document.location.href = "/";
+                } else if(response == -1) {
+                    document.location.href = "/user/signup-success";
                 } else {
                     $('#message').text('帳號或密碼錯誤，請重新輸入');
                 }

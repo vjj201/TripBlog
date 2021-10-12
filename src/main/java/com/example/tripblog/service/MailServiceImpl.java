@@ -41,7 +41,6 @@ public class MailServiceImpl implements MailService {
         if(code.equals(signupCode)) {
             System.out.println("驗證碼正確");
             session.removeAttribute("SignupCode");
-            session.removeAttribute("signup");
             return true;
         }
         System.out.println("驗證碼錯誤");
