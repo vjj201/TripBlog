@@ -25,7 +25,12 @@ $(function(){
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(intro),
             success: function (response) {
-                $('#updateIntro').trigger('click');
+                if (response){
+                    $('#updateIntro').trigger('click');
+                    return true;
+                } else {
+                    return false;
+                }
             }
         });
     });
@@ -61,7 +66,12 @@ $(function(){
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(intro),
             success: function (response) {
-                $('#updateLink').trigger('click');
+                if(response){
+                    $('#updateLink').trigger('click');
+                    return true;
+                } else {
+                    return false;
+                }
             }
         });
 
