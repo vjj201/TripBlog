@@ -24,7 +24,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     //帳號
     @NotBlank(message = "帳號不能為空值")
     private String account;
@@ -60,6 +59,9 @@ public class User {
     @CreatedDate
     private Date signDate;
 
+    //信箱是否已驗證
+    private boolean mailVerified;
+
     //IV外來鍵
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "iv",referencedColumnName = "id")
@@ -70,6 +72,21 @@ public class User {
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
+    public boolean isMailVerified() {
+        return mailVerified;
+    }
+
+    public void setMailVerified(boolean mailVerified) {
+        this.mailVerified = mailVerified;
+    }
+
+    public Intro getIntro() {
+        return intro;
+    }
+
+    public void setIntro(Intro intro) {
+        this.intro = intro;
+    }
 
     public Long getId() {
         return id;
@@ -176,6 +193,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phone=" + phone +
                 ", signDate=" + signDate +
+                ", mailVerified=" + mailVerified +
                 ", iv=" + iv +
                 ", intro=" + intro +
                 '}';

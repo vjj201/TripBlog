@@ -179,9 +179,12 @@ $(function () {
             data: JSON.stringify(user),
             success: function (response) {
                 if(response) {
+                    $('#result').text('').show();
                     $('#cancel').trigger('click');
                     $('#result').text('修改成功').hide(3000);
+
                 } else {
+                    $('#result').text('').show();
                     $('#result').text('修改失敗').hide(3000);
                 }
             }

@@ -113,7 +113,16 @@ public class UserController {
 
         System.out.println("登入資料:" + user);
 
-        if (user != null) {
+        if(user != null && !user.isMailVerified()) {
+            User userSession = new User();
+            userSession.setId(user.getId());
+            userSession.setNickname(user.getNickname());
+            userSession.setEmail(user.getEmail());
+            session.setAttribute("signup", userSession);
+            return -1;
+        }
+
+        if (user != null && user.isMailVerified()) {
             System.out.println("登入成功");
             //設置會話資料
             User userSession = new User();
@@ -153,11 +162,10 @@ public class UserController {
 
         System.out.println(user);
         User newUser = new User();
-        newUser.setNickname(user.getNickname());
 
-        session.setAttribute("signup", newUser);
 
         User userSaved = userService.showUserData(user.getAccount());
+
 
         if (userSaved != null || "".equals(user.getPassword()) || user.getPassword() == null) {
             return false;
@@ -168,6 +176,13 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        newUser.setId(userSaved.getId());
+        newUser.setNickname(userSaved.getNickname());
+        newUser.setEmail(userSaved.getEmail());
+        session.setAttribute("signup", newUser);
+
+        System.out.println("註冊:" + newUser);
 
         return userSaved != null;
     }
