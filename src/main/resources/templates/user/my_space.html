@@ -208,13 +208,15 @@
                                 <!-- 中間區塊 -->
                                 <div class="col-10 col-md-6">
                                     <div class="introTitle mt-5">
-                                        <h1 class="text-secondary" id="introduceTitle" th:text="${intro.introTitle}">
-                                            和大家打個招呼吧！
+                                        <h1 class="text-secondary" id="introduceTitle">
+                                            <span th:if="${intro.introTitle == null || intro.introTitle == ''}">和大家打個招呼吧!</span>
+                                            <span th:if="${intro.introTitle != null}" th:text="${intro.introTitle}"></span>
                                         </h1>
                                     </div>
                                     <div class="introContent mx-2 my-5">
-                                        <p class="text-secondary" id="introduceContent" th:text="${intro.introContent}">
-                                            介紹一下自己，讓大家好好認識你吧！
+                                        <p class="text-secondary" id="introduceContent">
+                                            <span th:if="${intro.introContent == null || intro.introContent == ''}">介紹一下自己，讓大家好好認識你吧!</span>
+                                            <span th:if="${intro.introContent != null}" th:text="${intro.introContent}"></span>
                                         </p>
                                     </div>
                                 </div>
@@ -275,13 +277,11 @@
                                                 <!-- 視窗內容 -->
                                                 <div class="mb-3">
                                                     <label for="editIntroduceTitle" class="form-label">自我介紹標題</label>
-                                                    <input type="text" class="form-control" id="editIntroduceTitle"
-                                                           placeholder="大家好~ 我是....">
+                                                    <input type="text" class="form-control" id="editIntroduceTitle" placeholder="大家好~ 我是....">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="editIntroduceContent" class="form-label">自我介紹內容</label>
-                                                    <textarea class="form-control" id="editIntroduceContent"
-                                                              rows="3"></textarea>
+                                                    <textarea class="form-control" id="editIntroduceContent" rows="3"></textarea>
                                                 </div>
                                                 <!-- 視窗內容 結束-->
                                             </div>
@@ -377,7 +377,7 @@
                         <a th:href="${intro.ytLink}" id="ytAddr" target="_blank"><img src="../../static/images/youtube.svg" alt="youtube" th:src="@{/images/youtube.svg}"></a>
                     </div>
                     <div class="col-3 col-lg-2">
-                        <a th:href="${intro.emailLink}" id="mailAddr" target="_blank"><img src="../../static/images/mail.svg" alt="mail" th:src="@{/images/mail.svg}"></a>
+                        <a th:href="'mailto:' + ${intro.emailLink}" id="mailAddr" target="_blank"><img src="../../static/images/mail.svg" alt="mail" th:src="@{/images/mail.svg}"></a>
                     </div>
                 </section>
             </div>

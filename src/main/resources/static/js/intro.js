@@ -9,14 +9,18 @@ $(function(){
         let editIntroduceTitle = $('#editIntroduceTitle').val();
         let editIntroduceContent = $('#editIntroduceContent').val();
     
-        //將值放入自我介紹頁面
-        $('#introduceTitle').text(editIntroduceTitle);
-        $('#introduceContent').text(editIntroduceContent)
-        
         //創建物件
         let intro = {};
         intro['introTitle'] = editIntroduceTitle;
         intro['introContent'] = editIntroduceContent;
+
+        //將值放入自我介紹頁面
+        if(editIntroduceTitle != ''){
+            $('#introduceTitle').text(editIntroduceTitle);
+        }
+        if(editIntroduceContent != ''){
+            $('#introduceContent').text(editIntroduceContent)
+        }
 
         $.ajax({
             url: '/user/updateIntro',
@@ -47,10 +51,18 @@ $(function(){
         let mailLink = $('#mailLink').val();
 
         //修改a標籤的href連結
-        $('#fbAddr').attr('href', fbLink);
-        $('#igAddr').attr('href', igLink);
-        $('#ytAddr').attr('href', ytLink);
-        $('#mailAddr').attr('href', 'mailto:' + mailLink);
+        if(fbLink != ''){
+            $('#fbAddr').attr('href', fbLink);
+        }
+        if(igLink != ''){
+            $('#igAddr').attr('href', igLink);
+        }
+        if(ytLink != ''){
+            $('#ytAddr').attr('href', ytLink);
+        }
+        if(mailLink != ''){
+            $('#mailAddr').attr('href', 'mailto:' + mailLink);
+        }
         
         //創建物件
         let intro = {};

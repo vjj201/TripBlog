@@ -228,12 +228,18 @@ public class UserController {
     public boolean updateIntro(@RequestBody Intro introUpdate, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        Long introId = user.getId();
+        Intro intro = introService.showIntroData(user.getId());
 
-        Intro intro = introService.showIntroData(introId);
-
-        intro.setIntroTitle(introUpdate.getIntroTitle());
-        intro.setIntroContent(introUpdate.getIntroContent());
+        if(introUpdate.getIntroTitle() == null || introUpdate.getIntroTitle() == "") {
+            intro.setIntroTitle(intro.getIntroTitle());
+        } else {
+            intro.setIntroTitle(introUpdate.getIntroTitle());
+        }
+        if(introUpdate.getIntroContent() == null || introUpdate.getIntroContent() == ""){
+            intro.setIntroContent(intro.getIntroContent());
+        } else {
+            intro.setIntroContent(introUpdate.getIntroContent());
+        }
 
         if(introService.editIntro(intro) != null) {
             return true;
@@ -248,9 +254,7 @@ public class UserController {
     public boolean updateIntroLink(@RequestBody Intro introUpdate, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        Long introId = user.getId();
-
-        Intro intro = introService.showIntroData(introId);
+        Intro intro = introService.showIntroData(user.getId());
 
         intro.setFbLink(introUpdate.getFbLink());
         intro.setIgLink(introUpdate.getIgLink());
