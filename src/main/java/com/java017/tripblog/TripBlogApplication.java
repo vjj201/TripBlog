@@ -1,4 +1,4 @@
-package com.example.tripblog;
+package com.java017.tripblog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

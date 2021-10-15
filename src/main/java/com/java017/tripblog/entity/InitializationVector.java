@@ -1,4 +1,4 @@
-package com.example.tripblog.entity;
+package com.java017.tripblog.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

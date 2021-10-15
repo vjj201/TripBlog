@@ -1,10 +1,11 @@
-package com.example.tripblog.service;
+package com.java017.tripblog.service_impl;
 
-import com.example.tripblog.dao.UserRepository;
-import com.example.tripblog.entity.InitializationVector;
-import com.example.tripblog.entity.Intro;
-import com.example.tripblog.entity.User;
-import com.example.tripblog.util.CipherUtils;
+import com.java017.tripblog.repository.UserRepository;
+import com.java017.tripblog.entity.InitializationVector;
+import com.java017.tripblog.entity.Intro;
+import com.java017.tripblog.entity.User;
+import com.java017.tripblog.service.UserService;
+import com.java017.tripblog.util.CipherUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +19,22 @@ import java.security.SecureRandom;
 @Service
 public class UserServiceImpl implements UserService {
 
+
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     private final String KEY = "TravelAndEatBlog";
-    private SecureRandom secureRandom = new SecureRandom();
+    private final SecureRandom secureRandom = new SecureRandom();
 
     @Override//確認用戶帳密
     public User checkUser(String account, String password) {
         //帳號查詢取得向量值
         User user = userRepository.findByAccount(account);
-        if(user == null) {
+        if (user == null) {
             return null;
         }
 
@@ -43,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override//創建會員
-    public User createUser(User user) {
+    public boolean createUser(User user) {
 
         //加密
         String encrypt = "";
@@ -60,26 +66,29 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
 
-        for (byte i : iv) {
-            System.out.print(i + " ");
-        }
-        System.out.println(encrypt);
-
         //保存
         user.setPassword(encrypt);
         user.setIv(vector);
         user.setIntro(intro);
-        return userRepository.save(user);
+
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override//帳號查詢會員資料
-    public User showUserData(String account) {
+    public User findUserByAccount(String account) {
         return userRepository.findByAccount(account);
     }
 
     @Override//編號查詢會員資料
-    public User showUserData(Long id) {
-        User user = userRepository.findById(id).orElse(null);
+    public User findUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
 
 //        //解密
 //        String encrypt = user.getPassword();
@@ -92,12 +101,12 @@ public class UserServiceImpl implements UserService {
 //            e.printStackTrace();
 //        }
 //
-//        user.setPassword(decrypt);
-        return user;
+////        user.setPassword(decrypt);
+//        return user;
     }
 
     @Override//修改會員資料
-    public User editorUserData(User user) {
+    public User updateUser(User user) {
         return userRepository.save(user);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.tripblog.interceptor;
+package com.java017.tripblog.interceptor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

@@ -1,7 +1,8 @@
-package com.example.tripblog.service;
+package com.java017.tripblog.service_impl;
 
-import com.example.tripblog.entity.User;
-import com.example.tripblog.util.MailUtils;
+import com.java017.tripblog.entity.User;
+import com.java017.tripblog.service.MailService;
+import com.java017.tripblog.util.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,16 @@ import java.security.SecureRandom;
 @Service
 public class MailServiceImpl implements MailService {
 
-    @Autowired
-    private MailUtils mailUtils;
     private final String SIGNUP = "TripBlog SignUp";
+    private final String SYMBOL = "0123456789";
+    private final MailUtils mailUtils;
 
+    @Autowired
+    public MailServiceImpl(MailUtils mailUtils) {
+        this.mailUtils = mailUtils;
+    }
+
+    //寄送驗證信
     @Override
     public void sendSignupMail(HttpSession session) {
         User user = (User) session.getAttribute("signup");
@@ -29,6 +36,7 @@ public class MailServiceImpl implements MailService {
         mailUtils.sendHtmlMail(user.getEmail(), SIGNUP, content);
     }
 
+    //驗證確認
     @Override
     public boolean verifySignupCode(String code, HttpSession session) {
         String signupCode = (String)session.getAttribute("SignupCode");
@@ -47,6 +55,7 @@ public class MailServiceImpl implements MailService {
         return false;
     }
 
+    //產生驗證碼
     @Override
     public String generateVerificationCode(int length) {
         //安全隨機數
@@ -54,10 +63,9 @@ public class MailServiceImpl implements MailService {
         //驗證碼陣列長度
         char[] chars = new char[length];
         //驗證碼內容
-        String symbol = "0123456789abcdefghijklmnopqrstuvwxyz";
         for (int i = 0; i < chars.length; i++) {
             //隨機獲取值
-            chars[i] = symbol.charAt(secureRandom.nextInt(symbol.length()));
+            chars[i] = SYMBOL.charAt(secureRandom.nextInt(SYMBOL.length()));
         }
         //轉換成字串
         String code = String.valueOf(chars);

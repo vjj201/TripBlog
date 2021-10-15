@@ -1,4 +1,4 @@
-package com.example.tripblog.util;
+package com.java017.tripblog.util;
 
 /**
  * @author YuCheng

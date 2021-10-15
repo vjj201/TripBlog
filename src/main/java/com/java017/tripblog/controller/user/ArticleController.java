@@ -1,4 +1,4 @@
-package com.example.tripblog.controller.user;
+package com.java017.tripblog.controller.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

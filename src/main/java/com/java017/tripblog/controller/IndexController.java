@@ -1,4 +1,4 @@
-package com.example.tripblog.controller;
+package com.java017.tripblog.controller;
 
 
 import org.springframework.stereotype.Controller;

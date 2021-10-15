@@ -16,8 +16,8 @@ spring:
     host: smtp.gmail.com
     port: 587
     #帳號和授權碼
-    username: vjjr201@gmail.com
-    password: bxcdjbgaofsktomj
+    username: Java017TripBlog@gmail.com
+    password: awzpnslqqbfgtnww
     #用戶認證
     properties:
       mail:

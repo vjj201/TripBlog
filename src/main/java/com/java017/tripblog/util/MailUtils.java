@@ -1,4 +1,4 @@
-package com.example.tripblog.util;
+package com.java017.tripblog.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +19,13 @@ import javax.mail.internet.MimeMessage;
 @Component
 public class MailUtils {
 
-    @Autowired
+
     private JavaMailSender mailSender;
+
+    @Autowired
+    public void setMailSender(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Value("${spring.mail.username}")
     private String author;

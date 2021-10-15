@@ -1,6 +1,6 @@
-package com.example.tripblog.dao;
+package com.java017.tripblog.repository;
 
-import com.example.tripblog.entity.InitializationVector;
+import com.java017.tripblog.entity.InitializationVector;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

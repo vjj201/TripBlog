@@ -1,8 +1,8 @@
-package com.example.tripblog.controller.user;
+package com.java017.tripblog.controller.user;
 
-import com.example.tripblog.entity.User;
-import com.example.tripblog.service.MailService;
-import com.example.tripblog.service.UserService;
+import com.java017.tripblog.entity.User;
+import com.java017.tripblog.service.MailService;
+import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +16,15 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class MailController {
 
-    @Autowired
-    private MailService mailService;
-    @Autowired
-    private UserService userService;
 
+    private final MailService mailService;
+    private final UserService userService;
+
+    @Autowired
+    public MailController(MailService mailService, UserService userService) {
+        this.mailService = mailService;
+        this.userService = userService;
+    }
 
     //發送信件
     @GetMapping("/sendSignupMail")
@@ -39,11 +43,9 @@ public class MailController {
             System.out.println("驗證成功");
             User user = (User)session.getAttribute("signup");
 
-
-            User updateUser = userService.showUserData(user.getId());
+            User updateUser = userService.findUserById(user.getId());
             updateUser.setMailVerified(true);
-            userService.editorUserData(updateUser);
-
+            userService.updateUser(updateUser);
 
             session.removeAttribute("signup");
             return true;

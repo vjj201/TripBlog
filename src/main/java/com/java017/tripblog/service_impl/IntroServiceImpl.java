@@ -1,7 +1,8 @@
-package com.example.tripblog.service;
+package com.java017.tripblog.service_impl;
 
-import com.example.tripblog.dao.IntroRepository;
-import com.example.tripblog.entity.Intro;
+import com.java017.tripblog.repository.IntroRepository;
+import com.java017.tripblog.entity.Intro;
+import com.java017.tripblog.service.IntroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class IntroServiceImpl implements IntroService {
 
-    @Autowired
+
     private IntroRepository introRepository;
+
+    @Autowired
+    public IntroServiceImpl(IntroRepository introRepository) {
+        this.introRepository = introRepository;
+    }
 
     @Override//更新自我介紹頁面資訊
     public Intro editIntro(Intro intro) {

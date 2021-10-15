@@ -1,16 +1,15 @@
-package com.example.tripblog.controller.user;
+package com.java017.tripblog.controller.user;
 
-import com.example.tripblog.entity.Intro;
-import com.example.tripblog.entity.User;
-import com.example.tripblog.service.IntroService;
-import com.example.tripblog.service.UserService;
+import com.java017.tripblog.entity.Intro;
+import com.java017.tripblog.entity.User;
+import com.java017.tripblog.service.IntroService;
+import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 
 /**
@@ -22,11 +21,14 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final IntroService introService;
 
     @Autowired
-    private IntroService introService;
+    public UserController(UserService userService, IntroService introService) {
+        this.userService = userService;
+        this.introService = introService;
+    }
 
     //跳轉登入畫面
     @GetMapping("/login")
@@ -53,13 +55,14 @@ public class UserController {
 
         User user = (User) session.getAttribute("user");
 
-        User profile = userService.showUserData(user.getId());
+        User profile = userService.findUserById(user.getId());
 
 
         //保留必要資料
         profile.setPassword(null);
         profile.setId(null);
         profile.setIv(null);
+        profile.setIntro(null);
 
         model.addAttribute("profile", profile);
         return "user/my_profile";
@@ -106,14 +109,18 @@ public class UserController {
     @ResponseBody
     @PostMapping("/login")
     public int login(@RequestBody User user,
-                      HttpSession session
+                     HttpSession session
     ) {
+        String account = user.getAccount();
+        String password = user.getPassword();
 
-        user = userService.checkUser(user.getAccount(), user.getPassword());
+        user = userService.checkUser(account, password);
+        System.out.println("使用者登入 帳號:" + account + " 密碼:" + password);
 
-        System.out.println("登入資料:" + user);
-
-        if(user != null && !user.isMailVerified()) {
+        //確認登入但信箱未完成驗證
+        if (user != null && !user.isMailVerified()) {
+            System.out.println("信箱未驗證");
+            //設置會話資料
             User userSession = new User();
             userSession.setId(user.getId());
             userSession.setNickname(user.getNickname());
@@ -128,7 +135,6 @@ public class UserController {
             User userSession = new User();
             userSession.setId(user.getId());
             userSession.setNickname(user.getNickname());
-
             session.setAttribute("user", userSession);
             return 1;
 
@@ -143,7 +149,7 @@ public class UserController {
     @ResponseBody
     @GetMapping("/accountCheck")
     public boolean findUserByAccount(@RequestParam String account) {
-        User user = userService.showUserData(account);
+        User user = userService.findUserByAccount(account);
         return user != null;
     }
 
@@ -160,43 +166,40 @@ public class UserController {
     @PostMapping("/signup")
     public boolean signup(@RequestBody User user, HttpSession session) {
 
-        System.out.println(user);
-        User newUser = new User();
+        System.out.println("會員註冊");
 
-
-        User userSaved = userService.showUserData(user.getAccount());
-
-
-        if (userSaved != null || "".equals(user.getPassword()) || user.getPassword() == null) {
+        //避免帳號重複
+        if (userService.findUserByAccount(user.getAccount()) != null) {
             return false;
         }
 
+        boolean result = false;
+
         try {
-            userSaved = userService.createUser(user);
+            result = userService.createUser(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        User userSession = new User();
+        userSession.setId(user.getId());
+        userSession.setNickname(user.getNickname());
+        userSession.setEmail(user.getEmail());
+        session.setAttribute("signup", userSession);
 
-        newUser.setId(userSaved.getId());
-        newUser.setNickname(userSaved.getNickname());
-        newUser.setEmail(userSaved.getEmail());
-        session.setAttribute("signup", newUser);
-
-        System.out.println("註冊:" + newUser);
-
-        return userSaved != null;
+        System.out.println("註冊成功:" + user);
+        return result;
     }
-
 
     //查詢會員資料
     @ResponseBody
     @GetMapping("/getUser")
     public User getUser(HttpSession session) {
-        User user = (User)session.getAttribute("user");
-        user = userService.showUserData(user.getId());
+        User user = (User) session.getAttribute("user");
+        user = userService.findUserById(user.getId());
         user.setPassword(null);
         user.setId(null);
         user.setIv(null);
+        user.setIntro(null);
 
         return user;
     }
@@ -207,7 +210,7 @@ public class UserController {
     public boolean updateUser(@RequestBody User userUpdate, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        user = userService.showUserData(user.getId());
+        user = userService.findUserById(user.getId());
 
         user.setName(userUpdate.getName());
         user.setNickname(userUpdate.getNickname());
@@ -215,42 +218,34 @@ public class UserController {
         user.setEmail(userUpdate.getEmail());
         user.setPhone((userUpdate.getPhone()));
 
-        if(userService.editorUserData(user) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return userService.updateUser(user) != null;
     }
 
     //更新會員自我介紹頁面
     @ResponseBody
-    @PostMapping ("/updateIntro")
+    @PostMapping("/updateIntro")
     public boolean updateIntro(@RequestBody Intro introUpdate, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
 
-        if(introUpdate.getIntroTitle() == null || introUpdate.getIntroTitle() == "") {
+        if (introUpdate.getIntroTitle() == null || "".equals(introUpdate.getIntroTitle())) {
             intro.setIntroTitle(intro.getIntroTitle());
         } else {
             intro.setIntroTitle(introUpdate.getIntroTitle());
         }
-        if(introUpdate.getIntroContent() == null || introUpdate.getIntroContent() == ""){
+        if (introUpdate.getIntroContent() == null || "".equals(introUpdate.getIntroContent())) {
             intro.setIntroContent(intro.getIntroContent());
         } else {
             intro.setIntroContent(introUpdate.getIntroContent());
         }
 
-        if(introService.editIntro(intro) != null) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return introService.editIntro(intro) != null;
     }
+
     //更新會員自我介紹Link
     @ResponseBody
-    @PostMapping ("/updateIntroLink")
+    @PostMapping("/updateIntroLink")
     public boolean updateIntroLink(@RequestBody Intro introUpdate, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
@@ -261,10 +256,6 @@ public class UserController {
         intro.setYtLink(introUpdate.getYtLink());
         intro.setEmailLink(introUpdate.getEmailLink());
 
-        if(introService.editIntro(intro) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return introService.editIntro(intro) != null;
     }
 }

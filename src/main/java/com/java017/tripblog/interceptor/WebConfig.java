@@ -1,4 +1,4 @@
-package com.example.tripblog.interceptor;
+package com.java017.tripblog.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +14,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+
+    private final HandlerInterceptor loginInterceptor;
+
     @Autowired
-    private HandlerInterceptor loginInterceptor;
+    public WebConfig(HandlerInterceptor loginInterceptor) {
+        this.loginInterceptor = loginInterceptor;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

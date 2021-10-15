@@ -1,4 +1,4 @@
-package com.example.tripblog.service;
+package com.java017.tripblog.service;
 
 import javax.servlet.http.HttpSession;
 

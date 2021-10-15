@@ -1,9 +1,8 @@
-package com.example.tripblog.entity;
+package com.java017.tripblog.entity;
 
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -52,7 +51,8 @@ public class User {
     private String email;
 
     //手機
-    private Long phone;
+    @Column(columnDefinition = "int(10) unsigned zerofill DEFAULT NULL")
+    private int phone;
 
     //註冊日期
     @Temporal(TemporalType.TIMESTAMP)
@@ -152,11 +152,11 @@ public class User {
         this.email = email;
     }
 
-    public Long getPhone() {
+    public int getPhone() {
         return phone;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 
