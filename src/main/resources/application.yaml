@@ -9,7 +9,7 @@ spring:
       ddl-auto: update
     show-sql: true
 
-    #Email
+  #Email
   mail:
     default-encoding: UTF-8
     #谷歌信箱
@@ -35,5 +35,18 @@ logging:
   level:
     root: info
     com.yucheng: debug
+
+#HTTPS憑證
+server:
+  port: 8080
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:localhost.p12
+    enabled: true
+    protocol: TLS
+    key-store-password: changeit
+
+
+
 
 
