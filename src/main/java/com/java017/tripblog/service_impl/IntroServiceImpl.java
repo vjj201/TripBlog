@@ -29,7 +29,6 @@ public class IntroServiceImpl implements IntroService {
 
     @Override
     public Intro showIntroData(Long id) {
-        Intro intro =  introRepository.findById(id).orElse(null);
-        return intro;
+        return introRepository.findById(id).orElse(null);
     }
 }

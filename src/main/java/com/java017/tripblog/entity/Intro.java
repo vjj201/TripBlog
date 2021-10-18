@@ -17,12 +17,11 @@ public class Intro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //自我介紹頁首圖 先抄網路的不確定用法對不對
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "banner_pic", columnDefinition = "longblob", nullable = true)
-    private byte[] bannerPic;
+    //自我介紹頁首圖base64
+    private String bannerPic;
 
+    //自我介紹頁首圖base64檔案類型
+    private String bannerContent;
 
     //自我介紹標題
     private String introTitle;
@@ -49,14 +48,6 @@ public class Intro {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public byte[] getBannerPic() {
-        return bannerPic;
-    }
-
-    public void setBannerPic(byte[] bannerPic) {
-        this.bannerPic = bannerPic;
     }
 
     public String getIntroTitle() {
@@ -107,18 +98,20 @@ public class Intro {
         this.emailLink = emailLink;
     }
 
-    @Override
-    public String toString() {
-        return "Intro{" +
-                "id=" + id +
-                ", bannerPic=" + Arrays.toString(bannerPic) +
-                ", introTitle='" + introTitle + '\'' +
-                ", introContent='" + introContent + '\'' +
-                ", fbLink='" + fbLink + '\'' +
-                ", igLink='" + igLink + '\'' +
-                ", ytLink='" + ytLink + '\'' +
-                ", emailLink='" + emailLink + '\'' +
-                '}';
+    public String getBannerPic() {
+        return bannerPic;
+    }
+
+    public void setBannerPic(String bannerPic) {
+        this.bannerPic = bannerPic;
+    }
+
+    public String getBannerContent() {
+        return bannerContent;
+    }
+
+    public void setBannerContent(String bannerContent) {
+        this.bannerContent = bannerContent;
     }
 }
 

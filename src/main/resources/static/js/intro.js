@@ -1,14 +1,59 @@
 $(function(){
-    
+
+    //MySpace背景圖上傳按鈕
+    $('#uploadIntroBanner').click(function(e) {
+
+        e.preventDefault();
+
+        //抓取彈跳式表單中輸入的值
+        // 取得檔案
+        const uploadBannerFile = $('#uploadBannerFile').prop('files')[0];
+
+        // 宣告 FileReader
+        const reader = new FileReader();
+        // 轉換成 DataURL
+        reader.readAsDataURL(uploadBannerFile);
+
+        //檔案讀取完成執行
+        reader.onload = function(){
+
+            //將值放入自我介紹頁面
+            if(uploadBannerFile != ''){
+                $('#mySpaceBannerImg').attr("src", reader.result);
+            }
+
+            //通過base64來轉化圖片，去掉圖片頭（data:image/png;base64,）
+            let fileB64 = (reader.result).split(":")[1];
+
+            $.ajax({
+                url: '/user/updateIntroBanner',
+                type: 'POST',
+                async: false,
+                processData: false,
+                contentType:'application/json;charset=utf-8',
+                dataType: 'json',
+                data: fileB64,
+                success: function (response) {
+                    if (response){
+                        e.preventDefault();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+        }
+    });
+
     //自我介紹更新按鈕
     $('#updateIntro').click(function(e) {
-    
+
         e.preventDefault();
-        
+
         //抓取彈跳式表單中輸入的值
         let editIntroduceTitle = $('#editIntroduceTitle').val();
         let editIntroduceContent = $('#editIntroduceContent').val();
-    
+
         //創建物件
         let intro = {};
         intro['introTitle'] = editIntroduceTitle;
@@ -30,7 +75,7 @@ $(function(){
             data: JSON.stringify(intro),
             success: function (response) {
                 if (response){
-                    $('#updateIntro').trigger('click');
+                    e.preventDefault();
                     return true;
                 } else {
                     return false;
@@ -41,9 +86,9 @@ $(function(){
 
     //Link更新按鈕
     $('#updateLink').click(function(e) {
-    
+
         e.preventDefault();
-        
+
         //抓取彈跳式表單中輸入的值
         let fbLink = $('#fbLink').val();
         let igLink = $('#igLink').val();
@@ -63,7 +108,7 @@ $(function(){
         if(mailLink != ''){
             $('#mailAddr').attr('href', 'mailto:' + mailLink);
         }
-        
+
         //創建物件
         let intro = {};
         intro['fbLink'] = fbLink;
@@ -79,7 +124,7 @@ $(function(){
             data: JSON.stringify(intro),
             success: function (response) {
                 if(response){
-                    $('#updateLink').trigger('click');
+                    e.preventDefault();
                     return true;
                 } else {
                     return false;

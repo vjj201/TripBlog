@@ -4,6 +4,7 @@ import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.IntroService;
 import com.java017.tripblog.service.UserService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,12 +73,9 @@ public class UserController {
     @GetMapping("/space")
     public String spacePage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Long introId = user.getId();
-
-        Intro intro = introService.showIntroData(introId);
+        Intro intro = introService.showIntroData(user.getId());
 
         model.addAttribute("intro", intro);
-
         return "/user/my_space";
     }
 
@@ -229,17 +227,14 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
 
-        if (introUpdate.getIntroTitle() == null || "".equals(introUpdate.getIntroTitle())) {
-            intro.setIntroTitle(intro.getIntroTitle());
-        } else {
+        //判斷自我介紹標題欄位是否為空
+        if (!"".equals(introUpdate.getIntroTitle())) {
             intro.setIntroTitle(introUpdate.getIntroTitle());
         }
-        if (introUpdate.getIntroContent() == null || "".equals(introUpdate.getIntroContent())) {
-            intro.setIntroContent(intro.getIntroContent());
-        } else {
+        //判斷自我介紹內容欄位是否為空
+        if (!"".equals(introUpdate.getIntroContent())) {
             intro.setIntroContent(introUpdate.getIntroContent());
         }
-
         return introService.editIntro(intro) != null;
     }
 
@@ -251,10 +246,35 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
 
-        intro.setFbLink(introUpdate.getFbLink());
-        intro.setIgLink(introUpdate.getIgLink());
-        intro.setYtLink(introUpdate.getYtLink());
-        intro.setEmailLink(introUpdate.getEmailLink());
+        //判斷fb連結欄位是否為空
+        if (!"".equals(introUpdate.getFbLink())) {
+            intro.setFbLink(introUpdate.getFbLink());
+        }
+        //判斷ig連結欄位是否為空
+        if (!"".equals(introUpdate.getIgLink())) {
+            intro.setIgLink(introUpdate.getIgLink());
+        }
+        //判斷ty連結欄位是否為空
+        if (!"".equals(introUpdate.getYtLink())) {
+            intro.setYtLink(introUpdate.getYtLink());
+        }
+        //判斷mail連結欄位是否為空
+        if (!"".equals(introUpdate.getEmailLink())) {
+            intro.setEmailLink(introUpdate.getEmailLink());
+        }
+        return introService.editIntro(intro) != null;
+    }
+
+    //更新會員MySpace頁面背景圖
+    @ResponseBody
+    @PostMapping("/updateIntroBanner")
+    public boolean updateIntroBanner(@RequestBody String fileB64, HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        Intro intro = introService.showIntroData(user.getId());
+
+        intro.setBannerPic(fileB64.split(",")[1]);
+        intro.setBannerContent(fileB64.split(",")[0]);
 
         return introService.editIntro(intro) != null;
     }
