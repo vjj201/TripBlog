@@ -75,7 +75,9 @@ public class UserController {
     public String spacePage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
-
+        System.out.println(intro.getIntroContent());
+        String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
+        intro.setIntroContent(textarea);
         model.addAttribute("intro", intro);
 
         return "/user/my_space";

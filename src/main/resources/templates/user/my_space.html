@@ -215,7 +215,7 @@
                                 <div class="introContent mx-2 my-5">
                                     <p class="text-secondary" id="introduceContent">
                                         <span th:if="${intro.introContent == null || intro.introContent == ''}">介紹一下自己，讓大家好好認識你吧!</span>
-                                        <span th:if="${intro.introContent != null}" th:text="${intro.introContent}"></span>
+                                        <span th:if="${intro.introContent != null}" th:utext="${intro.introContent}"></span>
                                     </p>
                                 </div>
                             </div>
