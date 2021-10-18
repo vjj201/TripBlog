@@ -4,7 +4,6 @@ import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.IntroService;
 import com.java017.tripblog.service.UserService;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -237,7 +236,7 @@ public class UserController {
         user.setNickname(userUpdate.getNickname());
         user.setBirthday(userUpdate.getBirthday());
         user.setEmail(userUpdate.getEmail());
-        user.setPhone((userUpdate.getPhone()));
+        user.setPhone(userUpdate.getPhone());
 
         return userService.updateUser(user) != null;
     }

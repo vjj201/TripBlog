@@ -51,12 +51,12 @@ public class User {
     private String email;
 
     //手機
-    @Column(columnDefinition = "int(10) unsigned zerofill DEFAULT NULL")
-    private int phone;
+    private String phone;
 
     //註冊日期
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
+    @Column(nullable = false, updatable = false)
     private Date signDate;
 
     //信箱是否已驗證
@@ -64,7 +64,7 @@ public class User {
 
     //IV外來鍵
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "iv",referencedColumnName = "id")
+    @JoinColumn(name = "iv", referencedColumnName = "id")
     private InitializationVector iv;
 
     //自我介紹外來鍵
@@ -152,11 +152,11 @@ public class User {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
