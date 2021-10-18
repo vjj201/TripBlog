@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -57,7 +58,8 @@ public class UserController {
         User user = (User) session.getAttribute("user");
 
         User profile = userService.findUserById(user.getId());
-
+        Intro intro = introService.showIntroData(user.getId());
+        model.addAttribute("intro", intro);
 
         //保留必要資料
         profile.setPassword(null);
@@ -76,30 +78,51 @@ public class UserController {
         Intro intro = introService.showIntroData(user.getId());
 
         model.addAttribute("intro", intro);
+
         return "/user/my_space";
     }
 
     //跳轉我的旅遊文章
     @GetMapping("/travel")
-    public String travelPage() {
+    public String travelPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        Intro intro = introService.showIntroData(user.getId());
+
+        model.addAttribute("intro", intro);
+
         return "/user/my_article_travel";
     }
 
     //跳轉我的美食文章
     @GetMapping("/eat")
-    public String eatPage() {
+    public String eatPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        Intro intro = introService.showIntroData(user.getId());
+
+        model.addAttribute("intro", intro);
+
         return "/user/my_article_eat";
     }
 
     //跳轉收藏頁
     @GetMapping("/collection")
-    public String collectionPage() {
+    public String collectionPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        Intro intro = introService.showIntroData(user.getId());
+
+        model.addAttribute("intro", intro);
+
         return "/user/my_collection";
     }
 
     //跳轉通知頁
     @GetMapping("/notify")
-    public String notifyPage() {
+    public String notifyPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        Intro intro = introService.showIntroData(user.getId());
+
+        model.addAttribute("intro", intro);
+
         return "/user/my_notify";
     }
 

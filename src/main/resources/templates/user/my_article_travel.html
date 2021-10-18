@@ -101,8 +101,9 @@
 
 
     <!-- 首頁背景圖 cover photo -->
-    <div class="container-fluid  overflow-hidden px-0" style="width: auto;">
-        <img src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
+    <div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px;">
+        <img th:if="${intro.bannerPic == null}" id="mySpaceBannerImg" src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
+        <img th:if="${intro.bannerPic != null}" th:src="*{'data:' + intro.bannerContent + ',' + intro.bannerPic}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">
     </div>
     <!-- 首頁背景圖 cover photo 結束-->
 
