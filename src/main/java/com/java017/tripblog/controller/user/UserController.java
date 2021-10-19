@@ -5,6 +5,9 @@ import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.IntroService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +33,23 @@ public class UserController {
         this.introService = introService;
     }
 
-    //跳轉登入畫面
+    //判斷記住帳號
+    private boolean isRememberMeUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return false;
+        }
+        //判斷當前使用者是否是通過
+        return RememberMeAuthenticationToken.class.isAssignableFrom(authentication.getClass());
+    }
+
+        //跳轉登入畫面
     @GetMapping("/loginPage")
-    public String loginPage() {
+    public String loginPage(HttpSession session) {
+        if(isRememberMeUser()) {
+            afterLogin(session);
+            return "redirect:/";
+        }
         return "user/loginPage";
     }
 
@@ -131,11 +148,11 @@ public class UserController {
         //是否完成信箱驗證
         if(user.isMailVerified()) {
             session.setAttribute("user", userSession);
-            return "/index";
+            return "redirect:/index";
         } else {
             userSession.setEmail(user.getEmail());
             session.setAttribute("signup", userSession);
-            return "user/signup_success";
+            return "redirect:user/signup_success";
         }
 
     }
