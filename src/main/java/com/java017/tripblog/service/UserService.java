@@ -9,14 +9,11 @@ import com.java017.tripblog.entity.User;
 
 public interface UserService {
 
-    //確認用戶帳密
-    User checkUser(String account, String password);
-
     //創建會員
     boolean createUser(User user);
 
     //帳號查詢會員資料
-    User findUserByAccount(String account);
+    User findUserByUsername(String username);
 
     //編號查詢會員資料
     User findUserById(Long id);

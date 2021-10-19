@@ -24,6 +24,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String uri = request.getRequestURI();
+        System.out.println("uri = " + uri);
         if (!"/user/login".equals(uri)) {
             //請求不等於登於直接通過
             filterChain.doFilter(request, response);

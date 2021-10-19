@@ -98,10 +98,11 @@ $(function () {
                 },
                 202: function () {
                     $('#message').text('驗證碼錯誤');
-                    changeCode();
+                    $('#changeCode').trigger('click');
                 },
                 401: function () {
                     $('#message').text('帳號或密碼錯誤');
+                    $('#changeCode').trigger('click');
                 }
             }
         });

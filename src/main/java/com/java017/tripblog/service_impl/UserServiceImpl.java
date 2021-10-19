@@ -1,15 +1,13 @@
 package com.java017.tripblog.service_impl;
 
 import com.java017.tripblog.repository.UserRepository;
-import com.java017.tripblog.entity.InitializationVector;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.UserService;
-import com.java017.tripblog.util.CipherUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 
 /**
  * @author YuCheng
@@ -21,54 +19,19 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-    }
-
-    private final String KEY = "TravelAndEatBlog";
-    private final SecureRandom secureRandom = new SecureRandom();
-
-    @Override//確認用戶帳密
-    public User checkUser(String username, String password) {
-        //帳號查詢取得向量值
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            return null;
-        }
-
-        try {
-            password = CipherUtils.encryptString(KEY, password, user.getIv().getIv());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        user = userRepository.findByUsernameAndPassword(username,password);
-        return user;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override//創建會員
     public boolean createUser(User user) {
-
-        //加密
-        String encrypt = "";
-        //隨機向量產生
-        byte[] iv = new byte[128 / 8];
-        secureRandom.nextBytes(iv);
-        InitializationVector vector = new InitializationVector();
-        vector.setIv(iv);
-        Intro intro = new Intro();
-
-        try {
-            encrypt = CipherUtils.encryptString(KEY, user.getPassword(), iv);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         //保存
-        user.setPassword(encrypt);
-        user.setIv(vector);
+        Intro intro = new Intro();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIntro(intro);
 
         try {
@@ -77,12 +40,11 @@ public class UserServiceImpl implements UserService {
             System.out.println(e.getMessage());
             return false;
         }
-
         return true;
     }
 
     @Override//帳號查詢會員資料
-    public User findUserByAccount(String username) {
+    public User findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 

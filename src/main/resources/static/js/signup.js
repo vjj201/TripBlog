@@ -1,5 +1,13 @@
 $(function () {
 
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+
+
     //前端姓名格式判斷
     $('#name').blur(function (e) {
         e.preventDefault();
@@ -59,7 +67,7 @@ $(function () {
         //取消原按鈕功能
         e.preventDefault();
         //獲取帳號密碼
-        let username = $('#account').val();
+        let username = $('#username').val();
         //判斷條件
         let pass = /^(?=.*\d)(?=.*[a-zA-Z]).{4,20}$/;
 

@@ -43,7 +43,6 @@ public class User {
     private String gender;
 
     //生日
-//    @DateTimeFormat( pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
@@ -61,11 +60,6 @@ public class User {
 
     //信箱是否已驗證
     private boolean mailVerified;
-
-    //IV外來鍵
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "iv", referencedColumnName = "id")
-    private InitializationVector iv;
 
     //自我介紹外來鍵
     @OneToOne(cascade = {CascadeType.ALL})
@@ -100,7 +94,7 @@ public class User {
         return username;
     }
 
-    public void setUsername(String account) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -168,15 +162,6 @@ public class User {
         this.signDate = signDate;
     }
 
-    public InitializationVector getIv() {
-        return iv;
-    }
-
-    public void setIv(InitializationVector iv) {
-        this.iv = iv;
-    }
-
-
     @Override
     public String toString() {
         return "User{" +
@@ -191,7 +176,6 @@ public class User {
                 ", phone=" + phone +
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
-                ", iv=" + iv +
                 ", intro=" + intro +
                 '}';
     }

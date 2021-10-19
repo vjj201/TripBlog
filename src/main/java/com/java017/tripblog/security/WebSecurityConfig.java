@@ -66,26 +66,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        //防止路徑變更
+        //防止8080路徑變更
         PortMapperImpl portMapper = new PortMapperImpl();
         portMapper.setPortMappings(Collections.singletonMap("8080","8080"));
         PortResolverImpl portResolver = new PortResolverImpl();
         portResolver.setPortMapper(portMapper);
         LoginUrlAuthenticationEntryPoint entryPoint = new LoginUrlAuthenticationEntryPoint(
-                "/user/login");
+                "/user/loginPage");
         entryPoint.setPortMapper(portMapper);
         entryPoint.setPortResolver(portResolver);
         http.exceptionHandling().authenticationEntryPoint(entryPoint);
 
         http
                 .authorizeRequests()
-                .antMatchers("/*", "/user/signup", "/user/accountCheck", "/user/signup_success", "/captcha/**", "/**/*.js", "/**/*.css", "/**/*.svg", "/**/*.png","/**/*.jpg")
+                .antMatchers("/*", "/user/signup", "/user/accountCheck/**", "/user/signup-success", "/captcha/**", "/**/*.js", "/**/*.css", "/**/*.svg", "/**/*.png","/**/*.jpg")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
 
                 .formLogin()
-                .loginPage("/user/login")
+                .loginPage("/user/loginPage")
                 .loginProcessingUrl("/user/login")
                 .successHandler(mySuccessHandler)
                 .failureHandler(myFailureHandler)
