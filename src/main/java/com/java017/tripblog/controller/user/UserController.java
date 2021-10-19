@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import org.apache.tomcat.util.codec.binary.Base64;
+
 
 
 /**
@@ -76,8 +81,10 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
         System.out.println(intro.getIntroContent());
-        String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
-        intro.setIntroContent(textarea);
+        if(intro.getIntroContent() != null){
+            String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
+            intro.setIntroContent(textarea);
+        }
         model.addAttribute("intro", intro);
 
         return "/user/my_space";
@@ -299,6 +306,20 @@ public class UserController {
 
         intro.setBannerPic(fileB64.split(",")[1]);
         intro.setBannerContent(fileB64.split(",")[0]);
+
+        byte[] decodedByte = Base64.decodeBase64(fileB64);
+        String filename = user.getAccount();
+        File file = new File(filename);
+
+        // Write the image bytes to file.
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(decodedByte);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return introService.editIntro(intro) != null;
     }

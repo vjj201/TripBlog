@@ -53,7 +53,11 @@ $(function(){
         //抓取彈跳式表單中輸入的值
         let editIntroduceTitle = $('#editIntroduceTitle').val();
         let editIntroduceContent = $('#editIntroduceContent').val();
+        //處理自我介紹內容的空白及換行
+        let textarea = editIntroduceContent.replace(/\n/g,"<br/>").replace(/\s/g,"&nbsp;")
 
+        console.log(editIntroduceContent);
+        console.log(textarea); 
         //創建物件
         let intro = {};
         intro['introTitle'] = editIntroduceTitle;
@@ -64,7 +68,7 @@ $(function(){
             $('#introduceTitle').text(editIntroduceTitle);
         }
         if(editIntroduceContent != ''){
-            $('#introduceContent').text(editIntroduceContent)
+            $('#introduceContent').html(textarea);
         }
 
         $.ajax({
