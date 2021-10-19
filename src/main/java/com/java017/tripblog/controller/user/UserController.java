@@ -56,7 +56,7 @@ public class UserController {
         User user = (User) session.getAttribute("user");
 
         User profile = userService.findUserById(user.getId());
-        Intro intro = introService.showIntroData(user.getId());
+        Intro intro = profile.getIntro();
         model.addAttribute("intro", intro);
 
         //保留必要資料
@@ -72,8 +72,7 @@ public class UserController {
     @GetMapping("/space")
     public String spacePage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_space";
@@ -83,8 +82,7 @@ public class UserController {
     @GetMapping("/travel")
     public String travelPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_article_travel";
@@ -94,8 +92,7 @@ public class UserController {
     @GetMapping("/eat")
     public String eatPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_article_eat";
@@ -105,8 +102,7 @@ public class UserController {
     @GetMapping("/collection")
     public String collectionPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_collection";
@@ -116,8 +112,7 @@ public class UserController {
     @GetMapping("/notify")
     public String notifyPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_notify";
@@ -144,7 +139,6 @@ public class UserController {
         }
 
     }
-
 
     //確認會員帳號是否重複
     @ResponseBody
