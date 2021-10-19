@@ -56,7 +56,15 @@
             #messagehight {
                 margin-top: -18px;
             }
+    
         }
+
+            /* 小人位置 */
+            #icon {
+                    position: fixed;
+                    right: 100px;
+                    bottom: 200px;
+            }
     </style>
 
 </head>
@@ -337,8 +345,8 @@
     </div>
 
     <!-- 右側邊欄，快速回到頂部和目錄自動生成 -->
-    <a class="btn btn-default" href="#" role="button" style="position:fixed;right:100px;bottom:200px"
-        data-bs-toggle="tooltip" data-bs-placement="bottom" title="回首頁">
+    <a class="btn btn-default" href="#" role="button" 
+        data-bs-toggle="tooltip" data-bs-placement="bottom" title="回首頁" id="icon">
         <img src="../static/images/oman_10_ani_10.svg" th:src="@{/images/oman_10_ani_10.svg}" width="100px" height="100px"></a>
 
     <!-- 尾頁 -->
