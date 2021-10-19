@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService {
     private final SecureRandom secureRandom = new SecureRandom();
 
     @Override//確認用戶帳密
-    public User checkUser(String account, String password) {
+    public User checkUser(String username, String password) {
         //帳號查詢取得向量值
-        User user = userRepository.findByAccount(account);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             return null;
         }
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
 
-        user = userRepository.findByAccountAndPassword(account, password);
+        user = userRepository.findByUsernameAndPassword(username,password);
         return user;
     }
 
@@ -82,8 +82,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override//帳號查詢會員資料
-    public User findUserByAccount(String account) {
-        return userRepository.findByAccount(account);
+    public User findUserByAccount(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override//編號查詢會員資料

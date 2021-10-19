@@ -25,7 +25,7 @@ public class User {
 
     //帳號
     @NotBlank(message = "帳號不能為空值")
-    private String account;
+    private String username;
 
     //密碼
     @NotBlank(message = "密碼不能為空值")
@@ -96,12 +96,12 @@ public class User {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUsername(String account) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -181,7 +181,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", account='" + account + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", nickname='" + nickname + '\'' +

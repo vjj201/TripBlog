@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -126,44 +125,44 @@ public class UserController {
     }
 
     //驗證會員登入
-    @ResponseBody
-    @PostMapping("/login")
-    public int login(@RequestBody User user,
-                     HttpSession session
-    ) {
-        String account = user.getAccount();
-        String password = user.getPassword();
-
-        user = userService.checkUser(account, password);
-        System.out.println("使用者登入 帳號:" + account + " 密碼:" + password);
-
-        //確認登入但信箱未完成驗證
-        if (user != null && !user.isMailVerified()) {
-            System.out.println("信箱未驗證");
-            //設置會話資料
-            User userSession = new User();
-            userSession.setId(user.getId());
-            userSession.setNickname(user.getNickname());
-            userSession.setEmail(user.getEmail());
-            session.setAttribute("signup", userSession);
-            return -1;
-        }
-
-        if (user != null && user.isMailVerified()) {
-            System.out.println("登入成功");
-            //設置會話資料
-            User userSession = new User();
-            userSession.setId(user.getId());
-            userSession.setNickname(user.getNickname());
-            session.setAttribute("user", userSession);
-            return 1;
-
-        } else {
-            System.out.println("登入失敗");
-            return 0;
-        }
-
-    }
+//    @ResponseBody
+//    @PostMapping("/login")
+//    public int login(@RequestBody User user,
+//                     HttpSession session
+//    ) {
+//        String username = user.getUsername();
+//        String password = user.getPassword();
+//
+//        user = userService.checkUser(username, password);
+//        System.out.println("使用者登入 帳號:" + username + " 密碼:" + password);
+//
+//        //確認登入但信箱未完成驗證
+//        if (user != null && !user.isMailVerified()) {
+//            System.out.println("信箱未驗證");
+//            //設置會話資料
+//            User userSession = new User();
+//            userSession.setId(user.getId());
+//            userSession.setNickname(user.getNickname());
+//            userSession.setEmail(user.getEmail());
+//            session.setAttribute("signup", userSession);
+//            return -1;
+//        }
+//
+//        if (user != null && user.isMailVerified()) {
+//            System.out.println("登入成功");
+//            //設置會話資料
+//            User userSession = new User();
+//            userSession.setId(user.getId());
+//            userSession.setNickname(user.getNickname());
+//            session.setAttribute("user", userSession);
+//            return 1;
+//
+//        } else {
+//            System.out.println("登入失敗");
+//            return 0;
+//        }
+//
+//    }
 
     //確認會員帳號是否重複
     @ResponseBody
@@ -174,12 +173,12 @@ public class UserController {
     }
 
     //帳號登出
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        //會話移除
-        session.removeAttribute("user");
-        return "redirect:/";
-    }
+//    @GetMapping("/logout")
+//    public String logout(HttpSession session) {
+//        //會話移除
+//        session.removeAttribute("user");
+//        return "redirect:/";
+//    }
 
     //註冊會員
     @ResponseBody
@@ -189,7 +188,7 @@ public class UserController {
         System.out.println("會員註冊");
 
         //避免帳號重複
-        if (userService.findUserByAccount(user.getAccount()) != null) {
+        if (userService.findUserByAccount(user.getUsername()) != null) {
             return false;
         }
 
