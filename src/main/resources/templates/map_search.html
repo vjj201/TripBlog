@@ -36,29 +36,45 @@
     } */
 
     @media screen and (max-width: 768px) {
+
+      .mapbox{
+        padding-left: 1px;
+        padding-right: 1px;
+        } 
+      
       .googlemap{
         height: 40vh;
         width: 100%;
+        padding-right: 0px;
         } 
 
       .filterad{
-        margin-left:5px;
+        margin-left:6vw;
         margin-right: 20px;
         width: 80vw;
         text-align: left;
         } 
 
       .filtersub{
-        margin: 0 10rem 0 3px;
+        margin: 0 10rem 0 6vw;
         width:37.5vw;
         padding: auto;
         } 
       
       .filterloc{
-        margin:0 0 0 28vw;
+        margin:0 0 0 33vw;
         width:37.5vw;
         padding: auto;
        
+        } 
+
+      #btsearch{
+        margin:0 5vw 0 0; 
+  
+        } 
+
+      #btclear{
+        margin:0 0 0 6vw;
         } 
     }
     
@@ -151,7 +167,7 @@
     
     <div class="container-fluid px-0 mx-0 ">
       <div class="row">
-        <div class=" d-flex  d-md-flex flex-wrap">
+        <div class="mapbox d-flex d-md-flex flex-wrap">
         <!-- 地圖 -->
         <div class="googlemap col-sm-12 col-md-8 col-8 px-2 ps-0 ms-0 map-pack ">
           <iframe class="w-100 h-100"
@@ -194,9 +210,9 @@
             
             <!-- 按鈕>送出/清除選取 -->
             <div class="col-12 mb-2 px-2 d-flex justify-content-lg-center d-flex ">
-              <button class="col-3  btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">清除</button>
+              <button class="col-3  btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btclear">清除</button>
               <button type="submit"
-                class="col ms-1 btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">搜尋</button>
+                class="col ms-1 btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btsearch">搜尋</button>
             </div>
           </div>
         </div>
