@@ -9,6 +9,9 @@ import com.java017.tripblog.entity.User;
 
 public interface UserService {
 
+    //獲取當前使用者
+    User getCurrentUser();
+
     //創建會員
     boolean createUser(User user);
 

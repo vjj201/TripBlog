@@ -123,6 +123,28 @@ public class UserController {
         return "/user/my_notify";
     }
 
+    //登入後判斷狀態
+    @GetMapping("/afterLogin")
+    public String afterLogin(HttpSession session) {
+        User user = userService.getCurrentUser();
+        System.out.println(user);
+
+        User userSession = new User();
+        userSession.setId(user.getId());
+        userSession.setNickname(user.getNickname());
+
+        //是否完成信箱驗證
+        if(user.isMailVerified()) {
+            session.setAttribute("user", userSession);
+            return "/index";
+        } else {
+            userSession.setEmail(user.getEmail());
+            session.setAttribute("signup", userSession);
+            return "user/signup_success";
+        }
+
+    }
+
 
     //確認會員帳號是否重複
     @ResponseBody

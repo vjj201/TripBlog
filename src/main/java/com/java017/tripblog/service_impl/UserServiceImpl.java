@@ -3,8 +3,11 @@ package com.java017.tripblog.service_impl;
 import com.java017.tripblog.repository.UserRepository;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
+import com.java017.tripblog.security.MyUserDetails;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,13 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    //獲取當前使用者
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
+        return user.getUser();
     }
 
     @Override//創建會員
@@ -51,20 +61,6 @@ public class UserServiceImpl implements UserService {
     @Override//編號查詢會員資料
     public User findUserById(Long id) {
         return userRepository.findById(id).orElse(null);
-
-//        //解密
-//        String encrypt = user.getPassword();
-//        String decrypt = "";
-//        byte[] iv = user.getIv().getIv();
-//
-//        try {
-//            decrypt = CipherUtils.decryptString(KEY, encrypt, iv);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-////        user.setPassword(decrypt);
-//        return user;
     }
 
     @Override//修改會員資料
