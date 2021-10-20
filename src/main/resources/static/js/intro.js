@@ -23,7 +23,7 @@ $(function(){
             }
 
             //通過base64來轉化圖片，去掉圖片頭（data:image/png;base64,）
-            let fileB64 = (reader.result).split(":")[1];
+            let fileB64 = (reader.result);//.split(":")[1];
 
             $.ajax({
                 url: '/user/updateIntroBanner',

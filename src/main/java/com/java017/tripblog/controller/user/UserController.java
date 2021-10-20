@@ -8,14 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import org.apache.tomcat.util.codec.binary.Base64;
-
+import java.io.*;
+import java.util.Base64;
+import java.util.UUID;
 
 
 /**
@@ -80,7 +76,8 @@ public class UserController {
     public String spacePage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
-        System.out.println(intro.getIntroContent());
+
+        //自我介紹內容空白、換行處理
         if(intro.getIntroContent() != null){
             String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
             intro.setIntroContent(textarea);
@@ -303,23 +300,37 @@ public class UserController {
 
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
+        System.out.println(user);
 
-        intro.setBannerPic(fileB64.split(",")[1]);
-        intro.setBannerContent(fileB64.split(",")[0]);
+        //base64 to Blob
+        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
 
-        byte[] decodedByte = Base64.decodeBase64(fileB64);
-        String filename = user.getAccount();
-        File file = new File(filename);
+        String fileDirec =
+                "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/"
+                        + user.getId() + "/IntroBanner";
+        String fileName = UUID.randomUUID().toString().replaceAll("-", "");
+        System.out.println(fileDirec);
+        File dir = new File(fileDirec);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        File file = new File(fileDirec, fileName);
 
         // Write the image bytes to file.
-        FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(file);
-            fos.write(decodedByte);
-            fos.close();
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            file.createNewFile();
+            int count = decodedByte.length;
+            bos.write(decodedByte, 0, count);
+            bos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
+        System.out.println(filePath);
+        intro.setBannerPic(filePath);
 
         return introService.editIntro(intro) != null;
     }
