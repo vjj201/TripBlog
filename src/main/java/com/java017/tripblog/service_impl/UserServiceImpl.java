@@ -1,15 +1,19 @@
 package com.java017.tripblog.service_impl;
 
 import com.java017.tripblog.repository.UserRepository;
-import com.java017.tripblog.entity.InitializationVector;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
+import com.java017.tripblog.security.MyUserDetails;
 import com.java017.tripblog.service.UserService;
-import com.java017.tripblog.util.CipherUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
+import javax.servlet.http.HttpSession;
+
 
 /**
  * @author YuCheng
@@ -21,54 +25,54 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    private final String KEY = "TravelAndEatBlog";
-    private final SecureRandom secureRandom = new SecureRandom();
+    //獲取當前使用者
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
+        return user.getUser();
+    }
 
-    @Override//確認用戶帳密
-    public User checkUser(String account, String password) {
-        //帳號查詢取得向量值
-        User user = userRepository.findByAccount(account);
-        if (user == null) {
-            return null;
+    //判斷記住帳號
+    public boolean isRememberMeUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return false;
         }
+        //判斷當前使用者是否是通過
+        return RememberMeAuthenticationToken.class.isAssignableFrom(authentication.getClass());
+    }
 
-        try {
-            password = CipherUtils.encryptString(KEY, password, user.getIv().getIv());
-        } catch (Exception e) {
-            e.printStackTrace();
+    //是否完成信箱驗證
+    public boolean isisMailVerified(HttpSession session) {
+        User user = getCurrentUser();
+        User userSession = new User();
+        userSession.setId(user.getId());
+        userSession.setNickname(user.getNickname());
+
+        //是否完成信箱驗證
+        if(user.isMailVerified()) {
+            session.setAttribute("user", userSession);
+            return true;
+        } else {
+            userSession.setEmail(user.getEmail());
+            session.setAttribute("signup", userSession);
+            return false;
         }
-
-        user = userRepository.findByAccountAndPassword(account, password);
-        return user;
     }
 
     @Override//創建會員
     public boolean createUser(User user) {
-
-        //加密
-        String encrypt = "";
-        //隨機向量產生
-        byte[] iv = new byte[128 / 8];
-        secureRandom.nextBytes(iv);
-        InitializationVector vector = new InitializationVector();
-        vector.setIv(iv);
-        Intro intro = new Intro();
-
-        try {
-            encrypt = CipherUtils.encryptString(KEY, user.getPassword(), iv);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         //保存
-        user.setPassword(encrypt);
-        user.setIv(vector);
+        Intro intro = new Intro();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIntro(intro);
 
         try {
@@ -77,32 +81,17 @@ public class UserServiceImpl implements UserService {
             System.out.println(e.getMessage());
             return false;
         }
-
         return true;
     }
 
     @Override//帳號查詢會員資料
-    public User findUserByAccount(String account) {
-        return userRepository.findByAccount(account);
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override//編號查詢會員資料
     public User findUserById(Long id) {
         return userRepository.findById(id).orElse(null);
-
-//        //解密
-//        String encrypt = user.getPassword();
-//        String decrypt = "";
-//        byte[] iv = user.getIv().getIv();
-//
-//        try {
-//            decrypt = CipherUtils.decryptString(KEY, encrypt, iv);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-////        user.setPassword(decrypt);
-//        return user;
     }
 
     @Override//修改會員資料

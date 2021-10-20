@@ -25,7 +25,7 @@ public class User {
 
     //帳號
     @NotBlank(message = "帳號不能為空值")
-    private String account;
+    private String username;
 
     //密碼
     @NotBlank(message = "密碼不能為空值")
@@ -43,7 +43,6 @@ public class User {
     private String gender;
 
     //生日
-//    @DateTimeFormat( pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
@@ -61,11 +60,6 @@ public class User {
 
     //信箱是否已驗證
     private boolean mailVerified;
-
-    //IV外來鍵
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "iv", referencedColumnName = "id")
-    private InitializationVector iv;
 
     //自我介紹外來鍵
     @OneToOne(cascade = {CascadeType.ALL})
@@ -96,12 +90,12 @@ public class User {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -168,20 +162,11 @@ public class User {
         this.signDate = signDate;
     }
 
-    public InitializationVector getIv() {
-        return iv;
-    }
-
-    public void setIv(InitializationVector iv) {
-        this.iv = iv;
-    }
-
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", account='" + account + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", nickname='" + nickname + '\'' +
@@ -191,7 +176,6 @@ public class User {
                 ", phone=" + phone +
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
-                ", iv=" + iv +
                 ", intro=" + intro +
                 '}';
     }

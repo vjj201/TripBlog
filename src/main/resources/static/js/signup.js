@@ -1,5 +1,13 @@
 $(function () {
 
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+
+
     //前端姓名格式判斷
     $('#name').blur(function (e) {
         e.preventDefault();
@@ -55,27 +63,27 @@ $(function () {
     });
 
     //帳號確認按鈕註冊Ajax請求
-    $('#account').blur(function (e) {
+    $('#username').blur(function (e) {
         //取消原按鈕功能
         e.preventDefault();
         //獲取帳號密碼
-        let account = $('#account').val();
+        let username = $('#username').val();
         //判斷條件
         let pass = /^(?=.*\d)(?=.*[a-zA-Z]).{4,20}$/;
 
-        if (account.trim().length < 1 || !pass.test(account)) {
-            $('#account').addClass('border border-1 border border-danger');
+        if (username.trim().length < 1 || !pass.test(username)) {
+            $('#username').addClass('border border-1 border border-danger');
             $('#submitButton').addClass('disabled');
             $('#message').text('帳號格式錯誤');
             return;
         } else {
-            $('#account').removeClass('border border-1 border border-danger');
+            $('#username').removeClass('border border-1 border border-danger');
             $('#submitButton').removeClass('disabled');
             $('#message').empty();
         }
         //創建物件
         let data = {};
-        data['account'] = account;
+        data['username'] = username;
 
         $.ajax({
             url: '/user/accountCheck',
@@ -83,11 +91,11 @@ $(function () {
             data: data,
             success: function (response) {
                 if (response) {
-                    $('#account').addClass('border border-1 border border-danger');
+                    $('#username').addClass('border border-1 border border-danger');
                     $('#submitButton').addClass('disabled');
                     $('#message').text('帳號已存在，請重新輸入');
                 } else {
-                    $('#account').removeClass('border border-1 border border-danger');
+                    $('#username').removeClass('border border-1 border border-danger');
                     $('#submitButton').removeClass('disabled');
                     $('#message').text('帳號可以使用');
                 }
@@ -143,10 +151,10 @@ $(function () {
         let nickname = $('#nickname').val();
         let gender = $("input[name='gender']:checked").val();
         let email = $('#email').val();
-        let account = $('#account').val();
+        let username = $('#username').val();
         let password = $('#password').val();
 
-        if (name.trim() < 1 || nickname.trim() < 1 || gender == null || email.trim() < 1 || account.trim() < 1 || password.trim() < 1) {
+        if (name.trim() < 1 || nickname.trim() < 1 || gender == null || email.trim() < 1 || username.trim() < 1 || password.trim() < 1) {
             $('#message').text('麻煩請先填寫完成');
             return;
         } else {
@@ -160,7 +168,7 @@ $(function () {
         user['nickname'] = nickname;
         user['gender'] = gender;
         user['email'] = email;
-        user['account'] = account;
+        user['username'] = username;
         user['password'] = password;
 
 

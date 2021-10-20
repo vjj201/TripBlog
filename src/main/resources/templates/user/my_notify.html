@@ -91,7 +91,7 @@
                         <li><a class="dropdown-item rounded fw-bold" href="../user/my_notify.html">訊息通知</a></li>
                         <hr class="dropdown-divider rounded fw-bold">
                         <li><a class="dropdown-item rounded fw-bold" href="../user/signup.html">註冊</a></li>
-                        <li><a class="dropdown-item rounded fw-bold" href="../user/login.html">登入</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="loginPage.html">登入</a></li>
                     </ul>
                 </div>
 
@@ -104,9 +104,10 @@
 
 
 <!-- 首頁背景圖 cover photo -->
-<div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px; height: 400px;">
+<div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px;">
     <img th:if="${intro.bannerPic == null}" id="mySpaceBannerImg" src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
-    <img th:if="${intro.bannerPic != null}" th:src="*{'data:' + intro.bannerContent + ',' + intro.bannerPic}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">
+    <img th:if="${intro.bannerPic != null}" th:src="*{intro.bannerContent + ',' + intro.bannerPic}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">
+<!--    <img th:if="${intro.bannerPic != null}" th:src="@{${intro.bannerPic}}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">-->
 </div>
 <!-- 首頁背景圖 cover photo 結束-->
 
@@ -130,7 +131,6 @@
                 <h3>
                     <span th:text="${session.user.nickname}" class="text-bl04 fw-bold">會員暱稱</span>
                 </h3>
-
             </div>
         </div>
 

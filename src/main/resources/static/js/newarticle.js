@@ -1,8 +1,14 @@
 
 $(function() {
 
-    //-------------------------顯示資料庫裏面的標籤------------------
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
 
+    //-------------------------顯示資料庫裏面的標籤------------------
     $.ajax({
         url: "/user/findtags",
         type: "GET",
@@ -38,14 +44,14 @@ $(function() {
 //-------------------------------------
         let freeTags =$("#articleTag").val();
 //---------------------------------------------
-
+        alert("已寫入資料庫" + texteditor);
         //創建物件
         let article = {};
-        article['subjectcategory'] = subjectcategory;
-        article['selectregion'] = selectregion;
-        article['enteraddress'] = enteraddress;
-        article['articletitle'] = articletitle;
-        article['texteditor'] = texteditor;
+        article['subjectCategory'] = subjectcategory;
+        article['selectRegion'] = selectregion;
+        article['enterAddress'] = enteraddress;
+        article['articleTitle'] = articletitle;
+        article['textEditor'] = texteditor;
         article['free_Tags'] = freeTags;
 
 
@@ -55,51 +61,7 @@ $(function() {
             async: false,
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(article),
-            success: function () {
-                let name_1 = "美食";
-
-                if (subjectcategory == name_1) {
-                    window.location.href='eat';
-                } else {
-                    window.location.href='travel';
-                }
-            }
-        });
-    });
-
-    //保存草稿按鈕功能
-    $('#savearticle').click(function (e) {
-
-        e.preventDefault();
-
-        let subjectcategory = $('#subjectcategory').val();
-
-        let selectregion = $('#selectregion').val();
-
-        let enteraddress = $('#enteraddress').val();
-
-        let articletitle = $('#articletitle').val();
-
-        let texteditor = editor.getData();
-
-        let freeTags =$("#articleTag").val();
-        //創建物件
-        let article = {};
-        article['subjectcategory'] = subjectcategory;
-        article['selectregion'] = selectregion;
-        article['enteraddress'] = enteraddress;
-        article['articletitle'] = articletitle;
-        article['texteditor'] = texteditor;
-        article['free_Tags'] = freeTags;
-
-        $.ajax({
-            url: '/user/newarticle',
-            type: 'POST',
-            async: false,
-            contentType: 'application/json;charset=utf-8',
-            data: JSON.stringify(article),
-            success:
-                alert("已經為您儲存草稿")
+            success: null
         });
     });
 });

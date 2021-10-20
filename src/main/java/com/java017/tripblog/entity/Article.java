@@ -8,25 +8,18 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     Integer id;
 
-    @Column(name = "subjectcategory")
-    String subjectcategory;
+    String subjectCategory;
 
-    @Column(name = "selectregion")
-    String selectregion;
+    String selectRegion;
 
-    @Column(name = "enteraddress")
-    String enteraddress;
+    String enterAddress;
 
-    @Column(name = "articletitle")
-    String articletitle;
+    String articleTitle;
 
-    @Column(name = "texteditor")
-    String texteditor;
+    String textEditor;
 
-    @Column(name = "free_tag")
     String free_tag;
 
     public String getFree_tag() {
@@ -45,43 +38,43 @@ public class Article {
         this.id = id;
     }
 
-    public String getArticletitle() {
-        return articletitle;
+    public String getArticleTitle() {
+        return articleTitle;
     }
 
-    public void setArticletitle(String articletitle) {
-        this.articletitle = articletitle;
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 
-    public String getSubjectcategory() {
-        return subjectcategory;
+    public String getSubjectCategory() {
+        return subjectCategory;
     }
 
-    public void setSubjectcategory(String subjectcategory) {
-        this.subjectcategory = subjectcategory;
+    public void setSubjectCategory(String subjectCategory) {
+        this.subjectCategory = subjectCategory;
     }
 
-    public String getSelectregion() {
-        return selectregion;
+    public String getSelectRegion() {
+        return selectRegion;
     }
 
-    public void setSelectregion(String selectregion) {
-        this.selectregion = selectregion;
+    public void setSelectRegion(String selectRegion) {
+        this.selectRegion = selectRegion;
     }
 
-    public String getEnteraddress() {
-        return enteraddress;
+    public String getEnterAddress() {
+        return enterAddress;
     }
 
-    public void setEnteraddress(String enteraddress) {
-        this.enteraddress = enteraddress;
+    public void setEnterAddress(String enterAddress) {
+        this.enterAddress = enterAddress;
     }
 
-    public String getTexteditor() {
-        return texteditor;
+    public String getTextEditor() {
+        return textEditor;
     }
 
-    public void setTexteditor(String texteditor) {
-        this.texteditor = texteditor;
+    public void setTextEditor(String textEditor) {
+        this.textEditor = textEditor;
     }
 }
