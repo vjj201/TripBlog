@@ -1,33 +1,24 @@
-package com.java017.tripblog.entity;
+package com.java017.tripblog.util;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "article")
-public class Article {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ArticleParam  {
+
+
     Integer id;
-
     String subjectCategory;
-
     String selectRegion;
-
     String enterAddress;
-
     String articleTitle;
-
     String textEditor;
+    String[] free_Tags;
 
-    String free_tag;
-
-    public String getFree_tag() {
-        return free_tag;
+    public String[] getFree_Tags() {
+        return free_Tags;
     }
 
-    public void setFree_tag(String free_tag) {
-        this.free_tag = free_tag;
+    public void setFree_Tags(String[] freeTag) {
+        this.free_Tags = freeTag;
     }
 
     public Integer getId() {
@@ -77,4 +68,6 @@ public class Article {
     public void setTextEditor(String textEditor) {
         this.textEditor = textEditor;
     }
+
+
 }

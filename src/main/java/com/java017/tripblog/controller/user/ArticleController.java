@@ -1,6 +1,6 @@
 package com.java017.tripblog.controller.user;
 
-import com.java017.tripblog.controller.parameter.ArticleParam;
+import com.java017.tripblog.util.ArticleParam;
 import com.java017.tripblog.entity.Article;
 import com.java017.tripblog.repository.ArticleRepository;
 import com.java017.tripblog.util.TagEnum;
@@ -17,11 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class ArticleController {
 
+
+    private final ArticleRepository articleRepository;
+
     @Autowired
-    private ArticleRepository articleRepository;
+    public ArticleController(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
+    }
 
-
-//跳轉撰寫新文章頁
+    //跳轉撰寫新文章頁
     @GetMapping("/write")
     public String writePage() {
         return "user/write_article";
@@ -29,7 +33,7 @@ public class ArticleController {
 
     @ResponseBody
     @GetMapping("/findtags")
-    public TagEnum[] showTags(){
+    public TagEnum[] showTags() {
 //        List<Freetag> freetag = iFreetag.findAlltag();
 //        System.out.println(freetag);
         return TagEnum.values();
@@ -37,35 +41,35 @@ public class ArticleController {
 
     @ResponseBody
     @PostMapping("/newarticle")
-    public String insert(@RequestBody ArticleParam articleParam){
+    public String insert(@RequestBody ArticleParam articleParam) {
 
-    //    articleRepository.save(article);
+        //    articleRepository.save(article);
         Article article = new Article();
-        for (String tag:articleParam.getfree_Tags()) {
+        for (String tag : articleParam.getFree_Tags()) {
             try {
                 TagEnum.valueOf(tag);
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(tag);
-                return  "請確認標籤";
+                return "請確認標籤";
             }
         }
 
-        String tag = String.join(",",articleParam.getfree_Tags());
+        String tag = String.join(",", articleParam.getFree_Tags());
         article.setFree_tag(tag);
-        article.setArticletitle(articleParam.getArticletitle());
-        article.setEnteraddress(articleParam.getEnteraddress());
-        article.setSelectregion(articleParam.getSelectregion());
-        article.setTexteditor(articleParam.getTexteditor());
-        article.setSubjectcategory(articleParam.getSubjectcategory());
+        article.setArticleTitle(articleParam.getArticleTitle());
+        article.setEnterAddress(articleParam.getEnterAddress());
+        article.setSelectRegion(articleParam.getSelectRegion());
+        article.setTextEditor(articleParam.getTextEditor());
+        article.setSubjectCategory(articleParam.getSubjectCategory());
         articleRepository.save(article);
 
         return "ok";
     }
 
- //   public  List< Article> Get(TagEnum tag)
- //   {
- //       String x= "select * from Article where free_tag like ='%{tag}%' ";
- //   }
+    //   public  List< Article> Get(TagEnum tag)
+    //   {
+    //       String x= "select * from Article where free_tag like ='%{tag}%' ";
+    //   }
 
 
 //    @ResponseBody

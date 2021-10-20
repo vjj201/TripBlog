@@ -2,14 +2,19 @@ package com.java017.tripblog.service_impl;
 
 import com.java017.tripblog.entity.Article;
 import com.java017.tripblog.repository.ArticleRepository;
-import com.java017.tripblog.service.Iarticle;
+import com.java017.tripblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class articleService implements Iarticle {
+public class ArticleServiceImpl implements ArticleService {
+
+    private final ArticleRepository articleRepository;
+
     @Autowired
-    private ArticleRepository articleRepository;
+    public ArticleServiceImpl(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
+    }
 
     @Override
     public String insertArticle(Article article) {

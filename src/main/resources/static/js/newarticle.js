@@ -1,8 +1,14 @@
 
 $(function() {
 
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+
     //-------------------------顯示資料庫裏面的標籤------------------
-    alert("抓到囉");
     $.ajax({
         url: "/user/findtags",
         type: "GET",
@@ -41,11 +47,11 @@ $(function() {
         alert("已寫入資料庫" + texteditor);
         //創建物件
         let article = {};
-        article['subjectcategory'] = subjectcategory;
-        article['selectregion'] = selectregion;
-        article['enteraddress'] = enteraddress;
-        article['articletitle'] = articletitle;
-        article['texteditor'] = texteditor;
+        article['subjectCategory'] = subjectcategory;
+        article['selectRegion'] = selectregion;
+        article['enterAddress'] = enteraddress;
+        article['articleTitle'] = articletitle;
+        article['textEditor'] = texteditor;
         article['free_Tags'] = freeTags;
 
 
@@ -58,7 +64,6 @@ $(function() {
             success: null
         });
     });
-
 });
 
 
