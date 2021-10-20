@@ -17,7 +17,7 @@ public class Intro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //自我介紹頁首圖base64
+    //自我介紹頁首圖base64 資料庫要去設定為LONGBLOB
     private String bannerPic;
 
     //自我介紹頁首圖base64檔案類型
