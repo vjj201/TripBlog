@@ -285,37 +285,39 @@ public class UserController {
 
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
-        System.out.println(user);
 
-        //base64 to Blob
-        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
+        intro.setBannerPic(fileB64.split(",")[1]);
+        intro.setBannerContent(fileB64.split(",")[0]);
 
-        String fileDirec =
-                "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/"
-                        + user.getId() + "/IntroBanner";
-        String fileName = UUID.randomUUID().toString().replaceAll("-", "");
-        System.out.println(fileDirec);
-        File dir = new File(fileDirec);
-        if(!dir.exists()) {
-            dir.mkdirs();
-        }
+//        //base64 to Blob
+//        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
+//
+//        String fileDirec =
+//                "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/"
+//                        + user.getId() + "/IntroBanner";
+//        String fileName = UUID.randomUUID().toString().replaceAll("-", "");
+//        System.out.println(fileDirec);
+//        File dir = new File(fileDirec);
+//        if(!dir.exists()) {
+//            dir.mkdirs();
+//        }
+//
+//        File file = new File(fileDirec, fileName);
+//
+//        // Write the image bytes to file.
+//        try {
+//            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+//            file.createNewFile();
+//            int count = decodedByte.length;
+//            bos.write(decodedByte, 0, count);
+//            bos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        File file = new File(fileDirec, fileName);
-
-        // Write the image bytes to file.
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            file.createNewFile();
-            int count = decodedByte.length;
-            bos.write(decodedByte, 0, count);
-            bos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
-        System.out.println(filePath);
-        intro.setBannerPic(filePath);
+//        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
+//        System.out.println(filePath);
+//        intro.setBannerPic(filePath);
 
         return introService.editIntro(intro) != null;
     }
