@@ -42,7 +42,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
 
     private void verifyCode(HttpServletRequest request) throws CaptchaException {
         //請求中的圖形驗證
-        String imageCode = request.getParameter("imageCode");
+        String imageCode = request.getParameter("imageCode").toUpperCase();
         //會話中的驗證
         HttpSession session = request.getSession();
         String sessionCode = "";

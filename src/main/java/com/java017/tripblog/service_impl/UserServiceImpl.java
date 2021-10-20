@@ -6,10 +6,13 @@ import com.java017.tripblog.entity.User;
 import com.java017.tripblog.security.MyUserDetails;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -35,6 +38,34 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         return user.getUser();
+    }
+
+    //判斷記住帳號
+    public boolean isRememberMeUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return false;
+        }
+        //判斷當前使用者是否是通過
+        return RememberMeAuthenticationToken.class.isAssignableFrom(authentication.getClass());
+    }
+
+    //是否完成信箱驗證
+    public boolean isisMailVerified(HttpSession session) {
+        User user = getCurrentUser();
+        User userSession = new User();
+        userSession.setId(user.getId());
+        userSession.setNickname(user.getNickname());
+
+        //是否完成信箱驗證
+        if(user.isMailVerified()) {
+            session.setAttribute("user", userSession);
+            return true;
+        } else {
+            userSession.setEmail(user.getEmail());
+            session.setAttribute("signup", userSession);
+            return false;
+        }
     }
 
     @Override//創建會員

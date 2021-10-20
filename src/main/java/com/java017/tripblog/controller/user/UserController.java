@@ -35,23 +35,20 @@ public class UserController {
         this.introService = introService;
     }
 
-    //判斷記住帳號
-    private boolean isRememberMeUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            return false;
-        }
-        //判斷當前使用者是否是通過
-        return RememberMeAuthenticationToken.class.isAssignableFrom(authentication.getClass());
-    }
-
         //跳轉登入畫面
     @GetMapping("/loginPage")
     public String loginPage(HttpSession session) {
-        if(isRememberMeUser()) {
-            afterLogin(session);
-            return "redirect:/";
+        //是否記住
+        if(userService.isRememberMeUser()) {
+            System.out.println("有記住帳密");
+            //是否完成信箱驗證
+            if(userService.isisMailVerified(session)) {
+                return "redirect:/";
+            } else {
+                return "redirect:/user/signup-success";
+            }
         }
+        System.out.println("沒有記住帳密");
         return "user/loginPage";
     }
 
@@ -91,7 +88,7 @@ public class UserController {
     @GetMapping("/space")
     public String spacePage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
+        Intro intro = userService.findUserById(user.getId()).getIntro();
 
         //自我介紹內容空白、換行處理
         if(intro.getIntroContent() != null){
@@ -146,23 +143,13 @@ public class UserController {
     //登入後判斷狀態
     @GetMapping("/afterLogin")
     public String afterLogin(HttpSession session) {
-        User user = userService.getCurrentUser();
-        System.out.println(user);
-
-        User userSession = new User();
-        userSession.setId(user.getId());
-        userSession.setNickname(user.getNickname());
 
         //是否完成信箱驗證
-        if(user.isMailVerified()) {
-            session.setAttribute("user", userSession);
-            return "redirect:/index";
+        if(userService.isisMailVerified(session)) {
+            return "redirect:/";
         } else {
-            userSession.setEmail(user.getEmail());
-            session.setAttribute("signup", userSession);
-            return "redirect:user/signup_success";
+            return "redirect:/user/signup-success";
         }
-
     }
 
     //確認會員帳號是否重複
@@ -238,7 +225,7 @@ public class UserController {
     public boolean updateIntro(@RequestBody Intro introUpdate, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
+        Intro intro = userService.findUserById(user.getId()).getIntro();
 
         //判斷自我介紹標題欄位是否為空
         if (!"".equals(introUpdate.getIntroTitle())) {
@@ -257,7 +244,7 @@ public class UserController {
     public boolean updateIntroLink(@RequestBody Intro introUpdate, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
+        Intro intro = userService.findUserById(user.getId()).getIntro();
 
         //判斷fb連結欄位是否為空
         if (!"".equals(introUpdate.getFbLink())) {
@@ -284,7 +271,7 @@ public class UserController {
     public boolean updateIntroBanner(@RequestBody String fileB64, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
+        Intro intro = userService.findUserById(user.getId()).getIntro();
 
         intro.setBannerPic(fileB64.split(",")[1]);
         intro.setBannerContent(fileB64.split(",")[0]);

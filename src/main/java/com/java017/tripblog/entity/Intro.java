@@ -18,6 +18,7 @@ public class Intro {
     private Long id;
 
     //自我介紹頁首圖base64 資料庫要去設定為LONGBLOB
+    @Lob
     private String bannerPic;
 
     //自我介紹頁首圖base64檔案類型
