@@ -46,7 +46,7 @@
 
 </head>
 
-<body class="bg-milkyellow">
+<body class="bg-milkyellow" onload="ShowTime()">
 
     <!-- 總導覽列 -->
     <nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
@@ -137,12 +137,12 @@
             <div class="col-4"></div>
             <div class="col-4"></div>
             <div class="col-4 text-end text-bl05 fw-bold">
-                updateTime
+                <label id="updateTime"></label>
             </div>
         </div>
     </div>
     <!-- 主題分類(美食.旅遊)、地區分類、地址標籤、發票收據 表單開始-->
-    <form action="">
+    <form action="" id="formArticle">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-12 col-md-3 mb-2">
@@ -295,15 +295,16 @@
             <!-- 保存發布 -->
             <div class="row mt-3 mb-5">
                 <div class="col-4 mt-2">
-                    <button type="button"
-                        class="btn btn-light  border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">捨棄草稿</button>
+                    <button type="button" id="canceldraft"
+                        class="btn btn-light  border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm"
+                            onclick="canceltext()">捨棄草稿</button>
                 </div>
                 <div class="col-8 text-end mt-2">
                     <button type="submit" id="pusharticle"
                         class="btn btn-light btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">發表文章</button>
 
 
-                    <button type="submit"
+                    <button type="submit" id="savearticle"
                         class="btn btn-light border-2 border-bl03 rounded-pill text-bl03 fw-bold">儲存草稿</button>
                 </div>
             </div>
@@ -346,6 +347,36 @@
             reader.readAsDataURL(input.files[0]);
             }
         }
+        //捨棄草稿
+        function canceltext(){
+            document.getElementById("formArticle").reset();
+            const editorData = editor.setData( '' );
+        }
+        //顯示當前時間
+        function ShowTime() {
+            let NowDate = new Date();
+            let y = NowDate.getFullYear();
+            let M = NowDate.getMonth()+1;
+            let d = NowDate.getDate();
+            let h = NowDate.getHours();
+            let m = NowDate.getMinutes();
+            let s = NowDate.getSeconds();
+            if (h < 10) {
+                h = `0${h}`;
+            }
+            if (m < 10) {
+                m = `0${m}`;
+            }
+            if (s < 10) {
+                s = `0${s}`;
+            }
+            document.getElementById('updateTime')
+                .innerHTML ='當前時間' + y +"-"+ M +"-"+ d + " "+ h + ":"
+                + m + ":" + s;
+            setTimeout('ShowTime()', 1000);
+        }
+
+
         </script>
 
     <!-- 尾頁 -->
