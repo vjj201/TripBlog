@@ -113,5 +113,20 @@ public class Intro {
     public void setBannerContent(String bannerContent) {
         this.bannerContent = bannerContent;
     }
+
+    @Override
+    public String toString() {
+        return "Intro{" +
+                "id=" + id +
+                ", bannerPic='" + bannerPic + '\'' +
+                ", bannerContent='" + bannerContent + '\'' +
+                ", introTitle='" + introTitle + '\'' +
+                ", introContent='" + introContent + '\'' +
+                ", fbLink='" + fbLink + '\'' +
+                ", igLink='" + igLink + '\'' +
+                ", ytLink='" + ytLink + '\'' +
+                ", emailLink='" + emailLink + '\'' +
+                '}';
+    }
 }
 

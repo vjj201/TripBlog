@@ -8,6 +8,9 @@
     <meta name="description" content="Signup">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <!--  jquery  -->
@@ -93,7 +96,7 @@
                         <hr class="dropdown-divider rounded fw-bold">
                         <li><a class="dropdown-item rounded fw-bold" href="../user/signup.html"
                                th:href="@{/user/signup}">註冊</a></li>
-                        <li><a class="dropdown-item rounded fw-bold" href="../user/login.html" th:href="@{/user/login}">登入</a>
+                        <li><a class="dropdown-item rounded fw-bold" href="loginPage.html" th:href="@{/user/login}">登入</a>
                         </li>
                     </ul>
                 </div>
@@ -174,9 +177,9 @@
 
                         <!-- Account input-->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="account" name="account" type="text"
+                            <input class="form-control" id="username" name="username" type="text"
                                    placeholder="123456789" minlength="4" maxlength="20"/>
-                            <label for="account" class="text-bl04 fw-bold">帳號 : 4~20英文數字</label>
+                            <label for="username" class="text-bl04 fw-bold">帳號 : 4~20英文數字</label>
 
                         </div>
 
