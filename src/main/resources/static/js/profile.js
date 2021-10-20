@@ -1,4 +1,11 @@
 $(function () {
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+
     let flag = true;
 
     //編輯按鈕註冊

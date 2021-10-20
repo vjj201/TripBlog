@@ -5,12 +5,16 @@ import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.IntroService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.util.Base64;
+import java.util.UUID;
 
 
 /**
@@ -31,10 +35,24 @@ public class UserController {
         this.introService = introService;
     }
 
-    //跳轉登入畫面
-    @GetMapping("/login")
-    public String loginPage() {
-        return "user/login";
+    //判斷記住帳號
+    private boolean isRememberMeUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return false;
+        }
+        //判斷當前使用者是否是通過
+        return RememberMeAuthenticationToken.class.isAssignableFrom(authentication.getClass());
+    }
+
+        //跳轉登入畫面
+    @GetMapping("/loginPage")
+    public String loginPage(HttpSession session) {
+        if(isRememberMeUser()) {
+            afterLogin(session);
+            return "redirect:/";
+        }
+        return "user/loginPage";
     }
 
     //跳轉註冊畫面
@@ -57,13 +75,12 @@ public class UserController {
         User user = (User) session.getAttribute("user");
 
         User profile = userService.findUserById(user.getId());
-        Intro intro = introService.showIntroData(user.getId());
+        Intro intro = profile.getIntro();
         model.addAttribute("intro", intro);
 
         //保留必要資料
         profile.setPassword(null);
         profile.setId(null);
-        profile.setIv(null);
         profile.setIntro(null);
 
         model.addAttribute("profile", profile);
@@ -76,6 +93,11 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         Intro intro = introService.showIntroData(user.getId());
 
+        //自我介紹內容空白、換行處理
+        if(intro.getIntroContent() != null){
+            String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
+            intro.setIntroContent(textarea);
+        }
         model.addAttribute("intro", intro);
 
         return "/user/my_space";
@@ -85,8 +107,7 @@ public class UserController {
     @GetMapping("/travel")
     public String travelPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_article_travel";
@@ -96,8 +117,7 @@ public class UserController {
     @GetMapping("/eat")
     public String eatPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_article_eat";
@@ -107,8 +127,7 @@ public class UserController {
     @GetMapping("/collection")
     public String collectionPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_collection";
@@ -118,49 +137,30 @@ public class UserController {
     @GetMapping("/notify")
     public String notifyPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        Intro intro = introService.showIntroData(user.getId());
-
+        Intro intro = userService.findUserById(user.getId()).getIntro();
         model.addAttribute("intro", intro);
 
         return "/user/my_notify";
     }
 
-    //驗證會員登入
-    @ResponseBody
-    @PostMapping("/login")
-    public int login(@RequestBody User user,
-                     HttpSession session
-    ) {
-        String account = user.getAccount();
-        String password = user.getPassword();
+    //登入後判斷狀態
+    @GetMapping("/afterLogin")
+    public String afterLogin(HttpSession session) {
+        User user = userService.getCurrentUser();
+        System.out.println(user);
 
-        user = userService.checkUser(account, password);
-        System.out.println("使用者登入 帳號:" + account + " 密碼:" + password);
+        User userSession = new User();
+        userSession.setId(user.getId());
+        userSession.setNickname(user.getNickname());
 
-        //確認登入但信箱未完成驗證
-        if (user != null && !user.isMailVerified()) {
-            System.out.println("信箱未驗證");
-            //設置會話資料
-            User userSession = new User();
-            userSession.setId(user.getId());
-            userSession.setNickname(user.getNickname());
+        //是否完成信箱驗證
+        if(user.isMailVerified()) {
+            session.setAttribute("user", userSession);
+            return "redirect:/index";
+        } else {
             userSession.setEmail(user.getEmail());
             session.setAttribute("signup", userSession);
-            return -1;
-        }
-
-        if (user != null && user.isMailVerified()) {
-            System.out.println("登入成功");
-            //設置會話資料
-            User userSession = new User();
-            userSession.setId(user.getId());
-            userSession.setNickname(user.getNickname());
-            session.setAttribute("user", userSession);
-            return 1;
-
-        } else {
-            System.out.println("登入失敗");
-            return 0;
+            return "redirect:user/signup_success";
         }
 
     }
@@ -168,17 +168,9 @@ public class UserController {
     //確認會員帳號是否重複
     @ResponseBody
     @GetMapping("/accountCheck")
-    public boolean findUserByAccount(@RequestParam String account) {
-        User user = userService.findUserByAccount(account);
+    public boolean findUserByAccount(@RequestParam String username) {
+        User user = userService.findUserByUsername(username);
         return user != null;
-    }
-
-    //帳號登出
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        //會話移除
-        session.removeAttribute("user");
-        return "redirect:/";
     }
 
     //註冊會員
@@ -186,10 +178,10 @@ public class UserController {
     @PostMapping("/signup")
     public boolean signup(@RequestBody User user, HttpSession session) {
 
-        System.out.println("會員註冊");
+        System.out.println("會員註冊 : " + user);
 
         //避免帳號重複
-        if (userService.findUserByAccount(user.getAccount()) != null) {
+        if (userService.findUserByUsername(user.getUsername()) != null) {
             return false;
         }
 
@@ -197,6 +189,7 @@ public class UserController {
 
         try {
             result = userService.createUser(user);
+            System.out.println("註冊成功");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,7 +199,6 @@ public class UserController {
         userSession.setEmail(user.getEmail());
         session.setAttribute("signup", userSession);
 
-        System.out.println("註冊成功:" + user);
         return result;
     }
 
@@ -218,7 +210,6 @@ public class UserController {
         user = userService.findUserById(user.getId());
         user.setPassword(null);
         user.setId(null);
-        user.setIv(null);
         user.setIntro(null);
 
         return user;
@@ -297,6 +288,36 @@ public class UserController {
 
         intro.setBannerPic(fileB64.split(",")[1]);
         intro.setBannerContent(fileB64.split(",")[0]);
+
+//        //base64 to Blob
+//        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
+//
+//        String fileDirec =
+//                "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/"
+//                        + user.getId() + "/IntroBanner";
+//        String fileName = UUID.randomUUID().toString().replaceAll("-", "");
+//        System.out.println(fileDirec);
+//        File dir = new File(fileDirec);
+//        if(!dir.exists()) {
+//            dir.mkdirs();
+//        }
+//
+//        File file = new File(fileDirec, fileName);
+//
+//        // Write the image bytes to file.
+//        try {
+//            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+//            file.createNewFile();
+//            int count = decodedByte.length;
+//            bos.write(decodedByte, 0, count);
+//            bos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
+//        System.out.println(filePath);
+//        intro.setBannerPic(filePath);
 
         return introService.editIntro(intro) != null;
     }

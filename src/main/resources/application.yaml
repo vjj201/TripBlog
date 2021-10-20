@@ -30,6 +30,8 @@ spring:
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
+  thymeleaf:
+      cache: false
 
 logging:
   level:
@@ -45,6 +47,11 @@ server:
     enabled: true
     protocol: TLS
     key-store-password: changeit
+  servlet:
+      session:
+        persistent: false
+
+
 
 
 
