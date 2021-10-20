@@ -107,7 +107,9 @@
 
     <!-- 首頁背景圖 cover photo -->
     <div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px;">
-        <img src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
+        <img th:if="${intro.bannerPic == null}" id="mySpaceBannerImg" src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
+        <img th:if="${intro.bannerPic != null}" th:src="*{intro.bannerContent + ',' + intro.bannerPic}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">
+    <!--    <img th:if="${intro.bannerPic != null}" th:src="@{${intro.bannerPic}}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">-->
     </div>
     <!-- 首頁背景圖 cover photo 結束-->
 
@@ -132,9 +134,6 @@
                     <h3>
                         <span th:text="${profile.nickname}" class="text-bl04 fw-bold">會員暱稱</span>
                     </h3>
-                    <div class="item d-none d-lg-block">
-                        <span th:text="${profile.signDate}" class="text-bl04 ">註冊日期：yyyy/mm/dd</span>
-                    </div>
                 </div>
             </div>
 
