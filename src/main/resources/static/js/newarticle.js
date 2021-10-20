@@ -56,7 +56,7 @@ $(function() {
 
 
         $.ajax({
-            url: '/user/newarticle',
+            url: '/user/newArticle',
             type: 'POST',
             async: false,
             contentType: 'application/json;charset=utf-8',

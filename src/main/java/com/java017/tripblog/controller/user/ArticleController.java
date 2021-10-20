@@ -40,7 +40,7 @@ public class ArticleController {
     }
 
     @ResponseBody
-    @PostMapping("/newarticle")
+    @PostMapping("/newArticle")
     public String insert(@RequestBody ArticleParam articleParam) {
 
         //    articleRepository.save(article);
