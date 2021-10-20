@@ -434,9 +434,9 @@
             <div class="md-version d-none d-sm-block">
                 <div class="row mx-0 md-cover">
                   <div class="col-8 px-0">
-                    <img src="../static/images/index_pic/turn_save/cut_cover_cloud_logo.svg" 
+                    <img th:src="@{/images/index_pic/turn_save/cut_cover_cloud_logo.svg}" 
                     class="w-100"
-                    style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.3))" th:src="@{/images/index_pic/cut_cover.cloud.svg}">
+                    style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.3))">
                   </div>
                   <div class="col-4 md-article">
                     <div class="d-flex"><p>
@@ -454,9 +454,9 @@
             <!--logo&cover-xs手機版本-->
                 <div class="row first-logo justify-content-center">
                 <div class="col-9 d-block d-sm-none" style="height: 100vh;">
-                        <img src="../static/images/index_pic/turn_save/cut_logo_02_t.svg" 
+                        <img th:src="@{/images/index_pic/turn_save/cut_logo_02_t.svg}" 
                         class="w-100"
-                        style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.7))" th:src="@{/images/index_pic/turn_save/cut_logo_02_t.svg}">
+                        style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.7))">
                 </div>
                 </div>
 
@@ -475,7 +475,7 @@
                         <!-- 上面的雲 -->
                         <div class="cloud-gr01-item input-group offset-4 offset-md-3">
                             <select
-                                style="  border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245);; box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
+                                style="border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245); box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
                                 class="form-select cloud-gr01-up-select" >
                                 aria-label="Example select with button addon">
                                 <option selected>優游踏青</option>
@@ -655,7 +655,7 @@
                     <!-- 幻燈片文章 -->
                     <div class="carousel-inner ad-article-container">
                         <!-- 廣告1 -->
-                        <div class="carousel-item active ">
+                        <div class="carousel-item active">
                             <div class="d-flex  col-12  ad-carousel-item">
                                 <div class="ad-item col-md-2 col-6 overflow-hidden">
                                     <img src="https://picsum.photos/1000/1000?random=1" class="d-block w-md-100  h-md-auto h-100 " alt="...">
@@ -687,11 +687,10 @@
                                     <div class="carousel-caption d-none d-md-block">
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                         <!-- 廣告2 -->
-                        <div class="carousel-item  ">
+                        <div class="carousel-item ">
                             <div class="col-md-12 d-flex flex-md-row ad-carousel-item">
                                 <div class="ad-item col-md-2 col-6 overflow-hidden">
                                     <img src="https://picsum.photos/1000/1000?random=1" class="d-block w-md-100  h-md-auto h-100 " alt="...">
@@ -727,7 +726,7 @@
                             </div>
                         </div>
                         <!-- 廣告3 -->
-                        <div class="carousel-item  ">
+                        <div class="carousel-item ">
                             <div class="col-md-12 d-flex flex-md-row ad-carousel-item">
                                 <div class="ad-item col-md-2 col-6 overflow-hidden">
                                     <img src="https://picsum.photos/1000/1000?random=1" class="d-block w-md-100  h-md-auto h-100 " alt="...">
@@ -759,15 +758,8 @@
                                     <div class="carousel-caption d-none d-md-block">
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
-
-
-
-
-
-
                     </div>
 
                     <!-- 按鈕>左右置換 -->
