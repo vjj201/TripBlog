@@ -156,7 +156,7 @@ public class UserController {
         //是否完成信箱驗證
         if(user.isMailVerified()) {
             session.setAttribute("user", userSession);
-            return "redirect:/index";
+            return "redirect:/";
         } else {
             userSession.setEmail(user.getEmail());
             session.setAttribute("signup", userSession);

@@ -14,6 +14,7 @@ $(function(){
         //抓取彈跳式表單中輸入的值
         // 取得檔案
         const uploadBannerFile = $('#uploadBannerFile').prop('files')[0];
+        console.log('我是誰'+ uploadBannerFile);
 
         // 宣告 FileReader
         const reader = new FileReader();

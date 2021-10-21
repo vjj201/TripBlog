@@ -41,6 +41,16 @@ public class Intro {
     //Email Link
     private String emailLink;
 
+    //會員頭像base64檔案類型
+    private String memberPic;
+
+    public String getMemberPic() {
+        return memberPic;
+    }
+
+    public void setMemberPic(String memberPic) {
+        this.memberPic = memberPic;
+    }
 
     public Long getId() {
         return id;
