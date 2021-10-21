@@ -1,5 +1,6 @@
 package com.java017.tripblog.service;
 
+import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 
 import javax.servlet.http.HttpSession;
@@ -31,5 +32,8 @@ public interface UserService {
 
     //修改會員資料
     User updateUser(User user);
+
+    //更新自我介紹
+    Intro updateIntro(Intro intro);
 
 }

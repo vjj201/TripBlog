@@ -2,7 +2,6 @@ package com.java017.tripblog.controller.user;
 
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
-import com.java017.tripblog.service.IntroService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
@@ -27,12 +26,10 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
-    private final IntroService introService;
 
     @Autowired
-    public UserController(UserService userService, IntroService introService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.introService = introService;
     }
 
         //跳轉登入畫面
@@ -235,7 +232,7 @@ public class UserController {
         if (!"".equals(introUpdate.getIntroContent())) {
             intro.setIntroContent(introUpdate.getIntroContent());
         }
-        return introService.editIntro(intro) != null;
+        return userService.updateIntro(intro) != null;
     }
 
     //更新會員自我介紹Link
@@ -262,7 +259,7 @@ public class UserController {
         if (!"".equals(introUpdate.getEmailLink())) {
             intro.setEmailLink(introUpdate.getEmailLink());
         }
-        return introService.editIntro(intro) != null;
+        return userService.updateIntro(intro) != null;
     }
 
     //更新會員MySpace頁面背景圖
@@ -305,7 +302,6 @@ public class UserController {
 //        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
 //        System.out.println(filePath);
 //        intro.setBannerPic(filePath);
-
-        return introService.editIntro(intro) != null;
+        return userService.updateIntro(intro) != null;
     }
 }

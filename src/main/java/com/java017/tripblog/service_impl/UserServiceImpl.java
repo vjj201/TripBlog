@@ -1,5 +1,6 @@
 package com.java017.tripblog.service_impl;
 
+import com.java017.tripblog.repository.IntroRepository;
 import com.java017.tripblog.repository.UserRepository;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
@@ -25,11 +26,13 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserRepository userRepository;
+    private final IntroRepository introRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, IntroRepository introRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.introRepository = introRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -97,5 +100,10 @@ public class UserServiceImpl implements UserService {
     @Override//修改會員資料
     public User updateUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override//更新自我介紹頁面資訊
+    public Intro updateIntro(Intro intro) {
+        return introRepository.save(intro);
     }
 }
