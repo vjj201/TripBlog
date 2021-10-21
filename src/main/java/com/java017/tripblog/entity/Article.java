@@ -1,7 +1,11 @@
 package com.java017.tripblog.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
+import java.util.Date;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "article")
 public class Article {
@@ -21,6 +25,21 @@ public class Article {
     String textEditor;
 
     String free_tag;
+
+    //註冊日期
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private Date createDate;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
     public String getFree_tag() {
         return free_tag;
