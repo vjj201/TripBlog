@@ -10,7 +10,7 @@ $(function() {
 
     //-------------------------顯示資料庫裏面的標籤------------------
     $.ajax({
-        url: "/user/findtags",
+        url: "/user/findTags",
         type: "GET",
         // async: false,
         contentType: 'application/json;charset=utf-8',
@@ -32,26 +32,26 @@ $(function() {
 
         e.preventDefault();
 
-        let subjectcategory = $('#subjectcategory').val();
+        let subjectCategory = $('#subjectcategory').val();
 
-        let selectregion = $('#selectregion').val();
+        let selectRegion = $('#selectregion').val();
 
-        let enteraddress = $('#enteraddress').val();
+        let enterAddress = $('#enteraddress').val();
 
-        let articletitle = $('#articletitle').val();
+        let articleTitle = $('#articletitle').val();
 
-        let texteditor = editor.getData();
+        let textEditor = editor.getData();
 //-------------------------------------
         let freeTags =$("#articleTag").val();
 //---------------------------------------------
         //創建物件
         let article = {};
-        article['subjectCategory'] = subjectcategory;
-        article['selectRegion'] = selectregion;
-        article['enterAddress'] = enteraddress;
-        article['articleTitle'] = articletitle;
-        article['textEditor'] = texteditor;
-        article['free_Tags'] = freeTags;
+        article['subjectCategory'] = subjectCategory;
+        article['selectRegion'] = selectRegion;
+        article['enterAddress'] = enterAddress;
+        article['articleTitle'] = articleTitle;
+        article['textEditor'] = textEditor;
+        article['freeTags'] = freeTags;
 
 
         $.ajax({
@@ -63,7 +63,7 @@ $(function() {
             success: function () {
                 let name_1 = "美食";
 
-                if (subjectcategory == name_1) {
+                if (subjectCategory == name_1) {
                     window.location.href='eat';
                 } else {
                     window.location.href='travel';
@@ -76,26 +76,26 @@ $(function() {
 
         e.preventDefault();
 
-        let subjectcategory = $('#subjectcategory').val();
+        let subjectCategory = $('#subjectcategory').val();
 
-        let selectregion = $('#selectregion').val();
+        let selectRegion = $('#selectregion').val();
 
-        let enteraddress = $('#enteraddress').val();
+        let enterAddress = $('#enteraddress').val();
 
-        let articletitle = $('#articletitle').val();
+        let articleTitle = $('#articletitle').val();
 
-        let texteditor = editor.getData();
+        let textEditor = editor.getData();
 //-------------------------------------
         let freeTags =$("#articleTag").val();
 //---------------------------------------------
         //創建物件
         let article = {};
-        article['subjectCategory'] = subjectcategory;
-        article['selectRegion'] = selectregion;
-        article['enterAddress'] = enteraddress;
-        article['articleTitle'] = articletitle;
-        article['textEditor'] = texteditor;
-        article['free_Tags'] = freeTags;
+        article['subjectCategory'] = subjectCategory;
+        article['selectRegion'] = selectRegion;
+        article['enterAddress'] = enterAddress;
+        article['articleTitle'] = articleTitle;
+        article['textEditor'] = textEditor;
+        article['freeTags'] = freeTags;
 
 
         $.ajax({

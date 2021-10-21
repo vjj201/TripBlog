@@ -11,14 +11,14 @@ public class ArticleParam  {
     String enterAddress;
     String articleTitle;
     String textEditor;
-    String[] free_Tags;
+    String[] freeTags;
 
-    public String[] getFree_Tags() {
-        return free_Tags;
+    public String[] getFreeTags() {
+        return freeTags;
     }
 
-    public void setFree_Tags(String[] freeTag) {
-        this.free_Tags = freeTag;
+    public void setFreeTags(String[] freeTag) {
+        this.freeTags = freeTag;
     }
 
     public Integer getId() {

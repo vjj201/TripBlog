@@ -24,7 +24,7 @@ public class Article {
 
     String textEditor;
 
-    String free_tag;
+    String freeTags;
 
     //註冊日期
 
@@ -41,12 +41,12 @@ public class Article {
         this.createDate = createDate;
     }
 
-    public String getFree_tag() {
-        return free_tag;
+    public String getFreeTags() {
+        return freeTags;
     }
 
-    public void setFree_tag(String free_tag) {
-        this.free_tag = free_tag;
+    public void setFreeTags(String freeTags) {
+        this.freeTags = freeTags;
     }
 
     public Integer getId() {

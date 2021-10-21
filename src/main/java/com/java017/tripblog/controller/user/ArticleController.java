@@ -32,10 +32,8 @@ public class ArticleController {
     }
 
     @ResponseBody
-    @GetMapping("/findtags")
+    @GetMapping("/findTags")
     public TagEnum[] showTags() {
-//        List<Freetag> freetag = iFreetag.findAlltag();
-//        System.out.println(freetag);
         return TagEnum.values();
     }
 
@@ -45,7 +43,7 @@ public class ArticleController {
 
         //    articleRepository.save(article);
         Article article = new Article();
-        for (String tag : articleParam.getFree_Tags()) {
+        for (String tag : articleParam.getFreeTags()) {
             try {
                 TagEnum.valueOf(tag);
             } catch (Exception e) {
@@ -54,8 +52,8 @@ public class ArticleController {
             }
         }
 
-        String tag = String.join(",", articleParam.getFree_Tags());
-        article.setFree_tag(tag);
+        String tag = String.join(",", articleParam.getFreeTags());
+        article.setFreeTags(tag);
         article.setArticleTitle(articleParam.getArticleTitle());
         article.setEnterAddress(articleParam.getEnterAddress());
         article.setSelectRegion(articleParam.getSelectRegion());
@@ -65,26 +63,4 @@ public class ArticleController {
 
         return "ok";
     }
-
-    //   public  List< Article> Get(TagEnum tag)
-    //   {
-    //       String x= "select * from Article where free_tag like ='%{tag}%' ";
-    //   }
-
-
-//    @ResponseBody
-//    @PostMapping("/pust")
-//    public String showTags(@RequestBody Freetag freetag) {
-//        System.out.println(freetag);
-//        freeTagRepository.save(freetag);
-//        return "1123";
-//    }
-
-//    @ResponseBody
-//    @PostMapping("/tags")
-//    public String insert(@RequestBody Tags tags){
-//        System.out.println(tags);
-//        tagsRepository.save(tags);
-//        return "ya~~~~";
-
 }
