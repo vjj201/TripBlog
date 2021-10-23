@@ -1,6 +1,10 @@
 package com.java017.tripblog.filter;
 
 import com.java017.tripblog.security.MyFailureHandler;
+import com.java017.tripblog.security.MyUserDetails;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,16 +19,18 @@ import java.io.IOException;
  * @author YuCheng
  * @date 2021/10/19 - 下午 04:41
  */
-public class CaptchaFilter extends OncePerRequestFilter {
+public class BeforeLoginFilter extends OncePerRequestFilter {
     private final MyFailureHandler myFailureHandler = new MyFailureHandler();
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
+        System.out.println("FilterBefore");
         String uri = request.getRequestURI();
         System.out.println("uri = " + uri);
+
+        //登入阻擋，驗證圖形碼
         if (!"/user/login".equals(uri)) {
             //請求不等於登於直接通過
             filterChain.doFilter(request, response);

@@ -41,13 +41,11 @@ public class MailController {
 
         if(result) {
             System.out.println("驗證成功");
-            User user = (User)session.getAttribute("signup");
+            User user = (User)session.getAttribute("user");
 
             User updateUser = userService.findUserById(user.getId());
             updateUser.setMailVerified(true);
             userService.updateUser(updateUser);
-
-            session.removeAttribute("signup");
             return true;
         }else {
             System.out.println("驗證失敗");

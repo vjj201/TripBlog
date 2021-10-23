@@ -20,6 +20,7 @@ public class MySuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        System.out.println("登入完成");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }

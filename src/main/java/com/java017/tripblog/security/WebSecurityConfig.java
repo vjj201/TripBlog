@@ -1,6 +1,8 @@
 package com.java017.tripblog.security;
 
-import com.java017.tripblog.filter.CaptchaFilter;
+import com.java017.tripblog.filter.AfterLoginFilter;
+import com.java017.tripblog.filter.BeforeLoginFilter;
+import org.aspectj.lang.annotation.After;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        System.out.println("帳密驗證");
         auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
@@ -68,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         //防止8080路徑變更
         PortMapperImpl portMapper = new PortMapperImpl();
-        portMapper.setPortMappings(Collections.singletonMap("8080","8080"));
+        portMapper.setPortMappings(Collections.singletonMap("8080", "8080"));
         PortResolverImpl portResolver = new PortResolverImpl();
         portResolver.setPortMapper(portMapper);
         LoginUrlAuthenticationEntryPoint entryPoint = new LoginUrlAuthenticationEntryPoint(
@@ -79,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/*", "/user/signup", "/user/accountCheck/**", "/user/signup-success", "/captcha/**", "/**/*.js", "/**/*.css", "/**/*.svg", "/**/*.png","/**/*.jpg")
+                .antMatchers("/*", "/user/signup", "/user/accountCheck/*", "/user/signup-success**", "/captcha/*", "/**/*.js", "/**/*.css", "/**/*.svg", "/**/*.png", "/**/*.jpg")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -106,11 +109,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60 * 60 * 60 * 24 * 7)
                 .userDetailsService(myUserDetailsService)
+                .key("TripBlog017")
 
                 .and()
                 .csrf()
                 .ignoringAntMatchers("/");
 
-        http.addFilterBefore(new CaptchaFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new BeforeLoginFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new AfterLoginFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     //獲取當前使用者
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
-        return user.getUser();
+        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+        return userDetails.getUser();
     }
 
     //判斷記住帳號
@@ -52,20 +52,7 @@ public class UserServiceImpl implements UserService {
 
     //是否完成信箱驗證
     public boolean isisMailVerified(HttpSession session) {
-        User user = getCurrentUser();
-        User userSession = new User();
-        userSession.setId(user.getId());
-        userSession.setNickname(user.getNickname());
-
-        //是否完成信箱驗證
-        if(user.isMailVerified()) {
-            session.setAttribute("user", userSession);
-            return true;
-        } else {
-            userSession.setEmail(user.getEmail());
-            session.setAttribute("signup", userSession);
-            return false;
-        }
+            return getCurrentUser().isMailVerified();
     }
 
     @Override//創建會員

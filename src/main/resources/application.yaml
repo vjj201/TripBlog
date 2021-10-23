@@ -5,9 +5,15 @@ spring:
     password: j123
     url: jdbc:mysql://localhost:3306/tripblog?serverTimezone=Asia/Taipei&Encoding=utf-8
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
     hibernate:
       ddl-auto: update
     show-sql: true
+  devtools:
+    restart:
+      enabled: true
 
   #Email
   mail:

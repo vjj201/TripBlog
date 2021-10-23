@@ -34,7 +34,7 @@ public class MailServiceImpl implements MailService {
     //寄送驗證信
     @Override
     public void sendSignupMail(HttpSession session) {
-        User user = (User) session.getAttribute("signup");
+        User user = (User) session.getAttribute("user");
         String code = generateVerificationCode(6);
         session.setAttribute("SignupCode", code);
         String content = mailUtils.createMailVerificationContent(user.getNickname(), code);
@@ -55,11 +55,6 @@ public class MailServiceImpl implements MailService {
             System.out.println("驗證碼正確");
             session.removeAttribute("SignupCode");
 
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null){
-                System.out.println("記住帳號信箱驗證處理");
-                auth = null;
-            }
             return true;
         }
         System.out.println("驗證碼錯誤");

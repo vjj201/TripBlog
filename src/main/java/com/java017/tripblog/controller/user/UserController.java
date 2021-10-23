@@ -40,13 +40,7 @@ public class UserController {
     public String loginPage(HttpSession session) {
         //是否記住
         if(userService.isRememberMeUser()) {
-            System.out.println("有記住帳密");
-            //是否完成信箱驗證
-            if(userService.isisMailVerified(session)) {
                 return "redirect:/";
-            } else {
-                return "redirect:/user/signup-success";
-            }
         }
         System.out.println("沒有記住帳密");
         return "user/loginPage";
@@ -140,18 +134,6 @@ public class UserController {
         return "/user/my_notify";
     }
 
-    //登入後判斷狀態
-    @GetMapping("/afterLogin")
-    public String afterLogin(HttpSession session) {
-
-        //是否完成信箱驗證
-        if(userService.isisMailVerified(session)) {
-            return "redirect:/";
-        } else {
-            return "redirect:/user/signup-success";
-        }
-    }
-
     //確認會員帳號是否重複
     @ResponseBody
     @GetMapping("/accountCheck")
@@ -184,7 +166,7 @@ public class UserController {
         userSession.setId(user.getId());
         userSession.setNickname(user.getNickname());
         userSession.setEmail(user.getEmail());
-        session.setAttribute("signup", userSession);
+        session.setAttribute("user", userSession);
 
         return result;
     }
