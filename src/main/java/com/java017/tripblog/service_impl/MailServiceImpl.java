@@ -4,13 +4,8 @@ import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.MailService;
 import com.java017.tripblog.util.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.SecureRandom;
 

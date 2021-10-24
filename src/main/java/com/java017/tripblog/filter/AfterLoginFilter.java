@@ -2,7 +2,7 @@ package com.java017.tripblog.filter;
 
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.security.MyUserDetails;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -22,7 +22,7 @@ public class AfterLoginFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("AfterBefore");
+        System.out.println("AfterFilter");
         String uri = request.getRequestURI();
         System.out.println("uri = " + uri);
 
@@ -30,7 +30,8 @@ public class AfterLoginFilter extends OncePerRequestFilter {
 
         //統一創建登入會話
         if (authentication != null) {
-            if (RememberMeAuthenticationToken.class.isAssignableFrom(authentication.getClass()) || authentication.isAuthenticated()) {
+            if (!AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass()) && authentication.isAuthenticated()) {
+
                 System.out.println("認證用戶");
                 HttpSession session = request.getSession();
 
@@ -42,11 +43,6 @@ public class AfterLoginFilter extends OncePerRequestFilter {
                     userSession.setNickname(userDetails.getNickName());
                     userSession.setEmail(userDetails.getEmail());
                     session.setAttribute("user", userSession);
-                    //信箱驗證檢查
-                    if (!userDetails.isMailVerified()) {
-                        response.sendRedirect("/user/signup-success");
-                        return;
-                    }
                 }
                 System.out.println("已有登入會話");
             }

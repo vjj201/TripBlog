@@ -94,7 +94,7 @@ $(function () {
             data: data,
             statusCode: {
                 200: function () {
-                    document.location.href = "/";
+                    document.location.href = "/user/afterLogin";
                 },
                 202: function () {
                     $('#message').text('驗證碼錯誤');

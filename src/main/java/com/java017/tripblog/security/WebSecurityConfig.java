@@ -2,7 +2,6 @@ package com.java017.tripblog.security;
 
 import com.java017.tripblog.filter.AfterLoginFilter;
 import com.java017.tripblog.filter.BeforeLoginFilter;
-import org.aspectj.lang.annotation.After;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return jdbcTokenRepository;
     }
 
+
     @Autowired
     private UserDetailsService myUserDetailsService;
     @Autowired
@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println("帳密驗證");
+
         auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
     }
 

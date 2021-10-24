@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     //是否完成信箱驗證
-    public boolean isisMailVerified(HttpSession session) {
+    public boolean isMailVerified(HttpSession session) {
             return getCurrentUser().isMailVerified();
     }
 

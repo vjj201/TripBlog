@@ -22,8 +22,13 @@ public class MyFailureHandler implements AuthenticationFailureHandler {
                                         HttpServletResponse response,
                                         AuthenticationException e) throws IOException, ServletException {
 
+        System.out.println("onAuthenticationFailure");
         System.out.println(e.getMessage());
 
+        if (e.getMessage().equals("User is disabled")) {
+            System.out.println("User is disabled");
+            return;
+        }
 
         if (e.getMessage().equals("圖形驗證錯誤")) {
             System.out.println("圖形驗證失敗");
@@ -35,7 +40,6 @@ public class MyFailureHandler implements AuthenticationFailureHandler {
             System.out.println("帳密錯誤");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
-
 
     }
 }

@@ -18,7 +18,7 @@ public interface UserService {
     boolean isRememberMeUser();
 
     //是否完成信箱驗證
-    boolean isisMailVerified(HttpSession session);
+    boolean isMailVerified(HttpSession session);
 
     //創建會員
     boolean createUser(User user);

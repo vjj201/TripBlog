@@ -65,7 +65,9 @@ public class MyUserDetails implements UserDetails {
         return true;
     }
 
-    public boolean isMailVerified() {return user.isMailVerified();}
+    public boolean isMailVerified() {
+        return user.isMailVerified();
+    }
 
     public User getUser() {
         return user;

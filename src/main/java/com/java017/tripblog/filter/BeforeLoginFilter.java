@@ -1,10 +1,6 @@
 package com.java017.tripblog.filter;
 
 import com.java017.tripblog.security.MyFailureHandler;
-import com.java017.tripblog.security.MyUserDetails;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -26,7 +22,7 @@ public class BeforeLoginFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("FilterBefore");
+        System.out.println("BeforeFilter");
         String uri = request.getRequestURI();
         System.out.println("uri = " + uri);
 
