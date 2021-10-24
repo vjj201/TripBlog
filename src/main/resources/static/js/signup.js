@@ -94,6 +94,7 @@ $(function () {
                     $('#username').addClass('border border-1 border border-danger');
                     $('#submitButton').addClass('disabled');
                     $('#message').text('帳號已存在，請重新輸入');
+                    
                 } else {
                     $('#username').removeClass('border border-1 border border-danger');
                     $('#submitButton').removeClass('disabled');

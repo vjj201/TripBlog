@@ -77,4 +77,17 @@ public class Article {
     public void setTextEditor(String textEditor) {
         this.textEditor = textEditor;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", subjectCategory='" + subjectCategory + '\'' +
+                ", selectRegion='" + selectRegion + '\'' +
+                ", enterAddress='" + enterAddress + '\'' +
+                ", articleTitle='" + articleTitle + '\'' +
+                ", textEditor='" + textEditor + '\'' +
+                ", free_tag='" + free_tag + '\'' +
+                '}';
+    }
 }

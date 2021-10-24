@@ -6,6 +6,8 @@ import com.java017.tripblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -27,4 +29,10 @@ public class ArticleServiceImpl implements ArticleService {
 
         return "新增成功";
     }
+
+    @Override
+    public ArrayList<Article> findByEnterAddress(String address) {
+        return articleRepository.findByEnterAddress(address);
+    }
 }
+
