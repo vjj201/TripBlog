@@ -33,6 +33,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArrayList<Article> findByEnterAddress(String address) {
         return articleRepository.findByEnterAddress(address);
+
+
     }
 }
 

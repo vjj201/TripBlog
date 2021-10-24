@@ -13,6 +13,12 @@
   <meta name="description" content="Map">
   <meta name="robots" content="index,follow">
   <meta name="author" content="Johnny">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../static/css/all_css.css" th:href="@{/css/all_css.css}">
 
@@ -90,6 +96,8 @@
 </head>
 
 <body class="bg-milkyellow">
+
+
 
 <!-- 總導覽列 -->
     <nav th:replace="fragments :: nav(3)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
@@ -176,15 +184,13 @@
         <div class="mapbox d-flex d-md-flex flex-wrap">
         <!-- 地圖 -->
         <div class="googlemap col-sm-12 col-md-8 col-8 px-2 ps-0 ms-0 map-pack ">
-          <iframe class="w-100 h-100"
-                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY
-                            &q=行天宮">
-           height="300" style="border:0;"
-                  allowfullscreen=""
-                  loading="lazy">
-          </iframe>
+          <div id="map" style="height: 400px; width: 100%;"></div>
+          <script
+                  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&callback=initMap&libraries=&v=weekly"
+                  async
+          ></script>
         </div>
-      
+
         <!-- 搜尋&搜尋結果 -->
         <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="container-fluid">
