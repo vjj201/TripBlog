@@ -17,7 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="../../static/js/newarticle.js" th:src="@{/js/newarticle.js}"></script>
-<script src="../../static/js/new_article_tag.js" th:src="@{/js/new_article_tag.js}"></script>
+<!--<script src="../../static/js/new_article_tag.js" th:src="@{/js/new_article_tag.js}"></script>-->
 <!--    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>-->
 
 
@@ -164,6 +164,7 @@
                         <option value="新北市">新北市</option>
                     </select>
                 </div>
+<!--                輸入地址-->
                 <div class="col-12 col-md-6 mb-2">
                     <input id="enteraddress" class="form-control border-2 border-bl03 bg-gr0200 rounded-pill" placeholder="輸入地址"
                         type="text">
@@ -290,8 +291,14 @@
             <!----- 地圖 ----->
             <div class="row">
                 <div class="col">
-                    <iframe src="https://maps.google.com?output=embed&amp;q=北科大光華館" frameborder="" width="100%"
-                        height="300px">
+                    <iframe
+                            width="600"
+                            height="450"
+                            style="border:0"
+                            loading="lazy"
+                            allowfullscreen
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY
+                            &q=行天宮">
                     </iframe>
                 </div>
             </div>

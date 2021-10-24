@@ -8,6 +8,11 @@ $(function() {
         xhr.setRequestHeader(header, token);
     });
 
+    $("#enteraddress").mouseleave(function(){
+    $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q="+ $("#enteraddress").val());
+
+});
+
     //-------------------------顯示資料庫裏面的標籤------------------
     $.ajax({
         url: "/user/findtags",
