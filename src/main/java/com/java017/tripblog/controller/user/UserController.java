@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.sql.Blob;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -270,38 +271,38 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         Intro intro = userService.findUserById(user.getId()).getIntro();
 
-        intro.setBannerPic(fileB64.split(",")[1]);
-        intro.setBannerContent(fileB64.split(",")[0]);
+//        intro.setBannerPic(fileB64.split(",")[1]);
+//        intro.setBannerContent(fileB64.split(",")[0]);
 
 //        //base64 to Blob
-//        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
+        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
 //
-//        String fileDirec =
-//                "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/"
-//                        + user.getId() + "/IntroBanner";
-//        String fileName = UUID.randomUUID().toString().replaceAll("-", "");
-//        System.out.println(fileDirec);
-//        File dir = new File(fileDirec);
-//        if(!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//
-//        File file = new File(fileDirec, fileName);
-//
-//        // Write the image bytes to file.
-//        try {
-//            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-//            file.createNewFile();
-//            int count = decodedByte.length;
-//            bos.write(decodedByte, 0, count);
-//            bos.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        String fileDirec =
+                "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/"
+                        + user.getId() + "/IntroBanner";
+        String fileName = UUID.randomUUID().toString().replaceAll("-", "");
+        System.out.println(fileDirec);
+        File dir = new File(fileDirec);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
 
-//        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
-//        System.out.println(filePath);
-//        intro.setBannerPic(filePath);
+        File file = new File(fileDirec, fileName);
+
+        // Write the image bytes to file.
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            file.createNewFile();
+            int count = decodedByte.length;
+            bos.write(decodedByte, 0, count);
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
+        System.out.println(filePath);
+        intro.setBannerPic(filePath);
         return userService.updateIntro(intro) != null;
     }
 }
