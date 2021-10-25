@@ -1,27 +1,24 @@
 
+//----------------------------------------------------
+// The location of Uluru
+let map;
+let markers = [];
+function initMap() {
+    console.log("執行init");
+    let uluru = {lat: -25.344, lng: 131.036};
+
+// The map, centered at Uluru
+        map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 4,
+        center: uluru,
+    });
+}
+
+
+//----------------------------------------------------
 $(function() {
-    let position = [];
-
-//----------------------------------------------------
-        // The location of Uluru
-        const uluru = { lat: -25.344, lng: 131.036 };
-        const entertheadress = {lat: position.lat , lng: position.lng}
-        // The map, centered at Uluru
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 4,
-            center: uluru,
-        });
-        // The marker, positioned at Uluru
-
-    function Marker(enterPosition){
-        const marker = new google.maps.Marker({
-            position: enterPosition,
-            map: map,
-        });
-    }
 
 
-//----------------------------------------------------
     $('#btsearch').click(function (e) {
 
         e.preventDefault();
@@ -43,13 +40,12 @@ $(function() {
          //       article['enterAddress'] = response[0].address;
                 for(let article of response){
                     let enteradress = article.enterAddress;
+                    geocode(enteradress);
 
-                    console.log(geocode(enteradress));
-                    console.log("外面"+position);
-                    Marker(entertheadress);
-                    console.log("有成功嗎?"+entertheadress.lat);
+
+   //                 console.log("外面"+changeposition.lat);
+
                 }
-
 
                 }
 
@@ -62,7 +58,7 @@ $(function() {
 
 //將輸入的地址轉換成經緯度
     function geocode(enteradress){
-        var location = enteradress;
+        let location = enteradress;
         axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
             params:{
                 address:location,
@@ -70,14 +66,49 @@ $(function() {
             }
         })
             .then(function (response){
-             console.log(response);
-             position = response.data.results[0].geometry.location;
-             console.log("裡面"+ position.lat);
 
-    //        var formattedAddress = response.data.result[0].formatted_address;
-    //        var formattedAddressOutPut = `
-     //          <ul class="list-group">
-  ////          `;
+                let changeposition = {};
+                let A;
+                let B;
+                let position;
+             console.log(response);
+             changeposition = response.data.results[0].geometry.location;
+             console.log("changeposition"+ changeposition);
+             console.log("裡面"+ changeposition.lat);
+                 A = changeposition.lat;
+                 B = changeposition.lng;
+                position = {lat: A, lng: B};
+                console.log(position.lat);
+                console.log("A"+A);
+                console.log("B"+B);
+//--------------------------------------------------------------
+                function initMap() {
+                    console.log("執行init");
+                    let uluru = {lat: position.lat, lng: position.lng};
+// The map, centered at Uluru
+                    map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 15,
+                        center: uluru,
+                    });
+                }
+
+ //----------------------------------------------------------------------
+                initMap();
+                Marker();
+
+                function Marker() {
+                    console.log("有執行MAKER");
+                    console.log("裡面lat: "+ position.lat)
+                    markers = new google.maps.Marker({
+                        position: {
+                            lat:position.lat,
+                            lng:position.lng
+                        },
+                        map: map,
+                    });
+                    console.log("執行完marker");
+
+                }
 
             })
             .catch(function (error){
