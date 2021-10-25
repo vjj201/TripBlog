@@ -3,6 +3,7 @@ package com.java017.tripblog.controller.user;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.UserService;
+import com.java017.tripblog.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -93,6 +94,7 @@ public class UserController {
             String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
             intro.setIntroContent(textarea);
         }
+
         model.addAttribute("intro", intro);
 
         return "/user/my_space";
@@ -274,20 +276,18 @@ public class UserController {
 //        intro.setBannerPic(fileB64.split(",")[1]);
 //        intro.setBannerContent(fileB64.split(",")[0]);
 
-//        //base64 to Blob
+        //base64 to Blob
         byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
-//
+
         String fileDirec =
                 "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/"
-                        + user.getId() + "/IntroBanner";
-        String fileName = UUID.randomUUID().toString().replaceAll("-", "");
-        System.out.println(fileDirec);
+                        + user.getId();
         File dir = new File(fileDirec);
         if(!dir.exists()) {
             dir.mkdirs();
         }
 
-        File file = new File(fileDirec, fileName);
+        File file = new File(fileDirec, "IntroBanner");
 
         // Write the image bytes to file.
         try {
@@ -300,7 +300,7 @@ public class UserController {
             e.printStackTrace();
         }
 
-        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
+        String filePath = fileDirec.split("/resources/static")[1] + "/" + "IntroBanner";
         System.out.println(filePath);
         intro.setBannerPic(filePath);
         return userService.updateIntro(intro) != null;
