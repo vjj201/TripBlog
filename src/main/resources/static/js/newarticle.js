@@ -43,7 +43,7 @@ $(function() {
 //------------------------------------------------------------------------------------
 
     });
-
+//-----------經緯度轉換------------------------------------------------------------
     function geocode(enteradress){
         let location = enteradress;
         axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
@@ -58,17 +58,17 @@ $(function() {
                 let A;
                 let B;
                 let position;
-                console.log(response);
+                // console.log(response);
                 changeposition = response.data.results[0].geometry.location;
-                console.log("changeposition" + changeposition);
-                console.log("裡面" + changeposition.lat);
+                // console.log("changeposition" + changeposition);
+                // console.log("裡面" + changeposition.lat);
                 A = changeposition.lat;
                 B = changeposition.lng;
                 position = {lat: A, lng: B};
-                console.log(position.lat);
-                console.log("A" + A);
-                console.log("B" + B);
-                console.log("方法裡面的chposition" + chposition.lat);
+                // console.log(position.lat);
+                // console.log("A" + A);
+                // console.log("B" + B);
+                // console.log("方法裡面的chposition" + chposition.lat);
                 let subjectcategory = $('#subjectcategory').val();
                 let enterAddressName = $('#enteraddress').val();
                 let enterAddressLat = position.lat;

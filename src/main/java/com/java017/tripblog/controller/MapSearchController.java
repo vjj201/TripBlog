@@ -26,7 +26,7 @@ public class MapSearchController {
 
      //   Article article = articleRepository.findByEnterAddress(enterAddress);
         ArrayList<Article> list;
-        list = articleRepository.findByEnterAddressName(enterAddressName);
+        list = articleRepository.findByEnterAddressNameLike(enterAddressName);
         System.out.println(list);
         return list;
     };

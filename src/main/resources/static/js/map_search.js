@@ -8,11 +8,11 @@ let enterAddressLng;
 //-----------------------------------------------------------------------
 function initMap() {
     console.log("執行init");
-    let uluru = {lat: -25.344, lng: 131.036};
+    let uluru = {lat: 23.4598797, lng: 120.1445705};
 
 // The map, centered at Uluru
         map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 4,
+        zoom: 8,
         center: uluru,
     });
 }
@@ -61,7 +61,6 @@ $(function() {
                 for (let article of response) {
                      enterAddressLat = article.enterAddressLat;
                      enterAddressLng = article.enterAddressLng;
-                    initChangeMap();
                     Marker();
                 }
             }
