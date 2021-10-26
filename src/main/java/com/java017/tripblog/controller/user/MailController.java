@@ -20,6 +20,7 @@ import java.util.Date;
 @RestController
 public class MailController {
 
+    private final int maxResetCountPerDay = 3;
 
     private final MailService mailService;
     private final UserService userService;
@@ -68,23 +69,31 @@ public class MailController {
             return;
         }
 
-        String UUID = mailService.createUUID();
-        String link = mailService.generateTokenLink(request, UUID);
-        System.out.println("ResetLink:" + link);
-
         //存入token
         PasswordResetToken passwordResetToken = passwordResetTokenService.findByUser(user);
 
         if (passwordResetToken == null) {
             passwordResetToken = new PasswordResetToken();
+            passwordResetToken.setExpiryDate(new Date());
+        }
+
+        long time = passwordResetToken.getExpiryDate().getTime();
+        long now = new Date().getTime();
+
+        //重設當天發送上限
+        if ( now - time > 24 * 60 * 60 * 1000) {
             passwordResetToken.setResetCount(0);
         }
 
         int resetCount = passwordResetToken.getResetCount();
-        if(resetCount >= 3) {
-            System.out.println("超過當天發送次數");
+        if (resetCount >= maxResetCountPerDay) {
+            System.out.println("超過當天發送次數" + maxResetCountPerDay);
             return;
         }
+
+        String UUID = mailService.createUUID();
+        String link = mailService.generateTokenLink(request, UUID);
+        System.out.println("ResetLink:" + link);
 
         passwordResetToken.setToken(UUID);
         passwordResetToken.setUser(user);
@@ -94,5 +103,18 @@ public class MailController {
 
         //發送信件
         mailService.sendPasswordResetMail(user.getEmail(), user.getNickname(), link);
+    }
+
+    //驗證信件Token
+    @GetMapping("/passwordReset")
+    public void passwordReset(@RequestParam String token) {
+        PasswordResetToken passwordResetToken = passwordResetTokenService.findByTokenAndExpiryDate(token, new Date());
+        if (passwordResetToken == null) {
+            System.out.println("找不到憑證:" + token);
+            return;
+        }
+
+        passwordResetToken.setToken(null);
+        passwordResetTokenService.createOrUpdateToken(passwordResetToken);
     }
 }

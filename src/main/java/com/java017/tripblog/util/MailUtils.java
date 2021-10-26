@@ -57,7 +57,7 @@ public class MailUtils {
                 + "<p style=\"font-size: 14px\">Dear : " + userNickname + "</p>"
                 + "<p style=\"font-size: 14px\">請點擊下方連結重新設定您的密碼</p>"
                 + "<p style=\"font-size: 16px\">"
-                + "<a href=\"https://localhost:8080/" + link + "\">"
+                + "<a href=\"https://localhost:8080" + link + "\">"
                 + "密碼重設</a>"
                 + "</p>"
                 + "<br>"
