@@ -81,6 +81,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Override//信箱查詢會員資料
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     @Override//修改會員資料
     public User updateUser(User user) {
         return userRepository.save(user);

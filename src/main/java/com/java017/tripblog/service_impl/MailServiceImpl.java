@@ -1,13 +1,17 @@
 package com.java017.tripblog.service_impl;
 
+import com.java017.tripblog.entity.PasswordResetToken;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.MailService;
+import com.java017.tripblog.service.PasswordResetTokenService;
 import com.java017.tripblog.util.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.SecureRandom;
+import java.util.UUID;
 
 /**
  * @author YuCheng
@@ -18,11 +22,12 @@ import java.security.SecureRandom;
 public class MailServiceImpl implements MailService {
 
     private final String SIGNUP = "TripBlog SignUp";
+    private final String RestPassword = "TripBlog RestPassword";
     private final String SYMBOL = "0123456789";
     private final MailUtils mailUtils;
 
     @Autowired
-    public MailServiceImpl(MailUtils mailUtils) {
+    public MailServiceImpl(MailUtils mailUtils, PasswordResetTokenService passwordResetTokenService) {
         this.mailUtils = mailUtils;
     }
 
@@ -39,14 +44,14 @@ public class MailServiceImpl implements MailService {
     //驗證確認
     @Override
     public boolean verifySignupCode(String code, HttpSession session) {
-        String signupCode = (String)session.getAttribute("SignupCode");
+        String signupCode = (String) session.getAttribute("SignupCode");
 
-        if(signupCode == null) {
+        if (signupCode == null) {
             System.out.println("驗證失效");
             return false;
         }
 
-        if(code.equals(signupCode)) {
+        if (code.equals(signupCode)) {
             System.out.println("驗證碼正確");
             session.removeAttribute("SignupCode");
 
@@ -72,5 +77,27 @@ public class MailServiceImpl implements MailService {
         String code = String.valueOf(chars);
         System.out.println("驗證碼:" + code);
         return code;
+    }
+
+    //寄送重設密碼信
+    @Override
+    public void sendPasswordResetMail(String email, String nickname,String link) {
+        //創建信件
+        String content = mailUtils.createMailResetPasswordContent(nickname, link);
+        mailUtils.sendHtmlMail(email, RestPassword, content);
+    }
+
+    //產生UUID Token link
+    @Override
+    public String createUUID() {
+        return UUID.randomUUID().toString();
+    }
+
+    //產生UUID Token link
+    @Override
+    public String generateTokenLink(HttpServletRequest request, String UUID) {
+        return request.getRequestURI().replace(request.getServletPath(), "")
+                + "/passwordReset?token="
+                + UUID;
     }
 }

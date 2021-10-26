@@ -29,6 +29,9 @@ public interface UserService {
     //編號查詢會員資料
     User findUserById(Long id);
 
+    //信箱查詢會員資料
+    User findUserByEmail(String email);
+
     //修改會員資料
     User updateUser(User user);
 

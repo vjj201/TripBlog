@@ -48,6 +48,25 @@ public class MailUtils {
                 + "</html>";
     }
 
+    //重設密碼信件格式
+    public String createMailResetPasswordContent(String userNickname, String link) {
+        return "<html lang=\"utf-8\">"
+                + "<body>"
+                + "<h1>TripBlog 密碼重設信件</h1>"
+                + "<div>"
+                + "<p style=\"font-size: 14px\">Dear : " + userNickname + "</p>"
+                + "<p style=\"font-size: 14px\">請點擊下方連結重新設定您的密碼</p>"
+                + "<p style=\"font-size: 16px\">"
+                + "<a href=\"https://localhost:8080/" + link + "\">"
+                + "密碼重設</a>"
+                + "</p>"
+                + "<br>"
+                + "<p style=\"color: red;font-size: 12px\">請於當天內完成重設</p>"
+                + "</div>"
+                + "</body>"
+                + "</html>";
+    }
+
     //一般文件
     public void sendSimpleMail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
