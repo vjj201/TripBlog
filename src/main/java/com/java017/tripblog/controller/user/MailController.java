@@ -6,6 +6,7 @@ import com.java017.tripblog.service.MailService;
 import com.java017.tripblog.service.PasswordResetTokenService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ import java.util.Date;
  * @date 2021/10/12 - 上午 02:03
  */
 
-@RestController
+@Controller
 public class MailController {
 
     private final int maxResetCountPerDay = 3;
@@ -61,12 +62,24 @@ public class MailController {
     }
 
     //發送重設密碼信件
-    @GetMapping("/sendPasswordResetMail")
-    public void sendPasswordResetMail(@RequestParam String email, HttpServletRequest request) {
+    @PostMapping("/sendPasswordResetMail")
+    @ResponseBody
+    public String sendPasswordResetMail(@RequestParam String email,
+                                      @RequestParam String imageCode,
+                                      HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String captcha = (String)session.getAttribute("captcha");
+        session.removeAttribute("captcha");
+        if(captcha == null || !captcha.equalsIgnoreCase(imageCode)) {
+            System.out.println("code:" + captcha + "/" + imageCode);
+            return "{\"result\" : \"驗證碼錯誤\"}";
+        }
+
+
         User user = userService.findUserByEmail(email);
         if (user == null) {
             System.out.println("未找到重設密碼的用戶");
-            return;
+            return "{\"result\" : \"信箱錯誤\"}";
         }
 
         //存入token
@@ -81,14 +94,14 @@ public class MailController {
         long now = new Date().getTime();
 
         //重設當天發送上限
-        if ( now - time > 24 * 60 * 60 * 1000) {
+        if (now - time > 24 * 60 * 60 * 1000) {
             passwordResetToken.setResetCount(0);
         }
 
         int resetCount = passwordResetToken.getResetCount();
         if (resetCount >= maxResetCountPerDay) {
-            System.out.println("超過當天發送次數" + maxResetCountPerDay);
-            return;
+            System.out.println("超過當日發送次數" + maxResetCountPerDay);
+            return "{\"result\" : \"已超過當日發送次數\"}";
         }
 
         String UUID = mailService.createUUID();
@@ -103,6 +116,7 @@ public class MailController {
 
         //發送信件
         mailService.sendPasswordResetMail(user.getEmail(), user.getNickname(), link);
+        return "{\"result\" : \"信件已發送，請至信箱查看\"}";
     }
 
     //驗證信件Token
@@ -116,5 +130,11 @@ public class MailController {
 
         passwordResetToken.setToken(null);
         passwordResetTokenService.createOrUpdateToken(passwordResetToken);
+    }
+
+    //忘記密碼頁面
+    @GetMapping("/forgotPassword")
+    public String forgotPassword() {
+        return "forgot_password";
     }
 }
