@@ -43,7 +43,7 @@ $(function () {
         e.preventDefault();
 
         let password = $('#password').val();
-        let pass = /^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/;
+        let pass = /^(?=.*\d)(?=.*[a-zA-Z]).{6,36}$/;
 
         if (password.trim().length < 1 || !pass.test(password)) {
             $('#login').addClass('disabled');

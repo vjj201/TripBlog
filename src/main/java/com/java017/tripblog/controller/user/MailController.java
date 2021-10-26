@@ -6,7 +6,9 @@ import com.java017.tripblog.service.MailService;
 import com.java017.tripblog.service.PasswordResetTokenService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,16 +28,22 @@ public class MailController {
     private final MailService mailService;
     private final UserService userService;
     private final PasswordResetTokenService passwordResetTokenService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MailController(MailService mailService, UserService userService, PasswordResetTokenService passwordResetTokenService) {
+    public MailController(MailService mailService,
+                          UserService userService,
+                          PasswordResetTokenService passwordResetTokenService,
+                          PasswordEncoder passwordEncoder ) {
         this.mailService = mailService;
         this.userService = userService;
         this.passwordResetTokenService = passwordResetTokenService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     //發送註冊驗證信件
     @GetMapping("/sendSignupMail")
+    @ResponseBody
     public void sendSignUpMail(HttpSession session) {
         mailService.sendSignupMail(session);
         System.out.println("發送信件");
@@ -43,6 +51,7 @@ public class MailController {
 
     //驗證註冊信件
     @PostMapping("/checkSignupMail")
+    @ResponseBody
     public boolean checkSignUpMail(@RequestParam String code, HttpSession session) {
         System.out.println("使用者輸入的驗證:" + code);
         boolean result = mailService.verifySignupCode(code, session);
@@ -65,12 +74,12 @@ public class MailController {
     @PostMapping("/sendPasswordResetMail")
     @ResponseBody
     public String sendPasswordResetMail(@RequestParam String email,
-                                      @RequestParam String imageCode,
-                                      HttpServletRequest request) {
+                                        @RequestParam String imageCode,
+                                        HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String captcha = (String)session.getAttribute("captcha");
+        String captcha = (String) session.getAttribute("captcha");
         session.removeAttribute("captcha");
-        if(captcha == null || !captcha.equalsIgnoreCase(imageCode)) {
+        if (captcha == null || !captcha.equalsIgnoreCase(imageCode)) {
             System.out.println("code:" + captcha + "/" + imageCode);
             return "{\"result\" : \"驗證碼錯誤\"}";
         }
@@ -119,17 +128,26 @@ public class MailController {
         return "{\"result\" : \"信件已發送，請至信箱查看\"}";
     }
 
-    //驗證信件Token
+    //驗證信件Token，跳轉密碼更改頁
     @GetMapping("/passwordReset")
-    public void passwordReset(@RequestParam String token) {
+    public String passwordReset(@RequestParam String token, Model model) {
         PasswordResetToken passwordResetToken = passwordResetTokenService.findByTokenAndExpiryDate(token, new Date());
         if (passwordResetToken == null) {
             System.out.println("找不到憑證:" + token);
-            return;
+            return "forgot_password_reset";
         }
 
+        //重設密碼
+        String newPassword = mailService.createUUID();
+        User user = passwordResetToken.getUser();
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        passwordResetToken.setUser(user);
         passwordResetToken.setToken(null);
         passwordResetTokenService.createOrUpdateToken(passwordResetToken);
+
+        model.addAttribute("reset", newPassword);
+        return "forgot_password_reset";
     }
 
     //忘記密碼頁面
