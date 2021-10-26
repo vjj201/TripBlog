@@ -10,6 +10,6 @@ import java.util.ArrayList;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article,Integer> {
 
-     ArrayList<Article> findByEnterAddress(String address);
+     ArrayList<Article> findByEnterAddressName(String address);
 }
 

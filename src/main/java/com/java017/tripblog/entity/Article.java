@@ -14,7 +14,11 @@ public class Article {
 
     String selectRegion;
 
-    String enterAddress;
+    String enterAddressName;
+
+    Double enterAddressLng;
+
+    Double enterAddressLat;
 
     String articleTitle;
 
@@ -22,28 +26,12 @@ public class Article {
 
     String free_tag;
 
-    public String getFree_tag() {
-        return free_tag;
-    }
-
-    public void setFree_tag(String free_tag) {
-        this.free_tag = free_tag;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getArticleTitle() {
-        return articleTitle;
-    }
-
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
     }
 
     public String getSubjectCategory() {
@@ -62,12 +50,36 @@ public class Article {
         this.selectRegion = selectRegion;
     }
 
-    public String getEnterAddress() {
-        return enterAddress;
+    public String getEnterAddressName() {
+        return enterAddressName;
     }
 
-    public void setEnterAddress(String enterAddress) {
-        this.enterAddress = enterAddress;
+    public void setEnterAddressName(String enterAddressName) {
+        this.enterAddressName = enterAddressName;
+    }
+
+    public Double getEnterAddressLng() {
+        return enterAddressLng;
+    }
+
+    public void setEnterAddressLng(Double enterAddressLng) {
+        this.enterAddressLng = enterAddressLng;
+    }
+
+    public Double getEnterAddressLat() {
+        return enterAddressLat;
+    }
+
+    public void setEnterAddressLat(Double enterAddressLat) {
+        this.enterAddressLat = enterAddressLat;
+    }
+
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 
     public String getTextEditor() {
@@ -78,13 +90,23 @@ public class Article {
         this.textEditor = textEditor;
     }
 
+    public String getFree_tag() {
+        return free_tag;
+    }
+
+    public void setFree_tag(String free_tag) {
+        this.free_tag = free_tag;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
                 "id=" + id +
                 ", subjectCategory='" + subjectCategory + '\'' +
                 ", selectRegion='" + selectRegion + '\'' +
-                ", enterAddress='" + enterAddress + '\'' +
+                ", enterAddressName='" + enterAddressName + '\'' +
+                ", enterAddressLng=" + enterAddressLng +
+                ", enterAddressLat=" + enterAddressLat +
                 ", articleTitle='" + articleTitle + '\'' +
                 ", textEditor='" + textEditor + '\'' +
                 ", free_tag='" + free_tag + '\'' +

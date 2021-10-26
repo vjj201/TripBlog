@@ -8,18 +8,12 @@ public class ArticleParam  {
     Integer id;
     String subjectCategory;
     String selectRegion;
-    String enterAddress;
+    String enterAddressName;
+    Double enterAddressLng;
+    Double enterAddressLat;
     String articleTitle;
     String textEditor;
     String[] free_Tags;
-
-    public String[] getFree_Tags() {
-        return free_Tags;
-    }
-
-    public void setFree_Tags(String[] freeTag) {
-        this.free_Tags = freeTag;
-    }
 
     public Integer getId() {
         return id;
@@ -27,14 +21,6 @@ public class ArticleParam  {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getArticleTitle() {
-        return articleTitle;
-    }
-
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
     }
 
     public String getSubjectCategory() {
@@ -53,12 +39,36 @@ public class ArticleParam  {
         this.selectRegion = selectRegion;
     }
 
-    public String getEnterAddress() {
-        return enterAddress;
+    public String getEnterAddressName() {
+        return enterAddressName;
     }
 
-    public void setEnterAddress(String enterAddress) {
-        this.enterAddress = enterAddress;
+    public void setEnterAddressName(String enterAddressName) {
+        this.enterAddressName = enterAddressName;
+    }
+
+    public Double getEnterAddressLng() {
+        return enterAddressLng;
+    }
+
+    public void setEnterAddressLng(Double enterAddressLng) {
+        this.enterAddressLng = enterAddressLng;
+    }
+
+    public Double getEnterAddressLat() {
+        return enterAddressLat;
+    }
+
+    public void setEnterAddressLat(Double enterAddressLat) {
+        this.enterAddressLat = enterAddressLat;
+    }
+
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 
     public String getTextEditor() {
@@ -69,5 +79,11 @@ public class ArticleParam  {
         this.textEditor = textEditor;
     }
 
+    public String[] getFree_Tags() {
+        return free_Tags;
+    }
 
+    public void setFree_Tags(String[] free_Tags) {
+        this.free_Tags = free_Tags;
+    }
 }

@@ -8,6 +8,6 @@ public interface ArticleService {
 
     String insertArticle(Article article);
 
-    ArrayList<Article> findByEnterAddress(String address);
+    ArrayList<Article> findByEnterAddressName(String address);
 
 }

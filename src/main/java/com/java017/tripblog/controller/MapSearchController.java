@@ -22,11 +22,11 @@ public class MapSearchController {
 
     @ResponseBody
     @GetMapping("/findByAddress")
-    public ArrayList<Article> findByAddress(@RequestParam String enterAddress) {
+    public ArrayList<Article> findByAddress(@RequestParam String enterAddressName) {
 
      //   Article article = articleRepository.findByEnterAddress(enterAddress);
         ArrayList<Article> list;
-        list = articleRepository.findByEnterAddress(enterAddress);
+        list = articleRepository.findByEnterAddressName(enterAddressName);
         System.out.println(list);
         return list;
     };

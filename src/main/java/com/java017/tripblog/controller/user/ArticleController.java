@@ -57,7 +57,9 @@ public class ArticleController {
         String tag = String.join(",", articleParam.getFree_Tags());
         article.setFree_tag(tag);
         article.setArticleTitle(articleParam.getArticleTitle());
-        article.setEnterAddress(articleParam.getEnterAddress());
+        article.setEnterAddressName(articleParam.getEnterAddressName());
+        article.setEnterAddressLng(articleParam.getEnterAddressLng());
+        article.setEnterAddressLat(articleParam.getEnterAddressLat());
         article.setSelectRegion(articleParam.getSelectRegion());
         article.setTextEditor(articleParam.getTextEditor());
         article.setSubjectCategory(articleParam.getSubjectCategory());

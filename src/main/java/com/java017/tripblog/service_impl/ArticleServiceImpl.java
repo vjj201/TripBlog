@@ -31,8 +31,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArrayList<Article> findByEnterAddress(String address) {
-        return articleRepository.findByEnterAddress(address);
+    public ArrayList<Article> findByEnterAddressName(String address) {
+        return articleRepository.findByEnterAddressName(address);
 
 
     }
