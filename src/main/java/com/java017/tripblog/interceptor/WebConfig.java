@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -25,6 +26,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
        registry.addInterceptor(loginInterceptor).
-               addPathPatterns("////");
+               addPathPatterns("");
     }
+
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        //添加映射
+//        registry.addResourceHandler("/images/**").addResourceLocations("C:/Users/johnn/OneDrive/Documents/back_end/TripBlog/TripBlog/src/main/resources/static/images/");
+//    }
 }

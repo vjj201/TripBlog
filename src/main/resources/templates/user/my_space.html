@@ -16,6 +16,9 @@
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- croppie.js -->
+    <script src="https://cdn.bootcss.com/croppie/2.6.2/croppie.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css" rel="stylesheet"></link>
     <!-- js -->
     <script src="../../static/js/intro.js" th:src="@{/js/intro.js}"></script>
     <style>
@@ -33,7 +36,7 @@
             position: relative;
             width: 9vw;
         }
-    
+
         .mask{
             position: absolute;
             top: 12vh;
@@ -42,17 +45,17 @@
             background: #c9c5c5;
             border-radius: 40vw;
             padding:  5px;
-        
+
             /* color: #5c3a3a; */
             opacity: 0;
 
-           
+
         }
         .memberpic:hover .mask{
             opacity: 1;
         }
 
-    
+
 
     </style>
 </head>
@@ -145,8 +148,8 @@
 <!-- 首頁背景圖 cover photo -->
 <div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px;">
     <img th:if="${intro.bannerPic == null}" id="mySpaceBannerImg" src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
-    <img th:if="${intro.bannerPic != null}" th:src="*{intro.bannerContent + ',' + intro.bannerPic}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">
-<!--    <img th:if="${intro.bannerPic != null}" th:src="@{${intro.bannerPic}}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">-->
+    <!-- <img th:if="${intro.bannerPic != null}" th:src="*{intro.bannerContent + ',' + intro.bannerPic}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo"> -->
+    <img th:if="${intro.bannerPic != null}" th:src="@{${intro.bannerPic}}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">
 </div>
 <!-- 首頁背景圖 cover photo 結束-->
 
@@ -272,9 +275,9 @@
 
                             <!-- Modal -->
                             <!-- 上傳背景圖視窗 -->
-                            <div class="modal fade" id="uploadBannerModal" tabindex="-1"
+                            <div class="modal fade me-1" id="uploadBannerModal" tabindex="-1"
                                  aria-labelledby="uploadBannerModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-fullscreen">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="uploadBannerModal">上傳MySpace橫幅背景圖</h5>
@@ -284,9 +287,11 @@
                                         <div class="modal-body">
                                             <!-- 視窗內容 -->
                                             <div class="mb-3">
-                                                <label for="mySpaceBannerImg"
-                                                       class="form-label">上傳MySpace橫幅背景圖，圖片長寬建議為1200x400</label>
-                                                <input class="form-control" type="file" id="uploadBannerFile">
+                                                <label for="mySpaceBannerImg" class="form-label">圖片長寬建議為1200x400</label>
+                                                <input class="form-control" type="file" id="uploadBannerFile" accept="image/*" onchange="readFile(this)" targetID="main-cropper">
+                                                <!-- 預覽封面圖的欄位 -->
+                                                <div class="row mt-2" id="main-cropper" style="display: none;">
+                                                </div>
                                             </div>
                                             <!-- 視窗內容 結束-->
                                         </div>
@@ -419,7 +424,6 @@
     </div>
 </div>
 <!-- 追蹤聯絡我 結束-->
-
 <!-- 尾頁 -->
 <footer class="bg-light py-5">
     <div class="container px-4 px-lg-5 py-2">

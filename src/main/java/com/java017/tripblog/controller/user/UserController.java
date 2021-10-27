@@ -2,7 +2,6 @@ package com.java017.tripblog.controller.user;
 
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
-import com.java017.tripblog.service.IntroService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 
 
 /**
@@ -22,12 +26,11 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     private final UserService userService;
-    private final IntroService introService;
+
 
     @Autowired
-    public UserController(UserService userService, IntroService introService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.introService = introService;
     }
 
     //跳轉登入畫面
@@ -226,7 +229,7 @@ public class UserController {
         if (!"".equals(introUpdate.getIntroContent())) {
             intro.setIntroContent(introUpdate.getIntroContent());
         }
-        return introService.editIntro(intro) != null;
+        return userService.updateIntro(intro) != null;
     }
 
     //更新會員自我介紹Link
@@ -253,7 +256,7 @@ public class UserController {
         if (!"".equals(introUpdate.getEmailLink())) {
             intro.setEmailLink(introUpdate.getEmailLink());
         }
-        return introService.editIntro(intro) != null;
+        return userService.updateIntro(intro) != null;
     }
 
     //更新會員MySpace頁面背景圖
@@ -264,39 +267,36 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         Intro intro = userService.findUserById(user.getId()).getIntro();
 
-        intro.setBannerPic(fileB64.split(",")[1]);
-        intro.setBannerContent(fileB64.split(",")[0]);
+//        intro.setBannerPic(fileB64.split(",")[1]);
+//        intro.setBannerContent(fileB64.split(",")[0]);
 
-//        //base64 to Blob
-//        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
-//
-//        String fileDirec =
-//                "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/"
-//                        + user.getId() + "/IntroBanner";
-//        String fileName = UUID.randomUUID().toString().replaceAll("-", "");
-//        System.out.println(fileDirec);
-//        File dir = new File(fileDirec);
-//        if(!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//
-//        File file = new File(fileDirec, fileName);
-//
-//        // Write the image bytes to file.
-//        try {
-//            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-//            file.createNewFile();
-//            int count = decodedByte.length;
-//            bos.write(decodedByte, 0, count);
-//            bos.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        //base64 to Blob
+        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
 
-//        String filePath = fileDirec.split("/resources/static")[1] + "/" + fileName;
-//        System.out.println(filePath);
-//        intro.setBannerPic(filePath);
+        String fileDirec =
+                "/Users/johnn/OneDrive/Documents/back_end/TripBlog/src/main/resources/static/images/imgTest/"
+                        + user.getId();
+        File dir = new File(fileDirec);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
 
-        return introService.editIntro(intro) != null;
+        File file = new File(fileDirec, "IntroBanner");
+
+        // Write the image bytes to file.
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            file.createNewFile();
+            int count = decodedByte.length;
+            bos.write(decodedByte, 0, count);
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String filePath = fileDirec.split("/resources/static")[1] + "/" + "IntroBanner";
+        System.out.println(filePath);
+        intro.setBannerPic(filePath);
+        return userService.updateIntro(intro) != null;
     }
 }

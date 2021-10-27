@@ -6,50 +6,108 @@ $(function(){
         xhr.setRequestHeader(header, token);
     });
 
-    //MySpace背景圖上傳按鈕
-    $('#uploadIntroBanner').click(function(e) {
+    // MySpace背景圖上傳按鈕
+    // MySpace背景圖 croppie------
+    (function($) {
+        var width_crop = 1200, // 圖片裁切寬度 px 值
+            height_crop = 400, // 圖片裁切高度 px 值
+            type_crop = "square", // 裁切形狀: square 為方形, circle 為圓形
+            width_preview = 1200, // 預覽區塊寬度 px 值
+            height_preview = 500, // 預覽區塊高度 px 值
+            compress_ratio = 0.85, // 圖片壓縮比例 0~1
+            type_img = "jpeg", // 圖檔格式 jpeg png webp
+            oldImg = new Image(),
+            myCrop, file, oldImgDataUrl;
 
-        e.preventDefault();
+        // 裁切初始參數設定
+        myCrop = $("#main-cropper").croppie({
+            viewport: { // 裁切區塊
+                width: width_crop,
+                height: height_crop,
+                type: type_crop
+            },
+            boundary: { // 預覽區塊
+                width: width_preview,
+                height: height_preview
+            }
+        });
 
-        //抓取彈跳式表單中輸入的值
-        // 取得檔案
-        const uploadBannerFile = $('#uploadBannerFile').prop('files')[0];
-
-        // 宣告 FileReader
-        const reader = new FileReader();
-        // 轉換成 DataURL
-        reader.readAsDataURL(uploadBannerFile);
-
-        //檔案讀取完成執行
-        reader.onload = function(){
-
-            //將值放入自我介紹頁面
-            if(uploadBannerFile != ''){
-                $('#mySpaceBannerImg').attr("src", reader.result);
+        function readFile(input) {
+            if (input.files && input.files[0]){
+                file = input.files[0];
+            } else {
+                alert("瀏覽器不支援此功能！建議使用最新版本 Chrome");
+                return;
             }
 
-            //通過base64來轉化圖片，去掉圖片頭（data:image/png;base64,）
-            let fileB64 = (reader.result);//.split(":")[1];
+            if (file.type.indexOf("image") == 0) {
+                var reader = new FileReader();
 
-            $.ajax({
-                url: '/user/updateIntroBanner',
-                type: 'POST',
-                async: false,
-                processData: false,
-                contentType:'application/json;charset=utf-8',
-                dataType: 'json',
-                data: fileB64,
-                success: function (response) {
-                    if (response){
-                        e.preventDefault();
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            });
+                reader.onload = function(e) {
+                    oldImgDataUrl = e.target.result;
+                    oldImg.src = oldImgDataUrl; // 載入 oldImg 取得圖片資訊
+                    myCrop.croppie("bind", {
+                        url: oldImgDataUrl
+                    });
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                alert("您上傳的不是圖檔！");
+            }
         }
-    });
+
+        function displayCropImg(src) {
+            var html = "<img src='" + src + "' />";
+            $("#mySpaceBannerImg").html(html);
+        }
+
+        $("#uploadBannerFile").on("change", function() {
+            $("#main-cropper").show();
+            readFile(this);
+        });
+
+        oldImg.onload = function() {
+            var width = this.width,
+                height = this.height,
+                fileSize = Math.round(file.size / 1000),
+                html = "";
+
+            // html += "<p>原始圖片尺寸 " + width + "x" + height + "</p>";
+            // html += "<p>檔案大小約 " + fileSize + "k</p>";
+            $("#main-cropper").before(html);
+        };
+
+        $("#uploadIntroBanner").on("click", function() {
+            myCrop.croppie("result", {
+                type: "canvas",
+                format: type_img,
+                quality: compress_ratio
+            }).then(function(src) {
+                displayCropImg(src);
+                // MySpace背景圖 croppie end------
+                //將值放入自我介紹頁面
+                $('#mySpaceBannerImg').attr('src',src)
+
+                $.ajax({
+                    type: "POST",
+                    url: "/user/updateIntroBanner",
+                    data: src,
+                    async: false,
+                    processData: false,
+                    contentType:'application/json;charset=utf-8',
+                    dataType: "json",
+
+                    success: function (src) {
+                        return src;
+                    }
+                });
+            });
+        });
+    })(jQuery);
+    // MySpace背景圖 更新 end------
+
+
 
     //自我介紹更新按鈕
     $('#updateIntro').click(function(e) {
@@ -63,7 +121,7 @@ $(function(){
         let textarea = editIntroduceContent.replace(/\n/g,"<br/>").replace(/\s/g,"&nbsp;")
 
         console.log(editIntroduceContent);
-        console.log(textarea); 
+        console.log(textarea);
         //創建物件
         let intro = {};
         intro['introTitle'] = editIntroduceTitle;
@@ -141,7 +199,5 @@ $(function(){
                 }
             }
         });
-
     });
 });
-
