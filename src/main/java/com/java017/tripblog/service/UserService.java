@@ -18,7 +18,7 @@ public interface UserService {
     boolean isRememberMeUser();
 
     //是否完成信箱驗證
-    boolean isisMailVerified(HttpSession session);
+    boolean isMailVerified(HttpSession session);
 
     //創建會員
     boolean createUser(User user);
@@ -28,6 +28,9 @@ public interface UserService {
 
     //編號查詢會員資料
     User findUserById(Long id);
+
+    //信箱查詢會員資料
+    User findUserByEmail(String email);
 
     //修改會員資料
     User updateUser(User user);

@@ -21,11 +21,13 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("MyUserDetailsService");
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("查無帳號:" + username);
         } else {
-            return new MyUserDetails(user);
+            System.out.println("返回用戶資訊");
+                return new MyUserDetails(user);
         }
     }
 }

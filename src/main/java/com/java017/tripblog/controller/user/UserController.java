@@ -5,16 +5,11 @@ import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.IntroService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
-import java.io.*;
-import java.util.Base64;
-import java.util.UUID;
 
 
 /**
@@ -35,14 +30,12 @@ public class UserController {
         this.introService = introService;
     }
 
-        //跳轉登入畫面
+    //跳轉登入畫面
     @GetMapping("/loginPage")
     public String loginPage(HttpSession session) {
         //是否記住
         if(userService.isRememberMeUser()) {
-            System.out.println("有記住帳密");
-            //是否完成信箱驗證
-            if(userService.isisMailVerified(session)) {
+            if (userService.isMailVerified(session)) {
                 return "redirect:/";
             } else {
                 return "redirect:/user/signup-success";
@@ -50,6 +43,16 @@ public class UserController {
         }
         System.out.println("沒有記住帳密");
         return "user/loginPage";
+    }
+
+    //登入後判斷
+    @GetMapping("/afterLogin")
+    public String afterLogin() {
+        if (userService.getCurrentUser().isMailVerified()) {
+            return "redirect:/";
+        } else {
+            return "redirect:/user/signup-success";
+        }
     }
 
     //跳轉註冊畫面
@@ -140,18 +143,6 @@ public class UserController {
         return "/user/my_notify";
     }
 
-    //登入後判斷狀態
-    @GetMapping("/afterLogin")
-    public String afterLogin(HttpSession session) {
-
-        //是否完成信箱驗證
-        if(userService.isisMailVerified(session)) {
-            return "redirect:/";
-        } else {
-            return "redirect:/user/signup-success";
-        }
-    }
-
     //確認會員帳號是否重複
     @ResponseBody
     @GetMapping("/accountCheck")
@@ -184,7 +175,7 @@ public class UserController {
         userSession.setId(user.getId());
         userSession.setNickname(user.getNickname());
         userSession.setEmail(user.getEmail());
-        session.setAttribute("signup", userSession);
+        session.setAttribute("user", userSession);
 
         return result;
     }

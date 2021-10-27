@@ -23,6 +23,18 @@ public class MyUserDetails implements UserDetails {
         this.user = user;
     }
 
+    public Long getId() {
+        return user.getId();
+    }
+
+    public String getNickName() {
+        return user.getNickname();
+    }
+
+    public String getEmail() {
+        return user.getEmail();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -51,6 +63,10 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isMailVerified() {
+        return user.isMailVerified();
     }
 
     public User getUser() {
