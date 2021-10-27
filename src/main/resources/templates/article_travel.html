@@ -49,7 +49,8 @@
 </style>
 
 
-<body class="article-body-background" style="background-image:url(../static/images/background/travel_background_07_01.svg);">
+<body class="article-body-background" style="background-image:url(../static/images/background/travel_background_07_01.svg);"
+      th:style="'background-image:url(' + @{/images/background/travel_background_07_01.svg} + ');'">
 
     <!-- 總導覽列 -->
     <nav th:replace="fragments :: nav(1)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
@@ -58,7 +59,7 @@
             <!-- 左邊網站名稱 -->
             <div class="col-2 mb-2">
                 <a class="navbar-brand" href="index.html">
-                    <img src="../static/images/nav_logo_05.svg" class="w-100">
+                    <img src="../static/images/nav_logo_05.svg" th:src="@{/images/nav_logo_05.svg}" class="w-100">
                 </a>
             </div>
             <!-- 折疊插件 -->
