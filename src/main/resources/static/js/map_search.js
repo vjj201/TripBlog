@@ -57,6 +57,7 @@ $(function() {
             url: '/findByAddress',
             type: 'GET',
             data: article,
+
             success: function (response) {
                 for (let article of response) {
                      enterAddressLat = article.enterAddressLat;

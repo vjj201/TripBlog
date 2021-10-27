@@ -1,10 +1,16 @@
 package com.java017.tripblog.entity;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "article")
 public class Article {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +31,19 @@ public class Article {
     String textEditor;
 
     String free_tag;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private Date createDate;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
     public Integer getId() {
         return id;
@@ -110,6 +129,7 @@ public class Article {
                 ", articleTitle='" + articleTitle + '\'' +
                 ", textEditor='" + textEditor + '\'' +
                 ", free_tag='" + free_tag + '\'' +
+                ", createDate=" + createDate +
                 '}';
     }
 }

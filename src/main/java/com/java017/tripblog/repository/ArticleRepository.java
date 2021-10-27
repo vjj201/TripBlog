@@ -15,6 +15,5 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
      @Query(value = "select t from Article t where t.enterAddressName like %?1%")
      ArrayList<Article> findByEnterAddressNameLike(String address);
 
-
 }
 
