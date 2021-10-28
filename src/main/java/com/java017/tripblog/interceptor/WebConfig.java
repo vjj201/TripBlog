@@ -25,13 +25,15 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-       registry.addInterceptor(loginInterceptor).
-               addPathPatterns("");
+        registry.addInterceptor(loginInterceptor).
+                addPathPatterns("");
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //添加映射
-        registry.addResourceHandler("/images/**").addResourceLocations("file:"+"/Users/leepeishan/TripBlog/src/main/resources/static/images/");
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        //獲取文件真實路徑 /Users/leepeishan/TripBlog/src/main/resources/static/images/
+//        //String path = System.getProperty("user.dir")+"/src/main/resources/static/images/imgTest/";
+//        //添加映射
+//        registry.addResourceHandler("/images/**").addResourceLocations("C:" + "/Users/johnn/OneDrive/Documents/back_end/TripBlog/src/main/resources/static/images/");
+//    }
 }

@@ -16,7 +16,7 @@ $(function () {
         e.preventDefault();
 
         let password = $('#oldPassword').val();
-        let pass = /^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/;
+        let pass = /^(?=.*\d)(?=.*[a-zA-Z]).{6,36}$/;
 
         if (password.trim().length < 1 || !pass.test(password)) {
             $('#message').text('密碼格式錯誤');
@@ -32,7 +32,7 @@ $(function () {
         e.preventDefault();
 
         let password = $('#password').val();
-        let pass = /^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/;
+        let pass = /^(?=.*\d)(?=.*[a-zA-Z]).{6,36}$/;
 
         if (password.trim().length < 1 || !pass.test(password)) {
             $('#submit').addClass('disabled');

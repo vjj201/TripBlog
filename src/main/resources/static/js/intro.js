@@ -89,13 +89,18 @@ $(function(){
                 //將值放入自我介紹頁面
                 $('#mySpaceBannerImg').attr('src',src)
 
+
+                let formData = new FormData();
+                formData.append('file', file);
+
                 $.ajax({
                     type: "POST",
                     url: "/user/updateIntroBanner",
-                    data: src,
+                    data: formData,
                     async: false,
+                    mimeType: "multipart/form-data",
                     processData: false,
-                    contentType:'application/json;charset=utf-8',
+                    contentType: false,
                     dataType: "json",
 
                     success: function (src) {
