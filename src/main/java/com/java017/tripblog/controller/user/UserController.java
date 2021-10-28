@@ -274,8 +274,7 @@ public class UserController {
         byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
 
         String fileDirec =
-                "/Users/johnn/OneDrive/Documents/back_end/TripBlog/src/main/resources/static/images/imgTest/"
-                        + user.getId();
+                "/Users/leepeishan/TripBlog/src/main/resources/static/images/imgTest/" + user.getId();
         File dir = new File(fileDirec);
         if(!dir.exists()) {
             dir.mkdirs();

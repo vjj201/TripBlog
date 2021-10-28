@@ -29,9 +29,9 @@ public class WebConfig implements WebMvcConfigurer {
                addPathPatterns("");
     }
 
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        //添加映射
-//        registry.addResourceHandler("/images/**").addResourceLocations("C:/Users/johnn/OneDrive/Documents/back_end/TripBlog/TripBlog/src/main/resources/static/images/");
-//    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        //添加映射
+        registry.addResourceHandler("/images/**").addResourceLocations("file:"+"/Users/leepeishan/TripBlog/src/main/resources/static/images/");
+    }
 }
