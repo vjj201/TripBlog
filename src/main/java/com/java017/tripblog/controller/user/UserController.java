@@ -339,6 +339,7 @@ public class UserController {
 
             long size = multipartFile.getSize();
             if(size > 1920*1080){
+                System.out.println("picture size is too large");
                 return false;
             }
 
