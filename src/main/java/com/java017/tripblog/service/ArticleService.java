@@ -9,6 +9,9 @@ public interface ArticleService {
 
     String insertArticle(Article article);
 
-    ArrayList<Article> findByEnterAddressName(String address);
+    ArrayList<Article> findByEnterAddressNameLike(String enterAddressName);
+
+
+
 
 }
