@@ -50,7 +50,10 @@ $(function() {
         let enteraddress = $('#searchAddress').val();
         //創建物件
         let article = {};
+        let points = [];
+        let inpoint;
 
+        var bounds = new google.maps.LatLngBounds();
         article['enterAddressName'] = enteraddress;
 
         $.ajax({
@@ -59,11 +62,27 @@ $(function() {
             data: article,
 
             success: function (response) {
+                    let a = 0;
                 for (let article of response) {
+//------------------依照經緯度產生標籤----------------------------------------------------
                     enterAddressLat = article.enterAddressLat;
                     enterAddressLng = article.enterAddressLng;
                     Marker();
+//------------------依照地標調整放大倍數----------------------------------------------------
+                    inpoint = new google.maps.LatLng(enterAddressLat, enterAddressLng);
+                    console.log("迴圈裡面inpoint " + inpoint);
+                    points[a] = inpoint;
+                    console.log("迴圈裡面points " + points[a]);
+                    a++;
                 }
+                console.log("迴圈外面 " + points);
+//---------------執行自動調整視窗方法-------------------------
+                for (var i = 0; i < points.length; i++) {
+                    console.log("extend裡面 " + points[i]);
+                    bounds.extend(points[i]);
+                }
+                map.fitBounds(bounds);
+//---------------執行自動調整視窗方法結束-------------------------
             }
         });
     });
