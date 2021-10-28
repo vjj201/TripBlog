@@ -4,6 +4,7 @@ import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Map;
 
 
 /**
@@ -71,6 +73,10 @@ public class UserController {
         return "user/signup_success";
     }
 
+    //跳轉更改密碼畫面
+    @GetMapping("/change-password")
+    public String changePasswordPage() {return "user/change_password"; }
+
     //跳轉會員資料頁
     @GetMapping("/profile")
     public String profilePage(HttpSession session, Model model) {
@@ -101,6 +107,7 @@ public class UserController {
             String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
             intro.setIntroContent(textarea);
         }
+
         model.addAttribute("intro", intro);
 
         return "/user/my_space";
@@ -211,6 +218,27 @@ public class UserController {
         user.setPhone(userUpdate.getPhone());
 
         return userService.updateUser(user) != null;
+    }
+
+    //更新會員密碼
+    @ResponseBody
+    @PostMapping("/changePassword")
+    public boolean changePassword(@RequestParam Map<String, Object> params ) {
+
+        User user = userService.getCurrentUser();
+
+        // 將明文同已經經過加鹽+BCrypt演算法加密後祕文進行比較
+        boolean checkPassword = BCrypt.checkpw(params.get("oldPassword").toString(), user.getPassword());
+
+        //若舊密碼正確為true，加密新密碼並儲存
+        if (checkPassword == true) {
+            user.setPassword(userService.encodePassword(params.get("password").toString()));
+            System.out.println("變更密碼");
+            return userService.updateUser(user) != null;
+        } else {
+            System.out.println("密碼錯誤");
+            return false;
+        }
     }
 
     //更新會員自我介紹頁面
