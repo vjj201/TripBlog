@@ -1,10 +1,13 @@
-
 //----------------------------------------------------
 // The location of Uluru
 let map;
+let marker;
 let markers = [];
+let controllerForMarkers;
 let enterAddressLat;
 let enterAddressLng;
+let contentString = "幹你娘";
+
 //-----------------------------------------------------------------------
 function initMap() {
     console.log("執行init");
@@ -16,37 +19,54 @@ function initMap() {
         center: uluru,
     });
 }
-//-----------------------------------------------------------------------
-function initChangeMap() {
-    console.log("執行init");
-    let uluru = {lat: enterAddressLat, lng: enterAddressLng};
 
-// The map, centered at Uluru
-    map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 15,
-        center: uluru,
+//-----------------------------------------------------------------------
+// function initChangeMap() {
+//     console.log("執行init");
+//     let uluru = {lat: enterAddressLat, lng: enterAddressLng};
+//
+// // The map, centered at Uluru
+//     map = new google.maps.Map(document.getElementById("map"), {
+//         zoom: 15,
+//         center: uluru,
+//     });
+// }
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+function mapsInfoWindos(){
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        position: marker.position,
+        maxWidth:200,
+        pixelOffset: new google.maps.Size(100, -20)
     });
+    infowindow.open(map,marker);
+    console.log("mapsInfoWindos外面")
 }
+
 //-----------------------------------------------------------------------
 function Marker() {
+    controllerForMarkers = 0;
     console.log("有執行MAKER");
-    console.log("裡面lat: "+ enterAddressLng)
-    markers = new google.maps.Marker({
+    console.log("裡面lat: " + enterAddressLng)
+    marker = new google.maps.Marker({
         position: {
-            lat:enterAddressLat,
-            lng:enterAddressLng
+            lat: enterAddressLat,
+            lng: enterAddressLng
         },
         map: map,
     });
     console.log("執行完marker");
-
+    // markers[controllerForMarkers] = marker;
+    // controllerForMarkers++;
+    // console.log( markers[controllerForMarkers])
 }
 
 //----------------------------------------------------
-$(function() {
+$(function () {
     $('#btsearch').click(function (e) {
         e.preventDefault();
-
+        initMap();
         let enteraddress = $('#searchAddress').val();
         //創建物件
         let article = {};
@@ -62,12 +82,19 @@ $(function() {
             data: article,
 
             success: function (response) {
-                    let a = 0;
+                let a = 0;
                 for (let article of response) {
 //------------------依照經緯度產生標籤----------------------------------------------------
                     enterAddressLat = article.enterAddressLat;
                     enterAddressLng = article.enterAddressLng;
                     Marker();
+                    // for (let markerFor of markers) {
+                    //     let x = 0;
+                    //     $(markerFor).click(mapsInfoWindos);
+                    //     markers[x] = markerFor;
+                    //     console.log("click"+markers[x]);
+                    //     x++;
+                    // }
 //------------------依照地標調整放大倍數----------------------------------------------------
                     inpoint = new google.maps.LatLng(enterAddressLat, enterAddressLng);
                     console.log("迴圈裡面inpoint " + inpoint);
@@ -86,6 +113,7 @@ $(function() {
             }
         });
     });
+//    $(markers[0]).click(mapsInfoWindos);
 });
 //-----------------------------------------------------------------------
 
