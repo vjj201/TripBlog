@@ -1,7 +1,7 @@
 package com.java017.tripblog.controller;
 
 import com.java017.tripblog.entity.Article;
-import com.java017.tripblog.repository.ArticleRepository;
+import com.java017.tripblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,19 +14,19 @@ import java.util.ArrayList;
 public class MapSearchController {
 
     @Autowired
-    private final ArticleRepository articleRepository;
+    private final ArticleService articleService;
 
-    public MapSearchController(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
+    public MapSearchController(ArticleService articleService) {
+        this.articleService = articleService;
     }
+
 
     @ResponseBody
     @GetMapping("/findByAddress")
     public ArrayList<Article> findByAddress(@RequestParam String enterAddressName) {
-
      //   Article article = articleRepository.findByEnterAddress(enterAddress);
         ArrayList<Article> list;
-        list = articleRepository.findByEnterAddressNameLike(enterAddressName);
+        list = articleService.findByEnterAddressNameLike(enterAddressName);
         System.out.println(list);
         return list;
     };

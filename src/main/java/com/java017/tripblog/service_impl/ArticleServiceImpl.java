@@ -21,20 +21,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public String insertArticle(Article article) {
 
-        Article article1 = new Article();
-        article1 = article;
-    //    article1.setFree_tag() = ;
-
-        articleRepository.save(article1);
-
+        articleRepository.save(article);
         return "新增成功";
     }
 
     @Override
-    public ArrayList<Article> findByEnterAddressName(String address) {
-        return articleRepository.findByEnterAddressNameLike(address);
-
-
+    public ArrayList<Article> findByEnterAddressNameLike(String enterAddressName) {
+        return articleRepository.findByEnterAddressNameLike(enterAddressName);
     }
+
 }
 
