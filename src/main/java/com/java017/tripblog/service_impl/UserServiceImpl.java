@@ -102,6 +102,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override//加密會員密碼
+    public String encodePassword(String newPassword) {
+        return passwordEncoder.encode(newPassword);
+    }
+
     @Override//更新自我介紹頁面資訊
     public Intro updateIntro(Intro intro) {
         return introRepository.save(intro);

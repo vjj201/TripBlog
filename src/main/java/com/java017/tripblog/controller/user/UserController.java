@@ -2,20 +2,20 @@ package com.java017.tripblog.controller.user;
 
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
+
+
 import com.java017.tripblog.service.UserService;
-import com.java017.tripblog.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.sql.Blob;
 import java.util.Base64;
-import java.util.UUID;
+import java.util.Map;
 
 
 /**
@@ -34,7 +34,7 @@ public class UserController {
         this.userService = userService;
     }
 
-        //跳轉登入畫面
+    //跳轉登入畫面
     @GetMapping("/loginPage")
     public String loginPage(HttpSession session) {
         //是否記住
@@ -63,6 +63,10 @@ public class UserController {
     public String signupOkPage() {
         return "user/signup_success";
     }
+
+    //跳轉更改密碼畫面
+    @GetMapping("/change-password")
+    public String changePasswordPage() {return "user/change_password"; }
 
     //跳轉會員資料頁
     @GetMapping("/profile")
@@ -217,6 +221,27 @@ public class UserController {
         user.setPhone(userUpdate.getPhone());
 
         return userService.updateUser(user) != null;
+    }
+
+    //更新會員密碼
+    @ResponseBody
+    @PostMapping("/changePassword")
+    public boolean changePassword(@RequestParam Map<String, Object> params ) {
+
+        User user = userService.getCurrentUser();
+
+        // 將明文同已經經過加鹽+BCrypt演算法加密後祕文進行比較
+        boolean checkPassword = BCrypt.checkpw(params.get("oldPassword").toString(), user.getPassword());
+
+        //若舊密碼正確為true，加密新密碼並儲存
+        if (checkPassword == true) {
+            user.setPassword(userService.encodePassword(params.get("password").toString()));
+            System.out.println("變更密碼");
+            return userService.updateUser(user) != null;
+        } else {
+            System.out.println("密碼錯誤");
+            return false;
+        }
     }
 
     //更新會員自我介紹頁面

@@ -33,6 +33,9 @@ public interface UserService {
     //修改會員資料
     User updateUser(User user);
 
+    //修改會員密碼
+    String encodePassword(String newPassword);
+
     //更新自我介紹
     Intro updateIntro(Intro intro);
 
