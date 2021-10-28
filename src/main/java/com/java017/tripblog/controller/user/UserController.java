@@ -351,4 +351,18 @@ public class UserController {
         }
         return false;
     }
+
+    //更新會員頭像
+    @ResponseBody
+    @PostMapping("/updateMemberPic")
+    public boolean updateMemberPic(@RequestBody String memberPicFile64, HttpSession session){
+
+        User user = (User) session.getAttribute("user");
+        Intro intro = userService.findUserById(user.getId()).getIntro();
+
+        intro.setMemberPic(memberPicFile64.split(",")[1]);
+        intro.setMemberPicContent(memberPicFile64.split(",")[0]);
+
+        return userService.updateIntro(intro) != null;
+    }
 }

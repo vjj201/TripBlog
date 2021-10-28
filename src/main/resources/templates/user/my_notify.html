@@ -13,6 +13,13 @@
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <style>
+        #memberPic{
+            width:6.5vw;
+            min-width:32.5px;
+        }
+    </style>
+
 
 </head>
 
@@ -122,8 +129,10 @@
         <!-- 頭貼 -->
         <div class="col-1 p-2">
             <!-- 頭像 -->
-            <img src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
-                 class="rounded-circle w-100 ms-3 mt-2">
+            <img th:if="${intro.memberPic == null}"  src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
+                 class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" id="memberPic"/>
+            <img th:if="${intro.memberPic != null}"  th:src="*{intro.memberPicContent + ',' + intro.memberPic}" alt="頭貼"
+                 class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" id="memberPic"/>
         </div>
 
         <!-- 會員暱稱、註冊日期 -->
