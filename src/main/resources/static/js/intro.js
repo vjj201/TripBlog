@@ -9,10 +9,10 @@ $(function(){
     // MySpace背景圖上傳按鈕
     // MySpace背景圖 croppie------
     (function($) {
-        var width_crop = 1200, // 圖片裁切寬度 px 值
+        var width_crop = 1500, // 圖片裁切寬度 px 值
             height_crop = 400, // 圖片裁切高度 px 值
             type_crop = "square", // 裁切形狀: square 為方形, circle 為圓形
-            width_preview = 1200, // 預覽區塊寬度 px 值
+            width_preview = 1500, // 預覽區塊寬度 px 值
             height_preview = 500, // 預覽區塊高度 px 值
             compress_ratio = 0.85, // 圖片壓縮比例 0~1
             type_img = "jpeg", // 圖檔格式 jpeg png webp
@@ -50,7 +50,6 @@ $(function(){
                         url: oldImgDataUrl
                     });
                 };
-
                 reader.readAsDataURL(file);
             } else {
                 alert("您上傳的不是圖檔！");
@@ -67,16 +66,16 @@ $(function(){
             readFile(this);
         });
 
-        oldImg.onload = function() {
-            var width = this.width,
-                height = this.height,
-                fileSize = Math.round(file.size / 1000),
-                html = "";
-
-            // html += "<p>原始圖片尺寸 " + width + "x" + height + "</p>";
-            // html += "<p>檔案大小約 " + fileSize + "k</p>";
-            $("#main-cropper").before(html);
-        };
+        // oldImg.onload = function() {
+        //     var width = this.width,
+        //         height = this.height,
+        //         fileSize = Math.round(file.size / 1000),
+        //         html = "";
+        //
+        //     // html += "<p>原始圖片尺寸 " + width + "x" + height + "</p>";
+        //     // html += "<p>檔案大小約 " + fileSize + "k</p>";
+        //     $("#main-cropper").before(html);
+        // };
 
         $("#uploadIntroBanner").on("click", function() {
             myCrop.croppie("result", {
@@ -85,13 +84,38 @@ $(function(){
                 quality: compress_ratio
             }).then(function(src) {
                 displayCropImg(src);
+
+
                 // MySpace背景圖 croppie end------
                 //將值放入自我介紹頁面
                 $('#mySpaceBannerImg').attr('src',src)
 
+                //將裁切過的圖片轉成FormData
+                const b64data = src.split(',')[1];
+                const contentType = src.split(',')[0].split(';')[0].split(':')[1];
+
+                const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+                    const byteCharacters = atob(b64Data);
+                    const byteArrays = [];
+
+                    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                        const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                        const byteNumbers = new Array(slice.length);
+                        for (let i = 0; i < slice.length; i++) {
+                            byteNumbers[i] = slice.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        byteArrays.push(byteArray);
+                    }
+                    const blob = new Blob(byteArrays, {type: contentType});
+                    return blob;
+                }
+
+
 
                 let formData = new FormData();
-                formData.append('file', file);
+                formData.append('file', b64toBlob(b64data, contentType, sliceSize=512));
 
                 $.ajax({
                     type: "POST",
@@ -103,8 +127,12 @@ $(function(){
                     contentType: false,
                     dataType: "json",
 
-                    success: function (src) {
-                        return src;
+                    success: function (response) {
+                        if(response) {
+                            alert('圖片新增成功');
+                        } else {
+                            alert('上傳失敗');
+                        }
                     }
                 });
             });
