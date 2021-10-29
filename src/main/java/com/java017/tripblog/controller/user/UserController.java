@@ -299,12 +299,12 @@ public class UserController {
         if (!multipartFile.isEmpty()) {
 
             long size = multipartFile.getSize();
-            if(size > 1920*1080){
+            if (size > 1920 * 1080) {
                 System.out.println("圖片尺寸過大");
                 return false;
             }
 
-            User user = (User)session.getAttribute("user");
+            User user = (User) session.getAttribute("user");
 
             String fileName = "bannerPic.jpg";
             String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
@@ -317,14 +317,38 @@ public class UserController {
         }
         return false;
     }
+
     //顯示會員封面
     @RequestMapping(value = "/introBanner", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getImage(HttpSession session) throws IOException {
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         String dir = "src/main/resources/static/images/userPhoto/" + user.getId() + "/bannerPic.jpg";
         File file = new File(dir);
         return Files.readAllBytes(file.toPath());
+    }
+
+    //更新會員頭像存本機
+    @ResponseBody
+    @PostMapping("/updateMemberPic")
+    public boolean updateMemberPic(@RequestParam(value = "file") MultipartFile multipartFile,
+                                   HttpSession session) {
+
+        if (!multipartFile.isEmpty()) {
+
+            long size = multipartFile.getSize();
+            if (size > 1920 * 1080) {
+                return false;
+            }
+
+            User user = (User) session.getAttribute("user");
+            String fileName = "memberPic.jpg";
+            String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
+
+            FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
+            return true;
+        }
+        return false;
     }
 }
 
