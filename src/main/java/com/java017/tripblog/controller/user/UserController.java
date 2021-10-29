@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Base64;
 import java.util.Map;
 
 
@@ -234,7 +228,7 @@ public class UserController {
         boolean checkPassword = BCrypt.checkpw(params.get("oldPassword").toString(), user.getPassword());
 
         //若舊密碼正確為true，加密新密碼並儲存
-        if (checkPassword == true) {
+        if (checkPassword) {
             user.setPassword(userService.encodePassword(params.get("password").toString()));
             System.out.println("變更密碼");
             return userService.updateUser(user) != null;
@@ -339,15 +333,19 @@ public class UserController {
 
             long size = multipartFile.getSize();
             if(size > 1920*1080){
-                System.out.println("picture size is too large");
+                System.out.println("圖片尺寸過大");
                 return false;
             }
 
             User user = (User)session.getAttribute("user");
+
             String fileName = "bannerPic.jpg";
             String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
 
             FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
+            user = userService.findUserById(user.getId());
+            user.getIntro().setHasBanner(true);
+            userService.updateUser(user);
             return true;
         }
         return false;

@@ -17,13 +17,6 @@ public class Intro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //自我介紹頁首圖base64 資料庫要去設定為LONGBLOB
-    @Lob
-    private String bannerPic;
-
-    //自我介紹頁首圖base64檔案類型
-    private String bannerContent;
-
     //自我介紹標題
     private String introTitle;
 
@@ -42,6 +35,15 @@ public class Intro {
     //Email Link
     private String emailLink;
 
+    private boolean hasBanner;
+
+    public boolean isHasBanner() {
+        return hasBanner;
+    }
+
+    public void setHasBanner(boolean hasBanner) {
+        this.hasBanner = hasBanner;
+    }
 
     public Long getId() {
         return id;
@@ -99,34 +101,17 @@ public class Intro {
         this.emailLink = emailLink;
     }
 
-    public String getBannerPic() {
-        return bannerPic;
-    }
-
-    public void setBannerPic(String bannerPic) {
-        this.bannerPic = bannerPic;
-    }
-
-    public String getBannerContent() {
-        return bannerContent;
-    }
-
-    public void setBannerContent(String bannerContent) {
-        this.bannerContent = bannerContent;
-    }
-
     @Override
     public String toString() {
         return "Intro{" +
                 "id=" + id +
-                ", bannerPic='" + bannerPic + '\'' +
-                ", bannerContent='" + bannerContent + '\'' +
                 ", introTitle='" + introTitle + '\'' +
                 ", introContent='" + introContent + '\'' +
                 ", fbLink='" + fbLink + '\'' +
                 ", igLink='" + igLink + '\'' +
                 ", ytLink='" + ytLink + '\'' +
                 ", emailLink='" + emailLink + '\'' +
+                ", hasBanner=" + hasBanner +
                 '}';
     }
 }

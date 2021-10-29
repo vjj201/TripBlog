@@ -59,7 +59,7 @@ public class MailController {
         if (result) {
             System.out.println("驗證成功");
             User user = (User) session.getAttribute("user");
-
+            session.invalidate();
             User updateUser = userService.findUserById(user.getId());
             updateUser.setMailVerified(true);
             userService.updateUser(updateUser);
