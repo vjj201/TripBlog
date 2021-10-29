@@ -43,18 +43,35 @@
 
         .mask{
             position: absolute;
-            /* top: 12vh; */
             margin: auto;
             left: 7vw;
-            /* background: #fafafa; */
             border-radius: 50vw;
             padding:  4px;
-            transform: translateY(150%);
+            transform: translate(10%,145%);
             opacity: 0;
         }
         .memberPicBlock   :hover .mask{
             opacity: 1;
         }
+
+        @media screen and (max-width: 768px) {
+
+            #memberPic{
+            width: 8.5vw;
+            }
+
+            .mask{
+           
+            left: 13vw;
+            transform: translateY(-50%);
+            border-radius: 50vw;
+            padding:  0px;
+            
+            opacity: 1;
+        }
+        }
+
+
 
 
     </style>
@@ -166,10 +183,13 @@
         <div class="memberPicBlock col-1 p-2">
             <!--   頭像  -->
             <div >
-                <img th:if="${intro.memberPic == null}"  src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
-                     class="rounded-circle w-100 ms-3 mt-2"  id="memberPic" >
-                <img  th:if="${intro.memberPic != null}"  th:src="*{intro.memberPicContent + ',' + intro.memberPic}" alt="頭貼"
-                      class="rounded-circle ms-3 mt-2"  id="memberPic" >
+
+                <img th:if="${session.user != null}" th:src="@{'/images/userPhoto/'+${session.user.id}+'/memberPic.jpg'}" id="memberPic" class="rounded-circle ms-3 mt-2 rounded-circle" alt="頭貼">
+
+<!--                <img th:if="${session.user.memberPic == null}"  src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"-->
+<!--                     class="rounded-circle w-100 ms-3 mt-2"  id="memberPic" >-->
+<!--                <img  th:if="${session.user.memberPic != null}"  th:src="@{${session.user.memberPic}}" alt="頭貼"-->
+<!--                      class="rounded-circle ms-3 mt-2"  id="memberPic" >-->
 
                 <button class="mask"  data-bs-toggle="modal" data-bs-target="#uploadMemberPic">
                     <img src="../../static/images/camera2memberpic.svg" th:src="@{/images/camera2memberpic.svg}" alt="" srcset=""  style="width:1.5vw;">

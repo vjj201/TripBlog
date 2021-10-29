@@ -34,6 +34,6 @@ public class WebConfig implements WebMvcConfigurer {
 //        //獲取文件真實路徑 /Users/leepeishan/TripBlog/src/main/resources/static/images/
 //        //String path = System.getProperty("user.dir")+"/src/main/resources/static/images/imgTest/";
 //        //添加映射
-//        registry.addResourceHandler("/images/**").addResourceLocations("C:" + "/Users/johnn/OneDrive/Documents/back_end/TripBlog/src/main/resources/static/images/");
+//        registry.addResourceHandler("/images/**").addResourceLocations("file:" + "/Users/samuelahsu/Desktop/專題/TripBlog-master/src/main/resources/static/images/");
 //    }
 }

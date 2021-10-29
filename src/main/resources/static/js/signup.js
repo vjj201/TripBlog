@@ -14,14 +14,35 @@ $(function () {
 
         let name = $('#name').val();
 
-        if (name.trim().length < 2) {
+        // if (name.trim().length < 2) {
+        //     $('#name').addClass('border border-1 border border-danger');
+        //     $('#submitButton').addClass('disabled');
+        //     $('#message').text('姓名格式錯誤');
+        // } else {
+        //     $('#name').removeClass('border border-1 border border-danger');
+        //     $('#submitButton').removeClass('disabled');
+        //     $('#message').empty();
+        // }
+
+        if (name == "") {
             $('#name').addClass('border border-1 border border-danger');
             $('#submitButton').addClass('disabled');
-            $('#message').text('姓名格式錯誤');
-        } else {
+            // $('#message').text('姓名格式錯誤');
+            $('#erName').html('<span style="color: red;">姓名欄不可為空</span>');
+            // alert('姓名');
+        } else if (name.trim().length < 2) {
+
+            $('#name').addClass('border border-1 border border-danger');
+            $('#submitButton').addClass('disabled');
+            // $('#message').text('姓名格式錯誤');
+            $('#erName').html('<span style="color: red;">姓名格式錯誤</span>');
+
+        }else{
             $('#name').removeClass('border border-1 border border-danger');
             $('#submitButton').removeClass('disabled');
             $('#message').empty();
+            $('#erName').remove();
+        
         }
     });
 

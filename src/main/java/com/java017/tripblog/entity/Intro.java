@@ -42,12 +42,12 @@ public class Intro {
     //Email Link
     private String emailLink;
 
-    //會員頭像
-    @Lob
-    private String memberPic;
-
-    //會員頭像base64檔案類型
-    private String memberPicContent;
+//    //會員頭像
+//    @Lob
+//    private String memberPic;
+//
+//    //會員頭像base64檔案類型
+//    private String memberPicContent;
 
     public Long getId() {
         return id;
@@ -121,21 +121,21 @@ public class Intro {
         this.bannerContent = bannerContent;
     }
 
-    public String getMemberPic() {
-        return memberPic;
-    }
-
-    public void setMemberPic(String memberPic) {
-        this.memberPic = memberPic;
-    }
-
-    public String getMemberPicContent() {
-        return memberPicContent;
-    }
-
-    public void setMemberPicContent(String memberPicContent) {
-        this.memberPicContent = memberPicContent;
-    }
+//    public String getMemberPic() {
+//        return memberPic;
+//    }
+//
+//    public void setMemberPic(String memberPic) {
+//        this.memberPic = memberPic;
+//    }
+//
+//    public String getMemberPicContent() {
+//        return memberPicContent;
+//    }
+//
+//    public void setMemberPicContent(String memberPicContent) {
+//        this.memberPicContent = memberPicContent;
+//    }
 
     @Override
     public String toString() {
@@ -149,8 +149,8 @@ public class Intro {
                 ", igLink='" + igLink + '\'' +
                 ", ytLink='" + ytLink + '\'' +
                 ", emailLink='" + emailLink + '\'' +
-                ", memberPic='" + memberPic + '\'' +
-                ", memberPicContent='" + memberPicContent + '\'' +
+//                ", memberPic='" + memberPic + '\'' +
+//                ", memberPicContent='" + memberPicContent + '\'' +
                 '}';
     }
 }

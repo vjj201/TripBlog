@@ -42,7 +42,7 @@ public class UserController {
     @GetMapping("/loginPage")
     public String loginPage(HttpSession session) {
         //是否記住
-        if(userService.isRememberMeUser()) {
+        if (userService.isRememberMeUser()) {
             if (userService.isMailVerified(session)) {
                 return "redirect:/";
             } else {
@@ -78,7 +78,9 @@ public class UserController {
 
     //跳轉更改密碼畫面
     @GetMapping("/change-password")
-    public String changePasswordPage() {return "user/change_password"; }
+    public String changePasswordPage() {
+        return "user/change_password";
+    }
 
     //跳轉會員資料頁
     @GetMapping("/profile")
@@ -106,8 +108,8 @@ public class UserController {
         Intro intro = userService.findUserById(user.getId()).getIntro();
 
         //自我介紹內容空白、換行處理
-        if(intro.getIntroContent() != null){
-            String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
+        if (intro.getIntroContent() != null) {
+            String textarea = intro.getIntroContent().replace("\n", "<br>").replace("\r", " ");
             intro.setIntroContent(textarea);
         }
 
@@ -226,7 +228,7 @@ public class UserController {
     //更新會員密碼
     @ResponseBody
     @PostMapping("/changePassword")
-    public boolean changePassword(@RequestParam Map<String, Object> params ) {
+    public boolean changePassword(@RequestParam Map<String, Object> params) {
 
         User user = userService.getCurrentUser();
 
@@ -332,17 +334,17 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/updateIntroBanner")
-    public boolean updateIntroBanner(@RequestParam(value="file") MultipartFile multipartFile,
+    public boolean updateIntroBanner(@RequestParam(value = "file") MultipartFile multipartFile,
                                      HttpSession session) {
 
-        if(!multipartFile.isEmpty()){
+        if (!multipartFile.isEmpty()) {
 
             long size = multipartFile.getSize();
-            if(size > 1920*1080){
+            if (size > 1920 * 1080) {
                 return false;
             }
 
-            User user = (User)session.getAttribute("user");
+            User user = (User) session.getAttribute("user");
             String fileName = "bannerPic.jpg";
             String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
 
@@ -352,17 +354,43 @@ public class UserController {
         return false;
     }
 
-    //更新會員頭像
+
+    //    //更新會員頭像 (usertable
+//    @ResponseBody
+//    @PostMapping("/updateMemberPic")
+////    public boolean updateMemberPic(@RequestBody String memberPicFile64, HttpSession session){
+//     public boolean updateMemberPic(@RequestBody String memberPicFile64, HttpSession session){
+//
+//
+//        User user = (User) session.getAttribute("user");
+//        user = userService.findUserById(user.getId());
+//        user.setMemberPic(memberPicFile64.split(",")[1]);
+//        user.setMemberPicContent(memberPicFile64.split(",")[0]);
+//
+//        return userService.updateUser(user) != null;
+//        }
+//    }
+    //更新會員頭像存本機
     @ResponseBody
     @PostMapping("/updateMemberPic")
-    public boolean updateMemberPic(@RequestBody String memberPicFile64, HttpSession session){
+    public boolean updateMemberPic(@RequestParam(value = "file") MultipartFile multipartFile,
+                                   HttpSession session) {
 
-        User user = (User) session.getAttribute("user");
-        Intro intro = userService.findUserById(user.getId()).getIntro();
+        if (!multipartFile.isEmpty()) {
 
-        intro.setMemberPic(memberPicFile64.split(",")[1]);
-        intro.setMemberPicContent(memberPicFile64.split(",")[0]);
+            long size = multipartFile.getSize();
+            if (size > 1920 * 1080) {
+                return false;
+            }
 
-        return userService.updateIntro(intro) != null;
+            User user = (User) session.getAttribute("user");
+            String fileName = "memberPic.jpg";
+            String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
+
+            FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
+            return true;
+        }
+        return false;
     }
 }
+

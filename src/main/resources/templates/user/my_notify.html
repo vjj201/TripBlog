@@ -129,10 +129,11 @@
         <!-- 頭貼 -->
         <div class="col-1 p-2">
             <!-- 頭像 -->
-            <img th:if="${intro.memberPic == null}"  src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
-                 class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" id="memberPic"/>
-            <img th:if="${intro.memberPic != null}"  th:src="*{intro.memberPicContent + ',' + intro.memberPic}" alt="頭貼"
-                 class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" id="memberPic"/>
+<!--            <img th:if="${intro.memberPic == null}"  src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"-->
+<!--                 class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" id="memberPic"/>-->
+<!--            <img th:if="${intro.memberPic != null}"  th:src="*{intro.memberPicContent + ',' + intro.memberPic}" alt="頭貼"-->
+<!--                 class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" id="memberPic"/>-->
+            <img th:if="${session.user != null}" th:src="@{'/images/userPhoto/'+${session.user.id}+'/memberPic.jpg'}" id="memberPic" class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" alt="頭貼">
         </div>
 
         <!-- 會員暱稱、註冊日期 -->

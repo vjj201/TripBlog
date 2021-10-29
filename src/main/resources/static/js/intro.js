@@ -210,7 +210,7 @@ $(function(){
     // 會員照片 croppie------
 
     (function($) {
-        var width_crop = 150, // 圖片裁切寬度 px 值
+        let width_crop = 150, // 圖片裁切寬度 px 值
             height_crop = 150, // 圖片裁切高度 px 值
             type_crop = "circle", // 裁切形狀: square 為方形, circle 為圓形
             width_preview = 350, // 預覽區塊寬度 px 值
@@ -242,7 +242,7 @@ $(function(){
             }
 
             if (file.type.indexOf("image") == 0) {
-                var reader = new FileReader();
+                const reader = new FileReader();
 
                 reader.onload = function(e) {
                     oldImgDataUrl = e.target.result;
@@ -259,7 +259,7 @@ $(function(){
         }
 
         function displayCropImg(src) {
-            var html = "<img src='" + src + "' />";
+            const html = "<img src='" + src + "' />";
             $("#newImg").html(html);
         }
 
@@ -269,22 +269,22 @@ $(function(){
         });
 
         oldImg.onload = function() {
-            var width = this.width,
+            let width = this.width,
                 height = this.height,
                 fileSize = Math.round(file.size / 1000),
                 html = "";
 
-            html += "<p>原始圖片尺寸 " + width + "x" + height + "</p>";
-            html += "<p>檔案大小約 " + fileSize + "k</p>";
+            // html += "<p>原始圖片尺寸 " + width + "x" + height + "</p>";
+            // html += "<p>檔案大小約 " + fileSize + "k</p>";
             $("#oldImg").before(html);
         };
 
         function displayNewImgInfo(src) {
-            var html = "",
+            let html = "",
                 filesize = src.length * 0.75;
 
-            html += "<p>裁切圖片尺寸 " + width_crop + "x" + height_crop + "</p>";
-            html += "<p>檔案大小約 " + Math.round(filesize / 1000) + "k</p>";
+            // html += "<p>裁切圖片尺寸 " + width_crop + "x" + height_crop + "</p>";
+            // html += "<p>檔案大小約 " + Math.round(filesize / 1000) + "k</p>";
             $("#newImgInfo").html(html);
         }
 
@@ -299,79 +299,53 @@ $(function(){
 
                 // console.log(src);
 
-
                 // 會員照片 croppie end------
 
                 //將值放入自我介紹頁面
-                if(memberPic != ""){
+                if(memberPic !== ""){
                     $('#memberPic').attr('src',src)
                 }
+                const b64data = src.split(',')[1];
+                const contentType = src.split(',')[0].split(';')[0].split(':')[1];
+
+                const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+                    const byteCharacters = atob(b64Data);
+                    const byteArrays = [];
+
+                    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                        const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                        const byteNumbers = new Array(slice.length);
+                        for (let i = 0; i < slice.length; i++) {
+                            byteNumbers[i] = slice.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        byteArrays.push(byteArray);
+                    }
+                    const blob = new Blob(byteArrays, {type: contentType});
+                    return blob;
+                }
+
+                let formData = new FormData();
+                formData.append('file', b64toBlob(b64data, contentType, sliceSize=512));
+
 
                 $.ajax({
                     type: "POST",
                     url: "/user/updateMemberPic",
-                    data: src,
+                    data: formData,
                     async: false,
+                    mimeType: "multipart/form-data",
                     processData: false,
-                    contentType:'application/json;charset=utf-8',
+                    contentType: false,
                     dataType: "json",
 
-                    success: function (response) {
-                        if(response){
-                            e.preventDefault()
-                            return true;
-                        }else {
-                            return false;
-                        }
+                    success: function (src) {
+                        return src;
                     }
                 });
+
             });
         });
     })(jQuery);
-
-    // 會員照片 更新 end------
-
-
-
-    // // 會員照片更新
-    // $('#editMemberPic').click(function (e) {
-    //     e.preventDefault();
-
-    //     //取得檔案
-    //     const memberPic = $('#inputMemberPic').prop('files')[0];
-
-    //     //讀取檔案
-    //     const memberPicFile = new FileReader()
-    //     memberPicFile.readAsDataURL(memberPic);
-
-    //     memberPicFile.onload = function () {
-
-    //     let memberPicFile64 = memberPicFile.result;
-
-    //         //將值放入自我介紹頁面
-    //         if(memberPic != ""){
-    //             $('#memberPic').attr('src',memberPicFile64)
-    //         }
-
-    //        $.ajax({
-    //            type: "POST",
-    //            url: "/user/updateMemberPic",
-    //            data: memberPicFile64,
-    //            async: false,
-    //            processData: false,
-    //            contentType:'application/json;charset=utf-8',
-    //            dataType: "json",
-
-    //            success: function (response) {
-    //                if(response){
-    //                    e.preventDefault()
-    //                    return true;
-    //                }else {
-    //                    return false;
-    //                }
-    //            }
-    //        });
-    //     }
-
-    // });
 });

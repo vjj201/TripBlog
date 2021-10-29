@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: j123
+    password: p5970487
     url: jdbc:mysql://localhost:3306/tripblog?serverTimezone=Asia/Taipei&Encoding=utf-8
   jpa:
     properties:
@@ -46,7 +46,7 @@ logging:
 
 #HTTPS憑證
 server:
-  port: 8080
+  port: 8081
   ssl:
     key-store-type: PKCS12
     key-store: classpath:localhost.p12
