@@ -127,8 +127,12 @@ $(function(){
                     contentType: false,
                     dataType: "json",
 
-                    success: function (src) {
-                        return src;
+                    success: function (response) {
+                        if(response) {
+                            alert('圖片新增成功');
+                        } else {
+                            alert('上傳失敗');
+                        }
                     }
                 });
             });

@@ -105,7 +105,7 @@
 
 <!-- 首頁背景圖 cover photo -->
 <div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px;">
-    <img th:src="${session.user != null && intro.hasBanner ? '/images/userPhoto/'+session.user.id+'/bannerPic.jpg' : '/images/mySpace-bg.svg'}"  id="mySpaceBannerImg" class="w-100 h-100" alt="封面">
+    <img th:src="${session.user != null && intro.hasBanner ? '/user/introBanner' : '/images/mySpace-bg.svg'}"  id="mySpaceBannerImg" class="w-100 h-100" alt="封面">
 </div>
 <!-- 首頁背景圖 cover photo 結束-->
 
