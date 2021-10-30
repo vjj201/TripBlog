@@ -141,7 +141,6 @@ $(function(){
     // MySpace背景圖 更新 end------
 
 
-
     //自我介紹更新按鈕
     $('#updateIntro').click(function(e) {
 

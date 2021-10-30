@@ -344,10 +344,26 @@ public class UserController {
             User user = (User) session.getAttribute("user");
             String fileName = "memberPic.jpg";
             String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
-
             FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
+
+            user.setHasMemberPic(true);
+            session.setAttribute("user", user);
+            user = userService.findUserById(user.getId());
+            user.setHasMemberPic(true);
+            userService.updateUser(user);
+
             return true;
         }
         return false;
+    }
+
+    //顯示會員頭像
+    @RequestMapping(value = "/memberPic", produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getMemberPic(HttpSession session) throws IOException {
+        User user = (User)session.getAttribute("user");
+        String dir = "src/main/resources/static/images/userPhoto/" + user.getId() + "/memberPic.jpg";
+        File file = new File(dir);
+        return Files.readAllBytes(file.toPath());
     }
 }

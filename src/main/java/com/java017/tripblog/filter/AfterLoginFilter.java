@@ -40,6 +40,7 @@ public class AfterLoginFilter extends OncePerRequestFilter {
                     userSession.setId(userDetails.getId());
                     userSession.setNickname(userDetails.getNickName());
                     userSession.setEmail(userDetails.getEmail());
+                    userSession.setHasMemberPic(userDetails.hasMemberPic());
                     session.setAttribute("user", userSession);
                 }
                 System.out.println("已有登入會話");

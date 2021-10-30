@@ -66,12 +66,8 @@ public class User {
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
-    //會員頭像
-    @Lob
-    private String memberPic;
-
-    //會員頭像base64檔案類型
-    private String memberPicContent;
+    //是否有頭貼
+    private boolean hasMemberPic;
 
     public boolean isMailVerified() {
         return mailVerified;
@@ -169,22 +165,13 @@ public class User {
         this.signDate = signDate;
     }
 
-    public String getMemberPic() {
-        return memberPic;
+    public boolean hasMemberPic() {
+        return hasMemberPic;
     }
 
-    public void setMemberPic(String memberPic) {
-        this.memberPic = memberPic;
+    public void setHasMemberPic(boolean hasMemberPic) {
+        this.hasMemberPic = hasMemberPic;
     }
-
-    public String getMemberPicContent() {
-        return memberPicContent;
-    }
-
-    public void setMemberPicContent(String memberPicContent) {
-        this.memberPicContent = memberPicContent;
-    }
-
 
     @Override
     public String toString() {
@@ -197,12 +184,11 @@ public class User {
                 ", gender='" + gender + '\'' +
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
-                ", phone=" + phone +
+                ", phone='" + phone + '\'' +
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
                 ", intro=" + intro +
-                ", memberPic='" + memberPic + '\'' +
-                ", memberPicContent='" + memberPicContent + '\'' +
+                ", hasMemberPic=" + hasMemberPic +
                 '}';
     }
 }
