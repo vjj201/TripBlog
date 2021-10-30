@@ -78,13 +78,14 @@ public class MailController {
                                         HttpServletRequest request) {
         HttpSession session = request.getSession();
         String captcha = (String) session.getAttribute("captcha");
+
         session.removeAttribute("captcha");
         if (captcha == null || !captcha.equalsIgnoreCase(imageCode)) {
             System.out.println("code:" + captcha + "/" + imageCode);
             return "{\"result\" : \"驗證碼錯誤\"}";
         }
 
-
+        System.out.println("email:" + email);
         User user = userService.findUserByEmail(email);
         if (user == null) {
             System.out.println("未找到重設密碼的用戶");
@@ -107,7 +108,12 @@ public class MailController {
             passwordResetToken.setResetCount(0);
         }
 
-        int resetCount = passwordResetToken.getResetCount();
+        Integer resetCount = passwordResetToken.getResetCount();
+
+        if(resetCount == null) {
+            resetCount = 0;
+        }
+
         if (resetCount >= maxResetCountPerDay) {
             System.out.println("超過當日發送次數" + maxResetCountPerDay);
             return "{\"result\" : \"已超過當日發送次數\"}";
@@ -139,6 +145,7 @@ public class MailController {
 
         //重設密碼
         String newPassword = mailService.createUUID();
+        System.out.println("newPassword:" + newPassword);
         User user = passwordResetToken.getUser();
 
         user.setPassword(passwordEncoder.encode(newPassword));

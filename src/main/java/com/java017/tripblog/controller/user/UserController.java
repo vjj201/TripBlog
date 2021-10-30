@@ -224,9 +224,11 @@ public class UserController {
     //更新會員密碼
     @ResponseBody
     @PostMapping("/changePassword")
-    public boolean changePassword(@RequestParam Map<String, Object> params ) {
+    public boolean changePassword(@RequestParam Map<String, Object> params, HttpSession session) {
 
-        User user = userService.getCurrentUser();
+        User user = (User) session.getAttribute("user");
+        user = userService.findUserById(user.getId());
+
 
         // 將明文同已經經過加鹽+BCrypt演算法加密後祕文進行比較
         boolean checkPassword = BCrypt.checkpw(params.get("oldPassword").toString(), user.getPassword());

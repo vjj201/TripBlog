@@ -106,7 +106,7 @@ $(function () {
             async: false,
             data: data,
             success: function (response) {
-                if (response == true){
+                if (response){
                     alert("變更密碼成功 返回會員資料頁面");
                 } else {
                     alert("舊密碼輸入錯誤 返回會員資料頁面");
