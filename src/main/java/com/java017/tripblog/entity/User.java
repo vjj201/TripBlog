@@ -66,6 +66,13 @@ public class User {
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
+    //會員頭像
+    @Lob
+    private String memberPic;
+
+    //會員頭像base64檔案類型
+    private String memberPicContent;
+
     public boolean isMailVerified() {
         return mailVerified;
     }
@@ -162,6 +169,23 @@ public class User {
         this.signDate = signDate;
     }
 
+    public String getMemberPic() {
+        return memberPic;
+    }
+
+    public void setMemberPic(String memberPic) {
+        this.memberPic = memberPic;
+    }
+
+    public String getMemberPicContent() {
+        return memberPicContent;
+    }
+
+    public void setMemberPicContent(String memberPicContent) {
+        this.memberPicContent = memberPicContent;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -177,6 +201,8 @@ public class User {
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
                 ", intro=" + intro +
+                ", memberPic='" + memberPic + '\'' +
+                ", memberPicContent='" + memberPicContent + '\'' +
                 '}';
     }
 }

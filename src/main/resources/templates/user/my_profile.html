@@ -18,6 +18,14 @@
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- js -->
     <script src="../../static/js/profile.js" th:src="@{/js/profile.js}"></script>
+
+    <style>
+        #memberPic{
+            width:6.5vw;
+            min-width:32.5px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -121,8 +129,11 @@
         <!-- 頭貼 -->
         <div class="col-1 p-2">
             <!-- 頭像 -->
-            <img src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
-                 class="rounded-circle w-100 ms-3 mt-2">
+<!--            <img th:if="${intro.memberPic == null}"  src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"-->
+<!--                 class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" id="memberPic"/>-->
+<!--            <img th:if="${intro.memberPic != null}"  th:src="*{intro.memberPicContent + ',' + intro.memberPic}" alt="頭貼"-->
+<!--                 class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" id="memberPic"/>-->
+            <img th:if="${session.user != null}" th:src="@{'/images/userPhoto/'+${session.user.id}+'/memberPic.jpg'}" id="memberPic" class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;" alt="頭貼">
         </div>
 
         <!-- 會員暱稱、註冊日期 -->

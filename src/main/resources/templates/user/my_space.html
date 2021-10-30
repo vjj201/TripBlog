@@ -32,28 +32,45 @@
 
         /* 頭貼 */
 
-        .memberpic{
+        .memberPicBlock{
             position: relative;
             width: 9vw;
+        }
+        #memberPic{
+            width:6.5vw;
+            min-width:25px;
         }
 
         .mask{
             position: absolute;
-            top: 12vh;
             margin: auto;
-            left: 8vw;
-            background: #c9c5c5;
-            border-radius: 40vw;
-            padding:  5px;
-
-            /* color: #5c3a3a; */
+            left: 7vw;
+            border-radius: 50vw;
+            padding:  4px;
+            transform: translate(10%,145%);
             opacity: 0;
-
-
         }
-        .memberpic:hover .mask{
+        .memberPicBlock   :hover .mask{
             opacity: 1;
         }
+
+        @media screen and (max-width: 768px) {
+
+            #memberPic{
+            width: 8.5vw;
+            }
+
+            .mask{
+           
+            left: 13vw;
+            transform: translateY(-50%);
+            border-radius: 50vw;
+            padding:  0px;
+            
+            opacity: 1;
+        }
+        }
+
 
 
 
@@ -157,16 +174,55 @@
 <div class="myspace-middle-container container-fluid py-5 rounded-3" >
 
     <!-- 會員框 -->
-    <div class="row mx-5 ">
+    <div class="row mx-5 flex-nowrap ">
 
         <!-- 頭貼 -->
-        <div class="col-1 p-2 ">
-            <!-- 頭像 -->
-            <img src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
-                 class="rounded-circle w-100 ms-3 mt-2">
-            <button class="mask">
-                <img src="../../static/images/camera2memberpic.svg" th:src="@{/images/camera2memberpic.svg}" style="width:30px;">
-            </button>
+        <div class="memberPicBlock col-1 p-2">
+            <!--   頭像  -->
+            <div >
+
+                <img th:if="${session.user != null}" th:src="@{'/images/userPhoto/'+${session.user.id}+'/memberPic.jpg'}" id="memberPic" class="rounded-circle ms-3 mt-2 rounded-circle" alt="頭貼">
+
+<!--                <img th:if="${session.user.memberPic == null}"  src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"-->
+<!--                     class="rounded-circle w-100 ms-3 mt-2"  id="memberPic" >-->
+<!--                <img  th:if="${session.user.memberPic != null}"  th:src="@{${session.user.memberPic}}" alt="頭貼"-->
+<!--                      class="rounded-circle ms-3 mt-2"  id="memberPic" >-->
+
+                <button class="mask"  data-bs-toggle="modal" data-bs-target="#uploadMemberPic">
+                    <img src="../../static/images/camera2memberpic.svg" th:src="@{/images/camera2memberpic.svg}" alt="" srcset=""  style="width:1.5vw;">
+                </button>
+            </div>
+        </div>
+
+        <!-- 頭像 Modal -->
+        <div class="modal fade" id="uploadMemberPic" tabindex="-1" aria-labelledby="uploadMemberPicLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadMemberPicLabel">更新大頭貼照</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- croppie 裁剪工具(起) -->
+                        <label class="btn btn-info">
+                            <input id="upload_img" style="display:none;" type="file" accept="image/*" name="src">
+                            <i class="fa fa-photo"></i> 上傳圖片</label>
+
+                        <div id="oldImg" style="display:none;"></div>
+                        <button id="crop_img" class="btn btn-info">
+                            <i class="fa fa-scissors"></i> 裁剪圖片</button>
+                        <div id="newImgInfo"></div>
+                        <div id="newImg"></div>
+                        <!-- croppie 裁剪工具(訖) -->
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">離開</button>
+                        <button type="button" class="btn btn-primary" id="editMemberPic" data-bs-dismiss="modal">上傳</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
 

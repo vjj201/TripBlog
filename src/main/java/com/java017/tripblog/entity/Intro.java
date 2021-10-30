@@ -101,6 +101,22 @@ public class Intro {
         this.emailLink = emailLink;
     }
 
+//    public String getMemberPic() {
+//        return memberPic;
+//    }
+//
+//    public void setMemberPic(String memberPic) {
+//        this.memberPic = memberPic;
+//    }
+//
+//    public String getMemberPicContent() {
+//        return memberPicContent;
+//    }
+//
+//    public void setMemberPicContent(String memberPicContent) {
+//        this.memberPicContent = memberPicContent;
+//    }
+
     @Override
     public String toString() {
         return "Intro{" +
