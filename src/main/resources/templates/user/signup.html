@@ -136,8 +136,9 @@
                         <!-- Name input-->
                         <div class="form-floating mb-3 my-4">
                             <input class="form-control " id="name" name="name" type="text"
-                                   placeholder="Enter your name..." minlength="1" maxlength="20"/>
-                            <label for="name" class="text-bl04 fw-bold">姓名</label>
+                                   placeholder="Enter your name..." minlength="1" maxlength="20" />
+                                   <label for="name" class="text-bl04 fw-bold">姓名</label>
+                            <span class="erName" style="color: red;"></span>
                         </div>
 
                         <!-- Nickname input-->
@@ -145,34 +146,38 @@
                             <input class="form-control" id="nickname" name="nickname" type="text"
                                    placeholder="Enter your nickname..." minlength="1" maxlength="20"/>
                             <label for="nickname" class="text-bl04 fw-bold">暱稱</label>
+                            <span class="erNickName" style="color: red;"></span>
                         </div>
 
                         <!-- Gender input -->
-                        <div class="form-floating mb-3 py-3 text-start border border-1 rounded bg-white gender">
+                        
+                        <div class="form-floating mb-3 py-3 text-start border border-1 rounded bg-white gender" >
                             <span class="ms-2 me-3 text-bl04 fw-bold">性別</span>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
                                 <label class="form-check-label text-bl04 fw-bold" for="male">男生</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="female"
-                                       value="female">
+                                       value="female" required>
                                 <label class="form-check-label text-bl04 fw-bold" for="female">女生</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="unknow"
-                                       value="unknow">
+                                       value="unknow" required>
                                 <label class="form-check-label text-bl04 fw-bold" for="unknow">其他</label>
+                                <div class="invalid-feedback">More example invalid feedback text</div>
                             </div>
+                            <span class="erGender" style="color: red;"></span>
                         </div>
 
 
                         <!-- Email address input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="email" name="email" type="email"
-                                   placeholder="name@example.com"/>
+                                   placeholder="name@example.com" />
                             <label for="email" class="text-bl04 fw-bold">信箱</label>
-
+                            <span class="erEmail" style="color: red;"></span>
                         </div>
 
                         <!-- Account input-->
@@ -180,7 +185,7 @@
                             <input class="form-control" id="username" name="username" type="text"
                                    placeholder="123456789" minlength="4" maxlength="20"/>
                             <label for="username" class="text-bl04 fw-bold">帳號 : 4~20英文數字</label>
-
+                            <span class="erUsername" style="color: red;"></span>
                         </div>
 
                         <!-- Password input-->
@@ -190,7 +195,7 @@
                                    pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,36}$"/>
                             <!--至少要使用 6 個位元，至少使用一個英文字元，至少使用一個數字-->
                             <label for="password" class="text-bl04 fw-bold">密碼 : 6~36英文數字</label>
-
+                            <span class="erPassword" style="color: red;"></span>
                         </div>
 
                         <!--Check password-->
@@ -198,6 +203,7 @@
                             <input class="form-control" id="confirmPassword" name="confirmPassword" type="password"
                                    placeholder="確認密碼" maxlength="20" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$"/>
                             <label for="confirmPassword" class="text-bl04 fw-bold">密碼確認</label>
+                            <span class="erConfirmPassword" style="color: red;"></span>
                         </div>
 
                         <!-- Submit Button-->
