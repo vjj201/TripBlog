@@ -34,13 +34,13 @@
             <!-- 左邊網站名稱 -->
             <div class="col-2 mb-2">
                 <a class="navbar-brand" href="../index.html">
-                    <img src="../../static/images/nav_logo_05.svg" class="w-100" th:src="@{/images/nav_logo_05.svg}">
+                    <img src="../../static/images/nav_logo_05.svg" class="w-100">
                 </a>
             </div>
             <!-- 折疊插件 -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -88,18 +88,18 @@
                     <div class="dropdown">
                         <!-- 選單標題 -->
                         <a class="btn  btn-info dropdown-toggle btn-milkyellow text-bl04 fw-bold rounded-pill" href="#"
-                            role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                             訪客
                         </a>
                         <!-- 選單內容 -->
                         <ul class="dropdown-menu dropdown-menu-end border-5 border-jumpBorderGreen rounded"
                             aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item rounded fw-bold" href="../user/write_article.html">撰寫文章</a></li>
-                            <li><a class="dropdown-item rounded fw-bold" href="../user/my_space.html" th:href="@{/user/profile}">我的空間</a></li>
+                            <li><a class="dropdown-item rounded fw-bold" href="../user/my_space.html">我的空間</a></li>
                             <li><a class="dropdown-item rounded fw-bold" href="../user/my_notify.html">訊息通知</a></li>
                             <hr class="dropdown-divider rounded fw-bold">
-                            <li><a class="dropdown-item rounded fw-bold" href="../user/signup.html" th:href="@{/user/signup}">註冊</a></li>
-                            <li><a class="dropdown-item rounded fw-bold" href="loginPage.html" th:href="@{/user/login}">登入</a></li>
+                            <li><a class="dropdown-item rounded fw-bold" href="../user/signup.html">註冊</a></li>
+                            <li><a class="dropdown-item rounded fw-bold" href="loginPage.html">登入</a></li>
                         </ul>
                     </div>
 
@@ -108,13 +108,14 @@
             </div>
         </div>
     </nav>
-    <!-- 結束:總導覽列 -->
+<!-- 結束:總導覽列 -->
 
-    <h2 class="pt-5 ps-5 pb-3 mb-4" >已購買商品</h2>
+    
     <!-- 已購買清單 -->
-    <main class="d-flex align-items-center py-md-0 py-sm-2" style="height: 70vh;">
+    <main class="d-flex align-items-center py-md-0 py-sm-2 my-5" style="height: 70vh;margin-top: 20%;">
         <div class="container">
-            <div class="card shadow p-3 d-flex flex-wrap align-content-center mb-5">
+          <div class="card shadow p-3 d-flex flex-wrap align-content-center my-5">
+            <h2 class="pt-3 pb-0 ps-5" >已購買商品</h2>
               <div class="container m-5">
                 <div class="row d-flex">
                     <table class="table table-striped table-hover" id="table"
@@ -165,7 +166,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <hr>
+                    <hr style="box-sizing:border-box">
                     <div class="d-flex justify-content-end">
                     <tr>
                         <th scope="row">總計：</th>
