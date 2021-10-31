@@ -4,6 +4,7 @@ import com.java017.tripblog.entity.Article;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ArticleService {
 
@@ -11,7 +12,6 @@ public interface ArticleService {
 
     ArrayList<Article> findByEnterAddressNameLike(String enterAddressName);
 
-
-
+    List<Article> getPagedArticles(int page, int size, String address);
 
 }
