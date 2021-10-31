@@ -1,8 +1,5 @@
-alert("有抓到這個js!")
+
 $(function () {
-
-
-    alert("有抓到這個function!")
 
     $("#btsearch").click(function (e) {
         e.preventDefault();
@@ -50,9 +47,9 @@ $(function () {
                         <small class="text-bl04 mapArticleAdress">${enterAddress}</small>
                     </p>
                     <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                    <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                    <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                    <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
+                    <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
+                    <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</button>
+                    <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
                   </div>
                 </div>
               </div>
@@ -143,9 +140,9 @@ $(function () {
                               <small class="text-bl04 mapArticleAdress">${enterAddress}</small>
                           </p>
                           <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                          <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                          <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                          <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
+                          <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
+                          <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
+                          <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
                         </div>
                       </div>
                     </div>
@@ -184,9 +181,53 @@ $(function () {
 //---------------------------------------------------------------------------------------------------
 
             }
+
+
         });
 
     });
+
+    $("#articleBox").on('click', 'button', function (event){
+        let choose = $(this).text();
+        let articleTitle = $(this).attr('name');
+
+        let article = {};
+        article["articleTitle"] = articleTitle;
+        let TUrl;
+        console.log("choose" + choose);
+        if(choose == "推薦"){
+            // article["recommend"] = choose;
+            TUrl = "/forRecommend";
+            console.log("recommend" + article.articleTitle)
+
+        }
+        else if(choose == "收藏"){
+            // article["collect"] = choose;
+            TUrl = "/forCollect";
+            console.log("collect" + article.articleTitle)
+        }
+        else if(choose == "檢舉"){
+            // article["Report"] = choose;
+            TUrl = "/forReport";
+            console.log("Report" + article.articleTitle)
+        }
+        $.ajax({
+            url: TUrl,
+            type: "POST",
+            data: article,
+            success: function (response) {
+                alert("林北推薦按鈕回來瞜")
+
+            }
+
+
+        });
+
+
+
+    })
+
+
 
 
 

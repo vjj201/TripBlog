@@ -32,10 +32,41 @@ public class Article {
 
     String free_tag;
 
+    Integer recommend;
+
+    Integer Report;
+
+    Integer collect;
+
+
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date createDate;
+
+    public Integer getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(Integer recommend) {
+        this.recommend = recommend;
+    }
+
+    public Integer getReport() {
+        return Report;
+    }
+
+    public void setReport(Integer report) {
+        Report = report;
+    }
+
+    public Integer getCollect() {
+        return collect;
+    }
+
+    public void setCollect(Integer collect) {
+        this.collect = collect;
+    }
 
     public Date getCreateDate() {
         return createDate;
@@ -129,6 +160,9 @@ public class Article {
                 ", articleTitle='" + articleTitle + '\'' +
                 ", textEditor='" + textEditor + '\'' +
                 ", free_tag='" + free_tag + '\'' +
+                ", recommend=" + recommend +
+                ", Report=" + Report +
+                ", collect=" + collect +
                 ", createDate=" + createDate +
                 '}';
     }

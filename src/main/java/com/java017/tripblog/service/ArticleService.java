@@ -16,4 +16,6 @@ public interface ArticleService {
 
     Article findByArticleTitle(String articleTitle);
 
+    String updateRecommend(String articleTitle);
+
 }

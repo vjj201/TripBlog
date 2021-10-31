@@ -75,5 +75,14 @@ public class ArticleServiceImpl implements ArticleService {
       Article result = articleRepository.findByArticleTitle(articleTitle);
       return result;
    }
+
+    public String updateRecommend(String articleTitle){
+        Article result = articleRepository.findByArticleTitle(articleTitle);
+        Integer Recommend = result.getRecommend();
+        Recommend ++;
+        result.setRecommend(Recommend);
+        articleRepository.save(result);
+        return "推薦成功";
+    };
 }
 
