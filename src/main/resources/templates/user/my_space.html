@@ -16,6 +16,9 @@
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- croppie.js -->
+    <script src="https://cdn.bootcss.com/croppie/2.6.2/croppie.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css" rel="stylesheet"></link>
     <!-- js -->
     <script src="../../static/js/intro.js" th:src="@{/js/intro.js}"></script>
     <style>
@@ -29,30 +32,46 @@
 
         /* 頭貼 */
 
-        .memberpic{
+        .memberPicBlock {
             position: relative;
             width: 9vw;
         }
-    
-        .mask{
-            position: absolute;
-            top: 12vh;
-            margin: auto;
-            left: 8vw;
-            background: #c9c5c5;
-            border-radius: 40vw;
-            padding:  5px;
-        
-            /* color: #5c3a3a; */
-            opacity: 0;
 
-           
+        #memberPic {
+            width: 6.5vw;
+            min-width: 25px;
         }
-        .memberpic:hover .mask{
+
+        .mask {
+            position: absolute;
+            margin: auto;
+            left: 7vw;
+            border-radius: 50vw;
+            padding: 4px;
+            transform: translate(25%, -90%);
+            opacity: 0;
+        }
+
+        .memberPicBlock :hover .mask {
             opacity: 1;
         }
 
-    
+        @media screen and (max-width: 768px) {
+
+            #memberPic {
+                width: 8.5vw;
+            }
+
+            .mask {
+
+                left: 8vw;
+                transform: translate(40%, -80%);
+                border-radius: 50vw;
+                padding: 0px;
+                opacity: 1;
+            }
+        }
+
 
     </style>
 </head>
@@ -60,7 +79,8 @@
 <body>
 
 <!-- 總導覽列 -->
-<nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
+<nav th:replace="fragments :: nav(0)"
+     class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
     <div class="container-fluid">
 
         <!-- 左邊網站名稱 -->
@@ -144,27 +164,67 @@
 
 <!-- 首頁背景圖 cover photo -->
 <div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px;">
-    <img th:if="${intro.bannerPic == null}" id="mySpaceBannerImg" src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
-    <img th:if="${intro.bannerPic != null}" th:src="*{intro.bannerContent + ',' + intro.bannerPic}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">
-<!--    <img th:if="${intro.bannerPic != null}" th:src="@{${intro.bannerPic}}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">-->
+    <img th:src="${session.user != null && intro.hasBanner ? '/user/introBanner' : '/images/mySpace-bg.svg'}"
+         id="mySpaceBannerImg" class="w-100 h-100" alt="封面">
+
 </div>
 <!-- 首頁背景圖 cover photo 結束-->
 
 
 <!-- 中間內容 -->
-<div class="myspace-middle-container container-fluid py-5 rounded-3" >
+<div class="myspace-middle-container container-fluid py-5 rounded-3">
 
     <!-- 會員框 -->
-    <div class="row mx-5 ">
+    <div class="row mx-5 flex-nowrap ">
 
         <!-- 頭貼 -->
-        <div class="col-1 p-2 ">
-            <!-- 頭像 -->
-            <img src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
-                 class="rounded-circle w-100 ms-3 mt-2">
-            <button class="mask">
-                <img src="../../static/images/camera2memberpic.svg" th:src="@{/images/camera2memberpic.svg}" style="width:30px;">
-            </button>
+        <div class="memberPicBlock col-1 p-2">
+            <!--   頭像  -->
+            <div>
+
+                <img th:src="${session.user != null && session.user.hasMemberPic() ? '/user/memberPic' : 'https://semantic-ui.com/images/avatar2/small/elyse.png'}"
+                     src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
+                     id="memberPic" class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;">
+
+                <button class="mask" data-bs-toggle="modal" data-bs-target="#uploadMemberPic">
+                    <img src="../../static/images/camera2memberpic.svg" th:src="@{/images/camera2memberpic.svg}" alt=""
+                         srcset="" style="width:1.5vw;">
+                </button>
+            </div>
+        </div>
+
+        <!-- 頭像 Modal -->
+        <div class="modal fade" id="uploadMemberPic" tabindex="-1" aria-labelledby="uploadMemberPicLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadMemberPicLabel">更新大頭貼照</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- croppie 裁剪工具(起) -->
+                        <label class="btn btn-info">
+                            <input id="upload_img" style="display:none;" type="file" accept="image/*" name="src">
+                            <i class="fa fa-photo"></i> 上傳圖片</label>
+
+                        <div id="oldImg" style="display:none;"></div>
+                        <button id="crop_img" class="btn btn-info">
+                            <i class="fa fa-scissors"></i> 裁剪圖片
+                        </button>
+                        <div id="newImgInfo"></div>
+                        <div id="newImg"></div>
+                        <!-- croppie 裁剪工具(訖) -->
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">離開</button>
+                        <button type="button" class="btn btn-primary" id="editMemberPic" data-bs-dismiss="modal">上傳
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -182,7 +242,7 @@
         <div class="col-4 d-none d-lg-flex">
             <ul class="list-group list-group-horizontal align-items-end mb-2">
                 <li class="list-group-item text-bl04 " style="background-color: transparent; border: none;">總閱讀：
-                    <span ></span>
+                    <span></span>
                 </li>
                 <li class="list-group-item text-bl04 " style="background-color: transparent; border: none;">總推薦：
                     <span></span>
@@ -204,7 +264,8 @@
             <div class="card border border-2 rounded-0 border-top-0">
 
                 <!-- 會員導航欄 -->
-                <div th:replace="user/fragments :: userNav(1)" class="card-header d-flex sticky-top bg-gr0201 rounded-3">
+                <div th:replace="user/fragments :: userNav(1)"
+                     class="card-header d-flex sticky-top bg-gr0201 rounded-3">
                     <ul class="nav nav-tabs card-header-tabs h4 mx-auto">
                         <li class="nav-item me-3">
                             <a class="nav-link active" href=" #">Introduce</a>
@@ -251,7 +312,8 @@
                                 <div class="introContent mx-2 my-5">
                                     <p class="text-secondary" id="introduceContent">
                                         <span th:if="${intro.introContent == null || intro.introContent == ''}">介紹一下自己，讓大家好好認識你吧!</span>
-                                        <span th:if="${intro.introContent != null}" th:utext="${intro.introContent}"></span>
+                                        <span th:if="${intro.introContent != null}"
+                                              th:utext="${intro.introContent}"></span>
                                     </p>
                                 </div>
                             </div>
@@ -261,20 +323,26 @@
                             <!-- Button trigger modal -->
                             <div class="col-1 col-md-3">
                                 <div class="d-grid gap-2 col-7 mx-auto mt-5">
-                                    <button class="btn my-2 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#uploadBannerModal">上傳首圖</button>
-                                    <button class="btn my-2 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#updateIntroduceModal">更新自我介紹</button>
-                                    <button class="btn my-2 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#updateLinkModal">更新按鈕連結</button>
+                                    <button class="btn my-2 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                            type="button" data-bs-toggle="modal"
+                                            data-bs-target="#uploadBannerModal">上傳首圖
+                                    </button>
+                                    <button class="btn my-2 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                            type="button" data-bs-toggle="modal"
+                                            data-bs-target="#updateIntroduceModal">更新自我介紹
+                                    </button>
+                                    <button class="btn my-2 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                            type="button" data-bs-toggle="modal"
+                                            data-bs-target="#updateLinkModal">更新按鈕連結
+                                    </button>
                                 </div>
                             </div>
 
                             <!-- Modal -->
                             <!-- 上傳背景圖視窗 -->
-                            <div class="modal fade" id="uploadBannerModal" tabindex="-1"
+                            <div class="modal fade me-1" id="uploadBannerModal" tabindex="-1"
                                  aria-labelledby="uploadBannerModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-fullscreen">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="uploadBannerModal">上傳MySpace橫幅背景圖</h5>
@@ -284,16 +352,23 @@
                                         <div class="modal-body">
                                             <!-- 視窗內容 -->
                                             <div class="mb-3">
-                                                <label for="mySpaceBannerImg"
-                                                       class="form-label">上傳MySpace橫幅背景圖，圖片長寬建議為1200x400</label>
-                                                <input class="form-control" type="file" id="uploadBannerFile">
+                                                <label for="mySpaceBannerImg" class="form-label">圖片長寬建議為1200x400</label>
+                                                <input class="form-control" type="file" id="uploadBannerFile"
+                                                       accept="image/*" onchange="readFile(this)"
+                                                       targetID="main-cropper">
+                                                <!-- 預覽封面圖的欄位 -->
+                                                <div class="row mt-2" id="main-cropper" style="display: none;">
+                                                </div>
                                             </div>
                                             <!-- 視窗內容 結束-->
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">離開</button>
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="uploadIntroBanner">上傳</button>
+                                                    data-bs-dismiss="modal">離開
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                                    id="uploadIntroBanner">上傳
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -312,18 +387,23 @@
                                             <!-- 視窗內容 -->
                                             <div class="mb-3">
                                                 <label for="editIntroduceTitle" class="form-label">自我介紹標題</label>
-                                                <input type="text" class="form-control" id="editIntroduceTitle" placeholder="大家好~ 我是....">
+                                                <input type="text" class="form-control" id="editIntroduceTitle"
+                                                       placeholder="大家好~ 我是....">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="editIntroduceContent" class="form-label">自我介紹內容</label>
-                                                <textarea class="form-control" id="editIntroduceContent" rows="3"></textarea>
+                                                <textarea class="form-control" id="editIntroduceContent"
+                                                          rows="3"></textarea>
                                             </div>
                                             <!-- 視窗內容 結束-->
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">離開</button>
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateIntro">更新</button>
+                                                    data-bs-dismiss="modal">離開
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                                    id="updateIntro">更新
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -364,9 +444,11 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">離開</button>
+                                                    data-bs-dismiss="modal">離開
+                                            </button>
                                             <button type="button" class="btn btn-primary"
-                                                    data-bs-dismiss="modal" id="updateLink">更新</button>
+                                                    data-bs-dismiss="modal" id="updateLink">更新
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -391,11 +473,11 @@
 <!-- 中間內容END -->
 
 <!-- 追蹤聯絡我 -->
-<div class="container-fluid bg-gr0200" >
+<div class="container-fluid bg-gr0200">
     <div class="row">
         <div class="col-2"></div>
         <div class="col-8 d-md-flex-col">
-            <div class="followMe my-4 text-center  text-gr03" >
+            <div class="followMe my-4 text-center  text-gr03">
                 <h2>
                     Follow & Contact Me
                 </h2>
@@ -403,23 +485,29 @@
             <section class="links row align-items-center d-flex my-4 ms-2 ps-2">
                 <div class="col-lg-2"></div>
                 <div class="col-3 col-lg-2">
-                    <a th:href="${intro.fbLink}" id="fbAddr" target="_blank"><img src="../../static/images/facebook.svg" alt="facebook" th:src="@{/images/facebook.svg}"></a>
+                    <a th:href="${intro.fbLink}" id="fbAddr" target="_blank"><img src="../../static/images/facebook.svg"
+                                                                                  alt="facebook"
+                                                                                  th:src="@{/images/facebook.svg}"></a>
                 </div>
                 <div class="col-3 col-lg-2">
-                    <a th:href="${intro.igLink}" id="igAddr" target="_blank"><img src="../../static/images/instagram.svg" alt="instagram" th:src="@{/images/instagram.svg}"></a>
+                    <a th:href="${intro.igLink}" id="igAddr" target="_blank"><img
+                            src="../../static/images/instagram.svg" alt="instagram"
+                            th:src="@{/images/instagram.svg}"></a>
                 </div>
                 <div class="col-3 col-lg-2">
-                    <a th:href="${intro.ytLink}" id="ytAddr" target="_blank"><img src="../../static/images/youtube.svg" alt="youtube" th:src="@{/images/youtube.svg}"></a>
+                    <a th:href="${intro.ytLink}" id="ytAddr" target="_blank"><img src="../../static/images/youtube.svg"
+                                                                                  alt="youtube"
+                                                                                  th:src="@{/images/youtube.svg}"></a>
                 </div>
                 <div class="col-3 col-lg-2">
-                    <a th:href="'mailto:' + ${intro.emailLink}" id="mailAddr" target="_blank"><img src="../../static/images/mail.svg" alt="mail" th:src="@{/images/mail.svg}"></a>
+                    <a th:href="'mailto:' + ${intro.emailLink}" id="mailAddr" target="_blank"><img
+                            src="../../static/images/mail.svg" alt="mail" th:src="@{/images/mail.svg}"></a>
                 </div>
             </section>
         </div>
     </div>
 </div>
 <!-- 追蹤聯絡我 結束-->
-
 <!-- 尾頁 -->
 <footer class="bg-light py-5">
     <div class="container px-4 px-lg-5 py-2">

@@ -2,14 +2,26 @@
 <html lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+          integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <!-- js -->
+  <script src="../../static/js/map_search.js" th:src="@{/js/map_search.js}"></script>
+<!--  <script src="../../static/js/map_search_forArticle.js" th:src="@{/js/map_search_forArticle.js}"></script>-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TripBlog Map</title>
   <meta name="description" content="Map">
   <meta name="robots" content="index,follow">
   <meta name="author" content="Johnny">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../static/css/all_css.css" th:href="@{/css/all_css.css}">
+
   <style>
     
     /* 總導覽列 */
@@ -58,13 +70,13 @@
       .filtersub{
         margin: 0 10rem 0 6vw;
         width:37.5vw;
-        padding: auto;
+      /* //  padding: auto; */
         } 
       
       .filterloc{
         margin:0 0 0 33vw;
         width:37.5vw;
-        padding: auto;
+      /* //  padding:auto; */
        
         } 
 
@@ -83,7 +95,9 @@
 
 </head>
 
-<body class="bg-milkyellow">
+<body>
+
+
 
 <!-- 總導覽列 -->
     <nav th:replace="fragments :: nav(3)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
@@ -170,20 +184,22 @@
         <div class="mapbox d-flex d-md-flex flex-wrap">
         <!-- 地圖 -->
         <div class="googlemap col-sm-12 col-md-8 col-8 px-2 ps-0 ms-0 map-pack ">
-          <iframe class="w-100 h-100"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462524.8467529401!2d121.2812935563648!3d25.085765004723772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ac6b61dbbd8b%3A0xbcd1baad5c06a482!2z5Y-w5YyX5biC!5e0!3m2!1szh-TW!2stw!4v1633146719684!5m2!1szh-TW!2stw"
-           height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          <div id="map" style="height: 100vh; width: 100%;"></div>
+          <script
+                  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&callback=initMap&libraries=&v=weekly"
+                  async
+          ></script>
         </div>
-      
+
         <!-- 搜尋&搜尋結果 -->
         <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="container-fluid">
           <div class="row" >
             <!-- 搜尋 -->
-          <div class="up-pack d-flex flex-column">
+          <div class="up-pack d-flex flex-column justify-content-center">
             <!-- 地址搜尋 -->
-            <div class="col mt-3 mb-2 ms-2" style="width:28vw">
-              <input class="filterad form-control border-2 border-bl03 bg-gr0200 rounded-pill " placeholder="輸入地址" type="text">
+            <div class="col mt-3 mb-2 " style="width:30vw">
+              <input id="searchAddress" class="filterad form-control border-2 border-bl03 bg-gr0200 rounded-pill " placeholder="輸入地址" type="text">
             </div>
 
             <!-- 篩選器 -->
@@ -219,7 +235,7 @@
         
           <!-- 搜尋結果(文章列表/換頁) -->
           <div class="row flex-column">
-          <div class=" article-part low-pack overflow-auto mt-1 bg-gr0201 rounded-3 px-1" style="height:48vh" >
+          <div class=" article-part low-pack overflow-auto mt-1 bg-gr0201 rounded-3 px-1" style="height:70vh" >
             <!-- 文章列表 -->
             <div>
               <!-- 1篇文章 -->
