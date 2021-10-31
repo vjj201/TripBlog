@@ -71,5 +71,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
+   public Article findByArticleTitle(String articleTitle){
+      Article result = articleRepository.findByArticleTitle(articleTitle);
+      return result;
+   }
 }
 

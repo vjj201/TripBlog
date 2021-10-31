@@ -14,4 +14,6 @@ public interface ArticleService {
 
     List<Article> getPagedArticles(int page, int size, String address);
 
+    Article findByArticleTitle(String articleTitle);
+
 }
