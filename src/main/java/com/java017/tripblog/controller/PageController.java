@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 
 @Controller
-public class IndexController {
+public class PageController {
 
     //跳轉主畫面
     @GetMapping("/")
