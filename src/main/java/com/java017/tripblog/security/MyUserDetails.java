@@ -69,6 +69,10 @@ public class MyUserDetails implements UserDetails {
         return user.isMailVerified();
     }
 
+    public boolean hasMemberPic() {
+        return user.hasMemberPic();
+    }
+
     public User getUser() {
         return user;
     }

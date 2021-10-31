@@ -19,6 +19,13 @@
             padding-left: 5px;
         }
     }
+
+
+    #memberPic{
+        width:6.5vw;
+        min-width:32.5px;
+    }
+
 </style>
 <body>
 <!-- 總導覽列 -->
@@ -107,9 +114,7 @@
 
 <!-- 首頁背景圖 cover photo -->
 <div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px;">
-    <img th:if="${intro.bannerPic == null}" id="mySpaceBannerImg" src="https://picsum.photos/900/200" class="w-100 h-100" alt="cover photo">
-    <!-- <img th:if="${intro.bannerPic != null}" th:src="*{intro.bannerContent + ',' + intro.bannerPic}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo"> -->
-    <img th:if="${intro.bannerPic != null}" th:src="@{${intro.bannerPic}}" id="mySpaceBannerImg" class="w-100 h-100" alt="cover photo">
+    <img th:src="${session.user != null && intro.hasBanner ? '/user/introBanner' : '/images/mySpace-bg.svg'}"  id="mySpaceBannerImg" class="w-100 h-100" alt="封面">
 </div>
 <!-- 首頁背景圖 cover photo 結束-->
 
@@ -123,8 +128,8 @@
         <!-- 頭貼 -->
         <div class="col-1 p-2">
             <!-- 頭像 -->
-            <img src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
-                 class="rounded-circle w-100 ms-3 mt-2">
+            <img th:src="${session.user != null && session.user.hasMemberPic() ? '/user/memberPic' : 'https://semantic-ui.com/images/avatar2/small/elyse.png'}" src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
+                 id="memberPic" class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;">
         </div>
 
         <!-- 會員暱稱、註冊日期 -->

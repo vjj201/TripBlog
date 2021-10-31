@@ -3,17 +3,20 @@ package com.java017.tripblog.controller.user;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.UserService;
+import com.java017.tripblog.util.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Base64;
+import java.nio.file.Files;
+import java.util.Map;
 
 
 /**
@@ -71,6 +74,10 @@ public class UserController {
         return "user/signup_success";
     }
 
+    //跳轉更改密碼畫面
+    @GetMapping("/change-password")
+    public String changePasswordPage() {return "user/change_password"; }
+
     //跳轉會員資料頁
     @GetMapping("/profile")
     public String profilePage(HttpSession session, Model model) {
@@ -101,6 +108,7 @@ public class UserController {
             String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
             intro.setIntroContent(textarea);
         }
+
         model.addAttribute("intro", intro);
 
         return "/user/my_space";
@@ -213,6 +221,29 @@ public class UserController {
         return userService.updateUser(user) != null;
     }
 
+    //更新會員密碼
+    @ResponseBody
+    @PostMapping("/changePassword")
+    public boolean changePassword(@RequestParam Map<String, Object> params, HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        user = userService.findUserById(user.getId());
+
+
+        // 將明文同已經經過加鹽+BCrypt演算法加密後祕文進行比較
+        boolean checkPassword = BCrypt.checkpw(params.get("oldPassword").toString(), user.getPassword());
+
+        //若舊密碼正確為true，加密新密碼並儲存
+        if (checkPassword) {
+            user.setPassword(userService.encodePassword(params.get("password").toString()));
+            System.out.println("變更密碼");
+            return userService.updateUser(user) != null;
+        } else {
+            System.out.println("密碼錯誤");
+            return false;
+        }
+    }
+
     //更新會員自我介紹頁面
     @ResponseBody
     @PostMapping("/updateIntro")
@@ -259,44 +290,80 @@ public class UserController {
         return userService.updateIntro(intro) != null;
     }
 
-    //更新會員MySpace頁面背景圖
+    //上傳會員封面
     @ResponseBody
     @PostMapping("/updateIntroBanner")
-    public boolean updateIntroBanner(@RequestBody String fileB64, HttpSession session) {
+    public boolean updateIntroBanner(@RequestParam(value="file") MultipartFile multipartFile,
+                                     HttpSession session) {
 
-        User user = (User) session.getAttribute("user");
-        Intro intro = userService.findUserById(user.getId()).getIntro();
+        if(!multipartFile.isEmpty()){
 
-//        intro.setBannerPic(fileB64.split(",")[1]);
-//        intro.setBannerContent(fileB64.split(",")[0]);
+            long size = multipartFile.getSize();
+            if(size > 1920*1080){
+                System.out.println("圖片尺寸過大");
+                return false;
+            }
 
-        //base64 to Blob
-        byte[] decodedByte = Base64.getDecoder().decode(fileB64.split(",")[1]);
+            User user = (User)session.getAttribute("user");
 
-        String fileDirec =
-                "/Users/johnn/OneDrive/Documents/back_end/TripBlog/src/main/resources/static/images/imgTest/"
-                        + user.getId();
-        File dir = new File(fileDirec);
-        if(!dir.exists()) {
-            dir.mkdirs();
+            String fileName = "bannerPic.jpg";
+            String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
+
+            FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
+            user = userService.findUserById(user.getId());
+            user.getIntro().setHasBanner(true);
+            userService.updateUser(user);
+            return true;
         }
+        return false;
+    }
 
-        File file = new File(fileDirec, "IntroBanner");
+    //顯示會員封面
+    @RequestMapping(value = "/introBanner", produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getImage(HttpSession session) throws IOException {
+        User user = (User)session.getAttribute("user");
+        String dir = "src/main/resources/static/images/userPhoto/" + user.getId() + "/bannerPic.jpg";
+        File file = new File(dir);
+        return Files.readAllBytes(file.toPath());
+    }
 
-        // Write the image bytes to file.
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            file.createNewFile();
-            int count = decodedByte.length;
-            bos.write(decodedByte, 0, count);
-            bos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    //更新會員頭像存本機
+    @ResponseBody
+    @PostMapping("/updateMemberPic")
+    public boolean updateMemberPic(@RequestParam(value = "file") MultipartFile multipartFile,
+                                   HttpSession session) {
+
+        if (!multipartFile.isEmpty()) {
+
+            long size = multipartFile.getSize();
+            if (size > 1920 * 1080) {
+                return false;
+            }
+
+            User user = (User) session.getAttribute("user");
+            String fileName = "memberPic.jpg";
+            String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
+            FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
+
+            user.setHasMemberPic(true);
+            session.setAttribute("user", user);
+            user = userService.findUserById(user.getId());
+            user.setHasMemberPic(true);
+            userService.updateUser(user);
+
+            return true;
         }
+        return false;
+    }
 
-        String filePath = fileDirec.split("/resources/static")[1] + "/" + "IntroBanner";
-        System.out.println(filePath);
-        intro.setBannerPic(filePath);
-        return userService.updateIntro(intro) != null;
+    //顯示會員頭像
+    @RequestMapping(value = "/memberPic", produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getMemberPic(HttpSession session) throws IOException {
+        User user = (User)session.getAttribute("user");
+        String dir = "src/main/resources/static/images/userPhoto/" + user.getId() + "/memberPic.jpg";
+        File file = new File(dir);
+        return Files.readAllBytes(file.toPath());
     }
 }

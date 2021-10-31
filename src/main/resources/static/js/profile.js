@@ -65,13 +65,8 @@ $(function () {
     });
 
     //密碼更改按鈕註冊
-    $('#changePassword').click(function (e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: '/user/changePassword',
-            type: 'GET'
-        });
+    $('#changePassword').click(function () {
+        window.location.href = "change-password"
     });
 
     //前端姓名格式判斷
