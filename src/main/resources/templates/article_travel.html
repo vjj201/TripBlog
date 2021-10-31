@@ -8,10 +8,15 @@
     <meta name="description" content="Travel">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <!-- 自訂 -->
     <link rel="stylesheet" href="../static/css/article_style.css" th:href="@{/css/article_style.css}">
+    <!-- js -->
+    <script src="../../static/js/article_travel_forArticle.js" th:src="@{/js/article_travel_forArticle.js}"></script>
 
 </head>
 
@@ -23,7 +28,6 @@
             box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
             width: 90vw;
             height: 85vh;
-            margin-top: 10vh;
             margin-bottom: 10vh;
                 }
         
@@ -136,9 +140,62 @@
     </nav>
     <!-- 結束:總導覽列 -->
 
-    <!-- 篩選器/文章推廣/文章列表 -->
+    <!-- 篩選器 -->
     <div class="container">
-        
+        <div class="row justify-content-center" style="margin: 5vh;">
+
+            <div class="col-2 col-md-2 mb-2">
+                <select class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
+                    aria-label="Default select example">
+                    <option selected disabled>時間排序</option>
+                    <option value="1">新 --> 舊</option>
+                    <option value="2">舊 <-- 新</option>
+                    <option value="3">HOT!</option>
+                </select>
+            </div>
+
+            <div class="col-2 col-md-2 mb-2">
+                <select class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
+                    aria-label="Default select example">
+                    <option selected disabled>地區分類</option>
+                    <option value="1">台北市</option>
+                    <option value="2">新北市</option>
+                </select>
+            </div>
+
+            <div class="col-2 col-md-2 mb-2">
+                <select class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
+                    aria-label="Default select example">
+                    <option selected disabled>主題分類</option>
+                    <option value="1">美食</option>
+                    <option value="2">景點
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-6">
+                <div class="iteam">
+                    <form class="d-flex">
+                        <div class="col-2">
+                            <select class="form-select" style="background-color: transparent;border: none;">
+                                <option selected>作者</option>
+                                <option value="1">地址</option>
+                            </select>
+                        </div>
+                        <input class="form-control me-2 border-2 border-bl03 bg-gr0200 rounded-pill" type="search"
+                            placeholder="" aria-label="Search">
+                        <button
+                            class="btn btn-outline-bl04 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                            type="submit">Search</button>
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    
+
     <!-- 文章推廣 -->
     <div class="hot-container container  p-0">
         <div class="row  p-0">
@@ -196,528 +253,14 @@
         </div>
     </div>
 
-    <!-- 篩選器 -->
-    <div class="row justify-content-center" style="margin: 5vh;">
-
-        <div class="col-2 col-md-2 mb-2">
-            <select class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                aria-label="Default select example">
-                <option selected disabled>時間排序</option>
-                <option value="1">新 --> 舊</option>
-                <option value="2">舊 <-- 新</option>
-                <option value="3">HOT!</option>
-            </select>
-        </div>
-
-        <div class="col-2 col-md-2 mb-2">
-            <select class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                aria-label="Default select example">
-                <option selected disabled>地區分類</option>
-                <option value="1">台北市</option>
-                <option value="2">新北市</option>
-            </select>
-        </div>
-
-        <!-- <div class="col-2 col-md-2 mb-2">
-            <select class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                aria-label="Default select example">
-                <option selected disabled>主題分類</option>
-                <option value="1">美食</option>
-                <option value="2">景點
-                </option>
-            </select>
-        </div> -->
-
-        <div class="col-6">
-            <div class="iteam">
-                <form class="d-flex">
-                    <div class="col-2">
-                        <select class="form-select" style="background-color: transparent;border: none;">
-                            <option selected>作者</option>
-                            <option value="1">地址</option>
-                        </select>
-                    </div>
-                    <input class="form-control me-2 border-2 border-bl03 bg-gr0200 rounded-pill" type="search"
-                        placeholder="" aria-label="Search">
-                    <button
-                        class="btn btn-outline-bl04 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                        type="submit">Search</button>
-
-                </form>
-            </div>
-        </div>
-
-
-    </div>
-
-
     <!-- ##### 文章列表開始 ##### -->
     <div class="blog-wrapper section-padding-100 clearfix">
 
 
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-9">
+                <div class="col-12 col-lg-9" id="travelArticleBox">
 
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- 文章圖片  -->
-                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                         data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="../static/images/4.jpg" alt="" th:src="@{/images/4.jpg}">
-                                    <div class="post-date">
-                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <div class="line"></div>
-                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
-                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">Party
-                                        people in the house
-
-                                    </a></h4>
-
-                                    <p class="text-bl04">Curabitur venenatis efficitur lorem sed tempor. Integer aliquet
-                                        tempor cursus.
-                                        Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero
-                                        luctus, vel volutpat quam tincidunt.</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
-                                        <p>3 comments</p>
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="推薦">
-                                        <input
-                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="收藏">
-                                        <input
-                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                                type="submit" value="檢舉">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -730,8 +273,8 @@
     <div class="row justify-content-center">
         <div class="col-8 d-flex justify-content-center my-3">
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
+                <ul class="pagination" id="changePageBox" >
+                    <!-- <li class="page-item">
                         <a class="page-link text-gr03" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -743,7 +286,7 @@
                         <a class="page-link text-gr03" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </div>
