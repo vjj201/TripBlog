@@ -1,5 +1,7 @@
 alert("有抓到這個js!")
 $(function () {
+
+
     alert("有抓到這個function!")
 
     $("#btsearch").click(function (e) {
@@ -24,11 +26,11 @@ $(function () {
             type: "GET",
             data: article,
             success: function (response) {
-                console.log("第一頁文章response" + response);
-
-                console.log("建立空的html")
+                 console.log("第一頁文章response" + response);
+                //
+                 console.log("建立空的html")
                 let html = "";
-                console.log("文章-for迴圈開始")
+                 console.log("文章-for迴圈開始")
 // (開始)文章換頁生成
                 for (let articleAll of response) {
                     let articleTitle = articleAll.articleTitle;
@@ -163,4 +165,32 @@ $(function () {
 
 
     });
+//-----------------------------------------------------------------------------
+    $("#articleBox").on('click', 'a', function (event){
+    //    alert("a標籤被點了");
+        let articleTitle = $(this).text();
+    //    alert(articleTitle);
+        let article = {};
+        article["articleTitle"] = articleTitle;
+        $.ajax({
+            url: "/findByArticleTitle",
+            type: "GET",
+            data: article,
+            success: function (response) {
+          //      alert("林北成功用標題找到文章了")
+                $(location).attr("href","https://localhost:63342/TripBlog/templates/article.html");
+//---------------------------------------------------------------------------------------------------
+            //for秉豐
+//---------------------------------------------------------------------------------------------------
+
+            }
+        });
+
+    });
+
+
+
+
+
+
 });

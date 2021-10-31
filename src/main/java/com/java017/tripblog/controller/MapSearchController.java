@@ -68,6 +68,25 @@ public class MapSearchController {
 
     }
 
+    @ResponseBody
+    @GetMapping("/findByArticleTitle")
+    public Article findByArticelTitle(@RequestParam String articleTitle){
+        Article result = articleService.findByArticleTitle(articleTitle);
+        System.out.println("result" + result);
+        return result;
+    }
+
+    //跳轉單一文章頁面
+    @GetMapping("/articleForone")
+    public String signupOkPage() {
+        return "/article.html";
+    }
+
+
+
+
+
+
 
 
 
