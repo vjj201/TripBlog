@@ -12,7 +12,14 @@ $(function() {
     });
 
     $("#enteraddress").mouseleave(function(){
-    $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q="+ $("#enteraddress").val());
+        if($("#enteraddress").val() == ""){
+            $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q="+ "台灣");
+        }
+        else{
+            $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q="+ $("#enteraddress").val());
+        }
+
+
 
 });
 
