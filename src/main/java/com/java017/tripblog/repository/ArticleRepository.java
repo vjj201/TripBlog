@@ -21,5 +21,7 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
      Page<Article> findByEnterAddressNamelike(String address, Pageable pageable);
 
      Article findByArticleTitle(String articleTitle);
+
+//     String updateRecommend();
 }
 
