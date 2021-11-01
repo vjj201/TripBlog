@@ -15,6 +15,8 @@
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/shoppingcart/shopindex.js" th:src="@{/js/shoppingcart/shopindex.js}"></script>
     <style>
         .sidebar li .submenu {
             list-style: none;
@@ -274,7 +276,7 @@
 
                     <div class="btn-group text-center mx-5 my-3">
                         <a class="btn btn-white btn-lg" type="button" aria-expanded="false" th:href="@{/shop/shopcart}">
-                            <span class="mx-2 text-danger fw-bolder">1</span><i
+                            <span class="mx-2 text-danger fw-bolder" id="itemCount">0</span><i
                                 class="fas fa-shopping-cart text-primary">購物車</i>
                         </a>
                     </div>
@@ -293,7 +295,10 @@
                                 <h5 class="card-title">商品名稱</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                                <span id="A0001" class="addButton btn btn-primary form-control">
+                                    加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|1000">
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -305,7 +310,10 @@
                                 <h5 class="card-title">商品名稱</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                                <span id="A0002" class="addButton btn btn-primary form-control">
+                                    加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|2000">
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -317,7 +325,25 @@
                                 <h5 class="card-title">商品名稱</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                                <span id="A0003" class="addButton btn btn-primary form-control">
+                                    加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|3000">
+                                </span>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="card" style="width: 20rem;">
+                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">商品名稱</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the card's content.</p>
+                                <span id="A0004" class="addButton btn btn-primary form-control">
+                                    加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|4000">
+                                </span>                            
                             </div>
                         </div>
                     </div>
@@ -329,7 +355,10 @@
                                 <h5 class="card-title">商品名稱</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                                <span id="A0005" class="addButton btn btn-primary form-control">
+                                    加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|5000">
+                                </span>                            
                             </div>
                         </div>
                     </div>
@@ -341,7 +370,10 @@
                                 <h5 class="card-title">商品名稱</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                                <span id="A0006" class="addButton btn btn-primary form-control">
+                                    加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|6000">
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -353,7 +385,10 @@
                                 <h5 class="card-title">商品名稱</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                                <span id="A0007" class="addButton btn btn-primary form-control">
+                                        加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|7000">
+                                </span>                            
                             </div>
                         </div>
                     </div>
@@ -365,7 +400,10 @@
                                 <h5 class="card-title">商品名稱</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                                <span id="A0008" class="addButton btn btn-primary form-control">
+                                    加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|8000">
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -377,19 +415,10 @@
                                 <h5 class="card-title">商品名稱</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                                <span id="A0009" class="addButton btn btn-primary form-control">
+                                    加入購物車
+                                    <input type="hidden" value="Formosa|formosa.jpg|9000">
+                                </span>                            
                             </div>
                         </div>
                     </div>
