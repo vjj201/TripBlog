@@ -32,11 +32,11 @@ public class Article {
 
     String free_tag;
 
-    Integer recommend;
+    Integer recommend = 0;
 
-    Integer Report;
+    Integer Report = 0;
 
-    Integer collect;
+    Integer collect = 0;
 
 
     @Temporal(TemporalType.TIMESTAMP)

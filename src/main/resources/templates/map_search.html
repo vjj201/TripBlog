@@ -7,6 +7,9 @@
   <!-- js -->
   <script src="../../static/js/map_search.js" th:src="@{/js/map_search.js}"></script>
   <script src="../../static/js/map_search_forArticle.js" th:src="@{/js/map_search_forArticle.js}"></script>
+  <!--csrf防護-->
+  <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

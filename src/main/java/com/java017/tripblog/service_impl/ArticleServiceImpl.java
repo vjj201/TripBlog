@@ -84,5 +84,29 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(result);
         return "推薦成功";
     };
+
+    public String updateCollect(String articleTitle){
+        Article result = articleRepository.findByArticleTitle(articleTitle);
+        Integer collect = result.getCollect();
+        collect ++;
+        result.setCollect(collect);
+        articleRepository.save(result);
+        return "收藏成功";
+    };
+
+    public String updateReport(String articleTitle){
+        Article result = articleRepository.findByArticleTitle(articleTitle);
+        Integer Report = result.getReport();
+        Report ++;
+        result.setReport(Report);
+        articleRepository.save(result);
+        return "收藏成功";
+    }
+
+
+
+
+
+
 }
 

@@ -89,6 +89,22 @@ public class MapSearchController {
         return "推薦成功";
     }
 
+    @ResponseBody
+    @PostMapping("/forCollect")
+    public String updateCollect(@RequestParam String articleTitle){
+        System.out.println("有道Collect 控制器");
+        articleService.updateCollect(articleTitle);
+        return "收藏成功";
+    }
+
+    @ResponseBody
+    @PostMapping("/forReport")
+    public String updateReport(@RequestParam String articleTitle){
+        System.out.println("有道Collect 控制器");
+        articleService.updateReport(articleTitle);
+        return "檢舉成功";
+    }
+
 
 
 
