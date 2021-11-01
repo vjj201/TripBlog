@@ -53,5 +53,11 @@ public class ShopPageController {
         return "/shop/shop_done";
     }
 
+    //已購買清單
+    @GetMapping("/shop/orderList")
+    public String orderListPage() {
+        return "/shop/shop_order_list";
+    }
+
 
 }

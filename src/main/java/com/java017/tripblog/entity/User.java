@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author YuCheng
@@ -68,6 +69,32 @@ public class User {
 
     //是否有頭貼
     private boolean hasMemberPic;
+
+    //商品訂單
+    @OneToMany(mappedBy = "user")
+    private List<ProductOrder> productOrderList;
+
+    //購物車
+    @OneToOne
+    @JoinColumn
+    private ShopCart shopCart;
+
+
+    public List<ProductOrder> getProductOrderList() {
+        return productOrderList;
+    }
+
+    public void setProductOrderList(List<ProductOrder> productOrderList) {
+        this.productOrderList = productOrderList;
+    }
+
+    public ShopCart getShopCart() {
+        return shopCart;
+    }
+
+    public void setShopCart(ShopCart shopCart) {
+        this.shopCart = shopCart;
+    }
 
     public boolean isMailVerified() {
         return mailVerified;
@@ -189,6 +216,8 @@ public class User {
                 ", mailVerified=" + mailVerified +
                 ", intro=" + intro +
                 ", hasMemberPic=" + hasMemberPic +
+                ", productOrderList=" + productOrderList +
+                ", shopCart=" + shopCart +
                 '}';
     }
 }
