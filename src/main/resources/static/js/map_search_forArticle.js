@@ -1,6 +1,14 @@
 
 $(function () {
 
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+
+
     $("#btsearch").click(function (e) {
         e.preventDefault();
 
@@ -169,13 +177,24 @@ $(function () {
     //    alert(articleTitle);
         let article = {};
         article["articleTitle"] = articleTitle;
+
+        // $.ajax({
+        //     url: "articleForone",
+        //     type:"GET",
+        //     success: function (){
+        //         alert("跳轉搂")
+        //     }
+        // })
+
+
         $.ajax({
             url: "/findByArticleTitle",
             type: "GET",
             data: article,
             success: function (response) {
           //      alert("林北成功用標題找到文章了")
-                $(location).attr("href","https://localhost:63342/TripBlog/templates/article.html");
+
+                // $(location).attr("href","https://localhost:63342/TripBlog/templates/article.html");
 //---------------------------------------------------------------------------------------------------
             //for秉豐
 //---------------------------------------------------------------------------------------------------
@@ -216,7 +235,7 @@ $(function () {
             type: "POST",
             data: article,
             success: function (response) {
-                alert("林北推薦按鈕回來瞜")
+                alert("林北按鈕回來瞜")
 
             }
 

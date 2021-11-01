@@ -18,4 +18,10 @@ public interface ArticleService {
 
     String updateRecommend(String articleTitle);
 
+    String updateCollect(String articleTitle);
+
+    String updateReport(String articleTitle);
+
+
+
 }
