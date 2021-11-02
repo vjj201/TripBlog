@@ -1,6 +1,7 @@
 package com.java017.tripblog.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author YuCheng
@@ -13,18 +14,28 @@ public class ProductTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productTagId;
+    private Long id;
 
     //分類名稱
     private String tagName;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productTag")
+    private List<Product> productList;
 
-    public Long getProductTagId() {
-        return productTagId;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setProductTagId(Long productTagId) {
-        this.productTagId = productTagId;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTagName() {
@@ -38,8 +49,9 @@ public class ProductTag {
     @Override
     public String toString() {
         return "ProductTag{" +
-                "productTagId=" + productTagId +
+                "id=" + id +
                 ", tagName='" + tagName + '\'' +
+                ", productList=" + productList +
                 '}';
     }
 }

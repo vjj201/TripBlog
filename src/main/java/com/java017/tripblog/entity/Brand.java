@@ -14,7 +14,7 @@ public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long brandId;
+    private Long id;
 
     //品牌名稱
     private String brandName;
@@ -22,21 +22,18 @@ public class Brand {
     //關於品牌
     private String aboutBrand;
 
-    //商品種類數
-    private Integer kindOfProduct;
-
     //店家位置
     private String location;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "brand")
+    @OneToMany(mappedBy = "brand")
     private List<Product> productList;
 
-    public Long getBrandId() {
-        return brandId;
+    public Long getId() {
+        return id;
     }
 
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getBrandName() {
@@ -53,14 +50,6 @@ public class Brand {
 
     public void setAboutBrand(String aboutBrand) {
         this.aboutBrand = aboutBrand;
-    }
-
-    public Integer getKindOfProduct() {
-        return kindOfProduct;
-    }
-
-    public void setKindOfProduct(Integer kindOfProduct) {
-        this.kindOfProduct = kindOfProduct;
     }
 
     public String getLocation() {
@@ -82,10 +71,9 @@ public class Brand {
     @Override
     public String toString() {
         return "Brand{" +
-                "brandId=" + brandId +
+                "id=" + id +
                 ", brandName='" + brandName + '\'' +
                 ", aboutBrand='" + aboutBrand + '\'' +
-                ", kindOfProduct=" + kindOfProduct +
                 ", location='" + location + '\'' +
                 ", productList=" + productList +
                 '}';

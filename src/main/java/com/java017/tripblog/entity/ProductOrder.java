@@ -3,6 +3,9 @@ package com.java017.tripblog.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author YuCheng
@@ -15,7 +18,7 @@ public class ProductOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productOrderId;
+    private Long id;
 
     //訂單金額
     private Integer amounts;
@@ -27,36 +30,20 @@ public class ProductOrder {
     private Date orderTime;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
 
-    //訂單的購買量
-    @OneToOne
-    @JoinColumn
-    private ProductListInOrder productListInOrder;
+    //訂單細項
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name = "shopCartItems", referencedColumnName = "id")
+    Set<Item> orderItems = new LinkedHashSet<>();
 
-    public User getUser() {
-        return user;
+    public Long getId() {
+        return id;
     }
 
-    public void setUser(User userId) {
-        this.user = user;
-    }
-
-    public ProductListInOrder getProductListInOrder() {
-        return productListInOrder;
-    }
-
-    public void setProductListInOrder(ProductListInOrder productListInOrder) {
-        this.productListInOrder = productListInOrder;
-    }
-
-    public Long getProductOrderId() {
-        return productOrderId;
-    }
-
-    public void setProductOrderId(Long productOrderId) {
-        this.productOrderId = productOrderId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Integer getAmounts() {
@@ -83,15 +70,31 @@ public class ProductOrder {
         this.orderTime = orderTime;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Item> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<Item> orderItems) {
+        this.orderItems = orderItems;
+    }
+
     @Override
     public String toString() {
         return "ProductOrder{" +
-                "productOrderId=" + productOrderId +
+                "id=" + id +
                 ", amounts=" + amounts +
                 ", orderStatus=" + orderStatus +
                 ", orderTime=" + orderTime +
                 ", user=" + user +
-                ", productListInOrder=" + productListInOrder +
+                ", orderItems=" + orderItems +
                 '}';
     }
 }

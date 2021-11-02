@@ -14,7 +14,7 @@ public class ProductSort {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productSortId;
+    private Long id;
 
     //分類名稱
     private String sortName;
@@ -23,23 +23,12 @@ public class ProductSort {
     @JoinColumn
     private List<ProductTag> tagList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productSort")
-    private List<Product> productList;
-
-    public List<Product> getProductList() {
-        return productList;
+    public Long getId() {
+        return id;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
-
-    public Long getProductSortId() {
-        return productSortId;
-    }
-
-    public void setProductSortId(Long productSortId) {
-        this.productSortId = productSortId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSortName() {
@@ -61,10 +50,9 @@ public class ProductSort {
     @Override
     public String toString() {
         return "ProductSort{" +
-                "productSortId=" + productSortId +
+                "id=" + id +
                 ", sortName='" + sortName + '\'' +
                 ", tagList=" + tagList +
-                ", productList=" + productList +
                 '}';
     }
 }

@@ -75,8 +75,7 @@ public class User {
     private List<ProductOrder> productOrderList;
 
     //購物車
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "user")
     private ShopCart shopCart;
 
 

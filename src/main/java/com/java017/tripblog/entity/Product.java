@@ -2,7 +2,6 @@ package com.java017.tripblog.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author YuCheng
@@ -15,7 +14,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long id;
 
     //產品名稱
     private String ProductName;
@@ -26,6 +25,9 @@ public class Product {
 
     //價格
     private Integer price;
+
+    //特價打折
+    private Integer discount;
 
     //庫存
     private Integer inStock;
@@ -42,22 +44,22 @@ public class Product {
 
     @ManyToOne
     @JoinColumn
-    private ProductSort productSort;
+    private ProductTag productTag;
 
-    public ProductSort getProductSort() {
-        return productSort;
+    public ProductTag getProductTag() {
+        return productTag;
     }
 
-    public void setProductSort(ProductSort ProductSort) {
-        this.productSort = ProductSort;
+    public void setProductTag(ProductTag productTag) {
+        this.productTag = productTag;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getId() {
+        return id;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getProductName() {
@@ -119,15 +121,16 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "productId=" + productId +
+                "id=" + id +
                 ", ProductName='" + ProductName + '\'' +
                 ", launchedTime=" + launchedTime +
                 ", price=" + price +
+                ", discount=" + discount +
                 ", inStock=" + inStock +
                 ", alreadySold=" + alreadySold +
                 ", aboutProduct='" + aboutProduct + '\'' +
                 ", brand=" + brand +
-                ", ProductSort=" + productSort +
+                ", productTag=" + productTag +
                 '}';
     }
 }

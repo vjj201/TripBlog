@@ -1,6 +1,10 @@
 package com.java017.tripblog.entity;
 
+
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * @author YuCheng
@@ -13,13 +17,30 @@ public class ShopCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long shopCartId;
+    private Long id;
 
     private Long userId;
 
+    //商品品項
+    @Transient
+    private HashMap<Product, Integer> items;
+
     @OneToOne
-    @JoinColumn
-    private ProductListInCart productListInCart;
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    private User user;
+
+    //訂單細項
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shopCartItems", referencedColumnName = "id")
+    Set<Item> shopCartItems = new LinkedHashSet<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getUserId() {
         return userId;
@@ -29,28 +50,38 @@ public class ShopCart {
         this.userId = userId;
     }
 
-    public Long getShopCartId() {
-        return shopCartId;
+    public HashMap<Product, Integer> getItems() {
+        return items;
     }
 
-    public void setShopCartId(Long shopCartId) {
-        this.shopCartId = shopCartId;
+    public void setItems(HashMap<Product, Integer> items) {
+        this.items = items;
     }
 
-    public ProductListInCart getProductListInCart() {
-        return productListInCart;
+    public User getUser() {
+        return user;
     }
 
-    public void setProductListInCart(ProductListInCart productListInCart) {
-        this.productListInCart = productListInCart;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Item> getShopCartItems() {
+        return shopCartItems;
+    }
+
+    public void setShopCartItems(Set<Item> shopCartItems) {
+        this.shopCartItems = shopCartItems;
     }
 
     @Override
     public String toString() {
         return "ShopCart{" +
-                "shopCartId=" + shopCartId +
+                "id=" + id +
                 ", userId=" + userId +
-                ", productListInCart=" + productListInCart +
+                ", items=" + items +
+                ", user=" + user +
+                ", shopCartItems=" + shopCartItems +
                 '}';
     }
 }
