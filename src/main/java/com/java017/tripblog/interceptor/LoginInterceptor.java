@@ -16,13 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("嗨我是登入前");
         return true;
     }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        System.out.println("嗨我是驗證帳密後");
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
-    }
 }

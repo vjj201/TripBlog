@@ -1,8 +1,9 @@
 package com.java017.tripblog.controller.user;
 
+import com.java017.tripblog.service.ArticleService;
+import com.java017.tripblog.service_impl.ArticleServiceImpl;
 import com.java017.tripblog.util.ArticleParam;
 import com.java017.tripblog.entity.Article;
-import com.java017.tripblog.repository.ArticleRepository;
 import com.java017.tripblog.util.TagEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +19,14 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleController {
 
 
-    private final ArticleRepository articleRepository;
+
+    private final ArticleService articleService;
 
     @Autowired
-    public ArticleController(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
     }
+
 
     //跳轉撰寫新文章頁
     @GetMapping("/write")
@@ -57,14 +60,21 @@ public class ArticleController {
         String tag = String.join(",", articleParam.getFree_Tags());
         article.setFree_tag(tag);
         article.setArticleTitle(articleParam.getArticleTitle());
-        article.setEnterAddress(articleParam.getEnterAddress());
+        article.setEnterAddressName(articleParam.getEnterAddressName());
+        article.setEnterAddressLng(articleParam.getEnterAddressLng());
+        article.setEnterAddressLat(articleParam.getEnterAddressLat());
         article.setSelectRegion(articleParam.getSelectRegion());
         article.setTextEditor(articleParam.getTextEditor());
         article.setSubjectCategory(articleParam.getSubjectCategory());
-        articleRepository.save(article);
+        articleService.insertArticle(article);
 
         return "ok";
     }
+
+}
+
+
+
 
     //   public  List< Article> Get(TagEnum tag)
     //   {
@@ -87,4 +97,4 @@ public class ArticleController {
 //        tagsRepository.save(tags);
 //        return "ya~~~~";
 
-}
+

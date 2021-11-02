@@ -66,6 +66,9 @@ public class User {
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
+    //是否有頭貼
+    private boolean hasMemberPic;
+
     public boolean isMailVerified() {
         return mailVerified;
     }
@@ -162,6 +165,14 @@ public class User {
         this.signDate = signDate;
     }
 
+    public boolean hasMemberPic() {
+        return hasMemberPic;
+    }
+
+    public void setHasMemberPic(boolean hasMemberPic) {
+        this.hasMemberPic = hasMemberPic;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -173,10 +184,11 @@ public class User {
                 ", gender='" + gender + '\'' +
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
-                ", phone=" + phone +
+                ", phone='" + phone + '\'' +
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
                 ", intro=" + intro +
+                ", hasMemberPic=" + hasMemberPic +
                 '}';
     }
 }

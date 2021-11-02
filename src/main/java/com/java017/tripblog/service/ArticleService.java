@@ -12,8 +12,10 @@ public interface ArticleService {
 
     ArrayList<Article> findByEnterAddressNameLike(String enterAddressName);
 
+    ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject);
+
     //map_search換頁
-    List<Article> getPagedArticles(int page, int size, String address);
+    List<Article> getPagedArticles(int page, int size, String enterAddressName,String subject,String timeDirect);
 
     //預設(無篩選)_user_eat&travel換頁
     List<Article> getUserEatTravelPagedArticles(int page, int size,String subject);

@@ -43,8 +43,8 @@ $(function () {
             success: function (response) {
 
                 if (response) {
-                    $('#message').text('驗證成功，即將返回首頁');
-                    setTimeout(function() { document.location.href = "/";},2000);
+                    $('#message').text('驗證成功，即將返回首頁，請重新登入');
+                    setTimeout(function() { document.location.href = "/user/logout";},2000);
                 } else {
                     $('#message').text('驗證失敗');
                 }

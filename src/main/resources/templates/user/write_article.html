@@ -13,6 +13,7 @@
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
    <script src="../../static/build/ckeditor.js" th:src="@{/build/ckeditor.js}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -23,7 +24,6 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
@@ -55,7 +55,7 @@
 
 </head>
 
-<body  onload="ShowTime()">
+<body class="bg-milkyellow" onload="ShowTime()">
 
     <!-- 總導覽列 -->
     <nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">

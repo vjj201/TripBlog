@@ -1,6 +1,8 @@
 package com.java017.tripblog.service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 /**
  * @author YuCheng
@@ -17,5 +19,12 @@ public interface MailService {
     //生成驗證碼
     String generateVerificationCode(int length);
 
+    //寄送重設密碼信
+    void sendPasswordResetMail(String email, String nickname,String link);
 
+    //產生UUID Token link
+    String createUUID();
+
+    //生成UUID Link
+    String generateTokenLink(HttpServletRequest request, String UUID);
 }
