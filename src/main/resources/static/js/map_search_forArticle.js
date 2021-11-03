@@ -119,7 +119,6 @@ $(function () {
             article["subject"] = subject;
             article["timeDirect"] = timeDirect;
 
-
             $.ajax({
                 url: "/changeSearchOfPage",
                 type: "GET",

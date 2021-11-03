@@ -1,3 +1,8 @@
+body{
+  background-image: url(../images/background/background_02.png);
+}
+
+
 /*!
  * Bootstrap v5.1.1 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -13451,19 +13456,19 @@ fieldset:disabled .btn {
   }
 }
 
-.home-body-background {
+/* .home-body-background {
   background-image: radial-gradient(circle at 100%, #fcfcc9, #ffe9e9, #fcfcc9);
 }
 
 .myspace-middle-container {
   background-image: radial-gradient(circle at 100%, #fcfcc9, #effffb, #fcfcc9);
-}
+} */
 
 .article-content-body-background {
   background-image: radial-gradient(circle at 100%, white, #fcfcc9, white);
 }
 
-.article-body-background {
+/* .article-body-background {
   background-image: radial-gradient(circle at 100%, #fcfcc9, #ffe9e9, #fcfcc9);
 }
 
@@ -13473,5 +13478,5 @@ fieldset:disabled .btn {
 
 .article-myspace02 {
   background-image: radial-gradient(circle at 100%, #ffe9e9, #fcfcc9, #ffe9e9);
-}
+} */
 /*# sourceMappingURL=all_css.css.map */
