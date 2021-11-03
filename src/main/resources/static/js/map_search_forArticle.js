@@ -110,9 +110,9 @@ $(function () {
             // let a = $(this).attr("name",true)
             // console.log(a);
 
-            let pagevalue = $(this).text()
+            let pageValue = $(this).text()
 
-            let page = pagevalue - 1;
+            let page = pageValue - 1;
             let article = {}
             article["page"] = page;
             article["enterAddress"] = enteraddress;

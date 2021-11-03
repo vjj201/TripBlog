@@ -40,45 +40,54 @@ $(function () {
                 for (let articleAll of response) {
                     let articleTitle = articleAll.articleTitle;
                     let textEditor = articleAll.textEditor;
-                    let createDate = articleAll.createDate;
+
 
                     // 從資料庫取出文章資訊
                     html += `
 
                     <!-- 文章圖片  -->
-                         <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
+                    <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
                         data-wow-duration="1000ms">
                         <div class="row align-items-center">
                             <div class="col-12 col-md-6">
                                 <div class="single-blog-thumbnail">
-                                    <img src="https://localhost:8080/user/articlePhoto">
+                                    <img src="../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
+                                    <div class="post-date">
+                                        <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 text-bl04">
                                 <!-- 文章內容 -->
                                 <div class="single-blog-content">
-                                    <h4><a href="https://localhost:8080/article/${articleTitle}" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
+                                    <div class="line"></div>
+                                    <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
+                                    <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
                                         ${articleTitle}   
                                         </a></h4>
 
-                                    <p class="text-bl04">${textEditor}</p>
+                                    <p class="text-bl04"> ${textEditor}</p>
                                     <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">作者</a></p>
-                                       <p class="text-bl04">發表於:&nbsp${createDate}</p>
-                                        <input
+                                        <p class="text-bl04">By <a href="#" class="text-bl04 ">james smith</a></p>
+                                        <p>3 comments</p>
+                                        <button
                                             class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                            type="submit" value="推薦">
-                                        <input
+                                            type="submit" value="推薦">推薦</button>
+                                        <button
                                             class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                            type="submit" value="收藏">
-                                        <input
+                                            type="submit" value="收藏">收藏</button>
+                                        <button
                                             class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                            type="submit" value="檢舉">
+                                            type="submit" value="檢舉">檢舉</button>
+
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
+
               `;
 
                     console.log("文章-for迴圈結束")
@@ -129,13 +138,13 @@ $(function () {
             // let a = $(this).attr("name",true)
             // console.log(a);
 
-            let pagevalue = $(this).text()
+            let pageValue = $(this).text()
 
-            alert(pagevalue);
+            alert(pageValue);
 
-            console.log("pagevalue=" + pagevalue);
+            console.log("pageValue=" + pageValue);
 
-            let page = pagevalue - 1;
+            let page = pageValue - 1;
 
             let article = {}
             article["page"] = page;
@@ -152,46 +161,54 @@ $(function () {
                     for (let articleAll of response) {
                         let articleTitle = articleAll.articleTitle;
                         let textEditor = articleAll.textEditor;
-                        let createDate = articleAll.createDate;
-                        
+
                         // 從資料庫取出文章資訊
 
                         html += `
 
                         <!-- 文章圖片  -->
-        <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
-                        data-wow-duration="1000ms">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-md-6">
-                                <div class="single-blog-thumbnail">
-                                    <img src="https://localhost:8080/user/articlePhoto">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 text-bl04">
-                                <!-- 文章內容 -->
-                                <div class="single-blog-content">
-                                    <h4><a href="https://localhost:8080/article/${articleTitle}" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
-                                        ${articleTitle}   
-                                        </a></h4>
-
-                                    <p class="text-bl04">${textEditor}</p>
-                                    <div class="post-meta">
-                                        <p class="text-bl04">By <a href="#" class="text-bl04">作者</a></p>
-                                       <p class="text-bl04">發表於:&nbsp${createDate}</p>
-                                        <input
-                                            class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                            type="submit" value="推薦">
-                                        <input
-                                            class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                            type="submit" value="收藏">
-                                        <input
-                                            class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                            type="submit" value="檢舉">
+                        <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
+                            data-wow-duration="1000ms">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-6">
+                                    <div class="single-blog-thumbnail">
+                                        <img src="../static/images/3.jpg" alt="" th:src="@{/images/3.jpg}">
+                                        <div class="post-date">
+                                            <a href="#" class="text-bl04">12 <span class="text-bl04">march</span></a>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-12 col-md-6 text-bl04">
+                                    <!-- 文章內容 -->
+                                    <div class="single-blog-content">
+                                        <div class="line"></div>
+                                        <a href="#" class="post-tag text-bl04 ">Lifestyle</a>
+                                        <h4><a href="#" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
+                                            ${articleTitle}   
+                                            </a></h4>
+    
+                                        <p class="text-bl04"> ${textEditor}</p>
+                                        <div class="post-meta">
+                                            <p class="text-bl04">By <a href="#" class="text-bl04">james smith</a></p>
+                                            <p>3 comments</p>
+                                            <button
+                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                                type="submit" value="推薦">推薦</button>
+                                            <button
+                                                class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                                type="submit" value="收藏">收藏</button>
+                                            <button
+                                                class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                                type="submit" value="檢舉">檢舉</button>
+    
+                                        </div>
+                                    </div>
+                                </div>
+    
                             </div>
                         </div>
-                    </div>
+    
+    
                   `;
 
                         console.log("文章-for迴圈結束")
@@ -206,7 +223,7 @@ $(function () {
         });
 
 
-   
+
 //-----------------------------------------------------------------------------
 //     $("#articleBox").on('click', 'a', function (event){
 //     //    alert("a標籤被點了");
@@ -230,9 +247,36 @@ $(function () {
 
 //     });
 
+    $("#travelArticleBox").on('click','button',function(){
 
+        let choose = $(this).text();
+        let travelArticleTitle = $(this).attr('name');
 
+        let travelArticle = {};
+        travelArticle["travelArticleTitle"] = travelArticleTitle;
+        let TUrl;
+        console.log("choose" + choose);
+        if(choose == "推薦"){
+             // alert('aaaa');
+            TUrl = "/forRecommand";
+            console.log("recommend" + travelArticle.travelArticleTitle)
+        }else if(choose == "檢舉"){
+             // alert('bbbbb');
+            TUrl = "/forReport";
+            console.log("Report" + travelArticle.travelArticleTitle)
+        }else {
+             // alert('ccc');
+            TUrl = "/forCollect";
+            console.log("collect" + travelArticle.travelArticleTitle)
+        }
 
-
-
-});
+        $.ajax({
+            url: TUrl,
+            type: "POST",
+            data: travelArticleTitle,
+            success: function (){
+                alert("來來來！");
+                }
+            })
+        })
+    });
