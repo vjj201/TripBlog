@@ -32,7 +32,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArrayList<Article> findByEnterAddressNameLike(String enterAddressName) {
-        return articleRepository.findByEnterAddressNameLike(enterAddressName);
+        return articleRepository.findByEnterAddressNameContaining(enterAddressName);
     }
 
     //map_search:換頁按鈕自動生成
@@ -47,9 +47,9 @@ public class ArticleServiceImpl implements ArticleService {
         }
         //主題一定沒填
         if(subject==""){
-            return articleRepository.findByEnterAddressNameLike(enterAddressName);
+            return articleRepository.findByEnterAddressNameContaining(enterAddressName);
         }
-        return articleRepository.findByEnterAddressNameAndSubjectCategory(enterAddressName,subject);
+        return articleRepository.findByEnterAddressNameContainingAndSubjectCategory(enterAddressName,subject);
     }
 
 
@@ -90,7 +90,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         //(搜尋吧,主題)都有填
-        Page<Article> pageResult = articleRepository.findByEnterAddressNameAndSubjectCategory(enterAddressName,subject,pageable);
+        Page<Article> pageResult = articleRepository.findByEnterAddressNameContainingAndSubjectCategory(enterAddressName,subject,pageable);
 
 
         //搜尋吧一定沒填
@@ -103,7 +103,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
         //主題一定沒填
         if(subject==""){
-            pageResult = articleRepository.findByEnterAddressNamelike(enterAddressName,pageable);
+            pageResult = articleRepository.findByEnterAddressNameContaining(enterAddressName,pageable);
         }
 
 

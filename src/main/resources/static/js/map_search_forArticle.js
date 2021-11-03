@@ -35,21 +35,25 @@ $(function () {
                 for (let articleAll of response) {
                     let articleTitle = articleAll.articleTitle;
                     let enterAddress = articleAll.enterAddressName;
-
+                    let subjectCategory = articleAll.subjectCategory;
+                    let createDate = articleAll.createDate;
                     // 從資料庫取出文章資訊
                     html += `
-            <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
+           <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
               <div class="row g-0">
                 <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                  <img class="w-100 h-100" src="https://picsum.photos/300/300?random=1" alt="一張圖">
+                  <img class="w-100 h-100" src="https://localhost:8080/user/articlePhoto" alt="一張圖">
                 </div>
                 <div class="col-md-9">
                   <div class="card-body">
-                    <h5><a href="#" class="post-headline text-bl04 mapArticleTitle">${articleTitle}</a></h5>
-                    <p class="card-text m-0">
-                        <small class="text-bl04 mapArticleAdress">${enterAddress}</small>
+                    <h5><a href="https://localhost:8080/article/${articleTitle}" class="post-headline text-bl04 mapArticleTitle">${articleTitle}</a></h5>
+                    <p class="card-text">
+                        <small class="text-bl04 mapArticleAdress">地址:&nbsp${enterAddress}</small>
                     </p>
-                    <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
+                    <p class="card-text">
+                    <small class="text-bl04">分類:&nbsp${subjectCategory}</small></p>
+                    <p class="card-text">
+                    <small class="text-bl04">發表於:&nbsp${createDate}</small></p>
                     <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
                     <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</button>
                     <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
@@ -115,6 +119,7 @@ $(function () {
             article["subject"] = subject;
             article["timeDirect"] = timeDirect;
 
+
             $.ajax({
                 url: "/changeSearchOfPage",
                 type: "GET",
@@ -126,27 +131,32 @@ $(function () {
                     for (let articleAll of response) {
                         let articleTitle = articleAll.articleTitle;
                         let enterAddress = articleAll.enterAddressName;
+                        let subjectCategory = articleAll.subjectCategory;
+                        let createDate = articleAll.createDate;
                         // 從資料庫取出文章資訊
                         html += `
                   <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                      <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                        <img class="w-100 h-100" src="https://picsum.photos/300/300?random=1" alt="一張圖">
-                      </div>
-                      <div class="col-md-9">
-                        <div class="card-body">
-                          <h5><a href="#" class="post-headline text-bl04 mapArticleTitle">${articleTitle}</a></h5>
-                          <p class="card-text m-0">
-                              <small class="text-bl04 mapArticleAdress">${enterAddress}</small>
-                          </p>
-                          <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                          <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
+              <div class="row g-0">
+                <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
+                  <img class="w-100 h-100" src="https://localhost:8080/user/articlePhoto" alt="一張圖">
+                </div>
+                <div class="col-md-9">
+                  <div class="card-body">
+                    <h5><a href="https://localhost:8080/article/${articleTitle}" class="post-headline text-bl04 mapArticleTitle">${articleTitle}</a></h5>
+                    <p class="card-text">
+                        <small class="text-bl04 mapArticleAdress">地址:&nbsp${enterAddress}</small>
+                    </p>
+                    <p class="card-text">
+                    <small class="text-bl04">分類:&nbsp${subjectCategory}</small></p>
+                    <p class="card-text">
+                    <small class="text-bl04">發表於:&nbsp${createDate}</small></p>
+                      <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
                           <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
                           <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
                     `;
 
                         console.log("文章-for迴圈結束")
@@ -210,11 +220,11 @@ $(function () {
             // article["recommend"] = choose;
             TUrl = "/forRecommend";
             console.log("recommend" + article.articleTitle)
-        }  else if (choose == "檢舉") {
+        } else if (choose == "檢舉") {
             // article["Report"] = choose;
             TUrl = "/forReport";
             console.log("Report" + article.articleTitle)
-        }   else {
+        } else {
             // article["collect"] = choose;
             TUrl = "/forCollect";
             console.log("collect" + article.articleTitle)

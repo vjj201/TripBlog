@@ -1,9 +1,12 @@
 package com.java017.tripblog.controller;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.ArticleService;
+import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLOutput;
@@ -15,9 +18,11 @@ public class MapSearchController {
 
     @Autowired
     private final ArticleService articleService;
+    private final UserService userService;
 
-    public MapSearchController(ArticleService articleService) {
+    public MapSearchController(ArticleService articleService, UserService userService) {
         this.articleService = articleService;
+        this.userService = userService;
     }
 
 
@@ -111,6 +116,17 @@ public class MapSearchController {
         articleService.updateReport(articleTitle);
         return "檢舉成功";
     }
+
+    //渲染文章內容
+    @GetMapping("/article/{articleTitle}")
+    public String articlePage(Model model, @PathVariable String articleTitle) {
+        Article showArticle = articleService.findByArticleTitle(articleTitle);
+        model.addAttribute("showArticle",showArticle);
+        User showUser = userService.getCurrentUser();
+        model.addAttribute("showUser",showUser);
+        return "article"; }
+
+
 
 
 }

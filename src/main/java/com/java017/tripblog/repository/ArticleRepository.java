@@ -14,11 +14,11 @@ import java.util.ArrayList;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article,Integer> {
 
-     @Query(value = "select t from Article t where t.enterAddressName like %?1%")
-     ArrayList<Article> findByEnterAddressNameLike(String enterAddressName);
+//     @Query(value = "select t from Article t where t.enterAddressName like %?1%")
+     ArrayList<Article> findByEnterAddressNameContaining(String enterAddressName);
 
-     @Query(value = "select t from Article t where t.enterAddressName like %?1%")
-     Page<Article> findByEnterAddressNamelike(String address, Pageable pageable);
+//     @Query(value = "select t from Article t where t.enterAddressName like %?1%")
+     Page<Article> findByEnterAddressNameContaining(String address, Pageable pageable);
 
      Article findByArticleTitle(String articleTitle);
 //--------------------------------------------------------------------------
@@ -31,10 +31,10 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
      Page<Article> findBySubjectCategory(String subject,Pageable pageable);
 
      //map_search:雙_(搜尋吧.地址)+(下拉.主題)
-     ArrayList<Article> findByEnterAddressNameAndSubjectCategory(String enterAddressName,String subject);
+     ArrayList<Article> findByEnterAddressNameContainingAndSubjectCategory(String enterAddressName,String subject);
      //map_search:雙_(搜尋吧.地址)+(下拉.主題)_換頁
 
-     Page<Article> findByEnterAddressNameAndSubjectCategory(String address,String subject, Pageable pageable);
+     Page<Article> findByEnterAddressNameContainingAndSubjectCategory(String address,String subject, Pageable pageable);
 
 }
 
