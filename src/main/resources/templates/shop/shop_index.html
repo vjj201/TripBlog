@@ -181,52 +181,10 @@
                         </li>
 
 
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 在地美食 </a>
+                        <li th:each=" sort : ${sortList}" class="nav-item has-submenu">
+                            <div class="nav-link fw-bold" data-value="1" th:text="${sort.sortName}" th:data-value="${sort.id}" > 在地美食 </div>
                             <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 1 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 2 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 3 </a> </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 周邊小物 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 4 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 7 </a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 創意服飾 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 4 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 7 </a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 精美卡片 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 4 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 7 </a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 其他 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 4 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 7 </a></li>
+                                <li th:each="tag : ${sort.tagList}"><a class="nav-link" data-value="1" th:text="${tag.tagName}" th:data-value="${tag.id}">Submenu item</a></li>
                             </ul>
                         </li>
 
@@ -286,113 +244,19 @@
                 <!-- 商品列 -->
                 <div class="row mb-5 flex-wrap row-cols-md-2">
 
-                    <div class="col-lg-4 mb-4">
+                    <div class="col-lg-4 mb-4" th:each="product : ${productPage}">
                         <div class="card" style="width: 20rem;">
                             <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                <h5 class="card-title" th:text="${product.productName}">商品名稱</h5>
+                                <p class="card-text" th:text="${product.aboutProduct}">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
                                 <a href="#" class="btn btn-primary form-control">加入購物車</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
 
 
 

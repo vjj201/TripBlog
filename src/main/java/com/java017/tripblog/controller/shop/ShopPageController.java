@@ -1,7 +1,17 @@
 package com.java017.tripblog.controller.shop;
 
+import com.java017.tripblog.entity.Product;
+import com.java017.tripblog.entity.ProductSort;
+import com.java017.tripblog.service.ProductService;
+import com.java017.tripblog.service.ProductSortService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 /**
  * @author YuCheng
@@ -11,9 +21,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ShopPageController {
 
+    @Autowired
+    private ProductSortService productSortService;
+    @Autowired
+    private ProductService productService;
+
     //商城首頁
     @GetMapping("/shop")
-    public String shopPage() {
+    public String shopPage(Model model) {
+        Page<Product> productPage = productService.findProductPageOrderBy(0, 9, Sort.by("price"));
+        List<ProductSort> productSortList = productSortService.findAllProductSort();
+        model.addAttribute("productPage", productPage);
+        model.addAttribute("sortList", productSortList);
         return "/shop/shop_index";
     }
 
