@@ -35,11 +35,78 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findByEnterAddressNameLike(enterAddressName);
     }
 
+    //map_search:換頁按鈕自動生成
     @Override
-    public List<Article> getPagedArticles(int page, int size, String enterAddressName) {
+    public ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject) {
+
+        if(enterAddressName==""){
+            return articleRepository.findAll();
+        }
+        if(subject != ""){
+            return articleRepository.findBySubjectCategory(subject);
+        }
+        //主題一定沒填
+        if(subject==""){
+            return articleRepository.findByEnterAddressNameLike(enterAddressName);
+        }
+        return articleRepository.findByEnterAddressNameAndSubjectCategory(enterAddressName,subject);
+    }
+
+
+//    @Override
+//    public List<Article> getPagedArticles(int page, int size, String enterAddressName) {
+////
+//        Pageable pageable = PageRequest.of(page, size, Sort.by("enterAddressName").descending()); // 依CREATE_TIME欄位降冪排序
+//        Page<Article> pageResult = articleRepository.findByEnterAddressNamelike(enterAddressName,pageable);
 //
-        Pageable pageable = PageRequest.of(page, size, Sort.by("enterAddressName").descending()); // 依CREATE_TIME欄位降冪排序
-        Page<Article> pageResult = articleRepository.findByEnterAddressNamelike(enterAddressName,pageable);
+//        pageResult.getNumberOfElements(); // 本頁筆數
+//        pageResult.getSize();             // 每頁筆數
+//        pageResult.getTotalElements();    // 全部筆數
+//        pageResult.getTotalPages();       // 全部頁數
+//
+//        List<Article> messageList =  pageResult.getContent();
+//
+//        return messageList;
+//
+//    }
+
+    //map_search:文章首頁&文章換頁
+    @Override
+    public List<Article> getPagedArticles(int page, int size, String enterAddressName,String subject,int timeDirect) {
+
+        System.out.println("上，Service-timeDirect="+timeDirect);
+        //預設-時間舊到新
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")));
+
+        System.out.println("下，Service-timeDirect="+timeDirect);
+
+        System.out.println("asc有抓到[預設排序(舊到新)]");
+
+
+        //時間新到舊
+        if(timeDirect==100){
+            System.out.println("desc有抓到[IF新到舊]");
+            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")));
+        }
+
+        //(搜尋吧,主題)都有填
+        Page<Article> pageResult = articleRepository.findByEnterAddressNameAndSubjectCategory(enterAddressName,subject,pageable);
+
+
+        //搜尋吧一定沒填
+        if(enterAddressName==""){
+            pageResult = articleRepository.findAll(pageable);
+
+            if(subject != ""){
+                pageResult = articleRepository.findBySubjectCategory(subject,pageable);
+            }
+        }
+        //主題一定沒填
+        if(subject==""){
+            pageResult = articleRepository.findByEnterAddressNamelike(enterAddressName,pageable);
+        }
+
+
 
         pageResult.getNumberOfElements(); // 本頁筆數
         pageResult.getSize();             // 每頁筆數
@@ -50,26 +117,28 @@ public class ArticleServiceImpl implements ArticleService {
 
         return messageList;
 
-//  -----------------------------------------------
-//    Page<Article> pageResult = articleRepository.findAll(
-//
-//            PageRequest.of(page,  // 查詢的頁數，從0起算
-//                    size, // 查詢的每頁筆數
-//                    Sort .by("enterAddress").descending())); // 依CREATE_TIME欄位降冪排序
-//
-//    pageResult.getNumberOfElements(); // 本頁筆數
-//    pageResult.getSize();             // 每頁筆數
-//    pageResult.getTotalElements();    // 全部筆數
-//    pageResult.getTotalPages();       // 全部頁數
-//
-//    List<Article> messageList =  pageResult.getContent();
-//
-//    return messageList;
-
-
-
-
     }
+
+    //預設(無篩選)_user_eat&travel換頁
+    @Override
+    public List<Article> getUserEatTravelPagedArticles(int page, int size,String subject) {
+        Pageable pageable = PageRequest.of(page, size,Sort.by("subjectCategory").descending());
+        Page<Article> pageResult = articleRepository.findBySubjectCategory(subject,pageable);;
+        pageResult.getNumberOfElements(); // 本頁筆數
+        pageResult.getSize();             // 每頁筆數
+        pageResult.getTotalElements();    // 全部筆數
+        pageResult.getTotalPages();       // 全部頁數
+
+        List<Article> messageList =  pageResult.getContent();
+
+        return messageList;
+    }
+
+    @Override
+    public ArrayList<Article> findBySubjectCategory(String subject) {
+        return articleRepository.findBySubjectCategory(subject);
+    }
+
 
    public Article findByArticleTitle(String articleTitle){
       Article result = articleRepository.findByArticleTitle(articleTitle);

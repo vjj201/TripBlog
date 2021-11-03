@@ -24,52 +24,59 @@ public class MapSearchController {
     @ResponseBody
     @GetMapping("/findByAddress")
     public ArrayList<Article> findByAddress(@RequestParam String enterAddressName) {
-     //   Article article = articleRepository.findByEnterAddress(enterAddress);
+        //   Article article = articleRepository.findByEnterAddress(enterAddress);
         ArrayList<Article> list;
         list = articleService.findByEnterAddressNameLike(enterAddressName);
         System.out.println(list);
         return list;
-    };
+    }
+
+    ;
 //----------------------------------------------------------------------------------
+
     //輸入搜尋吧查詢並送出第一頁
     @ResponseBody
     @GetMapping("/firstSearchOfPage")
-    public List<Article> firstSearchOfPage(@RequestParam String enterAddressName){
+    public List<Article> firstSearchOfPage(@RequestParam String enterAddressName, @RequestParam String subject, @RequestParam int timeDirect) {
 
         List<Article> messageList;
-        messageList = articleService.getPagedArticles(0,5,enterAddressName);
-        System.out.println("messageList"+messageList);
+        messageList = articleService.getPagedArticles(0, 5, enterAddressName, subject, timeDirect);
+        System.out.println("timeDirect=" + timeDirect);
+        System.out.println("messageList=" + messageList);
         return messageList;
     }
 
     //自動生成換頁按鈕
     @ResponseBody
     @GetMapping("/newPageButton")
-    public Integer findByAddressPage(@RequestParam String enterAddressName) {
-
-        //   Article article = articleRepository.findByEnterAddress(enterAddress);
+    public Integer newChangePageButton(@RequestParam String enterAddressName, @RequestParam String subject) {
+        System.out.println("分頁按鈕AAA" + enterAddressName);
+        System.out.println("分頁按鈕BBB" + subject);
         ArrayList<Article> list;
-        list = articleService.findByEnterAddressNameLike(enterAddressName);
-        System.out.println("分頁按鈕"+list);
+        list = articleService.findByEnterAddressNameLikeAndSubjectCategory(enterAddressName, subject);
+        System.out.println("分頁按鈕" + list);
         double listSize = list.size();
-        int pageMount = (int) Math.ceil(listSize/5);
+        int pageMount = (int) Math.ceil(listSize / 5);
         return pageMount;
-    };
+    }
 
+    ;
+
+    // 點擊換頁按鈕並換頁
     @ResponseBody
     @GetMapping("/changeSearchOfPage")
-    public List<Article> changeSearchOfPage(@RequestParam String enterAddress,@RequestParam int page){
+    public List<Article> changeSearchOfPage(@RequestParam String enterAddress, @RequestParam String subject, @RequestParam int page, @RequestParam int timeDirect) {
 
         List<Article> messageList;
-        messageList = articleService.getPagedArticles(page,5,enterAddress);
-        System.out.println(messageList);
+        messageList = articleService.getPagedArticles(page, 5, enterAddress, subject, timeDirect);
+        System.out.println("點擊換頁按鈕並換頁的messageList" + messageList);
         return messageList;
 
     }
 
     @ResponseBody
     @GetMapping("/findByArticleTitle")
-    public Article findByArticelTitle(@RequestParam String articleTitle){
+    public Article findByArticelTitle(@RequestParam String articleTitle) {
         Article result = articleService.findByArticleTitle(articleTitle);
         System.out.println("result" + result);
         return result;
@@ -83,7 +90,7 @@ public class MapSearchController {
 
     @ResponseBody
     @PostMapping("/forRecommend")
-    public String updateRecommend(@RequestParam String articleTitle){
+    public String updateRecommend(@RequestParam String articleTitle) {
         System.out.println("有道forRecommend 控制器");
         articleService.updateRecommend(articleTitle);
         return "推薦成功";
@@ -91,7 +98,7 @@ public class MapSearchController {
 
     @ResponseBody
     @PostMapping("/forCollect")
-    public String updateCollect(@RequestParam String articleTitle){
+    public String updateCollect(@RequestParam String articleTitle) {
         System.out.println("有道Collect 控制器");
         articleService.updateCollect(articleTitle);
         return "收藏成功";
@@ -99,22 +106,11 @@ public class MapSearchController {
 
     @ResponseBody
     @PostMapping("/forReport")
-    public String updateReport(@RequestParam String articleTitle){
+    public String updateReport(@RequestParam String articleTitle) {
         System.out.println("有道Collect 控制器");
         articleService.updateReport(articleTitle);
         return "檢舉成功";
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

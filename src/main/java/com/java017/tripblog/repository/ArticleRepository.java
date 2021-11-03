@@ -21,7 +21,20 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
      Page<Article> findByEnterAddressNamelike(String address, Pageable pageable);
 
      Article findByArticleTitle(String articleTitle);
+//--------------------------------------------------------------------------
+     //全部
+     ArrayList<Article>findAll();
+     //預設(無篩選)_user_eat&travel換頁
+//map_search:單_(下拉.主題)
+     ArrayList<Article> findBySubjectCategory(String subject);
+     //map_search:單_(下拉.主題)_換頁
+     Page<Article> findBySubjectCategory(String subject,Pageable pageable);
 
-//     String updateRecommend();
+     //map_search:雙_(搜尋吧.地址)+(下拉.主題)
+     ArrayList<Article> findByEnterAddressNameAndSubjectCategory(String enterAddressName,String subject);
+     //map_search:雙_(搜尋吧.地址)+(下拉.主題)_換頁
+
+     Page<Article> findByEnterAddressNameAndSubjectCategory(String address,String subject, Pageable pageable);
+
 }
 

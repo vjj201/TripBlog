@@ -1,4 +1,3 @@
-
 $(function () {
 
     //csrf防護
@@ -13,29 +12,25 @@ $(function () {
         e.preventDefault();
 
         let enteraddress = $("#searchAddress").val();
-        console.log("第9行");
-
+        let subject = $('#subject option:selected').val();
+        let timeDirect = $('#timeDirect option:selected').val();
 
 //創建物件
         let article = {};
-        let firstPageAnswer;
         article["enterAddressName"] = enteraddress;
-        console.log("第14行");
-
-
+        article["subject"] = subject;
+        article["timeDirect"] = timeDirect;
 //輸入搜尋吧查詢並送出第一頁
-        console.log("ajax前-輸入搜尋吧查詢並送出第一頁");
-
         $.ajax({
             url: "/firstSearchOfPage",
             type: "GET",
             data: article,
             success: function (response) {
-                 console.log("第一頁文章response" + response);
+                console.log("第一頁文章response" + response);
                 //
-                 console.log("建立空的html")
+                console.log("建立空的html")
                 let html = "";
-                 console.log("文章-for迴圈開始")
+                console.log("文章-for迴圈開始")
 // (開始)文章換頁生成
                 for (let articleAll of response) {
                     let articleTitle = articleAll.articleTitle;
@@ -70,7 +65,6 @@ $(function () {
 
 // (結束)文章換頁生成
                 }
-                firstPageAnswer = response;
             }
         });
 
@@ -114,14 +108,12 @@ $(function () {
 
             let pagevalue = $(this).text()
 
-            alert(pagevalue);
-
-            console.log("pagevalue=" + pagevalue);
-
             let page = pagevalue - 1;
             let article = {}
             article["page"] = page;
             article["enterAddress"] = enteraddress;
+            article["subject"] = subject;
+            article["timeDirect"] = timeDirect;
 
             $.ajax({
                 url: "/changeSearchOfPage",
@@ -171,10 +163,10 @@ $(function () {
 
     });
 //-----------------------------------------------------------------------------
-    $("#articleBox").on('click', 'a', function (event){
-    //    alert("a標籤被點了");
+    $("#articleBox").on('click', 'a', function (event) {
+        //    alert("a標籤被點了");
         let articleTitle = $(this).text();
-    //    alert(articleTitle);
+        //    alert(articleTitle);
         let article = {};
         article["articleTitle"] = articleTitle;
 
@@ -192,11 +184,11 @@ $(function () {
             type: "GET",
             data: article,
             success: function (response) {
-          //      alert("林北成功用標題找到文章了")
+                //      alert("林北成功用標題找到文章了")
 
                 // $(location).attr("href","https://localhost:63342/TripBlog/templates/article.html");
 //---------------------------------------------------------------------------------------------------
-            //for秉豐
+                //for秉豐
 //---------------------------------------------------------------------------------------------------
 
             }
@@ -206,7 +198,7 @@ $(function () {
 
     });
 
-    $("#articleBox").on('click', 'button', function (event){
+    $("#articleBox").on('click', 'button', function (event) {
         let choose = $(this).text();
         let articleTitle = $(this).attr('name');
 
@@ -214,21 +206,18 @@ $(function () {
         article["articleTitle"] = articleTitle;
         let TUrl;
         console.log("choose" + choose);
-        if(choose == "推薦"){
+        if (choose == "推薦") {
             // article["recommend"] = choose;
             TUrl = "/forRecommend";
             console.log("recommend" + article.articleTitle)
-
-        }
-        else if(choose == "收藏"){
-            // article["collect"] = choose;
-            TUrl = "/forCollect";
-            console.log("collect" + article.articleTitle)
-        }
-        else if(choose == "檢舉"){
+        }  else if (choose == "檢舉") {
             // article["Report"] = choose;
             TUrl = "/forReport";
             console.log("Report" + article.articleTitle)
+        }   else {
+            // article["collect"] = choose;
+            TUrl = "/forCollect";
+            console.log("collect" + article.articleTitle)
         }
         $.ajax({
             url: TUrl,
@@ -243,14 +232,7 @@ $(function () {
         });
 
 
-
     })
-
-
-
-
-
-
 
 
 });
