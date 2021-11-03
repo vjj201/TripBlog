@@ -13,18 +13,23 @@ function doFirst(){
         });
     }
     let itemString = storage.getItem('addItemList');
+
     let items = itemString.substr(0, itemString.length - 2).split(', ')
-    document.getElementById('itemCount').innerText = items.length;
+    if(itemString.length == 0) {
+        document.getElementById('itemCount').innerText = 0;
+    } else {
+        document.getElementById('itemCount').innerText = items.length;
+    }
 }
 function addItem(itemId,itemValue){
-    let image = document.createElement('img');
-    image.src = 'imgs/' + itemValue.split('|')[1];
+    // let image = document.createElement('img');
+    // image.src = 'imgs/' + itemValue.split('|')[1];
 
-    let title = document.createElement('span');
-    title.innerText = itemValue.split('|')[0];
+    // let title = document.createElement('span');
+    // title.innerText = itemValue.split('|')[0];
 
-    let price = document.createElement('span');
-    price.innerText = itemValue.split('|')[2];
+    // let price = document.createElement('span');
+    // price.innerText = itemValue.split('|')[2];
 
     // 存入 storage
     if(storage[itemId]){
@@ -32,6 +37,7 @@ function addItem(itemId,itemValue){
     }else{
         storage['addItemList'] += `${itemId}, `;
         storage.setItem(itemId, itemValue);
+        alert('成功加入購物車')
     }
 
     // 計算購買數量和小計

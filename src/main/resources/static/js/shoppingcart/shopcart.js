@@ -1,9 +1,8 @@
 let storage = localStorage;
 function doFirst(){
 	let itemString = storage.getItem('addItemList');
-    items = itemString.substr(0, itemString.length - 2).split(', ')
+    items = itemString.substr(0, itemString.length - 2).split(', ');
     console.log(items);
-
     
     itemsCount = items.length;
     total = 0;
@@ -25,11 +24,34 @@ function doFirst(){
         total += itemPrice;
     }
     
+    //結帳按鈕
+    let check = document.getElementById('checkPayment'); //list是陣列
+    check.addEventListener('click',function(e){
+        console.log("結帳去～");
+        storage.clear();
+
+    //         let title = itemValue.split('|')[0];
+    //         let image = itemValue.split('|')[1];
+    //         let price = itemValue.split('|')[2];
+
+    //         itemValue = [title, image, price];
+    //         storage.setItem(itemId, JSON.stringify(itemValue));
+    //         console.log(itemId);
+    //         let itemJson = JSON.parse(storage.getItem(itemId));
+    //         console.log(typeof(itemJson));
+    //         console.log(itemJson);
+
+    });
+    
     //總金額計算
     sum = total + deliverFee;
 
+    if(itemString.length == 0) {
+        document.getElementById('items').innerText = 0;
+    } else {
+        document.getElementById('items').innerText = itemsCount;
+    }
     document.getElementById('itemsPrice').innerText = total;
-    document.getElementById('items').innerText = itemsCount;
     document.getElementById('total').innerText = sum;
 }
 function createCartList(itemId, itemValue){
@@ -76,7 +98,7 @@ function createCartList(itemId, itemValue){
 
     // 建立商品數量-- 第四個 td
     let tdItemCount = document.createElement('td');
-    tdItemCount.style.width = '100px';
+    tdItemCount.style.width = '120px';
 
     inputItemCount = document.createElement('input');
     inputItemCount.type = 'number';
@@ -108,13 +130,14 @@ function deleteItem(){
     // 1. 先扣除總金額、商品數量
     let itemPrice = parseInt(itemValue.split('|')[2]);
     let itemCount = parseInt(this.parentNode.previousSibling.previousSibling.innerText) / itemPrice;
-
+    
     total -= itemPrice * itemCount;
+    itemsCount = itemsCount - itemCount;
 
     document.getElementById('itemsPrice').innerText = total;
     sum = parseInt(total) + deliverFee;
     document.getElementById('total').innerText = sum;
-    document.getElementById('items').innerText = itemsCount - itemCount;
+    document.getElementById('items').innerText = itemsCount;
 
     // 2. 清除 storage
     storage.removeItem(itemId);
@@ -149,7 +172,7 @@ function changeItemCount(){
 function selectDeliver(){
     //抓取select的選項
     var myselect = document.getElementById("deliver").value;
-
+    //設定對應的運費金額
     if (myselect == 2){
         deliverFee = 100;
     } else if (myselect == 3) {
@@ -157,6 +180,7 @@ function selectDeliver(){
     } else { deliverFee = 0;}
     //把相對應的值放入運費欄
     document.getElementById('deliverFee').innerText = deliverFee;
+    
     //更改總金額
     total = document.getElementById('itemsPrice').innerText;
     sum = parseInt(total) + deliverFee;
