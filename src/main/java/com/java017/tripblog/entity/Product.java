@@ -38,6 +38,9 @@ public class Product {
     //商品簡介
     private String aboutProduct;
 
+    //商品詳細資訊
+    private String productDetail;
+
     @ManyToOne
     @JoinColumn
     private Brand brand;
@@ -118,6 +121,22 @@ public class Product {
         this.brand = brand;
     }
 
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public String getProductDetail() {
+        return productDetail;
+    }
+
+    public void setProductDetail(String productDetail) {
+        this.productDetail = productDetail;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -129,6 +148,7 @@ public class Product {
                 ", inStock=" + inStock +
                 ", alreadySold=" + alreadySold +
                 ", aboutProduct='" + aboutProduct + '\'' +
+                ", productDetail='" + productDetail + '\'' +
                 ", brand=" + brand +
                 ", productTag=" + productTag +
                 '}';
