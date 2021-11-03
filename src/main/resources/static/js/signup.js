@@ -214,7 +214,6 @@ $(function () {
         user['username'] = username;
         user['password'] = password;
 
-
         $.ajax({
             url: '/user/signup',
             type: 'POST',

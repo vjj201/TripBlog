@@ -182,7 +182,7 @@
             <!--   頭像  -->
             <div>
 
-                <img th:src="${session.user != null && session.user.hasMemberPic() ? '/user/memberPic' : 'https://semantic-ui.com/images/avatar2/small/elyse.png'}"
+                <img th:src="${session.user != null && session.user.isHasMemberPic() ? '/user/memberPic' : 'https://semantic-ui.com/images/avatar2/small/elyse.png'}"
                      src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
                      id="memberPic" class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;">
 

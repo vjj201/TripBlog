@@ -35,7 +35,7 @@ public class ProductOrder {
 
     //訂單細項
     @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name = "shopCartItems", referencedColumnName = "id")
+    @JoinColumn(name = "orderItems", referencedColumnName = "id")
     Set<Item> orderItems = new LinkedHashSet<>();
 
     public Long getId() {

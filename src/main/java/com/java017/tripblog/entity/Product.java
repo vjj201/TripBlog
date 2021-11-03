@@ -17,7 +17,7 @@ public class Product {
     private Long id;
 
     //產品名稱
-    private String ProductName;
+    private String productName;
 
     //上市日期
     @Temporal(TemporalType.TIMESTAMP)
@@ -63,11 +63,11 @@ public class Product {
     }
 
     public String getProductName() {
-        return ProductName;
+        return productName;
     }
 
     public void setProductName(String productName) {
-        ProductName = productName;
+        this.productName = productName;
     }
 
     public Date getLaunchedTime() {
@@ -122,7 +122,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", ProductName='" + ProductName + '\'' +
+                ", productName='" + productName + '\'' +
                 ", launchedTime=" + launchedTime +
                 ", price=" + price +
                 ", discount=" + discount +

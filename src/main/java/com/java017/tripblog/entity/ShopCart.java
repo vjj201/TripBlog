@@ -19,12 +19,6 @@ public class ShopCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
-
-    //商品品項
-    @Transient
-    private HashMap<Product, Integer> items;
-
     @OneToOne
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
@@ -40,22 +34,6 @@ public class ShopCart {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public HashMap<Product, Integer> getItems() {
-        return items;
-    }
-
-    public void setItems(HashMap<Product, Integer> items) {
-        this.items = items;
     }
 
     public User getUser() {
@@ -78,8 +56,6 @@ public class ShopCart {
     public String toString() {
         return "ShopCart{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", items=" + items +
                 ", user=" + user +
                 ", shopCartItems=" + shopCartItems +
                 '}';

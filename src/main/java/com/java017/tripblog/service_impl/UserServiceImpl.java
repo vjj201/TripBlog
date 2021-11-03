@@ -1,5 +1,7 @@
 package com.java017.tripblog.service_impl;
 
+import com.java017.tripblog.entity.ProductOrder;
+import com.java017.tripblog.entity.ShopCart;
 import com.java017.tripblog.repository.IntroRepository;
 import com.java017.tripblog.repository.UserRepository;
 import com.java017.tripblog.entity.Intro;
@@ -14,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -55,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     //是否完成信箱驗證
     public boolean isMailVerified(HttpSession session) {
-            return getCurrentUser().isMailVerified();
+        return getCurrentUser().isMailVerified();
     }
 
     @Override//創建會員
@@ -64,6 +68,11 @@ public class UserServiceImpl implements UserService {
         Intro intro = new Intro();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIntro(intro);
+
+//        ShopCart shopCart = new ShopCart();
+//        ProductOrder productOrder = new ProductOrder();
+//        shopCart.setUser(user);
+//        productOrder.setUser(user);
 
         try {
             userRepository.save(user);

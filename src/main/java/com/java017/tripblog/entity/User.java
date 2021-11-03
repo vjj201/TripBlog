@@ -7,7 +7,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author YuCheng
@@ -62,54 +64,19 @@ public class User {
     //信箱是否已驗證
     private boolean mailVerified;
 
+    //是否有頭貼
+    private boolean hasMemberPic;
+
     //自我介紹外來鍵
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
-    //是否有頭貼
-    private boolean hasMemberPic;
-
-    //商品訂單
-    @OneToMany(mappedBy = "user")
-    private List<ProductOrder> productOrderList;
-
-    //購物車
-    @OneToOne(mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private ShopCart shopCart;
 
-
-    public List<ProductOrder> getProductOrderList() {
-        return productOrderList;
-    }
-
-    public void setProductOrderList(List<ProductOrder> productOrderList) {
-        this.productOrderList = productOrderList;
-    }
-
-    public ShopCart getShopCart() {
-        return shopCart;
-    }
-
-    public void setShopCart(ShopCart shopCart) {
-        this.shopCart = shopCart;
-    }
-
-    public boolean isMailVerified() {
-        return mailVerified;
-    }
-
-    public void setMailVerified(boolean mailVerified) {
-        this.mailVerified = mailVerified;
-    }
-
-    public Intro getIntro() {
-        return intro;
-    }
-
-    public void setIntro(Intro intro) {
-        this.intro = intro;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<ProductOrder> productOrderList = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -191,12 +158,44 @@ public class User {
         this.signDate = signDate;
     }
 
-    public boolean hasMemberPic() {
+    public boolean isMailVerified() {
+        return mailVerified;
+    }
+
+    public void setMailVerified(boolean mailVerified) {
+        this.mailVerified = mailVerified;
+    }
+
+    public Intro getIntro() {
+        return intro;
+    }
+
+    public void setIntro(Intro intro) {
+        this.intro = intro;
+    }
+
+    public boolean isHasMemberPic() {
         return hasMemberPic;
     }
 
     public void setHasMemberPic(boolean hasMemberPic) {
         this.hasMemberPic = hasMemberPic;
+    }
+
+    public Set<ProductOrder> getProductOrderList() {
+        return productOrderList;
+    }
+
+    public void setProductOrderList(Set<ProductOrder> productOrderList) {
+        this.productOrderList = productOrderList;
+    }
+
+    public ShopCart getShopCart() {
+        return shopCart;
+    }
+
+    public void setShopCart(ShopCart shopCart) {
+        this.shopCart = shopCart;
     }
 
     @Override
@@ -213,10 +212,10 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
-                ", intro=" + intro +
                 ", hasMemberPic=" + hasMemberPic +
-                ", productOrderList=" + productOrderList +
+                ", intro=" + intro +
                 ", shopCart=" + shopCart +
+                ", productOrderList=" + productOrderList +
                 '}';
     }
 }
