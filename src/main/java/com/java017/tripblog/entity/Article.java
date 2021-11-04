@@ -39,7 +39,7 @@ public class Article {
 
     Integer collect = 0;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "User", referencedColumnName = "id")
     User Fk_User_Id;
 
@@ -51,8 +51,6 @@ public class Article {
 
     @OneToMany(mappedBy="articlesCollectId",cascade=CascadeType.ALL)
     private Set<Collect>  collectSet ;
-
-
 
 
     @Temporal(TemporalType.TIMESTAMP)

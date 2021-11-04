@@ -83,7 +83,7 @@ public class MapSearchController {
 
     @ResponseBody
     @GetMapping("/findByArticleTitle")
-    public Article findByArticelTitle(@RequestParam String articleTitle) {
+    public Article findByArticleTitle(@RequestParam String articleTitle) {
 
         Article result = articleService.findByArticleTitle(articleTitle);
         return result;
