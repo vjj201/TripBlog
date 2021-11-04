@@ -1,7 +1,9 @@
 package com.java017.tripblog.controller.shop;
 
+import com.java017.tripblog.entity.Brand;
 import com.java017.tripblog.entity.Product;
 import com.java017.tripblog.entity.ProductSort;
+import com.java017.tripblog.service.BrandService;
 import com.java017.tripblog.service.ProductService;
 import com.java017.tripblog.service.ProductSortService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +23,27 @@ import java.util.List;
 @Controller
 public class ShopPageController {
 
-    @Autowired
-    private ProductSortService productSortService;
-    @Autowired
-    private ProductService productService;
+    private final ProductSortService productSortService;
+    private final ProductService productService;
+    private final BrandService brandService;
 
+    @Autowired
+    public ShopPageController(ProductSortService productSortService, ProductService productService, BrandService brandService) {
+        this.productSortService = productSortService;
+        this.productService = productService;
+        this.brandService = brandService;
+    }
 
     //商城首頁
     @GetMapping("/shop")
     public String shopPage(Model model) {
         Page<Product> productPage = productService.findProductPageOrderBy(0, 9, Sort.by("launchedTime").descending());
         List<ProductSort> productSortList = productSortService.findAllProductSort();
+        List<Brand> brandList = brandService.findAllBrand();
 
-        model.addAttribute("productPage", productPage);
+        model.addAttribute("brandList", brandList);
         model.addAttribute("sortList", productSortList);
+        model.addAttribute("productPage", productPage);
         model.addAttribute("currentPage", 1);
 
         return "/shop/shop_index";

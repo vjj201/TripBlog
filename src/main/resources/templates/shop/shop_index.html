@@ -188,9 +188,9 @@
                              th:data-value="${sort.id}"> 在地美食
                         </div>
                         <ul class="submenu collapse">
-                            <li th:each="tag : ${sort.tagList}"><a class="nav-link" data-value="1"
-                                                                   th:text="${tag.tagName}" th:data-value="${tag.id}">Submenu
-                                item</a></li>
+                            <li th:each="tag : ${sort.tagList}">
+                                <a class="nav-link" data-value="1" th:text="${tag.tagName}" th:data-value="${tag.id}">Submenu item</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -206,9 +206,12 @@
             <!-- 搜尋框 -->
             <div class="col-12 mb-5 d-flex align-items-center justify-content-center  d-flex flex-wrap">
 
-                <select class="form-select mx-2" aria-label=".form-select-lg example" style="width: 6rem">
+                <select class="form-select mx-2" aria-label=".form-select-lg example" style="width: 9rem">
                     <option selected>品牌</option>
-                    <option value="1">One</option>
+                    <li th:each="brand : ${brandList}">
+                        <option th:text="${brand.brandName}" th:value="${brand.id}">One</option>
+                    </li>
+
                 </select>
 
                 <div class="input-group me-4 w-50">
@@ -242,7 +245,7 @@
                     </ul>
                 </div>
 
-                <div class="btn-group text-center mx-5 my-3">
+                <div class="btn-group text-center mx-3 my-3">
                     <a class="btn btn-white btn-lg" type="button" aria-expanded="false" th:href="@{/shop/shopcart}">
                         <span class="mx-2 text-danger fw-bolder" id="itemCount">0</span><i
                             class="fas fa-shopping-cart text-primary">購物車</i>
