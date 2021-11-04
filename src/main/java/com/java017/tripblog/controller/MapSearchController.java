@@ -1,7 +1,7 @@
 package com.java017.tripblog.controller;
 
-import com.java017.tripblog.entity.Article;
-import com.java017.tripblog.entity.User;
+import com.java017.tripblog.entity.*;
+import com.java017.tripblog.repository.RecommendRepository;
 import com.java017.tripblog.service.ArticleService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,12 +78,14 @@ public class MapSearchController {
         return messageList;
 
     }
+    @Autowired
+    RecommendRepository recommendRepository;
 
     @ResponseBody
     @GetMapping("/findByArticleTitle")
     public Article findByArticelTitle(@RequestParam String articleTitle) {
+
         Article result = articleService.findByArticleTitle(articleTitle);
-        System.out.println("result" + result);
         return result;
     }
 
