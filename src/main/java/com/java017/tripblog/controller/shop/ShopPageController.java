@@ -9,10 +9,14 @@ import com.java017.tripblog.service.ProductSortService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 /**
@@ -21,6 +25,7 @@ import java.util.List;
  */
 
 @Controller
+@RequestMapping
 public class ShopPageController {
 
     private final ProductSortService productSortService;
@@ -50,8 +55,11 @@ public class ShopPageController {
     }
 
     //商品詳細頁
-    @GetMapping("/shop/productInfo")
-    public String productInfoPage() {
+    @GetMapping("/shop/product/{id}")
+    public String productInfoPage(@PathVariable Long id, Model model) {
+        Product product = productService.findProductById(id);
+        System.out.println("產品資訊 ：" + product);
+        model.addAttribute("product", product);
         return "/shop/shop_product_info";
     }
 
@@ -91,5 +99,12 @@ public class ShopPageController {
         return "/shop/shop_order_list";
     }
 
-
+    //顯示產品封面
+    @RequestMapping(value = "/productPic/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getProductImage(@PathVariable Long id) throws IOException {
+        String dir = "src/main/resources/static/images/shop/product/" + id + ".jpg";
+        File file = new File(dir);
+        return Files.readAllBytes(file.toPath());
+    }
 }

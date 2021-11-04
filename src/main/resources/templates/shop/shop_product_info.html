@@ -119,48 +119,73 @@
 
 
 
-
+    <!-- 商品介紹頁 -->
     <div class="container d-flex mx-auto my-5">
         <div class="card mb-3 my-5 px-3 shadow-lg" style="border-radius: 20px;">
+            <!-- 第一行 商品分類、品牌 -->
+            <div class="row pt-3">
+                <div class="col-3">
+                    <button id="productTag" type="button" class="btn btn-secondary mx-1" th:text="${product.productTag.tagName}">分類</button>
+                    <button id="productBrand"type="button" class="btn btn-secondary mx-1" th:text="${product.brand.brandName}">品牌</button>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-3 mt-2 text-secondary">
+                    <h5>上架時間：<span id="launchedTime" th:text="${#dates.format(product.launchedTime, 'yyyy-MM-dd')}"></span></h5>
+                </div>
+            </div>
+            <!-- 第二行 -->
             <div class="row g-0">
-            <div class="col-md-4 py-4" style="align-items: center;" >
-                <img  src="../../static/images/shoppingcart/teaegg.jpeg" class="img-fluid rounded" alt="商品照片">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body pb-2">
-                    <div class="d-flex pt-4 align-items-center justify-content-between">
-                        <h1 class="card-title">所長茶葉蛋</h1>
-                        <h2 class="ps-5" id="priceTag">$20</h2>
+                <!-- 左：圖片 -->
+                <div class="col-md-4 py-4" style="align-items: center;" >
+                    <img th:src="${'/productPic/' + product.id}"
+                     class="img-fluid rounded w-100 h-100" alt="商品照片">
+                </div>
+                <!-- 中：產品資訊 -->
+                <div class="col-md-6">
+                    <div class="card-body pb-2">
+                        <div class="d-flex pt-4 align-items-center justify-content-between">
+                            <h1 id="productName" class="card-title" th:text="${product.productName}">所長茶葉蛋</h1>
+                        </div>
+                        <div class="row ps-1 pt-1">
+                            <ol style="list-style: none;">
+                                <li id="aboutProduct" th:text="${product.aboutProduct}">年賣800座台北101的秘密</li>
+                            </ol>
+                        </div>
+                            <ol class="py-2" style="list-style: none;">
+                                <li class="py-2">商品描述：</li>
+                                <p id="productDetail" th:text="${product.productDetail}" class="card-text ps-4">湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！</p>
+                            </ol>
                     </div>
-                <div class="row ps-1">
-                    <ol style="list-style: none;">
-                        <li>年賣800座台北101的秘密</li>
-                    </ol>
                 </div>
-                <ol class="py-2" style="list-style: none;">
-                    <li class="py-2">商品描述：</li>
-                    <p class="card-text ps-4">湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！</p>
-                </ol>
-            </div>
-
-                <div class="d-flex justify-content-end mx-5 mb-3">
-                    <button class="btAddToCart btn btn-primary ms-4 mt-0 pb-2" style="width: 40%;height: 12%;"> 加入購物車 </button>
+                <!-- 右：價格資訊 -->
+                <div class="col-md-2 d-flex align-items-start flex-column bd-highlight mb-3">
+                    <div class="row mb-auto p-2 bd-highlight">
+                        <h1 class="pt-4">$<span id="price" th:text="${product.price}">0</span></h1>
+                    </div>
+                    <footer class="p-2 bd-highlight">
+                        <div class="row">
+                            <div class="col"><h5>已售出：<span id="sold" th:text="${product.alreadySold}">0</span></h5></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><h5>庫存：<span id="stock" th:text="${product.inStock}">0</span></h5></div>
+                        </div>
+                    </footer>
                 </div>
-
             </div>
-            </div>
-
+            <!-- 第三行 -->
             <div class="row m-4 justify-content-center align-items-center align-content-center">
-                <div class="col-7 mx-5 w-25">
+                <div class="col-6 mx-5 w-25">
                     <a class="btn btn-info form-control fs-5" th:href="@{/shop}">
                         返回
                     </a>
                 </div>
+                <div class="col-6 mx-5 w-25">
+                    <a class="btn btn-primary form-control fs-5" th:href="@{/shop}">
+                        加入購物車
+                    </a>
+                </div>
             </div>
-
         </div>
-
-
     </div>
 
 
