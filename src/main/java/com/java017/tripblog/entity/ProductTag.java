@@ -1,5 +1,7 @@
 package com.java017.tripblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,7 +21,8 @@ public class ProductTag {
     //分類名稱
     private String tagName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productTag")
+    @JsonIgnore
+    @OneToMany(mappedBy = "productTag")
     private List<Product> productList;
 
     public List<Product> getProductList() {
@@ -51,7 +54,6 @@ public class ProductTag {
         return "ProductTag{" +
                 "id=" + id +
                 ", tagName='" + tagName + '\'' +
-                ", productList=" + productList +
                 '}';
     }
 }

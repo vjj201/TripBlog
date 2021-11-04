@@ -1,5 +1,7 @@
 package com.java017.tripblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class Brand {
     //店家位置
     private String location;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "brand")
     private List<Product> productList;
 
@@ -75,7 +78,6 @@ public class Brand {
                 ", brandName='" + brandName + '\'' +
                 ", aboutBrand='" + aboutBrand + '\'' +
                 ", location='" + location + '\'' +
-                ", productList=" + productList +
                 '}';
     }
 }

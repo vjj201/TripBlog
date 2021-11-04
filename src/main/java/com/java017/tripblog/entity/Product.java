@@ -1,5 +1,7 @@
 package com.java017.tripblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -41,10 +43,12 @@ public class Product {
     //商品詳細資訊
     private String productDetail;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Brand brand;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private ProductTag productTag;
@@ -149,8 +153,6 @@ public class Product {
                 ", alreadySold=" + alreadySold +
                 ", aboutProduct='" + aboutProduct + '\'' +
                 ", productDetail='" + productDetail + '\'' +
-                ", brand=" + brand +
-                ", productTag=" + productTag +
                 '}';
     }
 }

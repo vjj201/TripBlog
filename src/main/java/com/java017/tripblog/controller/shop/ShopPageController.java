@@ -26,13 +26,17 @@ public class ShopPageController {
     @Autowired
     private ProductService productService;
 
+
     //商城首頁
     @GetMapping("/shop")
     public String shopPage(Model model) {
-        Page<Product> productPage = productService.findProductPageOrderBy(0, 9, Sort.by("price"));
+        Page<Product> productPage = productService.findProductPageOrderBy(0, 9, Sort.by("launchedTime").descending());
         List<ProductSort> productSortList = productSortService.findAllProductSort();
+
         model.addAttribute("productPage", productPage);
         model.addAttribute("sortList", productSortList);
+        model.addAttribute("currentPage", 1);
+
         return "/shop/shop_index";
     }
 

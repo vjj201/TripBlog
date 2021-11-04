@@ -1,6 +1,8 @@
 package com.java017.tripblog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -34,6 +36,7 @@ public class ProductOrder {
     private User user;
 
     //訂單細項
+    @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "orderItems", referencedColumnName = "id")
     Set<Item> orderItems = new LinkedHashSet<>();
