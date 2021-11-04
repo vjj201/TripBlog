@@ -39,14 +39,10 @@ public class ProductController {
     @GetMapping("/shop/{page}")
     public String changeProductPage(@PathVariable int page, Model model) {
         Page<Product> productPage = productService.findProductPageOrderBy((page - 1), 9, Sort.by("launchedTime").descending());
-        List<ProductSort> productSortList = productSortService.findAllProductSort();
-        List<Brand> brandList = brandService.findAllBrand();
 
-        model.addAttribute("brandList", brandList);
-        model.addAttribute("sortList", productSortList);
         model.addAttribute("productPage", productPage);
         model.addAttribute("currentPage", page);
 
-        return "/shop/shop_index";
+        return "/shop/shop_index :: #main";
     }
 }

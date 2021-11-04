@@ -189,7 +189,8 @@
                         </div>
                         <ul class="submenu collapse">
                             <li th:each="tag : ${sort.tagList}">
-                                <a class="nav-link" data-value="1" th:text="${tag.tagName}" th:data-value="${tag.id}">Submenu item</a>
+                                <a class="nav-link" data-value="1" th:text="${tag.tagName}" th:data-value="${tag.id}">Submenu
+                                    item</a>
                             </li>
                         </ul>
                     </li>
@@ -255,81 +256,88 @@
 
             </div>
             <!-- 結束:搜尋框 -->
+            <div id="main">
+                <!-- 商品列 -->
+                <div class="row mb-5 flex-wrap row-cols-md-2">
 
-            <!-- 商品列 -->
-            <div class="row mb-5 flex-wrap row-cols-md-2">
+                    <div class="col-lg-4 mb-4" th:each="product : ${productPage}">
 
-                <div class="col-lg-4 mb-4" th:each="product : ${productPage}">
+                        <div class="col-lg-4 mb-4">
 
-                    <div class="col-lg-4 mb-4">
+                            <div class="card" style="width: 20rem;">
+                                <a href="#" th:href="@{'/shop/product/'+${product.id}}">
+                                    <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
+                                </a>
 
-                        <div class="card" style="width: 20rem;">
-                            <a href="#" th:href="@{'/shop/product/'+${product.id}}">
-                                <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            </a>
+                                <div class="card-body">
+                                    <div class="row">
 
-                            <div class="card-body">
-                                <div class="row">
+                                        <a class="col-6 link-dark text-decoration-none" href="#"
+                                           th:href="@{'/shop/product/'+${product.id}}">
+                                            <h5 class="card-title" th:text="${product.productName}">商品名稱</h5>
+                                        </a>
 
-                                    <a class="col-6 link-dark text-decoration-none" href="#" th:href="@{'/shop/product/'+${product.id}}">
-                                        <h5 class="card-title" th:text="${product.productName}">商品名稱</h5>
-                                    </a>
+                                        <div class="col-6 text-end">
+                                            <p><span id="price" th:text="${product.price}">100</span> TWD</p>
+                                        </div>
 
-                                    <div class="col-6 text-end">
-                                        <p><span id="price" th:text="${product.price}">100</span> TWD</p>
                                     </div>
 
-                                </div>
 
+                                    <p class="card-text" th:text="${product.aboutProduct}">Some quick example text to
+                                        build
+                                        on the card title and make up the
+                                        bulk of the card's content.</p>
 
-                                <p class="card-text" th:text="${product.aboutProduct}">Some quick example text to build
-                                    on the card title and make up the
-                                    bulk of the card's content.</p>
+                                    <p class="m-2 small text-center" th:text="${product.launchedTime}">2021-11-03
+                                        11:40</p>
 
-                                <p class="m-2 small text-center" th:text="${product.launchedTime}">2021-11-03 11:40</p>
-
-                                <span id="A0001" class="addButton btn btn-primary form-control">
+                                    <span id="A0001" class="addButton btn btn-primary form-control">
                                     加入購物車
                                     <input type="hidden" value="Formosa|formosa.jpg|1000">
                                 </span>
+                                </div>
                             </div>
+
                         </div>
 
                     </div>
-
                 </div>
+                <!-- 結束:商品列 -->
+
+                <!-- 換頁 -->
+                <div class="d-flex justify-content-center mt-5">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a id="pre" class="page-link"
+                                   th:href="${currentPage == 1} ? 'javascript:void(0)' : '/shop/'+${currentPage - 1}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" disabled="true" th:text="${currentPage}">1</a>
+                            </li>
+
+                            <li class="page-item">
+                                <a id="next" class="page-link"
+                                   th:href="${productPage.totalPages == currentPage} ? 'javascript:void(0)' : '/shop/'+${currentPage + 1}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="d-flex justify-content-center mb-5">
+                    <small>共<span th:text="${productPage.totalPages}">20</span>頁</small>
+                </div>
+                <!-- 結束:換頁 -->
             </div>
-            <!-- 結束:商品列 -->
-
-            <!-- 換頁 -->
-            <div class="d-flex justify-content-center mt-5">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" th:href="${currentPage == 1} ? 'javascript:void(0)' : '/shop/'+${currentPage - 1}"
-                                     aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-
-                        <li class="page-item"><a class="page-link" disabled="true" th:text="${currentPage}">1</a></li>
-
-                        <li class="page-item">
-                            <a class="page-link" th:href="${productPage.totalPages == currentPage} ? 'javascript:void(0)' : '/shop/'+${currentPage + 1}"
-                                     aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
-            <div class="d-flex justify-content-center mb-5">
-                <small>共<span th:text="${productPage.totalPages}">20</span>頁</small>
-            </div>
-            <!-- 結束:換頁 -->
+            <!-- 結束:主內容 -->
         </div>
-        <!-- 結束:主內容 -->
     </main>
     <!-- 結束:中間 -->
 
@@ -380,6 +388,30 @@
                 }
             });
         })
+    });
+
+    $(function() {
+
+        $(document).on('click', '#pre' ,function(e) {
+            e.preventDefault();
+            let uri = $('#pre').attr('href');
+            updatePage(uri);
+        });
+
+        $(document).on('click', '#next' ,function(e) {
+            e.preventDefault();
+            let uri = $('#next').attr('href');
+            updatePage(uri);
+        });
+
+        function updatePage(uri) {
+
+            $('#main').load(uri);
+
+            // $.get(uri).done(function (fragment) {
+            //     $("#main").replaceWith(fragment);
+            // });
+        }
     });
 </script>
 </body>
