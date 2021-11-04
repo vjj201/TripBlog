@@ -68,14 +68,14 @@ public class Brand {
         this.productList = productList;
     }
 
-    @Override
-    public String toString() {
-        return "Brand{" +
-                "id=" + id +
-                ", brandName='" + brandName + '\'' +
-                ", aboutBrand='" + aboutBrand + '\'' +
-                ", location='" + location + '\'' +
-                ", productList=" + productList +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Brand{" +
+//                "id=" + id +
+//                ", brandName='" + brandName + '\'' +
+//                ", aboutBrand='" + aboutBrand + '\'' +
+//                ", location='" + location + '\'' +
+//                ", productList=" + productList +
+//                '}';
+//    }
 }

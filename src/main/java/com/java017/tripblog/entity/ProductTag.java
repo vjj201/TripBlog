@@ -46,12 +46,12 @@ public class ProductTag {
         this.tagName = tagName;
     }
 
-    @Override
-    public String toString() {
-        return "ProductTag{" +
-                "id=" + id +
-                ", tagName='" + tagName + '\'' +
-                ", productList=" + productList +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "ProductTag{" +
+//                "id=" + id +
+//                ", tagName='" + tagName + '\'' +
+//                ", productList=" + productList +
+//                '}';
+//    }
 }
