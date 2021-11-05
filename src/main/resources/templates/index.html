@@ -8,6 +8,11 @@
     <meta name="description" content="HomePage">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+    <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
     <link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../static/css/all_css.css" th:href="@{/css/all_css.css}">
@@ -648,9 +653,11 @@
 
                 <!-- 地圖 -->
                 <div class="map-box col-11 m-0 p-0 ">
-                    <iframe class="w-100 h-100"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57816.64015766856!2d121.55535551181593!3d25.08357532894773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ac8cce7a9b6d%3A0x377d7129bd402c63!2zMTE05Y-w5YyX5biC5YWn5rmW5Y2A!5e0!3m2!1szh-TW!2stw!4v1633172122414!5m2!1szh-TW!2stw"
-                        width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <div id="map" style="height: 600px; width: 100%;"></div>
+                    <script
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&callback=initMap&libraries=&v=weekly"
+                            async
+                    ></script>
                 </div>
             </div>
         </div>

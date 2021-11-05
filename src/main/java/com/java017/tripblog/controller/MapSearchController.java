@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Controller
 public class MapSearchController {
@@ -128,7 +130,14 @@ public class MapSearchController {
         model.addAttribute("showUser",showUser);
         return "article"; }
 
-
+    @ResponseBody
+    @GetMapping("/randomArticle")
+    public List<Article> articles(){
+        ArrayList<Article> result;
+        result = articleService.findByRandomArticle();
+        System.out.println("控制器" + result);
+        return result;
+    }
 
 
 }

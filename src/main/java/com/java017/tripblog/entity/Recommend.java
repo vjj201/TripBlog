@@ -13,11 +13,11 @@ public class Recommend {
     Integer id;
 
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "article_recommend_id")
     private Article articlesRecommendId;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "User_recommend_id")
     private User userRecommendId;
 

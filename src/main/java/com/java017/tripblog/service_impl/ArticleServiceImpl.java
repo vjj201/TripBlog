@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -139,12 +140,12 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findBySubjectCategory(subject);
     }
 
-
+    @Override
    public Article findByArticleTitle(String articleTitle){
       Article result = articleRepository.findByArticleTitle(articleTitle);
       return result;
    }
-
+    @Override
     public String updateRecommend(String articleTitle){
         Article result = articleRepository.findByArticleTitle(articleTitle);
         Integer Recommend = result.getRecommend();
@@ -153,7 +154,7 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(result);
         return "推薦成功";
     };
-
+    @Override
     public String updateCollect(String articleTitle){
         Article result = articleRepository.findByArticleTitle(articleTitle);
         Integer collect = result.getCollect();
@@ -162,7 +163,7 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(result);
         return "收藏成功";
     };
-
+    @Override
     public String updateReport(String articleTitle){
         Article result = articleRepository.findByArticleTitle(articleTitle);
         Integer Report = result.getReport();
@@ -171,11 +172,29 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(result);
         return "收藏成功";
     }
+    @Override
+    public ArrayList<Article> findByRandomArticle(){
+        ArrayList<Article> list = articleRepository.findAll();
+        Optional<Article> OpArticle;
+        List<Article> resultList = new ArrayList<>();
+        int listSize =  list.size();
+        System.out.println(listSize);
+        for(int i = 0; i<listSize ; i++){
+            Article article = new Article();
+            Integer math = (int)(Math.random()*listSize)+1;
+            System.out.println("Math" + math);
+            OpArticle = articleRepository.findById(math);
+            article.setEnterAddressLat(OpArticle.get().getEnterAddressLat());
+            article.setEnterAddressLng(OpArticle.get().getEnterAddressLng());
+            article.setArticleTitle(OpArticle.get().getArticleTitle());
+            resultList.add(article);
+            System.out.println("For裡面"+ resultList);
+        }
+        System.out.println("server回傳" +resultList );
+        return (ArrayList<Article>) resultList;
 
-
-
+    };
 
 
 
 }
-

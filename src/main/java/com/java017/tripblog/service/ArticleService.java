@@ -5,6 +5,7 @@ import com.java017.tripblog.entity.Article;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public interface ArticleService {
 
@@ -32,6 +33,8 @@ public interface ArticleService {
 
     ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject);
 
+
+    ArrayList<Article> findByRandomArticle();
 
 
 
