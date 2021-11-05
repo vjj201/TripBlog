@@ -99,7 +99,7 @@ public class ShopPageController {
     }
 
     //顯示產品封面
-    @RequestMapping(value = "/productPic/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "/shop/productPic/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getProductImage(@PathVariable Long id) throws IOException {
         String dir = "src/main/resources/static/images/shop/product/" + id + ".jpg";

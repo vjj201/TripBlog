@@ -45,12 +45,12 @@ public class Product {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(referencedColumnName = "id")
     private Brand brand;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(referencedColumnName = "id")
     private ProductTag productTag;
 
     public ProductTag getProductTag() {

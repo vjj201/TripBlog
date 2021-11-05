@@ -29,5 +29,5 @@ public interface ProductService {
     Page<Product> findProductPageOrderBy(int page, int size, Sort sort);
 
     //條件查詢
-    Page<Product> findProductPageByQuery(Pageable pageable, ProductQuery productQuery);
+    Page<Product> findProductPageByQuery(ProductQuery productQuery);
 }
