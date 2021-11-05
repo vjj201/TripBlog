@@ -32,7 +32,4 @@ public interface ArticleService {
 
     ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject);
 
-
-
-
 }

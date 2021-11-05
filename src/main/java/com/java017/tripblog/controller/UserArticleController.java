@@ -25,12 +25,14 @@ public class UserArticleController {
     //輸入搜尋吧查詢並送出第一頁
     @ResponseBody
     @GetMapping("/firstSearchOfPageEatTravel")
-    public List<Article> firstSearchOfPage(@RequestParam String enterAddressName, @RequestParam String subject, @RequestParam int timeDirect) {
+    public List<Article> firstSearchOfPage(@RequestParam String enterAddressName,@RequestParam String subject, @RequestParam int timeDirect) {
+        System.out.println("搜尋吧-enterAddressName=" + enterAddressName);
+        System.out.println("搜尋吧-subject=" + subject);
 
         List<Article> messageList;
         messageList = articleService.getPagedArticles(0, 5, enterAddressName, subject, timeDirect);
-        System.out.println("timeDirect=" + timeDirect);
-        System.out.println("messageList=" + messageList);
+        System.out.println("搜尋吧-順序timeDirect=" + timeDirect);
+        System.out.println("搜尋吧-messageList=" + messageList);
         return messageList;
     }
 
@@ -39,11 +41,11 @@ public class UserArticleController {
     @ResponseBody
     @GetMapping("/newPageButtonEatTravel")
     public Integer newChangePageButton(@RequestParam String enterAddressName, @RequestParam String subject) {
-        System.out.println("分頁按鈕AAA" + enterAddressName);
-        System.out.println("分頁按鈕BBB" + subject);
+        System.out.println("自動生成換頁按鈕enterAddressName=" + enterAddressName);
+        System.out.println("自動生成換頁按鈕subject=" + subject);
         ArrayList<Article> list;
         list = articleService.findByEnterAddressNameLikeAndSubjectCategory(enterAddressName, subject);
-        System.out.println("分頁按鈕" + list);
+        System.out.println("分頁按鈕-撈出的文章=" + list);
         double listSize = list.size();
         int pageMount = (int) Math.ceil(listSize / 5);
         return pageMount;
@@ -54,11 +56,14 @@ public class UserArticleController {
     // 點擊換頁按鈕並換頁
     @ResponseBody
     @GetMapping("/changeSearchOfPageEatTravel")
-    public List<Article> changeSearchOfPage(@RequestParam String enterAddressName, @RequestParam String subject, @RequestParam int page, @RequestParam int timeDirect) {
+    public List<Article> changeSearchOfPage(@RequestParam String enterAddressName,@RequestParam String subject, @RequestParam int page, @RequestParam int timeDirect) {
+        System.out.println("點擊換頁按鈕並換頁的enterAddressName=" + enterAddressName);
+        System.out.println("點擊換頁按鈕並換頁的subject=" + subject);
 
         List<Article> messageList;
-        messageList = articleService.getPagedArticles(page, 5, enterAddressName, subject, timeDirect);
-        System.out.println("點擊換頁按鈕並換頁的messageList" + messageList);
+        messageList = articleService.getPagedArticles(page, 5, enterAddressName,subject, timeDirect);
+        System.out.println("點擊換頁按鈕並換頁的-順序timeDirect=" + timeDirect);
+        System.out.println("點擊換頁按鈕並換頁的messageList=" + messageList);
         return messageList;
 
     }

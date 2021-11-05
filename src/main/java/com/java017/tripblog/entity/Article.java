@@ -31,7 +31,7 @@ public class Article {
 
     String textEditor;
 
-    String free_tag;
+    String freeTag;
 
     Integer recommend = 0;
 
@@ -165,12 +165,12 @@ public class Article {
         this.textEditor = textEditor;
     }
 
-    public String getFree_tag() {
-        return free_tag;
+    public String getFreeTag() {
+        return freeTag;
     }
 
-    public void setFree_tag(String free_tag) {
-        this.free_tag = free_tag;
+    public void setFreeTag(String freeTag) {
+        this.freeTag = freeTag;
     }
 
     @Override
@@ -184,7 +184,7 @@ public class Article {
                 ", enterAddressLat=" + enterAddressLat +
                 ", articleTitle='" + articleTitle + '\'' +
                 ", textEditor='" + textEditor + '\'' +
-                ", free_tag='" + free_tag + '\'' +
+                ", freeTag='" + freeTag + '\'' +
                 ", recommend=" + recommend +
                 ", Report=" + Report +
                 ", collect=" + collect +

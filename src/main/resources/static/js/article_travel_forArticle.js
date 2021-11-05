@@ -113,7 +113,9 @@ article["timeDirect"] = timeDirect;
 
                     // 自動生成的html格式
                     html += `
-          <li class="page-item "><button type="submit" id="${p}" class="page-link text-gr03 changePageButton">${p}</button></li>
+
+                    <option value="${p}">${p}</option>
+
           `;
                     // 裝入[自動生成]的位置
                     $("#changePageBox").html(html);
@@ -123,12 +125,12 @@ article["timeDirect"] = timeDirect;
         });
 // ---------------------------------------------------
 // 點擊換頁按鈕
-        $("#changePageBox").on('click', 'button', function (event) {
+        $("#changePageAll").on('click', '#pageSearch', function (event) {
 
             // let a = $(this).attr("name",true)
             // console.log(a);
 
-            let pageValue = $(this).text()
+            let pageValue = $('#changePageBox option:selected').val()
 
             console.log("pageValue=" + pageValue);
 
@@ -205,28 +207,6 @@ article["timeDirect"] = timeDirect;
 
 
    
-//-----------------------------------------------------------------------------
-//     $("#articleBox").on('click', 'a', function (event){
-//     //    alert("a標籤被點了");
-//         let articleTitle = $(this).text();
-//     //    alert(articleTitle);
-//         let article = {};
-//         article["articleTitle"] = articleTitle;
-//         $.ajax({
-//             url: "/findByArticleTitle",
-//             type: "GET",
-//             data: article,
-//             success: function (response) {
-//           //      alert("林北成功用標題找到文章了")
-//                 $(location).attr("href","https://localhost:63342/TripBlog/templates/article.html");
-// //---------------------------------------------------------------------------------------------------
-//             //for秉豐
-// //---------------------------------------------------------------------------------------------------
-
-//             }
-//         });
-
-//     });
 
 
 

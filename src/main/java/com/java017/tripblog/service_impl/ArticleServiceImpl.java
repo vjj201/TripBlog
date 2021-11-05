@@ -4,11 +4,10 @@ import com.java017.tripblog.entity.Article;
 import com.java017.tripblog.repository.ArticleRepository;
 import com.java017.tripblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,71 +47,73 @@ public class ArticleServiceImpl implements ArticleService {
         }
         //主題一定沒填
         if(subject==""){
-            return articleRepository.findByEnterAddressNameContaining(enterAddressName);
+            return articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName, enterAddressName,enterAddressName);
         }
-        return articleRepository.findByEnterAddressNameContainingAndSubjectCategory(enterAddressName,subject);
+        return articleRepository.findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName,subject);
     }
 
-
-//    @Override
-//    public List<Article> getPagedArticles(int page, int size, String enterAddressName) {
-////
-//        Pageable pageable = PageRequest.of(page, size, Sort.by("enterAddressName").descending()); // 依CREATE_TIME欄位降冪排序
-//        Page<Article> pageResult = articleRepository.findByEnterAddressNamelike(enterAddressName,pageable);
-//
-//        pageResult.getNumberOfElements(); // 本頁筆數
-//        pageResult.getSize();             // 每頁筆數
-//        pageResult.getTotalElements();    // 全部筆數
-//        pageResult.getTotalPages();       // 全部頁數
-//
-//        List<Article> messageList =  pageResult.getContent();
-//
-//        return messageList;
-//
-//    }
 
     //map_search:文章首頁&文章換頁
     @Override
     public List<Article> getPagedArticles(int page, int size, String enterAddressName,String subject,int timeDirect) {
 
-        System.out.println("上，Service-timeDirect="+timeDirect);
         //預設-時間舊到新
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")));
-
-        System.out.println("下，Service-timeDirect="+timeDirect);
-
-        System.out.println("asc有抓到[預設排序(舊到新)]");
-
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
 
         //時間新到舊
         if(timeDirect==100){
             System.out.println("desc有抓到[IF新到舊]");
-            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")));
+            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
         }
 
+
+        Page<Article> pageResult;
+
+        if(StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)){
+//            如果都沒有填
+            pageResult = articleRepository.findAll(pageable);
+        }else if(StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)){
+//            只有填主題(subject)
+            pageResult = articleRepository.findBySubjectCategory(subject,pageable);
+        }else if(!StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
+//            只有填搜尋吧(enterAddressName)
+            pageResult = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName,enterAddressName,enterAddressName, pageable);
+        }else{
+//            都有填
+            List<Article> A =articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
+            List<Article> newA = new ArrayList<>();
+            for(Article loopdata:A){
+                if(subject.equals(loopdata.getSubjectCategory())){
+                    newA.add(loopdata);
+                }
+            }
+            pageResult = new PageImpl<>(newA,pageable,newA.size());
+
+        }
+
+
         //(搜尋吧,主題)都有填
-        Page<Article> pageResult = articleRepository.findByEnterAddressNameContainingAndSubjectCategory(enterAddressName,subject,pageable);
+                //        Page<Article> pageResult = articleRepository.findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName,subject,pageable);
 
 
         //搜尋吧一定沒填
-        if(enterAddressName==""){
-            pageResult = articleRepository.findAll(pageable);
+                //        "".equals(enterAddressName)
+                //        StringUtils.isEmpty(enterAddressName)
+                //        public static boolean isEmpty(@Nullable Object str) {
+                //            return (str == null || "".equals(str));}
 
-            if(subject != ""){
-                pageResult = articleRepository.findBySubjectCategory(subject,pageable);
-            }
-        }
-        //主題一定沒填
-        if(subject==""){
-            pageResult = articleRepository.findByEnterAddressNameContaining(enterAddressName,pageable);
-        }
+//        if(enterAddressName == null || "".equals(enterAddressName)){
+//            pageResult = articleRepository.findAll(pageable);
+//
+//            if(subject != null && !"".equals(subject)){
+//                pageResult = articleRepository.findBySubjectCategory(subject,pageable);
+//            }
+//        }
+//        //主題一定沒填
+//        if(subject == null || "".equals(subject)){
+//            pageResult = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName,enterAddressName,enterAddressName, pageable);
+//        }
 
-
-
-        pageResult.getNumberOfElements(); // 本頁筆數
-        pageResult.getSize();             // 每頁筆數
-        pageResult.getTotalElements();    // 全部筆數
-        pageResult.getTotalPages();       // 全部頁數
 
         List<Article> messageList =  pageResult.getContent();
 

@@ -112,7 +112,7 @@ public class ArticleController {
         }
 
         String tag = String.join(",", articleParam.getFree_Tags());
-        article.setFree_tag(tag);
+        article.setFreeTag(tag);
         article.setArticleTitle(articleParam.getArticleTitle());
         article.setEnterAddressName(articleParam.getEnterAddressName());
         article.setEnterAddressLng(articleParam.getEnterAddressLng());
