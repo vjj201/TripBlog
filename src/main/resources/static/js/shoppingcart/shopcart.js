@@ -23,7 +23,7 @@ function doFirst(){
         let itemPrice = parseInt(itemInfo.split('|')[2]);
         total += itemPrice;
     }
-    
+
     //結帳按鈕
     let check = document.getElementById('checkPayment'); //list是陣列
     check.addEventListener('click',function(e){
@@ -57,7 +57,7 @@ function doFirst(){
 function createCartList(itemId, itemValue){
     // alert(`${itemId} : ${itemValue}`)
     let itemTitle = itemValue.split('|')[0];
-    let itemImage = '../../images/shoppingcart/' + itemValue.split('|')[1];
+    let itemImage = '../../images/shop/product/' + itemValue.split('|')[1] + '.jpg';
     let itemPrice = parseInt(itemValue.split('|')[2]);
 
     // 建立每個品項的清單區域 -- tr
@@ -70,23 +70,29 @@ function createCartList(itemId, itemValue){
     // 建立商品圖片-- 第一個 td
     let tdImage = document.createElement('td');
     tdImage.style.width = '200px';
+    tdImage.style.height = '150px';
 
     let image = document.createElement('img');
     image.src = itemImage;
-    image.width = 70;
+    image.width = 150;
 
     tdImage.appendChild(image);
     trItemList.appendChild(tdImage);
 
-    // 建立商品商品名稱和刪除按鈕-- 第二個 td
+    // 建立商品商品名稱-- 第二個 td
     let tdTitle = document.createElement('td');
+    let aProductInfo = document.createElement('a');
+    
     tdTitle.style.width = '180px';
     tdTitle.id = itemId;
+    
+    aProductInfo.href = '/shop/product/' + itemId;
+    aProductInfo.style.textDecoration = 'none';
+    aProductInfo.style.color = 'black';
+    aProductInfo.style.fontWeight = 'bold';
+    aProductInfo.innerText = itemTitle;
 
-    let pTitle = document.createElement('p');
-    pTitle.innerText = itemTitle;
-
-    tdTitle.appendChild(pTitle);
+    tdTitle.appendChild(aProductInfo);
     trItemList.appendChild(tdTitle);
 
     // 建立商品價格-- 第三個 td
