@@ -98,9 +98,8 @@ public class ArticleController {
 
     @ResponseBody
     @PostMapping("/newArticle")
-    public String insert(@RequestBody ArticleParam articleParam) {
-
-        //    articleRepository.save(article);
+    public String insert(@RequestBody ArticleParam articleParam,HttpSession session) {
+        User user = (User)session.getAttribute("user");
         Article article = new Article();
         for (String tag : articleParam.getFree_Tags()) {
             try {
@@ -120,6 +119,7 @@ public class ArticleController {
         article.setSelectRegion(articleParam.getSelectRegion());
         article.setTextEditor(articleParam.getTextEditor());
         article.setSubjectCategory(articleParam.getSubjectCategory());
+        article.setFk_User_Id(userService.findUserById(user.getId()));
         articleService.insertArticle(article);
 
         return "ok";
