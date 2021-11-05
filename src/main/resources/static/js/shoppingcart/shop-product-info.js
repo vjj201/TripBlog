@@ -8,8 +8,9 @@ function doFirst(){
     for(let i = 0; i < list.length; i++){
         list[i].addEventListener('click',function(e){
             console.log("點擊加入購物車");
-            let productInfo = document.getElementById('info').value;
-            addItem(this.id, productInfo)
+            let productId = document.getElementById(this.id);
+            let productInfo = productId.querySelector(`.info`).value;
+            addItem(this.id, productInfo);
         });
     }
     let itemString = storage.getItem('addItemList');

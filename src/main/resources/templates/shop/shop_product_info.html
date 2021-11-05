@@ -134,7 +134,7 @@
 
     <!-- 商品介紹頁 -->
     <div class="container d-flex mx-auto">
-        <div class="card mb-3 my-3 px-3 shadow-lg" style="border-radius: 20px;">
+        <div class="card mb-3 my-3 px-3 shadow-lg" style="border-radius: 20px; height: 500px;">
             <!-- 第一行 商品分類、品牌 -->
             <div class="row pt-3">
                 <div class="col-3">
@@ -193,10 +193,10 @@
                     </a>
                 </div>
                 <div class="col-6 mx-5 w-25">
-                    <span th:id="${product.id}" class="addButton btn btn-primary form-control" th:href="@{/shop}">
+                    <div th:id="${product.id}" class="addButton btn btn-primary form-control" th:href="@{/shop}">
                         加入購物車
-                        <input id="info" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}">
-                    </span>
+                        <input class="info" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}"/>
+                    </div>
                 </div>
             </div>
         </div>
