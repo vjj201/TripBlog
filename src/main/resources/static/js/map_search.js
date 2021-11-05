@@ -6,7 +6,6 @@ let markers = [];
 let controllerForMarkers;
 let enterAddressLat;
 let enterAddressLng;
-let contentString = "幹你娘";
 
 //-----------------------------------------------------------------------
 function initMap() {

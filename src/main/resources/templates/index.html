@@ -15,22 +15,27 @@
         /* ------------------------------------------------- */
         /* md-首頁-視覺圖*/
 
-        .view-container{
-            background-image: url('https://picsum.photos/1500');
+        .view-container {
+            background-image: url('https://picsum.photos/1920');
             height: 100vh;
-        }
-        /* md-視覺圖-article  */
-        .md-article{
-            margin-top: 50vh;      
+            width: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
-        .md-article div p{
-           padding: 1vw;
-           font-size: 15px;
-           font-weight: 700;
-           color: rgb(250, 255, 246);
-           background-color: rgba(174, 202, 209,0.8);}
-           
+        /* md-視覺圖-article  */
+        .md-article {
+            margin-top: 50vh;
+        }
+
+        .md-article div p {
+            padding: 1vw;
+            font-size: 15px;
+            font-weight: 700;
+            color: rgb(250, 255, 246);
+            background-color: rgba(174, 202, 209, 0.8);
+        }
+
         /* md-雲tag */
         .cloud-container {
             height: 80vh;
@@ -50,8 +55,10 @@
             z-index: 5;
         }
 
-        :optional{font-size: 12px;}
-        
+        :optional {
+            font-size: 12px;
+        }
+
         /* md-搜尋 */
         .logo-search-container {
             margin-left: 12.5vw;
@@ -71,8 +78,8 @@
         /* md-熱門最新優質文章列表 */
         .hot-container {
             height: 90vh;
-            width:90vw ;
-            margin-top: 42vh;
+            width: 90vw;
+            margin-top: 20vh;
             background-color: rgb(174, 202, 209);
             box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
         }
@@ -81,10 +88,10 @@
         .hot-carousel {
             width: 90vw;
             height: 90vh;
-            
+
         }
 
-        .hot-carousel-item{
+        .hot-carousel-item {
             width: 85vw;
             height: 80vh;
         }
@@ -104,7 +111,7 @@
         }
 
         /* ------------------------------------------------ */
-    /* md-每日景點 */
+        /* md-每日景點 */
         .map-container {
             height: 90vh;
             margin-top: 18vh;
@@ -123,7 +130,7 @@
         }
 
         /* ------------------------------------------------ */
-    /* md-推廣合作文章列表 */
+        /* md-推廣合作文章列表 */
         .ad-container {
             height: 60vh;
             margin-top: 18vh;
@@ -140,12 +147,13 @@
             width: 80vw;
         }
 
-         /* 標題 */
+        /* 標題 */
         .ad-head {
             padding-left: 37.5vw;
             padding-top: 3vh;
             color: rgba(255, 255, 255, 0.7);
         }
+
         /* 按鈕 */
         .ad-slide button {
             height: 10vh;
@@ -160,190 +168,199 @@
 
 
         /* ------------------------------------------------ */
-    /*md-尾頁 */
+        /*md-尾頁 */
         footer {
             margin-top: 18vh
         }
 
-@media screen and (max-width: 441px){
-    /* sm-首頁-視覺圖 */
-        .view-container{
-            background-image: url('https://picsum.photos/id/275/500');
-            height: 50vh;
-        }
-        .first-logo{
+        @media screen and (max-width: 441px) {
+
+            /* sm-首頁-視覺圖 */
+            .view-container {
+                background-image: url('https://picsum.photos/id/275/500');
+                height: 50vh;
+            }
+
+            .first-logo {
                 margin-top: -2vh;
-        }
-        .third-article{
+            }
+
+            .third-article {
                 margin-top: -98vh;
                 z-index: 0;
+            }
+
+            /* sm-cloud-tag */
+            /* 裝所有cloud(含group-01和group-02) */
+            .cloud-container {
+                height: 60vh;
+                margin-top: -98vh;
+                /* margin-left: 3vw; */
+            }
+
+            /* 包group-01 */
+            .cloud-group-01 {
+                padding: 0px;
+
+            }
+
+            /* 包group-02 */
+            .cloud-group-02 {
+                padding: 0px;
+
+            }
+
+            /* group-01的物件 */
+            .cloud-gr01-item {
+                /* z-index: 5; */
+                padding: 0px;
+            }
+
+            .cloud-gr01-item button {
+                padding: 0px;
+                font-size: 10px;
+            }
+
+            /* group-02的物件 */
+            .cloud-gr02-item {
+                padding: 0px;
+            }
+
+            .cloud-gr02-item button {
+                padding: 0px;
+                font-size: 10px;
+            }
+
+            /* tag的字體大小 */
+            :optional {
+                font-size: 11px;
+                padding-right: 2px;
+            }
+
+
+            /* sm-搜尋欄位 */
+            .logo-search-container {
+                margin-left: 8vw;
+                margin-top: 9vh;
+                margin-bottom: 0vh;
+            }
+
+            .logo-search-input {
+                z-index: 6;
+
+            }
+
+            /* sm--熱門最新優質文章列表 */
+            .hot-container {
+                background-color: rgb(174, 202, 209);
+                box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
+                width: 90vw;
+                height: 85vh;
+            }
+
+            /* 可以控制圖片的包(至中等等)，此欄位一定要有長寬高才能讓孩子定位*/
+            .hot-carousel {
+                width: 90vw;
+                height: 85vh;
+            }
+
+            /* 控制圖片大小 */
+            .hot-carousel-item {
+                margin-top: 2.5vh;
+                width: 80vw;
+                height: 80vh;
+
+            }
+
+            .article-item h1 {
+                margin-top: -40vh;
+                filter: drop-shadow(0 5px 3px rgba(0, 0, 0, 0.7))
+            }
+
+            .article-item p {
+                filter: drop-shadow(0 5px 3px rgba(0, 0, 0, 0.7))
+            }
+
+            /*sm-每日景點 */
+            .map-container {
+                height: 85vh;
+                width: 90vw;
+                margin-top: 5vh;
+                background-color: rgb(250, 255, 246);
+                box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
+            }
+
+            .map-box {
+                height: 80vh;
+                width: 80vw;
+            }
+
+            .map-head {
+                margin-left: 70vw;
+                color: rgba(90, 126, 108, 0.3);
+                filter: drop-shadow(0 2px 1px rgb(243, 255, 139))
+            }
+
+            /* ------------------------------------------------ */
+            /* sm-推廣合作文章列表 */
+            .ad-container {
+                height: 50vh;
+                width: 90vw;
+                margin-top: 5vh;
+                background-color: rgb(174, 202, 209);
+                box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
+            }
+
+            .ad-carousel {
+                height: 50vh;
+                width: 90vw;
+            }
+
+            .ad-article-container {
+                margin-left: 8vw;
+                height: 40vh;
+                width: 80vw;
+            }
+
+            .ad-head {
+                padding-left: 35vw;
+                padding-top: 0vh;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .ad-slide button {
+                margin-left: 8vw;
+
+                height: 10vh;
+                top: 38vh;
+            }
+
+
+            .carousel-indicators-ad {
+                margin-left: 22vw;
+                height: 10vh;
+                top: 41.5vh;
+            }
+
+
+            /* ------------------------------------------------ */
+            /* 尾頁 */
+            footer {
+                margin-top: 3vh
+            }
+
+
         }
-
-    /* sm-cloud-tag */
-        /* 裝所有cloud(含group-01和group-02) */
-        .cloud-container {
-            height: 60vh;
-            margin-top: -98vh;
-            /* margin-left: 3vw; */
-        }
-        /* 包group-01 */
-        .cloud-group-01 {
-            padding: 0px;
-
-        }
-        /* 包group-02 */
-        .cloud-group-02 {
-            padding: 0px;
-
-        }
-        /* group-01的物件 */
-        .cloud-gr01-item {
-            /* z-index: 5; */
-            padding: 0px;
-        }
-
-        .cloud-gr01-item button{
-            padding: 0px;
-            font-size: 10px;
-        }
-        /* group-02的物件 */
-        .cloud-gr02-item {
-            padding: 0px;
-        }
-        .cloud-gr02-item button{
-            padding: 0px;
-            font-size: 10px;
-        }
-        /* tag的字體大小 */
-        :optional{font-size: 11px;
-        padding-right: 2px;}
-
-
-    /* sm-搜尋欄位 */
-        .logo-search-container {
-            margin-left: 8vw;
-            margin-top: 9vh;
-            margin-bottom: 0vh;
-        }
-        .logo-search-input {
-            z-index: 6;
-           
-        }
-
-    /* sm--熱門最新優質文章列表 */
-        .hot-container {
-            background-color: rgb(174, 202, 209);
-            box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
-            width: 90vw;
-            height: 85vh;
-            margin-top: 5vh;
-                }
-        
-        /* 可以控制圖片的包(至中等等)，此欄位一定要有長寬高才能讓孩子定位*/
-        .hot-carousel{
-            width: 90vw;
-            height: 85vh;
-        }
-
-        /* 控制圖片大小 */
-        .hot-carousel-item{
-            margin-top: 2.5vh;
-            width: 80vw;
-            height: 80vh;
-             
-        } 
-
-        .article-item h1 {
-            margin-top: -40vh;
-            filter: drop-shadow(0 5px 3px rgba(0, 0, 0, 0.7))
-           
-        }
-
-        .article-item p {
-            filter: drop-shadow(0 5px 3px rgba(0, 0, 0, 0.7))
-        } 
-        
-    /*sm-每日景點 */
-        .map-container {
-            height: 85vh;
-            width: 90vw;
-            margin-top: 5vh;
-            background-color: rgb(250, 255, 246);
-            box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
-        }
-
-        .map-box {
-            height: 80vh;
-            width: 80vw;
-        }
-
-        .map-head {
-            margin-left: 70vw;
-            color: rgba(90, 126, 108, 0.3);
-            filter: drop-shadow(0 2px 1px rgb(243, 255, 139))
-        }
-
-        /* ------------------------------------------------ */
-     /* sm-推廣合作文章列表 */
-        .ad-container {
-            height: 50vh;
-            width: 90vw;
-            margin-top: 5vh;
-            background-color: rgb(174, 202, 209);
-            box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
-        }
-
-        .ad-carousel {
-            height: 50vh;
-            width: 90vw;
-        }
-
-        .ad-article-container {
-            margin-left:8vw;
-            height: 40vh;
-            width: 80vw;
-        }
-
-        .ad-head {
-            padding-left: 35vw;
-            padding-top: 0vh;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .ad-slide button {
-            margin-left:8vw;
-
-            height: 10vh;
-            top: 38vh;
-        }
-
-
-        .carousel-indicators-ad {
-            margin-left:22vw;
-            height: 10vh;
-            top: 41.5vh;
-        }
-
-
-    /* ------------------------------------------------ */
-        /* 尾頁 */
-        footer {
-            margin-top: 3vh
-        }
-        
-
-    }
-   
-    
-    
-</style>
+    </style>
 </head>
 
-<body class="home-body-background" style="margin:0px;padding: 0px; width: 100vw;background-image: url(../static/images/background/background_02.png);"
-      th:style="'background-image:url(' + @{/images/background/background_02.png} + ');'">
+<body class="home-body-background"
+    style="overflow-x: hidden; background-size: cover; background-repeat: no-repeat; margin:0px;padding: 0px; background-size: 100%; width: 100%;background-image: url(../static/images/background/background_02.png);"
+    th:style="'background-image:url(' + @{/images/background/background_02.png} + '); overflow-x: hidden; background-repeat: no-repeat; margin:0px;padding: 0px;'">
 
     <!-- 總導覽列 -->
-    <nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
+    <nav th:replace="fragments :: nav(0)"
+        class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
         <div class="container-fluid">
 
             <!-- 左邊網站名稱 -->
@@ -410,11 +427,14 @@
                         <ul class="dropdown-menu dropdown-menu-end border-5 border-jumpBorderGreen rounded"
                             aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item rounded fw-bold" href="user/write_article.html">撰寫文章</a></li>
-                            <li><a class="dropdown-item rounded fw-bold" href="user/my_space.html" th:href="@{/user/profile}">我的空間</a></li>
+                            <li><a class="dropdown-item rounded fw-bold" href="user/my_space.html"
+                                    th:href="@{/user/profile}">我的空間</a></li>
                             <li><a class="dropdown-item rounded fw-bold" href="user/my_notify.html">訊息通知</a></li>
                             <hr class="dropdown-divider rounded fw-bold">
-                            <li><a class="dropdown-item rounded fw-bold" href="user/signup.html" th:href="@{/user/signup}">註冊</a></li>
-                            <li><a class="dropdown-item rounded fw-bold" href="user/loginPage.html" th:href="@{/user/login}">登入</a></li>
+                            <li><a class="dropdown-item rounded fw-bold" href="user/signup.html"
+                                    th:href="@{/user/signup}">註冊</a></li>
+                            <li><a class="dropdown-item rounded fw-bold" href="user/loginPage.html"
+                                    th:href="@{/user/login}">登入</a></li>
                         </ul>
                     </div>
 
@@ -429,201 +449,203 @@
     <!-- ________________________________________________________________ -->
 
     <!--首頁-視覺圖-->
-        <!-- cover&logo&cloud-tag---->
-        <div class="view-container container-fluid px-0 mx-0">
-            <!--logo&cover-md版本-->
-            <div class="md-version d-none d-sm-block">
-                <div class="row mx-0 md-cover">
-                  <div class="col-8 px-0">
-                    <img src="../static/images/index_pic/turn_save/cut_cover_cloud_logo.svg" th:src="@{/images/index_pic/turn_save/cut_cover_cloud_logo.svg}"
-                    class="w-100"
-                    style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.3))">
-                  </div>
-                  <div class="col-4 md-article">
-                    <div class="d-flex"><p>
-                       期許透過旅遊分享平台TripBlog
-                       <br>以用戶真實饋深入在地，再小的創作者，
-                       <br>隱匿的店家，都能發光發熱。
-                       <br>即便在陌生城市，都能體驗最美好的旅行。
-                    </p></div>
-                  </div>
+    <!-- cover&logo&cloud-tag---->
+    <div class="view-container container-fluid px-0 mx-0">
+        <!--logo&cover-md版本-->
+        <div class=" md-version d-none d-sm-block">
+            <div class="row mx-0 md-cover">
+                <div class="col-8 px-0">
+                    <img src="../static/images/index_pic/turn_save/cut_cover_cloud_logo.svg"
+                        th:src="@{/images/index_pic/turn_save/cut_cover_cloud_logo.svg}" class="w-auto vh-100"
+                        style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.3));">
                 </div>
-            </div>
-        
-
-                 
-            <!--logo&cover-xs手機版本-->
-                <div class="row first-logo justify-content-center">
-                <div class="col-9 d-block d-sm-none" style="height: 100vh;">
-                        <img th:src="@{/images/index_pic/turn_save/cut_logo_02_t.svg}" 
-                        class="w-100"
-                        style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.7))">
-                </div>
-                </div>
-
-                <div class="row  mx-0 third-article justify-content-center ">
-                    <div class="col-3 px-0 d-block d-sm-none" style="height: 100vh;">                        
-                        <!-- <img src="../static/images/index_pic/turn_save/cut_article_cell.svg" class="w-100 h-60"
-                        style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.3))" th:src="@{/images/index_pic/turn_save/cut_article_cell.svg}"> -->
-                </div>
-                </div>
-
-            <!-- cloud-tag -->
-                <div class="cloud-container container col-12 col-md-6 ">
-                <div class="row">
-                    <!-- 雲朵組-01 -->
-                    <div class="cloud-group-01 col-5 p-3 col-md-4 p-md-0 ">
-                        <!-- 上面的雲 -->
-                        <div class="cloud-gr01-item input-group offset-4 offset-md-3">
-                            <select
-                                style="border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245); box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
-                                class="form-select cloud-gr01-up-select" >
-                                aria-label="Example select with button addon">
-                                <option selected>優游踏青</option>
-                                <option value="1">#陽明山一日遊</option>
-                                <option value="2">#大湖公園野餐</option>
-                                <option value="3">#象山一日遊</option>
-                            </select>
-                            <button
-                                style="border-style: none;color: white; font-weight: bolder;padding-left: 5px;filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))"
-                                class="btn btn-outline-secondary cloud-gr01-up-select" type="button">GO!</button>
-                        </div>
-                        <!-- 下面的雲 -->
-                        <div class="cloud-gr01-item input-group ">
-                            <select
-                                style=" border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245); box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
-                                class="form-select cloud-gr01-down-select "
-                                aria-label="Example select with button addon">
-                                <option selected>隨心散步</option>
-                                <option value="1">#OO冰淇淋</option>
-                                <option value="2">#OO飲</option>
-                                <option value="3">#OO馬卡龍</option>
-                            </select>
-                            <button
-                                style="border-style: none;color: white; font-weight: bolder;padding-left: 5px;filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))"
-                                class="btn btn-outline-secondary cloud-gr01-down-select" type="button">GO!</button>
-                        </div>
-                    </div>
-                    <!-- 雲朵組-02 -->
-                    <div class="cloud-group-02 col-4 offset-1 offset-md-3 p-md-0">
-                        <!-- 上面的雲 -->
-                        <div class="cloud-gr02-item  input-group">
-                            <select
-                                style=" border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245);; box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
-                                class="form-select cloud-gr02-up-select "
-                                aria-label="Example select with button addon">
-                                <option selected>最佳聚會</option>
-                                <option value="1">#陽明山一日遊</option>
-                                <option value="2">#大湖公園野餐</option>
-                                <option value="3">#象山一日遊</option>
-                            </select>
-                            <button
-                                style="border-style: none;color: white; font-weight: bolder;padding-left: 5px;filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))"
-                                class="btn btn-outline-secondary cloud-gr02-up-select" type="button">GO!</button>
-                        </div>
-                        <!-- 下面的雲 -->
-                        <div class="cloud-gr02-item input-group offset-4 offset-md-3">
-                            <select
-                                style=" border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245); box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
-                                class="form-select cloud-gr02-down-select "
-                                aria-label="Example select with button addon">
-                                <option selected>來點點心</option>
-                                <option value="1">#OO冰淇淋</option>
-                                <option value="2">#OO飲</option>
-                                <option value="3">#OO馬卡龍</option>
-                            </select>
-                            <button
-                                style="border-style: none;color: white; font-weight: bolder;padding-left: 5px;filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))"
-                                class="btn btn-outline-secondary cloud-gr02-down-select" type="button">GO!</button>
-                        </div>
-
-                    </div>
-
-                </div>
-                </div>
-
-            <!-- 搜尋地址 -->
-            <div class="container logo-search-container">
-                <div class="col-11 col-sm-4 logo-search-part">
-                    <div class="input-group mb-3 logo-search-input">
-                        <input style=" border-width: 2px; border-radius:20px; border-color:rgb(245,160,75);" type="text"
-                            class="form-control" placeholder="瀏覽大家的旅行經驗(輸入景點、店名、地址)" aria-label="Recipient's username"
-                            aria-describedby="button-addon2">
-                        <button
-                            style="border-style: none; color: rgb(245,160,75); font-weight: bolder;padding-left: 5px;"
-                            class="btn btn-outline-secondary" type="button" id="button-addon2">GO!</button>
+                <div class="col-4 md-article">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <p class="fs-3">
+                            期許透過旅遊分享平台TripBlog
+                            <br>以用戶真實饋深入在地，再小的創作者，
+                            <br>隱匿的店家，都能發光發熱。
+                            <br>即便在陌生城市，都能體驗最美好的旅行。
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        
-    <!--視覺圖-end -->
-    <!-- ________________________________________________________________ -->
 
-    <!-- /*熱門標籤文章/採幻燈片*/ -->
-    <div class="hot-container container  p-0">
-        <div class="row  p-0">
-            <!-- 按鈕>換頁>幻燈片文章 -->
-            <div class=" hot-slide p-0 m-0">
-                <div id="carouselExampleCaptions-hot" class="d-flex justify-content-center justify-content-md-center carousel slide p-0  " data-bs-ride="carousel">
-                    <div class="carousel-indicators hot-carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions-hot" data-bs-slide-to="0"
-                            class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions-hot" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions-hot" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
+
+
+        <!--logo&cover-xs手機版本-->
+        <div class="row first-logo justify-content-center">
+            <div class="col-9 d-block d-sm-none" style="height: 100vh;">
+                <img th:src="@{/images/index_pic/turn_save/cut_logo_02_t.svg}" class="w-100"
+                    style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.7))">
+            </div>
+        </div>
+
+        <div class="row  mx-0 third-article justify-content-center ">
+            <div class="col-3 px-0 d-block d-sm-none" style="height: 100vh;">
+                <!-- <img src="../static/images/index_pic/turn_save/cut_article_cell.svg" class="w-100 h-60"
+                        style="filter: drop-shadow(0 12px 7px rgba(0, 0, 0, 0.3))" th:src="@{/images/index_pic/turn_save/cut_article_cell.svg}"> -->
+            </div>
+        </div>
+
+        <!-- cloud-tag -->
+        <div class="cloud-container container col-12 col-md-6 ">
+            <div class="row">
+                <!-- 雲朵組-01 -->
+                <div class="cloud-group-01 col-5 p-3 col-md-4 p-md-0 ">
+                    <!-- 上面的雲 -->
+                    <div class="cloud-gr01-item input-group offset-4 offset-md-3">
+                        <select
+                            style="border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245); box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
+                            class="form-select cloud-gr01-up-select">
+                            aria-label="Example select with button addon">
+                            <option selected>優游踏青</option>
+                            <option value="1">#陽明山一日遊</option>
+                            <option value="2">#大湖公園野餐</option>
+                            <option value="3">#象山一日遊</option>
+                        </select>
+                        <button
+                            style="border-style: none;color: white; font-weight: bolder;padding-left: 5px;filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))"
+                            class="btn btn-outline-secondary cloud-gr01-up-select" type="button">GO!</button>
                     </div>
-                    <!-- 幻燈片文章 -->
-                    <div class=" d-flex align-items-md-center hot-article-container p-md-4 ">
-                        <!-- 熱門文章 -->
-                        <div class="carousel-item active overflow-hidden hot-carousel-item ">
-                            <img src="https://picsum.photos/1300/1000?random=1" class="d-block" alt="...">
-                            <div class="article-item carousel-caption">
-                                <h1 class="fw-bold">熱門文章</h1>
-                                <p class="fw-bolder">Some representative placeholder content for the first slide.</p>
-                            </div>
-                        </div>
-                        <!-- 最新發布 -->
-                        <div class="carousel-item  overflow-hidden hot-carousel-item ">
-                            <img src="https://picsum.photos/1300/1000?random=2" class="d-block" alt="...">
-                            <div class="article-item carousel-caption">
-                                <h1 class="fw-bold">最新發布</h1>
-                                <p class="fw-bolder">Some representative placeholder content for the second slide.</p>
-                            </div>
-                        </div>
-                        <!-- 優質作家 -->
-                        <div class="carousel-item  overflow-hidden hot-carousel-item">
-                            <img src="https://picsum.photos/1300/1000?random=3" class="d-block " alt="...">
-                            <div class="article-item carousel-caption">
-                                <h1 class="fw-bold">優質作家</h1>
-                                <p class="fw-bolder">Some representative placeholder content for the third slide.</p>
-                            </div>
-                        </div>
+                    <!-- 下面的雲 -->
+                    <div class="cloud-gr01-item input-group ">
+                        <select
+                            style=" border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245); box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
+                            class="form-select cloud-gr01-down-select " aria-label="Example select with button addon">
+                            <option selected>隨心散步</option>
+                            <option value="1">#OO冰淇淋</option>
+                            <option value="2">#OO飲</option>
+                            <option value="3">#OO馬卡龍</option>
+                        </select>
+                        <button
+                            style="border-style: none;color: white; font-weight: bolder;padding-left: 5px;filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))"
+                            class="btn btn-outline-secondary cloud-gr01-down-select" type="button">GO!</button>
                     </div>
-                    <!-- 按鈕>左右置換 -->
-                    <button class="carousel-control-prev hot-switch-button" type="button" data-bs-target="#carouselExampleCaptions-hot"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next hot-switch-button" type="button" data-bs-target="#carouselExampleCaptions-hot"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                </div>
+                <!-- 雲朵組-02 -->
+                <div class="cloud-group-02 col-4 offset-1 offset-md-3 p-md-0">
+                    <!-- 上面的雲 -->
+                    <div class="cloud-gr02-item  input-group">
+                        <select
+                            style=" border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245);; box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
+                            class="form-select cloud-gr02-up-select " aria-label="Example select with button addon">
+                            <option selected>最佳聚會</option>
+                            <option value="1">#陽明山一日遊</option>
+                            <option value="2">#大湖公園野餐</option>
+                            <option value="3">#象山一日遊</option>
+                        </select>
+                        <button
+                            style="border-style: none;color: white; font-weight: bolder;padding-left: 5px;filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))"
+                            class="btn btn-outline-secondary cloud-gr02-up-select" type="button">GO!</button>
+                    </div>
+                    <!-- 下面的雲 -->
+                    <div class="cloud-gr02-item input-group offset-4 offset-md-3">
+                        <select
+                            style=" border-width: 3px; color:rgb(105,150,185); border-radius:30px; border-color:rgb(185,235,245); box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);"
+                            class="form-select cloud-gr02-down-select " aria-label="Example select with button addon">
+                            <option selected>來點點心</option>
+                            <option value="1">#OO冰淇淋</option>
+                            <option value="2">#OO飲</option>
+                            <option value="3">#OO馬卡龍</option>
+                        </select>
+                        <button
+                            style="border-style: none;color: white; font-weight: bolder;padding-left: 5px;filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))"
+                            class="btn btn-outline-secondary cloud-gr02-down-select" type="button">GO!</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 搜尋地址 -->
+        <div class="container logo-search-container">
+            <div class="col-11 col-sm-4 logo-search-part">
+                <div class="input-group mb-3 logo-search-input">
+                    <input style=" border-width: 2px; border-radius:20px; border-color:rgb(245,160,75);" type="text"
+                        class="form-control" placeholder="瀏覽大家的旅行經驗(輸入景點、店名、地址)" aria-label="Recipient's username"
+                        aria-describedby="button-addon2">
+                    <button style="border-style: none; color: rgb(245,160,75); font-weight: bolder;padding-left: 5px;"
+                        class="btn btn-outline-secondary" type="button" id="button-addon2">GO!</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--視覺圖-end -->
+    <!-- ________________________________________________________________ -->
+
+
+
+
+    <!-- /*熱門標籤文章/採幻燈片*/ -->
+    <div class="hot-container p-5 container w-100  d-flex justify-content-center align-items-center  h-75">
+
+        <!-- 按鈕>換頁>幻燈片文章 -->
+
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://picsum.photos/1300/600?random=1" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="fs-bold fs-2 text-light">熱門文章</h5>
+                        <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/1300/600?random=2" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="fs-bold fs-2 text-light">最新發布</h5>
+                        <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/1300/600?random=3" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="fs-bold fs-2 text-light">優質作家</h5>
+                        <p>Some representative placeholder content for the third slide.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+
+    </div>
     <!-- 結束:/*熱門標籤文章/採幻燈片*/ -->
     <!-- ________________________________________________________________ -->
     <!-- 地點推廣 -->
-    <div class="map-part d-flex justify-content-center">
-        <div class="map-container container   p-0">
+    <div class="container w-100 h-100 map-part d-flex justify-content-center">
+        <div class="map-container w-100 h-auto p-5">
             <div class="row  p-0 justify-content-center">
-                <!-- 標題 -->
-                <h3 class="map-head fw-bold">每日景點</h3>
+                <div class="col-12 d-flex justify-content-center align-content-center align-items-center">
+
+                    <!-- 標題 -->
+                    <h3 class="fw-bold text-center m-4 text-warning">每日景點</h3>
+
+                </div>
+
                 <!-- 地圖 -->
                 <div class="map-box col-11 m-0 p-0 ">
                     <iframe class="w-100 h-100"
@@ -637,152 +659,71 @@
     <!-- ________________________________________________________________ -->
     <!-- 合作店家 -->
 
-    <div class="ad-container col-md-11 container-fluid  mb-md-5 p-0">
-        <div class="ad-row row col-md-11 ms-md-5 p-0">
-            <!-- 標題 -->
-            <h3 class="ad-head fw-bold">合作推廣</h3>
+    <div class="container-fluid m-5 p-5 my-5 mx-auto">
 
-            <div class="ad-slide p-0 m-0">
-                <!-- 按鈕 >幻燈片頁數-->
-                <div id="carouselExampleCaptions-ad" class="d-flex col-md-12 justify-content-center carousel slide m-0 p-0 ad-carousel " data-bs-ride="carousel">
-                    <div class="carousel-indicators carousel-indicators-ad">
-                        <button type="button" data-bs-target="#carouselExampleCaptions-ad" data-bs-slide-to="0" class="active"
-                                aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions-ad" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions-ad" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
-                    </div>
-                    <!-- 幻燈片文章 -->
-                    <div class="carousel-inner ad-article-container">
-                        <!-- 廣告1 -->
-                        <div class="carousel-item active">
-                            <div class="d-flex  col-12  ad-carousel-item">
-                                <div class="ad-item col-md-2 col-6 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=1" class="d-block w-md-100  h-md-auto h-100 " alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 col-6 overflow-hidden ">
-                                    <img src="https://picsum.photos/1000/1000?random=2" class="d-block w-md-100 h-md-auto  h-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=3" class="d-none d-sm-block w-md-100 " alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=4" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=5" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=1" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 廣告2 -->
-                        <div class="carousel-item ">
-                            <div class="col-md-12 d-flex flex-md-row ad-carousel-item">
-                                <div class="ad-item col-md-2 col-6 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=1" class="d-block w-md-100  h-md-auto h-100 " alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 col-6 overflow-hidden ">
-                                    <img src="https://picsum.photos/1000/1000?random=2" class="d-block w-md-100 h-md-auto  h-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=3" class="d-none d-sm-block w-md-100 " alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=4" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=5" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=6" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <!-- 廣告3 -->
-                        <div class="carousel-item ">
-                            <div class="col-md-12 d-flex flex-md-row ad-carousel-item">
-                                <div class="ad-item col-md-2 col-6 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=1" class="d-block w-md-100  h-md-auto h-100 " alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 col-6 overflow-hidden ">
-                                    <img src="https://picsum.photos/1000/1000?random=2" class="d-block w-md-100 h-md-auto  h-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=3" class="d-none d-sm-block w-md-100 " alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=4" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=5" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
-                                <div class="ad-item col-md-2 overflow-hidden">
-                                    <img src="https://picsum.photos/1000/1000?random=6" class="d-block d-none d-sm-block w-md-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    </div>
-                                </div>
+        <h2 class="fw-bold text-center m-5 text-warning">合作店家</h2>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-12">
+                <div class="row justify-content-between align-content-around">
+                    <div class="col-12 col-md-6 col-xl-3 mb-4">
+                        <div class="card mr-3">
+                            <img src=" https://fakeimg.pl/430x220/" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h4 class="card-title">商品名稱</h4>
+                                <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia,
+                                    esse. Cupiditate, eaque sint, quidem expedita tempore nostrum rem itaque facilis,
+                                    qui consequatur incidunt atque? Nihil dolorum voluptatum sunt deleniti ad.</p>
+                                <a href="#" class="btn btn-primary">加入購物車</a>
                             </div>
                         </div>
                     </div>
-
-                    <!-- 按鈕>左右置換 -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions-ad"
-                            data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions-ad"
-                            data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                    <div class="col-12 col-md-6 col-xl-3 mb-4">
+                        <div class="card mr-3">
+                            <img src=" https://fakeimg.pl/430x220/" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h4 class="card-title">商品名稱</h4>
+                                <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia,
+                                    esse. Cupiditate, eaque sint, quidem expedita tempore nostrum rem itaque facilis,
+                                    qui consequatur incidunt atque? Nihil dolorum voluptatum sunt deleniti ad.</p>
+                                <a href="#" class="btn btn-primary">加入購物車</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3 mb-4">
+                        <div class="card mr-3">
+                            <img src=" https://fakeimg.pl/430x220/" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h4 class="card-title">商品名稱</h4>
+                                <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia,
+                                    esse. Cupiditate, eaque sint, quidem expedita tempore nostrum rem itaque facilis,
+                                    qui consequatur incidunt atque? Nihil dolorum voluptatum sunt deleniti ad.</p>
+                                <a href="#" class="btn btn-primary">加入購物車</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3 mb-4">
+                        <div class="card mr-3">
+                            <img src=" https://fakeimg.pl/430x220/" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h4 class="card-title">商品名稱</h4>
+                                <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia,
+                                    esse. Cupiditate, eaque sint, quidem expedita tempore nostrum rem itaque facilis,
+                                    qui consequatur incidunt atque? Nihil dolorum voluptatum sunt deleniti ad.</p>
+                                <a href="#" class="btn btn-primary">加入購物車</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-    <!-- 結束:合作店家 -->
 
-    <!-- ________________________________________________________________ -->
-    <!-- 尾頁 -->
+    <!--結束: 合作店家-->
+
+
+
+
     <footer class="bg-bl04 py-sm-5 py-2">
         <div class="container px-4 px-lg-5 py-sm-2">
             <div class="small text-center text-milkyellow ">
@@ -793,15 +734,13 @@
             </div>
         </div>
     </footer>
-    <!-- 結束:尾頁 -->
+    <!--結束: 尾頁-- >
 
 
-    <!-- ________________________________________________________________ -->
-    <!-- ________________________________________________________________ -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+     <!- -Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
 

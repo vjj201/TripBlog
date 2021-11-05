@@ -39,25 +39,31 @@
 
                 <li class="nav-item me-5 d-flex">
                     <a class="nav-link p-0 mt-3 " href="article_travel.html" th:classappend="${page==1} ? 'active disabled'" th:href="@{/travel}">
-                        <div class="fs-5 fw-bolder ">Travel</div>
+                        <div class="fs-5 fw-bolder ">景點</div>
                     </a>
                 </li>
 
                 <li class="nav-item me-5">
                     <a class="nav-link  p-0 mt-3" href="article_eat.html" th:classappend="${page==2} ? 'active disabled'" th:href="@{/eat}">
-                        <div class="fs-5 fw-bolder ">Eat</div>
+                        <div class="fs-5 fw-bolder ">美食</div>
                     </a>
                 </li>
 
                 <li class="nav-item me-5">
                     <a class="nav-link  p-0 mt-3" href="map_search.html" th:classappend="${page==3} ? 'active disabled'" th:href="@{/map}">
-                        <div class="fs-5 fw-bolder">MapSearch</div>
+                        <div class="fs-5 fw-bolder">地圖</div>
                     </a>
                 </li>
 
                 <li class="nav-item me-5">
-                    <a class="nav-link  p-0 mt-3" href="about.html" th:classappend="${page==4} ? 'active disabled'" th:href="@{/about}">
-                        <div class="fs-5 fw-bolder">AboutUs</div>
+                    <a class="nav-link  p-0 mt-3" href="about.html" th:classappend="${page==4} ? 'active disabled'" th:href="@{/shop}">
+                        <div class="fs-5 fw-bolder">商城</div>
+                    </a>
+                </li>
+
+                <li class="nav-item me-5">
+                    <a class="nav-link  p-0 mt-3" href="about.html" th:classappend="${page==5} ? 'active disabled'" th:href="@{/about}">
+                        <div class="fs-5 fw-bolder">關於</div>
                     </a>
                 </li>
 
@@ -86,6 +92,7 @@
                         <li><a class="dropdown-item rounded fw-bold" href="user/write_article.html" th:href="@{/user/write}">撰寫文章</a></li>
                         <li><a class="dropdown-item rounded fw-bold" href="user/my_space.html" th:href="@{/user/space}">我的空間</a></li>
                         <li><a class="dropdown-item rounded fw-bold" href="user/my_notify.html" th:href="@{/user/notify}">訊息通知</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="" th:href="@{/shop/shopcart}">購物清單</a></li>
                         <hr class="dropdown-divider rounded fw-bold">
                         <li><a class="dropdown-item" href="user/signup.html" th:href="@{/user/signup}" th:if="${session.user==null}">註冊</a></li>
                         <li><a class="dropdown-item" href="user/loginPage.html" th:href="@{/user/loginPage}" th:if="${session.user==null}">登入</a></li>

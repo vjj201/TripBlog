@@ -1,5 +1,12 @@
-alert("有抓到這個js!")
 $(function () {
+
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+
 
     $("#btsearch").click(function (e) {
         e.preventDefault();
@@ -12,44 +19,44 @@ $(function () {
         let article = {};
         article["enterAddressName"] = enteraddress;
         article["subject"] = subject;
-        article["timeDirect"]=timeDirect;
-       console.log("timeDirect="+timeDirect);
-       console.log(jQuery.type(timeDirect)); 
-
+        article["timeDirect"] = timeDirect;
 //輸入搜尋吧查詢並送出第一頁
-
         $.ajax({
             url: "/firstSearchOfPage",
             type: "GET",
             data: article,
             success: function (response) {
-                 console.log("第一頁文章response" + response);
+                console.log("第一頁文章response" + response);
                 //
-                 console.log("建立空的html")
+                console.log("建立空的html")
                 let html = "";
-                 console.log("文章-for迴圈開始")
+                console.log("文章-for迴圈開始")
 // (開始)文章換頁生成
                 for (let articleAll of response) {
                     let articleTitle = articleAll.articleTitle;
                     let enterAddress = articleAll.enterAddressName;
-
+                    let subjectCategory = articleAll.subjectCategory;
+                    let createDate = articleAll.createDate;
                     // 從資料庫取出文章資訊
                     html += `
-            <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
+           <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
               <div class="row g-0">
                 <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                  <img class="w-100 h-100" src="https://picsum.photos/300/300?random=1" alt="一張圖">
+                  <img class="w-100 h-100" src="https://localhost:8080/user/articlePhoto" alt="一張圖">
                 </div>
                 <div class="col-md-9">
                   <div class="card-body">
-                    <h5><a href="#" class="post-headline text-bl04 mapArticleTitle">${articleTitle}</a></h5>
-                    <p class="card-text m-0">
-                        <small class="text-bl04 mapArticleAdress">${enterAddress}</small>
+                    <h5><a href="https://localhost:8080/article/${articleTitle}" class="post-headline text-bl04 mapArticleTitle">${articleTitle}</a></h5>
+                    <p class="card-text">
+                        <small class="text-bl04 mapArticleAdress">地址:&nbsp${enterAddress}</small>
                     </p>
-                    <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                    <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                    <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                    <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
+                    <p class="card-text">
+                    <small class="text-bl04">分類:&nbsp${subjectCategory}</small></p>
+                    <p class="card-text">
+                    <small class="text-bl04">發表於:&nbsp${createDate}</small></p>
+                    <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
+                    <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</button>
+                    <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
                   </div>
                 </div>
               </div>
@@ -65,7 +72,7 @@ $(function () {
             }
         });
 
-// ---------------------------------------------------
+
 // 自動生成換頁按鈕
         $.ajax({
             url: "/newPageButton",
@@ -98,19 +105,20 @@ $(function () {
 // ---------------------------------------------------
 // 點擊換頁按鈕
         $("#changePageBox").on('click', 'button', function (event) {
+            alert('有效');
 
-            let pagevalue = $(this).text()
+            // let a = $(this).attr("name",true)
+            // console.log(a);
 
+            let pageValue = $(this).text()
 
-            console.log("pagevalue=" + pagevalue);
-
-            let page = pagevalue - 1;
+            let page = pageValue - 1;
             let article = {}
             article["page"] = page;
             article["enterAddressName"] = enteraddress;
             article["subject"] = subject;
-            article["timeDirect"]=timeDirect;
-    
+            article["timeDirect"] = timeDirect;
+
             $.ajax({
                 url: "/changeSearchOfPage",
                 type: "GET",
@@ -122,27 +130,32 @@ $(function () {
                     for (let articleAll of response) {
                         let articleTitle = articleAll.articleTitle;
                         let enterAddress = articleAll.enterAddressName;
+                        let subjectCategory = articleAll.subjectCategory;
+                        let createDate = articleAll.createDate;
                         // 從資料庫取出文章資訊
                         html += `
                   <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                      <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                        <img class="w-100 h-100" src="https://picsum.photos/300/300?random=1" alt="一張圖">
-                      </div>
-                      <div class="col-md-9">
-                        <div class="card-body">
-                          <h5><a href="#" class="post-headline text-bl04 mapArticleTitle">${articleTitle}</a></h5>
-                          <p class="card-text m-0">
-                              <small class="text-bl04 mapArticleAdress">${enterAddress}</small>
-                          </p>
-                          <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                          <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                          <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                          <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
+              <div class="row g-0">
+                <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
+                  <img class="w-100 h-100" src="https://localhost:8080/user/articlePhoto" alt="一張圖">
+                </div>
+                <div class="col-md-9">
+                  <div class="card-body">
+                    <h5><a href="https://localhost:8080/article/${articleTitle}" class="post-headline text-bl04 mapArticleTitle">${articleTitle}</a></h5>
+                    <p class="card-text">
+                        <small class="text-bl04 mapArticleAdress">地址:&nbsp${enterAddress}</small>
+                    </p>
+                    <p class="card-text">
+                    <small class="text-bl04">分類:&nbsp${subjectCategory}</small></p>
+                    <p class="card-text">
+                    <small class="text-bl04">發表於:&nbsp${createDate}</small></p>
+                      <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
+                          <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
+                          <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
+                  </div>
+                </div>
+              </div>
+              </div>
                     `;
 
                         console.log("文章-for迴圈結束")
@@ -159,10 +172,76 @@ $(function () {
 
     });
 //-----------------------------------------------------------------------------
+    $("#articleBox").on('click', 'a', function (event) {
+        //    alert("a標籤被點了");
+        let articleTitle = $(this).text();
+        //    alert(articleTitle);
+        let article = {};
+        article["articleTitle"] = articleTitle;
+
+        // $.ajax({
+        //     url: "articleForone",
+        //     type:"GET",
+        //     success: function (){
+        //         alert("跳轉搂")
+        //     }
+        // })
 
 
+        $.ajax({
+            url: "/findByArticleTitle",
+            type: "GET",
+            data: article,
+            success: function (response) {
+                //      alert("林北成功用標題找到文章了")
+
+                // $(location).attr("href","https://localhost:63342/TripBlog/templates/article.html");
+//---------------------------------------------------------------------------------------------------
+                //for秉豐
+//---------------------------------------------------------------------------------------------------
+
+            }
 
 
+        });
+
+    });
+
+    $("#articleBox").on('click', 'button', function (event) {
+        let choose = $(this).text();
+        let articleTitle = $(this).attr('name');
+
+        let article = {};
+        article["articleTitle"] = articleTitle;
+        let TUrl;
+        console.log("choose" + choose);
+        if (choose == "推薦") {
+            // article["recommend"] = choose;
+            TUrl = "/forRecommend";
+            console.log("recommend" + article.articleTitle)
+        } else if (choose == "檢舉") {
+            // article["Report"] = choose;
+            TUrl = "/forReport";
+            console.log("Report" + article.articleTitle)
+        } else {
+            // article["collect"] = choose;
+            TUrl = "/forCollect";
+            console.log("collect" + article.articleTitle)
+        }
+        $.ajax({
+            url: TUrl,
+            type: "POST",
+            data: article,
+            success: function (response) {
+                alert("林北按鈕回來瞜")
+
+            }
+
+
+        });
+
+
+    })
 
 
 });

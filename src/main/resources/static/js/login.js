@@ -28,10 +28,12 @@ $(function () {
         if (username.trim().length < 1 || !pass.test(username)) {
             $('#login').addClass('disabled');
             $('#message').text('帳號格式錯誤');
+            $('.inUsername').text('帳號格式錯誤');
             accountCheck = false;
         } else {
             $('#login').removeClass('disabled');
             $('#message').empty();
+            $('.inUsername').empty();
             accountCheck = true;
         }
 
@@ -48,10 +50,12 @@ $(function () {
         if (password.trim().length < 1 || !pass.test(password)) {
             $('#login').addClass('disabled');
             $('#message').text('密碼格式錯誤');
+            $('.inPassword').text('密碼格式錯誤');
             passwordtCheck = false;
         } else {
             $('#login').removeClass('disabled');
             $('#message').empty();
+            $('.inPassword').empty();
             passwordtCheck = true;
         }
     });

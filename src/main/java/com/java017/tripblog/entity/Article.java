@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -14,10 +15,9 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Integer ArticleId;
 
     String subjectCategory;
-
 
     String selectRegion;
 
@@ -33,10 +33,65 @@ public class Article {
 
     String free_tag;
 
+    Integer recommend = 0;
+
+    Integer Report = 0;
+
+    Integer collect = 0;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "User", referencedColumnName = "id")
+    User Fk_User_Id;
+
+    @OneToMany(mappedBy="articlesRecommendId",cascade=CascadeType.ALL)
+    private Set<Recommend>  recommendSet ;
+
+    @OneToMany(mappedBy="articlesReportId",cascade=CascadeType.ALL)
+    private Set<Report>  reportSet ;
+
+    @OneToMany(mappedBy="articlesCollectId",cascade=CascadeType.ALL)
+    private Set<Collect>  collectSet ;
+
+
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date createDate;
+
+    public Article() {
+    }
+
+    public User getFk_User_Id() {
+        return Fk_User_Id;
+    }
+
+    public void setFk_User_Id(User fk_User_Id) {
+        Fk_User_Id = fk_User_Id;
+    }
+
+    public Integer getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(Integer recommend) {
+        this.recommend = recommend;
+    }
+
+    public Integer getReport() {
+        return Report;
+    }
+
+    public void setReport(Integer report) {
+        Report = report;
+    }
+
+    public Integer getCollect() {
+        return collect;
+    }
+
+    public void setCollect(Integer collect) {
+        this.collect = collect;
+    }
 
     public Date getCreateDate() {
         return createDate;
@@ -46,12 +101,12 @@ public class Article {
         this.createDate = createDate;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getArticleId() {
+        return ArticleId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setArticleId(Integer id) {
+        this.ArticleId = id;
     }
 
     public String getSubjectCategory() {
@@ -121,7 +176,7 @@ public class Article {
     @Override
     public String toString() {
         return "Article{" +
-                "id=" + id +
+                "id=" + ArticleId +
                 ", subjectCategory='" + subjectCategory + '\'' +
                 ", selectRegion='" + selectRegion + '\'' +
                 ", enterAddressName='" + enterAddressName + '\'' +
@@ -130,6 +185,9 @@ public class Article {
                 ", articleTitle='" + articleTitle + '\'' +
                 ", textEditor='" + textEditor + '\'' +
                 ", free_tag='" + free_tag + '\'' +
+                ", recommend=" + recommend +
+                ", Report=" + Report +
+                ", collect=" + collect +
                 ", createDate=" + createDate +
                 '}';
     }

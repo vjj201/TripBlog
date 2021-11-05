@@ -5,8 +5,11 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"
           integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <!-- js -->
-  <script src="../../static/js/map_search.js" th:src="@{/js/map_search.js}"></script>
-  <script src="../../static/js/map_search_forArticle.js" th:src="@{/js/map_search_forArticle.js}"></script>
+  <script src="../static/js/map_search.js" th:src="@{/js/map_search.js}"></script>
+  <script src="../static/js/map_search_forArticle.js" th:src="@{/js/map_search_forArticle.js}"></script>
+  <!--csrf防護-->
+  <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,7 +80,7 @@
       .filterloc{
         margin:0 0 0 33vw;
         width:37.5vw;
-      /*  //  padding:auto; */
+      /* //  padding:auto; */
 
         }
 
@@ -96,7 +99,7 @@
 
 </head>
 
-<body class="bg-milkyellow">
+<body>
 
 
 
@@ -180,58 +183,59 @@
 
     <!-- _______________________________________________________________________________ -->
 
-    <div class="container-fluid px-0 mx-0 ">
-      <div class="row">
-        <div class="mapbox d-flex d-md-flex flex-wrap">
-        <!-- 地圖 -->
-        <div class="googlemap col-sm-12 col-md-8 col-8 px-2 ps-0 ms-0 map-pack ">
-          <div id="map" style="height: 800px; width: 100%;"></div>
-          <script
-                  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&callback=initMap&libraries=&v=weekly"
-                  async
-          ></script>
-        </div>
 
-        <!-- 搜尋&搜尋結果 -->
-        <div class="col-sm-12 col-md-4 col-lg-4">
+<div class="container-fluid px-0 mx-0 ">
+  <div class="row">
+    <div class="mapbox d-flex d-md-flex flex-wrap">
+      <!-- 地圖 -->
+      <div class="googlemap col-sm-12 col-md-8 col-8 px-2 ps-0 ms-0 map-pack ">
+        <div id="map" style="height: 800px; width: 100%;"></div>
+        <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&callback=initMap&libraries=&v=weekly"
+                async
+        ></script>
+      </div>
+
+      <!-- 搜尋&搜尋結果 -->
+      <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="container-fluid">
           <div class="row" >
             <!-- 搜尋 -->
-          <div class="up-pack d-flex flex-column">
-            <!-- 地址搜尋 -->
-            <div class="col mt-3 mb-2 ms-2" style="width:28vw">
-              <input id="searchAddress" class="filterad form-control border-2 border-bl03 bg-gr0200 rounded-pill " placeholder="輸入地址" type="text">
-            </div>
-
-            <!-- 篩選器 -->
-            <div class=" col mb-2 px-2 d-flex justify-content-lg-center">
-              <!-- 篩選器1>主題分類 -->
-              <div class="ms-0" style="width:14.5vw">
-                <select class="filtersub form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                  aria-label="Default select example" id="subject">
-                  <option selected value="" >主題分類</option>
-                  <option value="美食">美食</option>
-                  <option value="旅遊">旅遊</option>
-                </select>
+            <div class="up-pack d-flex flex-column">
+              <!-- 地址搜尋 -->
+              <div class="col mt-3 mb-2 ms-2" style="width:28vw">
+                <input id="searchAddress" class="filterad form-control border-2 border-bl03 bg-gr0200 rounded-pill " placeholder="輸入地址" type="text">
               </div>
-              <!-- 篩選器2>選擇地區 -->
-              <div class="ms-1" style="width:14.5vw">
-                <select id="timeDirect" class="filterloc form-select  border-2 border-bl03 bg-gr0200 rounded-pill"
-                  aria-label="Default select example border-2 border-bl03 bg-gr0200">
-                  <option selected value="asc">舊--->新</option>
-                  <option value="desc">新--->舊</option>
-                </select>
-              </div>
-            </div>
 
-            <!-- 按鈕>送出/清除選取 -->
-            <div class="col-12 mb-2 px-2 d-flex justify-content-lg-center d-flex ">
-              <button class="col-3  btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btclear">清除</button>
-              <button type="submit"
-                class="col ms-1 btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btsearch">搜尋</button>
+              <!-- 篩選器 -->
+              <div class=" col mb-2 px-2 d-flex justify-content-lg-center">
+                <!-- 篩選器1>主題分類 -->
+                <div class="ms-0" style="width:14.5vw">
+                  <select class="filtersub form-select border-2 border-bl03 bg-gr0200 rounded-pill"
+                          aria-label="Default select example" id="subject">
+                    <option selected value="" >主題分類</option>
+                    <option value="美食">美食</option>
+                    <option value="旅遊">旅遊</option>
+                  </select>
+                </div>
+                <!-- 篩選器2>選擇地區 -->
+                <div class="ms-1" style="width:14.5vw">
+                  <select id="timeDirect" class="filterloc form-select  border-2 border-bl03 bg-gr0200 rounded-pill"
+                          aria-label="Default select example border-2 border-bl03 bg-gr0200">
+                    <option selected value="000">舊--->新</option>
+                    <option value=100 >新--->舊</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- 按鈕>送出/清除選取 -->
+              <div class="col-12 mb-2 px-2 d-flex justify-content-lg-center d-flex ">
+                <button class="col-3  btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btclear">清除</button>
+                <button type="submit"
+                        class="col ms-1 btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btsearch">搜尋</button>
+              </div>
             </div>
           </div>
-        </div>
 
           <!-- 搜尋結果(文章列表/換頁) -->
           <div class="row flex-column">
@@ -254,33 +258,33 @@
             </div>
           </div>
         </div>
-        </div>
-        </div>
       </div>
     </div>
+  </div>
+</div>
 
 
 
-    <!-- _______________________________________________________________________________ -->
+<!-- _______________________________________________________________________________ -->
 
-    <!-- 尾頁 -->
-    <footer class="bg-bl04 py-5">
-      <div class="container px-4 px-lg-5 py-2">
-        <div class="small text-center text-milkyellow ">
-          Copyright &copy; 2021 - TripBlog
-        </div>
-        <div class="small text-center text-milkyellow ">
-          國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
-        </div>
-      </div>
-    </footer>
-  <!-- 結束:尾頁 -->
-  <!-- ----------------------------------------------------------------------------------------------- -->
+<!-- 尾頁 -->
+<footer class="bg-bl04 py-5">
+  <div class="container px-4 px-lg-5 py-2">
+    <div class="small text-center text-milkyellow ">
+      Copyright &copy; 2021 - TripBlog
+    </div>
+    <div class="small text-center text-milkyellow ">
+      國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
+    </div>
+  </div>
+</footer>
+<!-- 結束:尾頁 -->
+<!-- ----------------------------------------------------------------------------------------------- -->
 
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
