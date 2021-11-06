@@ -68,29 +68,6 @@ public class ShopPageController {
         return "/shop/shop_shopcart";
     }
 
-    //配送方式頁
-    @GetMapping("/shop/deliver")
-    public String deliverPage() {
-        return "/shop/shop_deliver";
-    }
-
-    //付款方式頁
-    @GetMapping("/shop/payment")
-    public String paymentPage() {
-        return "/shop/shop_payment";
-    }
-
-    //確認訂單頁
-    @GetMapping("/shop/confirm")
-    public String confirmPage() {
-        return "/shop/shop_confirm";
-    }
-
-    //訂單完成頁
-    @GetMapping("/shop/done")
-    public String donePage() {
-        return "/shop/shop_done";
-    }
 
     //已購買清單
     @GetMapping("/shop/orderList")

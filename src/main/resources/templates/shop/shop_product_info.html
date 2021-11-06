@@ -193,8 +193,8 @@
                     </a>
                 </div>
                 <div class="col-6 mx-5 w-25">
-                    <div th:id="${product.id}" th:classappend="${product.inStock < 1} ? 'disabled' : 'btn-primary'" th:text="${product.inStock < 1} ? '售完' : '加入購物車'" class="addButton btn btn-primary form-control" th:href="@{/shop}">
-                        加入購物車
+                    <div th:id="${product.id}" th:classappend="${product.inStock < 1} ? 'disabled' : 'btn-primary'" class="addButton btn btn-primary form-control" th:href="@{/shop}">
+                        <span th:text="${product.inStock < 1} ? '售完' : '加入購物車'">加入購物車</span>
                         <input class="info" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}"/>
                     </div>
                 </div>

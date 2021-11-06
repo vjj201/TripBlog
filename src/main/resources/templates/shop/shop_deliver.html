@@ -192,7 +192,7 @@
                 <form>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="姓名" required>
+                            <input th:value="${checkout != null} ? ${checkout.receiver} : null" type="text" class="form-control" id="receiver" name="receiver" placeholder="姓名" required>
                         </div>
                     </div>
 
@@ -204,7 +204,7 @@
                             <div class="col-md-4 mb-3">
                                 <select class="custom-select d-block w-100" style="height: 2rem;" id="location" name="location"
                                         required>
-                                    <option value="">位置</option>
+                                    <option th:value="${checkout != null} ? ${checkout.location} : null" th:text="${checkout != null} ? ${checkout.location} : 位置">位置</option>
                                     <option>北部</option>
                                     <option>中部</option>
                                     <option>南部</option>
@@ -215,44 +215,42 @@
                             <div class="col-md-4 mb-3">
                                 <select class="custom-select d-block w-100" style="height: 2rem;" id="city" name="city"
                                     required>
-                                    <option>縣市</option>
-                                    <option th:each="city : ${cityList}"  th:value="${city.id}" th:text="${city.cityName}">台北市</option>
+                                    <option th:text="${checkout != null} ? ${checkout.city} : 縣市">縣市</option>
+                                    <option th:each="city : ${cityList}" th:text="${city.cityName}">台北市</option>
                                 </select>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <select class="custom-select d-block w-100" style="height: 2rem;" id="district"
                                     name="district" required>
-                                    <option>鄉鎮市區</option>
-                                    <option th:each="district : ${districtList}"  th:value="${district.id}" th:text="${district.districtName}">大安區</option>
+                                    <option th:text="${checkout != null} ? ${checkout.district} : 鄉鎮市區">鄉鎮市區</option>
+                                    <option th:each="district : ${districtList}" th:text="${district.districtName}">大安區</option>
                                 </select>
                             </div>
                         </div>
 
-                        <input type="text" class="form-control mt-2" id="address" placeholder="道路街名樓室" required>
+                        <input th:value="${checkout != null} ? ${checkout.address} : null" type="text" class="form-control mt-2" id="address" placeholder="道路街名樓室" required>
 
                     </div>
 
                     <h4 class="mt-5 mb-3">貨運</h4>
 
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" class="custom-control-input mb-3" id="deliver" name="deliver">
-                        <label class="custom-control-label" for="save-info">中華郵政</label>
+                        <input type="radio" class="custom-control-input mb-3" id="deliver" name="deliver" value="中華郵政">
+                        <label class="custom-control-label" >中華郵政</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver">
-                        <label class="custom-control-label" for="save-info">貓貓貨運</label>
+                        <input type="radio" class="custom-control-input mb-3" name="deliver" value="貓貓貨運">
+                        <label class="custom-control-label" >貓貓貨運</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver">
-                        <label class="custom-control-label" for="save-info">隆隆貨運</label>
+                        <input type="radio" class="custom-control-input mb-3" name="deliver" value="大大貨運">
+                        <label class="custom-control-label" >大大貨運</label>
+                        <br>
+                        <input type="radio" class="custom-control-input mb-3" name="deliver" value="很快貨運">
+                        <label class="custom-control-label" >很快貨運</label>
                     </div>
 
 
-                    <hr class="my-4">
 
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="save-info">
-                        <label class="custom-control-label" for="save-info">保存本次配送紀錄</label>
-                    </div>
 
                     <hr class="my-4">
                     <!-- 結束:配送地址 -->
@@ -269,9 +267,9 @@
                             </div>
 
                             <div class="col-6">
-                                <a class="btn btn-info form-control fs-5 shadow-sm w-50" th:href="@{/shop/payment}">
+                                <button id="submit" class="btn btn-info form-control fs-5 shadow-sm w-50">
                                     下一步
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

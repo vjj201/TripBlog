@@ -15,6 +15,6 @@ public interface CityService {
 
     List<City> findAllCityByLocation(String location);
 
-    List<District> findAllDistrictById(Long id);
+    List<District> findAllDistrictByCityName(String cityName);
 
 }

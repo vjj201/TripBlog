@@ -35,9 +35,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<District> findAllDistrictById(Long id) {
-        City city = cityRepository.findById(id).orElse(null);
-
+    public List<District> findAllDistrictByCityName(String cityName) {
+        City city = cityRepository.findByCityName(cityName);
         return city != null ? city.getDistrictList() : null;
     }
 }

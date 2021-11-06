@@ -297,8 +297,8 @@
                                     <p class="m-2 small text-center" th:text="${#dates.format(product.launchedTime, 'yyyy-MM-dd HH:mm')}">2021-11-03
                                         11:40</p>
 
-                                    <div th:id="${product.productName}" th:classappend="${product.inStock < 1} ? 'disabled' : 'btn-primary'" th:text="${product.inStock < 1} ? '售完' : '加入購物車'" class="addButton btn btn-primary form-control">
-                                        加入購物車
+                                    <div th:id="${product.productName}" th:classappend="${product.inStock < 1} ? 'disabled' : 'btn-primary'" class="addButton btn btn-primary form-control">
+                                       <span th:text="${product.inStock < 1} ? '售完' : '加入購物車'">加入購物車</span>
                                         <input class="info" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}">
                                     </div>
                                 </div>
