@@ -34,26 +34,26 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findByEnterAddressNameContaining(enterAddressName);
     }
 
-    //map_search:換頁按鈕自動生成
+//庭妤:    文章換頁按鈕自動生成
     @Override
     public ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject) {
-
-        if(enterAddressName==""){
-
-        if(subject != ""){
-            return articleRepository.findBySubjectCategory(subject);
-        }
+        if(StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)){
+//            如果都沒有填
             return articleRepository.findAll();
-        }
-        //主題一定沒填
-        if(subject==""){
+        }else if(StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)){
+//            只有填主題(subject)
+            return articleRepository.findBySubjectCategory(subject);
+        }else if(!StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
+//            只有填搜尋吧(enterAddressName)
             return articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName, enterAddressName,enterAddressName);
+
+       }else{
+            return articleRepository.findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName,subject);
         }
-        return articleRepository.findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName,subject);
+
     }
 
-
-    //map_search:文章首頁&文章換頁
+//庭妤:    文章首頁&文章換頁
     @Override
     public List<Article> getPagedArticles(int page, int size, String enterAddressName,String subject,int timeDirect) {
 
@@ -65,7 +65,6 @@ public class ArticleServiceImpl implements ArticleService {
             System.out.println("desc有抓到[IF新到舊]");
             pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
         }
-
 
         Page<Article> pageResult;
 
@@ -92,50 +91,14 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
 
-        //(搜尋吧,主題)都有填
-                //        Page<Article> pageResult = articleRepository.findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName,subject,pageable);
-
-
-        //搜尋吧一定沒填
-                //        "".equals(enterAddressName)
-                //        StringUtils.isEmpty(enterAddressName)
-                //        public static boolean isEmpty(@Nullable Object str) {
-                //            return (str == null || "".equals(str));}
-
-//        if(enterAddressName == null || "".equals(enterAddressName)){
-//            pageResult = articleRepository.findAll(pageable);
-//
-//            if(subject != null && !"".equals(subject)){
-//                pageResult = articleRepository.findBySubjectCategory(subject,pageable);
-//            }
-//        }
-//        //主題一定沒填
-//        if(subject == null || "".equals(subject)){
-//            pageResult = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName,enterAddressName,enterAddressName, pageable);
-//        }
-
-
         List<Article> messageList =  pageResult.getContent();
 
         return messageList;
 
     }
 
-    //預設(無篩選)_user_eat&travel換頁
-    @Override
-    public List<Article> getUserEatTravelPagedArticles(int page, int size,String subject) {
-        Pageable pageable = PageRequest.of(page, size,Sort.by("subjectCategory").descending());
-        Page<Article> pageResult = articleRepository.findBySubjectCategory(subject,pageable);;
-        pageResult.getNumberOfElements(); // 本頁筆數
-        pageResult.getSize();             // 每頁筆數
-        pageResult.getTotalElements();    // 全部筆數
-        pageResult.getTotalPages();       // 全部頁數
 
-        List<Article> messageList =  pageResult.getContent();
-
-        return messageList;
-    }
-
+//    庭妤:      主題_物件陣列
     @Override
     public ArrayList<Article> findBySubjectCategory(String subject) {
         return articleRepository.findBySubjectCategory(subject);

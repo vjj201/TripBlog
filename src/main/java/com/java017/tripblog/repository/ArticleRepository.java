@@ -13,28 +13,24 @@ import java.util.ArrayList;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article,Integer> {
-//子晉:map_search的map
+//子晉:地址_物件陣列_map_search的map
      ArrayList<Article>  findByEnterAddressNameContaining(String enterAddressName);
-
+//庭妤:     搜尋吧_物件陣列
      ArrayList<Article> findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(String enterAddressName,String articleTitle,String textEditor,String freeTag);
-
+//庭妤:    搜尋吧_分頁
      Page<Article> findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(String address, String articleTitle,String textEditor,String freeTag,Pageable pageable);
-
+//子晉:    標題_物件陣列
      Article findByArticleTitle(String articleTitle);
-//--------------------------------------------------------------------------
-     //全部
+//庭妤:      全部
      ArrayList<Article>findAll();
-     //預設(無篩選)_user_eat&travel換頁
-//map_search:單_(下拉.主題)
+//庭妤:      主題_物件陣列
      ArrayList<Article> findBySubjectCategory(String subject);
-     //map_search:單_(下拉.主題)_換頁
+//庭妤:      主題_分頁
      Page<Article> findBySubjectCategory(String subject,Pageable pageable);
 
-     //map_search:雙_(搜尋吧.地址)+(下拉.主題)
+//庭妤:      主題+搜尋吧_物件陣列
      ArrayList<Article> findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(String enterAddressName,String articleTitle,String textEditor,String freeTag,String subject);
-     //map_search:雙_(搜尋吧.地址)+(下拉.主題)_換頁
 
-     Page<Article> findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(String enterAddressName,String articleTitle,String textEditor,String freeTag, String subject,Pageable pageable);
 
 }
 
