@@ -297,10 +297,10 @@
                                     <p class="m-2 small text-center" th:text="${product.launchedTime}">2021-11-03
                                         11:40</p>
 
-                                    <span th:id="${product.id}" class="addButton btn btn-primary form-control">
-                                    加入購物車
-                                    <input th:id="${product.id}" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}">
-                                </span>
+                                    <div th:id="${product.productName}" class="addButton btn btn-primary form-control">
+                                        加入購物車
+                                        <input class="info" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}">
+                                    </div>
                                 </div>
                             </div>
 
