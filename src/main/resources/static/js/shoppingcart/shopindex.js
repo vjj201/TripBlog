@@ -127,10 +127,10 @@ $(function () {
             url: uri,
             type: 'POST',
             contentType: 'application/json;charset=utf-8',
-            async: false,
             data: JSON.stringify(productQuery),
             success: function (response) {
                 $("#main").replaceWith(response);
+                doFirst();
             }
         });
     }
