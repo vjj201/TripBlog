@@ -29,7 +29,7 @@
             padding-right: 1rem;
         }
 
-       .nav-item:hover {
+       .my-nav-item:hover {
          background-color: #0dcaf0;
         }
     </style>
@@ -181,7 +181,7 @@
 
                 <ul class="nav flex-column" id="nav_accordion">
 
-                    <li class="nav-item d-flex justify-content-start">
+                    <li class="nav-item d-flex justify-content-start my-nav-item">
                         <input value="0" type="radio" class="btn-check" name="options-outlined" id="tagTitle" autocomplete="off">
                         <label class="nav-link" for="tagTitle">
                             <div class="fs-4 text-black-50 fw-bold">
@@ -195,7 +195,7 @@
                     </li>
 
 
-                    <li th:each=" sort : ${sortList}" class="nav-item has-submenu">
+                    <li th:each=" sort : ${sortList}" class="nav-item has-submenu my-nav-item">
                         <div class="fs-5 nav-link fw-bold" data-value="1" th:text="${sort.sortName}" th:data-value="${sort.id}">
                             在地美食
                         </div>
@@ -289,15 +289,15 @@
                                     </div>
 
 
-                                    <p class="card-text" th:text="${product.aboutProduct}">Some quick example text to
+                                    <p class="card-text"  th:text="${product.aboutProduct}">Some quick example text to
                                         build
                                         on the card title and make up the
                                         bulk of the card's content.</p>
 
-                                    <p class="m-2 small text-center" th:text="${product.launchedTime}">2021-11-03
+                                    <p class="m-2 small text-center" th:text="${#dates.format(product.launchedTime, 'yyyy-MM-dd HH:mm')}">2021-11-03
                                         11:40</p>
 
-                                    <div th:id="${product.productName}" class="addButton btn btn-primary form-control">
+                                    <div th:id="${product.productName}" th:classappend="${product.inStock < 1} ? 'disabled' : 'btn-primary'" th:text="${product.inStock < 1} ? '售完' : '加入購物車'" class="addButton btn btn-primary form-control">
                                         加入購物車
                                         <input class="info" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}">
                                     </div>

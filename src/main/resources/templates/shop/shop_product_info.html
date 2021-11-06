@@ -23,7 +23,7 @@
 </head>
 
 
-<body>
+<body style="overflow-x: hidden">
 
 <!-- 總導覽列 -->
 <nav th:replace="fragments :: nav(0)"
@@ -133,8 +133,8 @@
 </div>
 
     <!-- 商品介紹頁 -->
-    <div class="container d-flex mx-auto">
-        <div class="card mb-3 my-3 px-3 shadow-lg" style="border-radius: 20px; height: 500px;">
+    <div class="container my-5 d-flex mx-auto">
+        <div class="card mb-3 my-3 px-3 shadow-lg" style="border-radius: 20px;">
             <!-- 第一行 商品分類、品牌 -->
             <div class="row pt-3">
                 <div class="col-3">
@@ -157,7 +157,7 @@
                 <div class="col-md-6">
                     <div class="card-body pb-2">
                         <div class="d-flex pt-4 align-items-center justify-content-between">
-                            <h1 id="productName" class="card-title" th:text="${product.productName}">所長茶葉蛋</h1>
+                            <h1 id="productName" class="card-title" th:text="${product.productName}">茶葉蛋</h1>
                         </div>
                         <div class="row ps-1 pt-1">
                             <ol style="list-style: none;">
@@ -166,7 +166,7 @@
                         </div>
                             <ol class="py-2" style="list-style: none;">
                                 <li class="py-2">商品描述：</li>
-                                <p id="productDetail" th:text="${product.productDetail}" class="card-text ps-4">湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！湯鮮味美超級無敵霹靂好吃！</p>
+                                <p id="productDetail" th:text="${product.productDetail}" class="card-text ps-4">湯鮮味美超級無敵霹靂好吃</p>
                             </ol>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
                     </a>
                 </div>
                 <div class="col-6 mx-5 w-25">
-                    <div th:id="${product.id}" class="addButton btn btn-primary form-control" th:href="@{/shop}">
+                    <div th:id="${product.id}" th:classappend="${product.inStock < 1} ? 'disabled' : 'btn-primary'" th:text="${product.inStock < 1} ? '售完' : '加入購物車'" class="addButton btn btn-primary form-control" th:href="@{/shop}">
                         加入購物車
                         <input class="info" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}"/>
                     </div>

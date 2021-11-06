@@ -74,18 +74,18 @@ public class ProductServiceImpl implements ProductService {
                 List<Predicate> predicateList = new ArrayList<>();
 
                 //判斷第一個條件輸入的標題不為空
-                if (!ObjectUtils.isEmpty(productQuery.getProductName()) && productQuery.getProductName() != null) {
+                if (!ObjectUtils.isEmpty(productQuery.getProductName())) {
                     //添加語句語法和欄位名稱，第二個參數為屬性值，like前後需加百分號
                     predicateList.add(criteriaBuilder.like(root.<String>get("productName"), "%" + productQuery.getProductName() + "%"));
                 }
 
                 //判斷第二個條件分類選單，內容不為空
-                if (!ObjectUtils.isEmpty(productQuery.getBrandId()) && productQuery.getBrandId() != null) {
+                if (!ObjectUtils.isEmpty(productQuery.getBrandId())) {
                     predicateList.add(criteriaBuilder.equal(root.<Brand>get("brand").get("id"), productQuery.getBrandId()));
                 }
 
                 //判斷第三個條件分類選單，內容不為空
-                if (!ObjectUtils.isEmpty(productQuery.getTagId()) && productQuery.getTagId() != null) {
+                if (!ObjectUtils.isEmpty(productQuery.getTagId())) {
                     predicateList.add(criteriaBuilder.equal(root.<ProductTag>get("productTag"), productQuery.getTagId()));
                 }
 

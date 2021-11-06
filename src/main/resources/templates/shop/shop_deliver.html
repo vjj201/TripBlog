@@ -8,6 +8,9 @@
     <meta name="description" content="Deliver">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,6 +18,8 @@
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/shoppingcart/deliver.js" th:src="@{/js/shoppingcart/deliver.js}"></script>
 
 </head>
 
@@ -196,22 +201,30 @@
                         <h4 class="my-3">地址</h4>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <select class="custom-select d-block w-100" style="height: 2rem;" id="city" name="city"
-                                    required>
-                                    <option value="">縣市</option>
-                                    <option>台北</option>
-                                    <option>台中</option>
-                                    <option>台南</option>
+                            <div class="col-md-4 mb-3">
+                                <select class="custom-select d-block w-100" style="height: 2rem;" id="location" name="location"
+                                        required>
+                                    <option value="">位置</option>
+                                    <option>北部</option>
+                                    <option>中部</option>
+                                    <option>南部</option>
+                                    <option>外島</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-6 mb-3">
-                                <select class="custom-select d-block w-100" style="height: 2rem;" id="state"
-                                    name="state" required>
-                                    <option value="">鄉鎮市區</option>
-                                    <option>大安區</option>
-                                    <option>信義區</option>
+                            <div class="col-md-4 mb-3">
+                                <select class="custom-select d-block w-100" style="height: 2rem;" id="city" name="city"
+                                    required>
+                                    <option>縣市</option>
+                                    <option th:each="city : ${cityList}"  th:value="${city.id}" th:text="${city.cityName}">台北市</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <select class="custom-select d-block w-100" style="height: 2rem;" id="district"
+                                    name="district" required>
+                                    <option>鄉鎮市區</option>
+                                    <option th:each="district : ${districtList}"  th:value="${district.id}" th:text="${district.districtName}">大安區</option>
                                 </select>
                             </div>
                         </div>
