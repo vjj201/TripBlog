@@ -31,26 +31,18 @@ public class ProductController {
         this.brandService = brandService;
     }
 
-    @GetMapping("/shop/{page}")
-    public String changeProductPage(@PathVariable int page, Model model) {
-        Page<Product> productPage = productService.findProductPageOrderBy((page - 1), 9, Sort.by("launchedTime").descending());
+    @PostMapping("/shop/{page}")
+    public String searchProduct(@PathVariable int page, @RequestBody ProductQuery productQuery, Model model) {
+        Page<Product> productPage = productService.findProductPageByQuery(page, productQuery);
 
-        System.out.println("第一頁" +  productPage.isFirst());
-        System.out.println("最後一頁" +  productPage.isLast());
+        int totalPages = productPage.getTotalPages();
+
+        if(totalPages < 1) {
+            return "/shop/notFound";
+        }
 
         model.addAttribute("productPage", productPage);
         model.addAttribute("currentPage", page);
-
-        return "/shop/shop_index :: #main";
-    }
-
-    @PostMapping("/shop/search")
-    public String searchProduct(@RequestBody ProductQuery productQuery, Model model) {
-        System.out.println(productQuery);
-        Page<Product> productPage = productService.findProductPageByQuery(productQuery);
-
-        model.addAttribute("productPage", productPage);
-        model.addAttribute("currentPage", 1);
 
         return "/shop/shop_index :: #main";
     }

@@ -63,12 +63,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findProductPageByQuery(ProductQuery productQuery) {
+    public Page<Product> findProductPageByQuery(int page, ProductQuery productQuery) {
 
-        PageRequest pageRequest = PageRequest.of(0, 9, productQuery.getSort());
+        PageRequest pageRequest = PageRequest.of(page-1, 9, productQuery.getSort());
 
         return productRepository.findAll(new Specification<Product>() {
-
             @Override
             public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 //條件表單

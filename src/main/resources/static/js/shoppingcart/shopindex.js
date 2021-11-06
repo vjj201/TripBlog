@@ -9,7 +9,7 @@ function doFirst() {
     for (let i = 0; i < list.length; i++) {
         list[i].addEventListener('click', function (e) {
             console.log("點擊加入購物車");
-            let productInfo = document.querySelector(`#${this.id} input`).value
+            let productInfo = document.querySelector(`#${this.id}`).value
             addItem(this.id, productInfo)
         });
     }
@@ -101,17 +101,22 @@ $(function () {
     $(document).on('click', '#pre', function (e) {
         e.preventDefault();
         let uri = $('#pre').attr('href');
-        updatePage(uri);
+        changePage(uri);
     });
     //下一頁
     $(document).on('click', '#next', function (e) {
         e.preventDefault();
-        let uri = $('#next').attr('href');
-        updatePage(uri);
+        let uri =  $('#next').attr('href');
+        changePage(uri);
     });
     //搜尋
     $(document).on('click', '#button-addon5', function (e) {
         e.preventDefault();
+        let uri = '/shop/' + $('#button-addon5').val();
+        changePage(uri);
+    });
+
+    function changePage (uri) {
 
         let tag = $("[name='options-outlined']:checked").val();
         let brand = $("[name='brand']").val();
@@ -125,7 +130,7 @@ $(function () {
         productQuery['productName'] = productName;
 
         $.ajax({
-            url: '/shop/search',
+            url: uri,
             type: 'POST',
             contentType: 'application/json;charset=utf-8',
             async: false,
@@ -134,11 +139,5 @@ $(function () {
                 $("#main").replaceWith(response);
             }
         });
-    });
-
-    //刷新商品列
-    function updatePage(uri) {
-        $('#main').load(uri);
     }
-
 });

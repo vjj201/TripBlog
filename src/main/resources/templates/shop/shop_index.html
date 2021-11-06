@@ -233,7 +233,7 @@
                     <input name="productName" type="search" placeholder="輸入商品名稱" aria-describedby="button-addon5"
                            class="form-control">
                     <div class="input-group-append">
-                        <button id="button-addon5" type="button" class="btn btn-primary"><i
+                        <button id="button-addon5" value="1" type="button" class="btn btn-primary"><i
                                 class="fa fa-search"></i></button>
                     </div>
                 </div>
@@ -297,9 +297,9 @@
                                     <p class="m-2 small text-center" th:text="${product.launchedTime}">2021-11-03
                                         11:40</p>
 
-                                    <span id="A0001" class="addButton btn btn-primary form-control">
+                                    <span th:id="${product.id}" class="addButton btn btn-primary form-control">
                                     加入購物車
-                                    <input type="hidden" value="Formosa|formosa.jpg|1000">
+                                    <input th:id="${product.id}" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}">
                                 </span>
                                 </div>
                             </div>
@@ -316,7 +316,7 @@
                         <ul class="pagination">
                             <li class="page-item">
                                 <a id="pre" class="page-link"
-                                   th:href="${currentPage == 1} ? 'javascript:void(0)' : '/shop/'+${currentPage - 1}"
+                                   th:href="${productPage.isFirst()} ? 'javascript:void(0)' : '/shop/'+${currentPage - 1}"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
@@ -327,7 +327,7 @@
 
                             <li class="page-item">
                                 <a id="next" class="page-link"
-                                   th:href="${productPage.totalPages == currentPage} ? 'javascript:void(0)' : '/shop/'+${currentPage + 1}"
+                                   th:href="${productPage.isLast()} ? 'javascript:void(0)' : '/shop/'+${currentPage + 1}"
                                    aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
