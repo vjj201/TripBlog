@@ -39,9 +39,9 @@ public class Article {
 
     Integer collect = 0;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "User", referencedColumnName = "id")
-    User Fk_User_Id;
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+     User userId;
 
     @OneToMany(mappedBy="articlesRecommendId",cascade=CascadeType.ALL)
     private Set<Recommend>  recommendSet ;
@@ -61,12 +61,45 @@ public class Article {
     public Article() {
     }
 
-    public User getFk_User_Id() {
-        return Fk_User_Id;
+
+    public String getFreeTag() {
+        return freeTag;
     }
 
-    public void setFk_User_Id(User fk_User_Id) {
-        Fk_User_Id = fk_User_Id;
+    public void setFreeTag(String freeTag) {
+        this.freeTag = freeTag;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public Set<Recommend> getRecommendSet() {
+        return recommendSet;
+    }
+
+    public void setRecommendSet(Set<Recommend> recommendSet) {
+        this.recommendSet = recommendSet;
+    }
+
+    public Set<com.java017.tripblog.entity.Report> getReportSet() {
+        return reportSet;
+    }
+
+    public void setReportSet(Set<com.java017.tripblog.entity.Report> reportSet) {
+        this.reportSet = reportSet;
+    }
+
+    public Set<Collect> getCollectSet() {
+        return collectSet;
+    }
+
+    public void setCollectSet(Set<Collect> collectSet) {
+        this.collectSet = collectSet;
     }
 
     public Integer getRecommend() {

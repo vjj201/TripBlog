@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 /**
  * @author YuCheng
@@ -119,10 +120,19 @@ public class ArticleController {
         article.setSelectRegion(articleParam.getSelectRegion());
         article.setTextEditor(articleParam.getTextEditor());
         article.setSubjectCategory(articleParam.getSubjectCategory());
-        article.setFk_User_Id(userService.findUserById(user.getId()));
+        article.setUserId(userService.findUserById(user.getId()));
         articleService.insertArticle(article);
 
         return "ok";
+    }
+
+    @ResponseBody
+    @GetMapping("/findByUserId")
+    public ArrayList<Article> findByUserId(@RequestParam HttpSession session){
+
+        User user = (User)session.getAttribute("user");
+        ArrayList<Article> result = articleService.findUserById(user.getId());
+        return result;
     }
 
 }

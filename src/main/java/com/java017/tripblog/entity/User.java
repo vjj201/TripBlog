@@ -16,7 +16,7 @@ import java.util.Set;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 
     //會員編號
@@ -75,7 +75,6 @@ public class User {
 
     @OneToMany(mappedBy="userCollectId",cascade=CascadeType.ALL)
     private Set<Collect> collectSet ;
-
 
 
 

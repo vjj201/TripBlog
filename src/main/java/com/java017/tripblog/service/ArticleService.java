@@ -1,6 +1,7 @@
 package com.java017.tripblog.service;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.User;
 
 
 import java.util.ArrayList;
@@ -36,6 +37,5 @@ public interface ArticleService {
 
     ArrayList<Article> findByRandomArticle();
 
-
-
+    ArrayList<Article> findUserById(Long id);
 }

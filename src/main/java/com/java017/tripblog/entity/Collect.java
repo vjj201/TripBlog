@@ -14,11 +14,11 @@ public class Collect {
 
 
     @ManyToOne
-    @JoinColumn(name = "article_recommend_id")
+    @JoinColumn(name = "article_collect_id")
     private Article articlesCollectId;
 
     @ManyToOne
-    @JoinColumn(name = "User_recommend_id")
+    @JoinColumn(name = "User_collect_id")
     private User userCollectId;
 
     public Integer getId() {

@@ -1,6 +1,7 @@
 package com.java017.tripblog.service_impl;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.User;
 import com.java017.tripblog.repository.ArticleRepository;
 import com.java017.tripblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,7 +194,13 @@ public class ArticleServiceImpl implements ArticleService {
         System.out.println("server回傳" +resultList );
         return (ArrayList<Article>) resultList;
 
-    };
+    }
+
+    @Override
+    public ArrayList<Article> findUserById(Long id) {
+        ArrayList<Article> result = articleRepository.findByUserId(id);
+        return result;
+    }
 
 
 

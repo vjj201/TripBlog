@@ -2,6 +2,7 @@ package com.java017.tripblog.repository;
 
 import com.java017.tripblog.entity.Article;
 
+import com.java017.tripblog.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -39,5 +40,8 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
      Page<Article> findByEnterAddressNameContainingAndSubjectCategory(String address,String subject, Pageable pageable);
 
      Optional<Article> findById(Integer id);
+
+     ArrayList<Article> findByUserId(Long id);
+
 }
 
