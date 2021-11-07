@@ -23,6 +23,22 @@ $(function () {
 
         let location =  $('#location').val();
 
+        if(location === '外島') {
+            $('#freight').text(180);
+        }
+
+        if(location === '南部') {
+            $('#freight').text(100);
+        }
+
+        if(location === '中部') {
+            $('#freight').text(80);
+        }
+
+        if(location === '北部') {
+            $('#freight').text(60);
+        }
+
         if (location != null) {
 
             let data = {};
