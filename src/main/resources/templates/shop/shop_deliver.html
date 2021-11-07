@@ -236,17 +236,17 @@
                     <h4 class="mt-5 mb-3">貨運</h4>
 
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'中華郵政')}" value="中華郵政">
-                        <label class="custom-control-label" >中華郵政</label>
+                        <input id="1" type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'中華郵政')}" value="中華郵政">
+                        <label class="custom-control-label" for="1">中華郵政</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'貓貓貨運')}" value="貓貓貨運">
-                        <label class="custom-control-label" >貓貓貨運</label>
+                        <input id="2" type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'貓貓貨運')}" value="貓貓貨運">
+                        <label class="custom-control-label" for="2">貓貓貨運</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'大大貨運')}" value="大大貨運">
-                        <label class="custom-control-label" >大大貨運</label>
+                        <input id="3" type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'大大貨運')}" value="大大貨運">
+                        <label class="custom-control-label" for="3">大大貨運</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'很快貨運')}" value="很快貨運">
-                        <label class="custom-control-label" >很快貨運</label>
+                        <input id="4" type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'很快貨運')}" value="很快貨運">
+                        <label class="custom-control-label" for="4">很快貨運</label>
                     </div>
 
 
@@ -254,6 +254,9 @@
 
                     <hr class="my-4">
                     <!-- 結束:配送地址 -->
+
+                    <!--錯誤提示-->
+                    <div id="message" class=" text-center m-2 fs-4 text-danger"></div>
 
                     <!-- 按鈕 -->
                     <div class="col-12 my-5 text-center mx-auto">
@@ -267,7 +270,7 @@
                             </div>
 
                             <div class="col-6">
-                                <button id="submit" class="btn btn-info form-control fs-5 shadow-sm w-50">
+                                <button id="submit" type="submit" class="btn btn-info form-control fs-5 shadow-sm w-50">
                                     下一步
                                 </button>
                             </div>

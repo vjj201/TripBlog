@@ -194,18 +194,15 @@
 
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">
-                            <input id="credit" name="payment" type="radio" th:checked="${checkout.payment} == 信用卡" value="信用卡" class="custom-control-input mb-2"
-                                checked required>
+                            <input id="credit" name="payment" type="radio" th:checked="${checkout.payment} == 信用卡" value="信用卡" class="custom-control-input mb-2" required>
                             <label class="custom-control-label" for="credit">信用卡</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="debit" name="payment" type="radio" th:checked="${checkout.payment} == 金融卡" value="金融卡" class="custom-control-input mb-2"
-                                required>
+                            <input id="debit" name="payment" type="radio" th:checked="${checkout.payment} == 金融卡" value="金融卡" class="custom-control-input mb-2" required>
                             <label class="custom-control-label" for="debit">金融卡</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="paypal" name="payment" type="radio" th:checked="${checkout.payment} == PayPal" value="PayPal" class="custom-control-input mb-2"
-                                required>
+                            <input id="paypal" name="payment" type="radio" th:checked="${checkout.payment} == PayPal" value="PayPal" class="custom-control-input mb-2" required>
                             <label class="custom-control-label" for="paypal">PayPal</label>
                         </div>
                     </div>
@@ -226,18 +223,21 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3 mb-3">
-                            <label for="cc-expiration">到期時間</label>
-                            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                            <label for="expiration">到期時間</label>
+                            <input type="date" class="form-control" id="expiration" placeholder="" required>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="cc-cvv">CVV</label>
-                            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                            <label for="cvv">CVV</label>
+                            <input type="password" class="form-control" id="cvv" placeholder="" required>
                             <div class="invalid-feedback">
                                 Security code required
                             </div>
                         </div>
                     </div>
                     <hr class="mb-4">
+
+                    <!--錯誤提示-->
+                    <div id="message" class=" text-center m-2 fs-4 text-danger"></div>
 
 
 

@@ -85,7 +85,11 @@ public class CheckoutSession {
     }
 
     public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+        int length = cardNumber.length();
+        String suffix = cardNumber.substring(length - 4);
+        String prefix = cardNumber.substring(0, length - 4);
+        prefix = prefix.replaceAll("[0-9]", "*");
+        this.cardNumber = prefix + suffix;
     }
 
     @Override

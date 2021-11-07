@@ -7,6 +7,16 @@ $(function () {
         xhr.setRequestHeader(header, token);
     });
 
+    function objToString (obj) {
+        let str = '';
+        for (let p in obj) {
+            if (Object.prototype.hasOwnProperty.call(obj, p)) {
+                str += obj[p] + '<br>';
+            }
+        }
+        return str;
+    }
+
     //動態選項
     $(document).on('change', '#location', function (e) {
         e.preventDefault();
@@ -60,6 +70,30 @@ $(function () {
         let district =  $('#district').val();
         let address =  $('#address').val();
         let deliver =  $("input[name='deliver']:checked").val();
+
+        let error = {};
+        if('' === receiver) {
+            error['receiver'] = '請填寫收件人名';
+        }
+
+        if('鄉鎮市區' === district) {
+            error['district'] = '請選擇收件地區';
+        }
+
+        if('' === address) {
+            error['address'] = '請填寫收件地址';
+        }
+
+        if(deliver === undefined) {
+            error['deliver'] = '請選擇貨運公司';
+        }
+
+        if(!$.isEmptyObject(error)) {
+            $('#message').html(objToString(error));
+            return;
+        }
+
+        $('#message').empty();
 
         let data = {};
         data['receiver'] = receiver;
