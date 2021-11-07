@@ -150,13 +150,13 @@
                                             <h5 class="my-4">付款資訊</h5>
                                             <div class="mt-2">
                                                 <label for="payment">支付方式</label>
-                                                <input type="text" class="form-control mb-3" id="payment" readonly>
+                                                <input th:value="${checkout.payment}" type="text" class="form-control mb-3" id="payment" readonly>
 
                                                 <label for="owner">持卡人</label>
-                                                <input type="text" class="form-control mb-3" id="owner" readonly>
+                                                <input th:value="${checkout.cardOwner}" type="text" class="form-control mb-3" id="owner" readonly>
 
                                                 <label for="cardNumber">卡號末4碼</label>
-                                                <input type="text" class="form-control mb-3" id="cardNumber" readonly>
+                                                <input th:value="${checkout.cardNumber}" type="text" class="form-control mb-3" id="cardNumber" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -168,13 +168,13 @@
 
                                             <div class="mt-2">
                                                 <label for="deliver">貨運公司</label>
-                                                <input type="text" class="form-control mb-3" id="deliver" readonly>
+                                                <input th:value="${checkout.deliver}" type="text" class="form-control mb-3" id="deliver" readonly>
 
                                                 <label for="sendFor">收件人</label>
-                                                <input type="text" class="form-control mb-3" id="sendFor" readonly>
+                                                <input th:value="${checkout.receiver}" type="text" class="form-control mb-3" id="sendFor" readonly>
 
                                                 <label for="address">收件地址</label>
-                                                <input type="text" class="form-control mb-3" id="address" readonly>
+                                                <input th:value="${checkout.city} + ${checkout.district} + ${checkout.address}" type="text" class="form-control mb-3" id="address" readonly>
 
                                             </div>
                                         </div>

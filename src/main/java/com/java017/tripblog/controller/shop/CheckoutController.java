@@ -24,8 +24,7 @@ public class CheckoutController {
 
     //配送方式頁
     @GetMapping("/deliver")
-    public String deliverPage(@SessionAttribute(name = "checkout", required = false) CheckoutSession checkoutSession) {
-
+    public String deliverPage() {
         return "/shop/shop_deliver";
     }
 
@@ -44,19 +43,44 @@ public class CheckoutController {
         return "/shop/shop_deliver :: #district";
     }
 
-    //收件提交
+    //收件方式提交
     @PostMapping("/deliver/done")
     @ResponseBody
-    public void deliverDone(@RequestBody CheckoutSession checkoutSession, Model model) {
+    public void deliverDone(@RequestBody CheckoutSession checkoutSession,
+                            @SessionAttribute(name = "checkout", required = false) CheckoutSession checkout,
+                            Model model) {
+        if (!ObjectUtils.isEmpty(checkout)) {
+            checkout.setReceiver(checkoutSession.getReceiver());
+            checkout.setLocation(checkoutSession.getLocation());
+            checkout.setCity(checkoutSession.getCity());
+            checkout.setDistrict(checkoutSession.getDistrict());
+            checkout.setAddress(checkoutSession.getAddress());
+            checkout.setDeliver(checkoutSession.getDeliver());
+            model.addAttribute("checkout", checkout);
+            return;
+        }
+
         model.addAttribute("checkout", checkoutSession);
     }
 
     //付款方式頁
     @GetMapping("/payment")
-    public String paymentPage(@ModelAttribute("checkout") CheckoutSession checkoutSession, Model model) {
-        System.out.println(checkoutSession);
+    public String paymentPage() {
         return "/shop/shop_payment";
     }
+
+    //付款方式提交
+    @PostMapping("/payment/done")
+    @ResponseBody
+    public void paymentDone(@RequestBody CheckoutSession checkoutSession,
+                            @SessionAttribute(name = "checkout", required = false) CheckoutSession checkout,
+                            Model model) {
+        checkout.setPayment(checkoutSession.getPayment());
+        checkout.setCardOwner(checkoutSession.getCardOwner());
+        checkout.setCardNumber(checkoutSession.getCardNumber());
+        model.addAttribute("checkout", checkout);
+    }
+
 
     //確認訂單頁
     @GetMapping("/confirm")

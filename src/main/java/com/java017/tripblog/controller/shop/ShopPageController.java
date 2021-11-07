@@ -1,23 +1,7 @@
 package com.java017.tripblog.controller.shop;
 
-import com.java017.tripblog.entity.Brand;
-import com.java017.tripblog.entity.Product;
-import com.java017.tripblog.entity.ProductSort;
-import com.java017.tripblog.service.BrandService;
-import com.java017.tripblog.service.ProductService;
-import com.java017.tripblog.service.ProductSortService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * @author YuCheng
@@ -26,41 +10,6 @@ import java.util.List;
 
 @Controller
 public class ShopPageController {
-
-    private final ProductSortService productSortService;
-    private final ProductService productService;
-    private final BrandService brandService;
-
-    @Autowired
-    public ShopPageController(ProductSortService productSortService, ProductService productService, BrandService brandService) {
-        this.productSortService = productSortService;
-        this.productService = productService;
-        this.brandService = brandService;
-    }
-
-    //商城首頁
-    @GetMapping("/shop")
-    public String shopPage(Model model) {
-        Page<Product> productPage = productService.findProductPageOrderBy(0, 9, Sort.by("launchedTime").descending());
-        List<ProductSort> productSortList = productSortService.findAllProductSort();
-        List<Brand> brandList = brandService.findAllBrand();
-
-        model.addAttribute("brandList", brandList);
-        model.addAttribute("sortList", productSortList);
-        model.addAttribute("productPage", productPage);
-        model.addAttribute("currentPage", 1);
-
-        return "/shop/shop_index";
-    }
-
-    //商品詳細頁
-    @GetMapping("/shop/product/{id}")
-    public String productInfoPage(@PathVariable Long id, Model model) {
-        Product product = productService.findProductById(id);
-        System.out.println("產品資訊 ：" + product);
-        model.addAttribute("product", product);
-        return "/shop/shop_product_info";
-    }
 
     //購物車頁
     @GetMapping("/shop/shopcart")
@@ -75,12 +24,4 @@ public class ShopPageController {
         return "/shop/shop_order_list";
     }
 
-    //顯示產品封面
-    @RequestMapping(value = "/shop/productPic/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    @ResponseBody
-    public byte[] getProductImage(@PathVariable Long id) throws IOException {
-        String dir = "src/main/resources/static/images/shop/product/" + id + ".jpg";
-        File file = new File(dir);
-        return Files.readAllBytes(file.toPath());
-    }
 }

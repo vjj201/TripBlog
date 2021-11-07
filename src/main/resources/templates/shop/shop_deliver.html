@@ -236,16 +236,16 @@
                     <h4 class="mt-5 mb-3">貨運</h4>
 
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" class="custom-control-input mb-3" id="deliver" name="deliver" value="中華郵政">
+                        <input type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'中華郵政')}" value="中華郵政">
                         <label class="custom-control-label" >中華郵政</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver" value="貓貓貨運">
+                        <input type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'貓貓貨運')}" value="貓貓貨運">
                         <label class="custom-control-label" >貓貓貨運</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver" value="大大貨運">
+                        <input type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'大大貨運')}" value="大大貨運">
                         <label class="custom-control-label" >大大貨運</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver" value="很快貨運">
+                        <input type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'很快貨運')}" value="很快貨運">
                         <label class="custom-control-label" >很快貨運</label>
                     </div>
 
