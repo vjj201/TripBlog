@@ -223,7 +223,7 @@
                                 <select class="custom-select d-block w-100" style="height: 2rem;" id="district"
                                     name="district" required>
                                     <option th:text="${checkout != null} ? ${checkout.district} : 鄉鎮市區">鄉鎮市區</option>
-                                    <option th:each="district : ${districtList}" th:text="${district.districtName}">大安區</option>
+                                    <option th:each="district : ${districtList}" th:text="${district.districtName}"></option>
                                 </select>
                             </div>
                         </div>

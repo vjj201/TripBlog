@@ -25,6 +25,9 @@ public class ProductOrder {
     //訂單金額
     private Integer amounts;
 
+    //運費
+    private Integer freight;
+
     //訂單狀態(待出貨-1、運送中0、已收件1)
     private Integer orderStatus;
 
@@ -89,11 +92,20 @@ public class ProductOrder {
         this.orderItems = orderItems;
     }
 
+    public Integer getFreight() {
+        return freight;
+    }
+
+    public void setFreight(Integer freight) {
+        this.freight = freight;
+    }
+
     @Override
     public String toString() {
         return "ProductOrder{" +
                 "id=" + id +
                 ", amounts=" + amounts +
+                ", freight=" + freight +
                 ", orderStatus=" + orderStatus +
                 ", orderTime=" + orderTime +
                 ", user=" + user +

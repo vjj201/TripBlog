@@ -165,6 +165,9 @@ $(function () {
         }
 
         if (location != null) {
+            $("#city").empty();
+            $("#district").empty();
+            $("#district").val('');
 
             let data = {};
             data['location'] = location;
@@ -218,7 +221,7 @@ $(function () {
             error['receiver'] = '請填寫收件人名';
         }
 
-        if('鄉鎮市區' === district) {
+        if('鄉鎮市區' === district || '' === district || null === district) {
             error['district'] = '請選擇收件地區';
         }
 
