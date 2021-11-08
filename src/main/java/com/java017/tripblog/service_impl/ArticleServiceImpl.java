@@ -5,11 +5,17 @@ import com.java017.tripblog.entity.User;
 import com.java017.tripblog.repository.ArticleRepository;
 import com.java017.tripblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.lang.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,83 +43,62 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findByEnterAddressNameContaining(enterAddressName);
     }
 
-    //map_search:換頁按鈕自動生成
+//庭妤:    文章換頁按鈕自動生成
     @Override
     public ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject) {
-
-        if(enterAddressName==""){
+        if(StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)){
+//            如果都沒有填
             return articleRepository.findAll();
-        }
-        if(subject != ""){
+        }else if(StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)){
+//            只有填主題(subject)
             return articleRepository.findBySubjectCategory(subject);
+        }else if(!StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
+//            只有填搜尋吧(enterAddressName)
+            return articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName, enterAddressName,enterAddressName);
+
+       }else{
+            return articleRepository.findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName,subject);
         }
-        //主題一定沒填
-        if(subject==""){
-            return articleRepository.findByEnterAddressNameContaining(enterAddressName);
-        }
-        return articleRepository.findByEnterAddressNameContainingAndSubjectCategory(enterAddressName,subject);
+
     }
 
-
-//    @Override
-//    public List<Article> getPagedArticles(int page, int size, String enterAddressName) {
-////
-//        Pageable pageable = PageRequest.of(page, size, Sort.by("enterAddressName").descending()); // 依CREATE_TIME欄位降冪排序
-//        Page<Article> pageResult = articleRepository.findByEnterAddressNamelike(enterAddressName,pageable);
-//
-//        pageResult.getNumberOfElements(); // 本頁筆數
-//        pageResult.getSize();             // 每頁筆數
-//        pageResult.getTotalElements();    // 全部筆數
-//        pageResult.getTotalPages();       // 全部頁數
-//
-//        List<Article> messageList =  pageResult.getContent();
-//
-//        return messageList;
-//
-//    }
-
-    //map_search:文章首頁&文章換頁
+//庭妤:    文章首頁&文章換頁
     @Override
     public List<Article> getPagedArticles(int page, int size, String enterAddressName,String subject,int timeDirect) {
 
-        System.out.println("上，Service-timeDirect="+timeDirect);
         //預設-時間舊到新
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")));
-
-        System.out.println("下，Service-timeDirect="+timeDirect);
-
-        System.out.println("asc有抓到[預設排序(舊到新)]");
-
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
 
         //時間新到舊
         if(timeDirect==100){
             System.out.println("desc有抓到[IF新到舊]");
-            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")));
+            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
         }
 
-        //(搜尋吧,主題)都有填
-        Page<Article> pageResult = articleRepository.findByEnterAddressNameContainingAndSubjectCategory(enterAddressName,subject,pageable);
+        Page<Article> pageResult;
 
-
-        //搜尋吧一定沒填
-        if(enterAddressName==""){
+        if(StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)){
+//            如果都沒有填
             pageResult = articleRepository.findAll(pageable);
-
-            if(subject != ""){
-                pageResult = articleRepository.findBySubjectCategory(subject,pageable);
+        }else if(StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)){
+//            只有填主題(subject)
+            pageResult = articleRepository.findBySubjectCategory(subject,pageable);
+        }else if(!StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
+//            只有填搜尋吧(enterAddressName)
+            pageResult = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName,enterAddressName,enterAddressName, pageable);
+        }else{
+//            都有填
+            List<Article> A =articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
+            List<Article> newA = new ArrayList<>();
+            for(Article loopdata:A){
+                if(subject.equals(loopdata.getSubjectCategory())){
+                    newA.add(loopdata);
+                }
             }
-        }
-        //主題一定沒填
-        if(subject==""){
-            pageResult = articleRepository.findByEnterAddressNameContaining(enterAddressName,pageable);
+            pageResult = new PageImpl<>(newA,pageable,newA.size());
+
         }
 
-
-
-        pageResult.getNumberOfElements(); // 本頁筆數
-        pageResult.getSize();             // 每頁筆數
-        pageResult.getTotalElements();    // 全部筆數
-        pageResult.getTotalPages();       // 全部頁數
 
         List<Article> messageList =  pageResult.getContent();
 
@@ -121,21 +106,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
-    //預設(無篩選)_user_eat&travel換頁
-    @Override
-    public List<Article> getUserEatTravelPagedArticles(int page, int size,String subject) {
-        Pageable pageable = PageRequest.of(page, size,Sort.by("subjectCategory").descending());
-        Page<Article> pageResult = articleRepository.findBySubjectCategory(subject,pageable);;
-        pageResult.getNumberOfElements(); // 本頁筆數
-        pageResult.getSize();             // 每頁筆數
-        pageResult.getTotalElements();    // 全部筆數
-        pageResult.getTotalPages();       // 全部頁數
 
-        List<Article> messageList =  pageResult.getContent();
-
-        return messageList;
-    }
-
+//    庭妤:      主題_物件陣列
     @Override
     public ArrayList<Article> findBySubjectCategory(String subject) {
         return articleRepository.findBySubjectCategory(subject);
@@ -173,6 +145,9 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(result);
         return "收藏成功";
     }
+
+
+
     @Override
     public ArrayList<Article> findByRandomArticle(){
         ArrayList<Article> list = articleRepository.findAll();
@@ -205,3 +180,4 @@ public class ArticleServiceImpl implements ArticleService {
 
 
 }
+

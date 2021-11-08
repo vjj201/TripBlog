@@ -72,14 +72,17 @@ public class MapSearchController {
     // 點擊換頁按鈕並換頁
     @ResponseBody
     @GetMapping("/changeSearchOfPage")
-    public List<Article> changeSearchOfPage(@RequestParam String enterAddress, @RequestParam String subject, @RequestParam int page, @RequestParam int timeDirect) {
+    public List<Article> changeSearchOfPage(@RequestParam String enterAddressName, @RequestParam String subject, @RequestParam int page, @RequestParam int timeDirect) {
 
         List<Article> messageList;
-        messageList = articleService.getPagedArticles(page, 5, enterAddress, subject, timeDirect);
+        messageList = articleService.getPagedArticles(page, 5, enterAddressName, subject, timeDirect);
         System.out.println("點擊換頁按鈕並換頁的messageList" + messageList);
         return messageList;
 
     }
+
+
+
     @Autowired
     RecommendRepository recommendRepository;
 

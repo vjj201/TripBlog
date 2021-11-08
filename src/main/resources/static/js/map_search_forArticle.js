@@ -115,7 +115,7 @@ $(function () {
             let page = pageValue - 1;
             let article = {}
             article["page"] = page;
-            article["enterAddress"] = enteraddress;
+            article["enterAddressName"] = enteraddress;
             article["subject"] = subject;
             article["timeDirect"] = timeDirect;
 

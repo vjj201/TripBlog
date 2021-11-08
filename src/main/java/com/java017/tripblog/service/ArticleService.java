@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 public interface ArticleService {
 
     String insertArticle(Article article);
@@ -24,18 +28,15 @@ public interface ArticleService {
 
     String updateReport(String articleTitle);
 
-    //map_search換頁
+//庭妤:    文章首頁&文章換頁
     List<Article> getPagedArticles(int page, int size, String enterAddressName,String subject,int timeDirect);
 
-    //預設(無篩選)_user_eat&travel換頁
-    List<Article> getUserEatTravelPagedArticles(int page, int size,String subject);
-
+//庭妤:      主題_物件陣列
     ArrayList<Article> findBySubjectCategory(String subject);
 
+//庭妤:    文章換頁按鈕自動生成
     ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject);
 
-
     ArrayList<Article> findByRandomArticle();
-
     ArrayList<Article> findUserById(Long id);
 }

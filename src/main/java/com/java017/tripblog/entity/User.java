@@ -79,6 +79,7 @@ public class User {
 
 
 
+
     //是否有頭貼
     private boolean hasMemberPic;
 
