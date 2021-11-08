@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article,Integer> {
@@ -33,7 +34,8 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
      ArrayList<Article> findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(String enterAddressName,String articleTitle,String textEditor,String freeTag,String subject);
 
      Optional<Article> findById(Integer id);
-     ArrayList<Article> findByUserId(Long id);
+
+     ArrayList<Article> findByUserId(User id);
 
 }
 

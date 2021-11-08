@@ -128,10 +128,11 @@ public class ArticleController {
 
     @ResponseBody
     @GetMapping("/findByUserId")
-    public ArrayList<Article> findByUserId(@RequestParam HttpSession session){
+    public ArrayList<Article> findByUserId( HttpSession session){
 
         User user = (User)session.getAttribute("user");
-        ArrayList<Article> result = articleService.findUserById(user.getId());
+        ArrayList<Article> result = articleService.findUserById(user);
+        System.out.println("檢查controller 回傳直" + result);
         return result;
     }
 

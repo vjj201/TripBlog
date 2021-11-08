@@ -38,5 +38,6 @@ public interface ArticleService {
     ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject);
 
     ArrayList<Article> findByRandomArticle();
-    ArrayList<Article> findUserById(Long id);
+
+    ArrayList<Article> findUserById(User id);
 }

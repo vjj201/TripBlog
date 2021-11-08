@@ -172,7 +172,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArrayList<Article> findUserById(Long id) {
+    public ArrayList<Article> findUserById(User id) {
         ArrayList<Article> result = articleRepository.findByUserId(id);
         return result;
     }

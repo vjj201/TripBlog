@@ -62,13 +62,7 @@ public class Article {
     }
 
 
-    public String getFreeTag() {
-        return freeTag;
-    }
 
-    public void setFreeTag(String freeTag) {
-        this.freeTag = freeTag;
-    }
 
     public User getUserId() {
         return userId;
