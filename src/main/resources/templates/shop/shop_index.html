@@ -185,12 +185,8 @@
                         <input value="0" type="radio" class="btn-check" name="options-outlined" id="tagTitle" autocomplete="off">
                         <label class="nav-link" for="tagTitle">
                             <div class="fs-4 text-black-50 fw-bold">
-                                分類
+                                所有分類
                             </div>
-
-                            <small class="fw-light">
-                                清除選取
-                            </small>
                         </label>
                     </li>
 
@@ -222,7 +218,7 @@
             <div class="col-12 mb-5 d-flex align-items-center justify-content-center  d-flex flex-wrap">
 
                 <select name="brand" class="form-select mx-2" aria-label=".form-select-lg example" style="width: 9rem">
-                    <option selected value="0">品牌</option>
+                    <option selected value="0">全部品牌</option>
                     <li th:each="brand : ${brandList}">
                         <option th:text="${brand.brandName}" th:value="${brand.id}">One</option>
                     </li>
@@ -241,7 +237,7 @@
                 <div class="btn-group me-2 my-2">
 
                     <select name="sort" class="form-select form-select-sm bg-secondary text-white" aria-label=".form-select-sm example">
-                        <option selected value="0">排序</option>
+                        <option selected value="0">排序方式</option>
                         <option value="1">日期: 新到舊</option>
                         <option value="2">日期: 舊到新</option>
                         <option value="3">價格: 低到高</option>

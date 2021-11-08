@@ -110,6 +110,21 @@ $(function () {
         changePage(uri);
     });
 
+    $(document).on('click', 'input:radio', function () {
+        let uri = '/shop/' + $('#button-addon5').val();
+        changePage(uri);
+    });
+
+    $(document).on('change', "[name='sort']", function () {
+        let uri = '/shop/' + $('#button-addon5').val();
+        changePage(uri);
+    });
+
+    $(document).on('change', "[name='brand']", function () {
+        let uri = '/shop/' + $('#button-addon5').val();
+        changePage(uri);
+    });
+
     function changePage (uri) {
 
         let tag = $("[name='options-outlined']:checked").val();
