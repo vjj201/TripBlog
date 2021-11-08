@@ -186,6 +186,9 @@ $(function () {
             // JData[i] = {title, itemId, price, count}
         }
 
+        if (storage['totalPrice'] != null) {
+            storage.removeItem('totalPrice'); //storage.setItem('addItemList','');
+        }
     //     console.log(JData);
     //     // storage.clear();
     //     $.ajax({

@@ -55,5 +55,10 @@ function createCartList(itemId, itemValue){
     let tdItemPrice = document.createElement('td');
     tdItemPrice.innerText = parseInt(itemNum) * itemPrice;
     trItemList.appendChild(tdItemPrice);
+
+    //確認按鈕
+    document.getElementById('comfirmPayment').addEventListener('click', function (e) {
+        storage.clear();
+    });
 }
 window.addEventListener('load', doFirst);

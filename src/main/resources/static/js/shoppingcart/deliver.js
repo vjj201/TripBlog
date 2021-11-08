@@ -65,19 +65,13 @@ function doFirst(){
     h6Total.id = "totalPrice";
 
     if (storage['totalPrice'] != null) {
-        sum = storage.getItem('totalPrice').split(', ')[2];
+        sum = parseInt(total) + document.getElementById('freight').innerText;
         h6Total.innerText = sum + "TWD";
     } else {h6Total.innerText = total + "TWD";}
     
     liITotal.appendChild(spanTotal);
     liITotal.appendChild(h6Total);
     refreshTotal(total, parseInt(document.getElementById("freight").innerText));
-    
-    if (storage['totalPrice'] != null) {
-        total = storage.getItem('totalPrice').split(', ')[0];
-        deliverFee = storage.getItem('totalPrice').split(', ')[1];
-        sum = storage.getItem('totalPrice').split(', ')[2];        
-    }
 }
 
 //Reset總金額
