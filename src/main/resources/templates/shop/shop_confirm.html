@@ -15,6 +15,8 @@
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/shoppingcart/confirm.js" th:src="@{/js/shoppingcart/confirm.js}"></script>
 
 </head>
 
@@ -186,7 +188,7 @@
 
 
                         <div class="card table-responsive">
-                            <table class="table table-borderless border-0 mt-5" width="100%">
+                            <table id="cartList" class="table table-borderless border-0 mt-5" width="100%">
                                 <thead class="border-bottom">
                                     <tr>
                                         <th width="50%" class="text-start">品項</th>
@@ -194,7 +196,8 @@
                                         <th width="25%">價格</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <!-- 動態新增部分 -->
+                                <!-- <tbody>
                                     <tr class="border-bottom my-2">
                                         <td>
                                             <h6>商品名稱</h6>
@@ -225,9 +228,10 @@
                                         <td><span>2160</span>TWD</td>
                                     </tr>
 
-                                </tbody>
-
+                                </tbody> -->
+                                <!-- 動態新增部分 結束-->
                             </table>
+                            
                             <li class="row w-100 mb-2 px-2 flex-wrap col-sm-1">
                                 <div class="col-md-10 text-end">運費</div>
                                 <div class="col-md-2 text-end"><span id="freight">60</span>TWD</div>

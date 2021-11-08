@@ -23,15 +23,7 @@ function doFirst(){
     }
 }
 function addItem(itemId,itemValue){
-    // let image = document.createElement('img');
-    // image.src = 'imgs/' + itemValue.split('|')[1];
-
-    // let title = document.createElement('span');
-    // title.innerText = itemValue.split('|')[0];
-
-    // let price = document.createElement('span');
-    // price.innerText = itemValue.split('|')[2];
-
+    
     // 存入 storage
     if(storage[itemId]){
         alert('已加入購物車')

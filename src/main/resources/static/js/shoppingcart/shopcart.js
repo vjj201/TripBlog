@@ -23,36 +23,14 @@ function doFirst(){
         let itemPrice = parseInt(itemInfo.split('|')[2]);
         total += itemPrice;
     }
-
-    //結帳按鈕
-    let check = document.getElementById('checkPayment'); //list是陣列
-    check.addEventListener('click',function(e){
-        console.log("結帳去～");
-        storage.clear();
-
-    //         let title = itemValue.split('|')[0];
-    //         let image = itemValue.split('|')[1];
-    //         let price = itemValue.split('|')[2];
-
-    //         itemValue = [title, image, price];
-    //         storage.setItem(itemId, JSON.stringify(itemValue));
-    //         console.log(itemId);
-    //         let itemJson = JSON.parse(storage.getItem(itemId));
-    //         console.log(typeof(itemJson));
-    //         console.log(itemJson);
-
-    });
     
     //總金額計算
-    sum = total + deliverFee;
-
     if(itemString.length == 0) {
         document.getElementById('items').innerText = 0;
     } else {
         document.getElementById('items').innerText = itemsCount;
     }
-    document.getElementById('itemsPrice').innerText = total;
-    document.getElementById('total').innerText = sum;
+    document.getElementById('total').innerText = total;
 }
 function createCartList(itemId, itemValue){
     // alert(`${itemId} : ${itemValue}`)
@@ -112,6 +90,7 @@ function createCartList(itemId, itemValue){
     inputItemCount.min = 1;
     inputItemCount.max = 50;
     inputItemCount.style.width = '50px'
+    inputItemCount.id = itemId + 'num';
     inputItemCount.addEventListener('input', changeItemCount);
 
     tdItemCount.appendChild(inputItemCount);
@@ -140,9 +119,7 @@ function deleteItem(){
     total -= itemPrice * itemCount;
     itemsCount = itemsCount - itemCount;
 
-    document.getElementById('itemsPrice').innerText = total;
-    sum = parseInt(total) + deliverFee;
-    document.getElementById('total').innerText = sum;
+    document.getElementById('total').innerText = total;
     document.getElementById('items').innerText = itemsCount;
 
     // 2. 清除 storage
@@ -164,32 +141,64 @@ function changeItemCount(){
     let itemOldCount = parseInt(itemOldPrice) / itemPrice;
 
     //計算商品總數
-    itemsCount = parseInt(itemsCount) - itemOldCount + parseInt(this.value)
+    itemNum = parseInt(this.value);
+    itemsCount = parseInt(itemsCount) - itemOldCount + parseInt(this.value);
     document.getElementById('items').innerText = itemsCount;
 
     //計算商品金額、總金額
     this.parentNode.previousSibling.innerText = subtotal;
     total = total - itemOldPrice + subtotal;
-    document.getElementById('itemsPrice').innerText = total;
-    sum = parseInt(total) + deliverFee;
-    document.getElementById('total').innerText = sum;
-}
-//運費選擇
-function selectDeliver(){
-    //抓取select的選項
-    var myselect = document.getElementById("deliver").value;
-    //設定對應的運費金額
-    if (myselect == 2){
-        deliverFee = 100;
-    } else if (myselect == 3) {
-        deliverFee = 500;
-    } else { deliverFee = 0;}
-    //把相對應的值放入運費欄
-    document.getElementById('deliverFee').innerText = deliverFee;
-    
-    //更改總金額
-    total = document.getElementById('itemsPrice').innerText;
-    sum = parseInt(total) + deliverFee;
-    document.getElementById('total').innerText = sum;
+    document.getElementById('total').innerText = total;
 }
 window.addEventListener('load', doFirst);
+
+//-------------------------------------------------------------
+
+$(function () {
+
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+
+     //結帳按鈕
+    $(document).on('click', '#checkPayment', function (e) {
+
+        let itemString = storage.getItem('addItemList');
+        items = itemString.substr(0, itemString.length - 2).split(', ');
+        console.log(items);
+        
+        JData = [];
+
+        for(let i = 0; i < items.length; i++){
+            let itemInfo = storage.getItem(items[i]);
+
+            let title = itemInfo.split('|')[0];
+            let itemId = itemInfo.split('|')[1];
+            let price = itemInfo.split('|')[2];
+            let productNum = itemId + "num";
+            let count = document.getElementById(productNum).value;
+            let infoStr = title + "|" + itemId + "|" + price + "|" + count;
+            console.log(infoStr);
+            storage.setItem(itemId, infoStr);
+            // JData[i] = {title, itemId, price, count}
+        }
+
+    //     console.log(JData);
+    //     // storage.clear();
+    //     $.ajax({
+    //         url: '/shop/checkShopCart',
+    //         type: 'POST',
+    //         async: false,
+    //         contentType: 'application/json;charset=utf-8',
+    //         data: JSON.stringify(JData),
+    //         success: function (response) {
+    //             console.log("傳送成功");  
+    //         }
+    //     });
+        
+    });
+
+});

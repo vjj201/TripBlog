@@ -8,10 +8,9 @@ function doFirst() {
     let list = document.querySelectorAll('.addButton'); //list是陣列
     for (let i = 0; i < list.length; i++) {
         list[i].addEventListener('click', function (e) {
-            console.log("點擊加入購物車");
             let productName = document.getElementById(this.id);
             let productInfo = productName.querySelector(`.info`).value;
-            console.log(productInfo);
+            console.log("點擊加入購物車:" + productInfo);
             let productId = productInfo.split('|')[1];
             addItem(productId, productInfo);
         });
