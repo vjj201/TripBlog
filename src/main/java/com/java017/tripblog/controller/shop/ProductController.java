@@ -55,6 +55,12 @@ public class ProductController {
         return "/shop/shop_index";
     }
 
+    //購物車頁
+    @GetMapping("/shopcart")
+    public String shopCartPage() {
+        return "/shop/shop_shopcart";
+    }
+
     @PostMapping("/{page}")
     public String searchProduct(@PathVariable int page, @RequestBody ProductQuery productQuery, Model model) {
         Page<Product> productPage = productService.findProductPageByQuery(page, productQuery);

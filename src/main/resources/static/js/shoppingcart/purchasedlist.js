@@ -4,20 +4,12 @@
         title: '商品編號',
         sortable:true //设置ID列可以排序
     }, {
-        field: 'ProductName',
-        title: '商品名稱',
+        field: 'orderTime',
+        title: '購買日期',
         sortable:true //设置ID列可以排序
     }, {
         field: 'ShippingStatus',
         title: '出貨狀態',
-        sortable:true //设置ID列可以排序
-    }, {
-        field: 'Qty',
-        title: '數量',
-        sortable:true //设置ID列可以排序
-    }, {
-        field: 'UnitPrice',
-        title: '單價',
         sortable:true //设置ID列可以排序
     }, {
         field: 'total',

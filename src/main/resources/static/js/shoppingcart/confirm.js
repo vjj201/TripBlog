@@ -84,7 +84,6 @@ function createCartList(itemId, itemValue){
 
             JData[i] = {productId, title, quantity}
         }
-        alert(JSON.stringify(JData));
 
         if (storage['totalPrice'] != null) {
             storage.removeItem('totalPrice'); //storage.setItem('addItemList','');
@@ -97,9 +96,20 @@ function createCartList(itemId, itemValue){
                 async: false,
                 contentType: 'application/json;charset=utf-8',
                 data: JSON.stringify(JData),
-                success: function () {
-                    console.log("傳送成功");
-                    storage.clear();
+                statusCode : {
+                    200 : function (response) {
+                        storage.clear();
+                        alert(response);
+                        document.location.href = "/shop/orderList";
+                    },
+                    202 : function (response) {
+                        storage.clear();
+                        alert(response);
+                        document.location.href = "/shop";
+                    },
+                    400 : function (response) {
+                        alert(response);
+                    }
                 }
             });
     });

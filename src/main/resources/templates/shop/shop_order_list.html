@@ -146,46 +146,25 @@
                         <thead>
                         <tr>
                             <th scope="col" class="sortable both" data-field="Id" data-sortable="true">商品編號</th>
-                            <th scope="col" class="sortable both" data-field="ProductName"  data-sortable="true">商品名稱</th>
+                            <th scope="col" class="sortable both" data-field="orderTime"  data-sortable="true">購買日期</th>
                             <th scope="col" class="sortable both" data-field="ShippingStatus"  data-sortable="true">出貨狀態</th>
-                            <th scope="col" class="sortable both" data-field="Qty"  data-sortable="true">數量</th>
-                            <th scope="col" class="sortable both" data-field="UnitPrice"  data-sortable="true">單價</th>
-                            <th scope="col" class="sortable both" data-field="total"  data-sortable="true">小計</th>
+                            <th scope="col" class="sortable both" data-field="total"  data-sortable="true">金額</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>滷蛋</td>
-                            <td>待出貨</td>
-                            <td>1</td>
-                            <td>$10</td>
-                            <td>$10</td>
+                        <tr th:each="productOrder : ${productOrderList}">
+                            <th th:text="${productOrder.id}" scope="row">1</th>
+                            <td th:text="${#dates.format(productOrder.orderTime, 'yyyy-MM-dd HH:mm')}">date</td>
+                            <td th:text="${productOrder.orderStatus == -1} ? '待出貨' : (${productOrder.orderStatus == 0} ? '運送中' : '已收件')">待出貨</td>
+                            <td><span th:text="${productOrder.amounts}">10</span>TWD</td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>茶葉蛋</td>
-                            <td>待收貨</td>
-                            <td>3</td>
-                            <td>$20</td>
-                            <td>$60</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>雲朵千層蛋</td>
-                            <td>訂單已完成</td>
-                            <td>5</td>
-                            <td>$30</td>
-                            <td>$150</td>
-                        </tr>
+
+
                         </tbody>
                     </table>
                     <hr style="box-sizing:border-box">
                     <div class="d-flex justify-content-end">
-                    <tr>
-                        <th scope="row">總計：</th>
-                        <th scope="row">$1000</th>
-                    </tr>
+
                     </div>
                   </div>
                 </div>

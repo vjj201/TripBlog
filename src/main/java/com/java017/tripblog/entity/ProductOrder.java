@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author YuCheng
@@ -22,11 +20,14 @@ public class ProductOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //訂單金額
     private Integer amounts;
-
-    //運費
     private Integer freight;
+    private String receiver;
+    private String deliver;
+    private String address;
+    private String payment;
+    private String cardOwner;
+    private String cardNumber;
 
     //訂單狀態(待出貨-1、運送中0、已收件1)
     private Integer orderStatus;
@@ -42,7 +43,7 @@ public class ProductOrder {
     @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "orderItems", referencedColumnName = "id")
-    Set<Item> orderItems = new LinkedHashSet<>();
+    List<Item> orderItems;
 
     public Long getId() {
         return id;
@@ -84,11 +85,11 @@ public class ProductOrder {
         this.user = user;
     }
 
-    public Set<Item> getOrderItems() {
+    public List<Item> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(Set<Item> orderItems) {
+    public void setOrderItems(List<Item> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -100,16 +101,69 @@ public class ProductOrder {
         this.freight = freight;
     }
 
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getDeliver() {
+        return deliver;
+    }
+
+    public void setDeliver(String deliver) {
+        this.deliver = deliver;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public String getCardOwner() {
+        return cardOwner;
+    }
+
+    public void setCardOwner(String cardOwner) {
+        this.cardOwner = cardOwner;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
     @Override
     public String toString() {
         return "ProductOrder{" +
                 "id=" + id +
                 ", amounts=" + amounts +
                 ", freight=" + freight +
+                ", receiver='" + receiver + '\'' +
+                ", deliver='" + deliver + '\'' +
+                ", address='" + address + '\'' +
+                ", payment='" + payment + '\'' +
+                ", cardOwner='" + cardOwner + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
                 ", orderStatus=" + orderStatus +
                 ", orderTime=" + orderTime +
                 ", user=" + user +
-                ", orderItems=" + orderItems +
                 '}';
     }
 }
