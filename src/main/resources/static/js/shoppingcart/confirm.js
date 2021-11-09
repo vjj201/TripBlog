@@ -57,7 +57,7 @@ function createCartList(itemId, itemValue){
     trItemList.appendChild(tdItemPrice);
 
     //確認按鈕
-    document.getElementById('comfirmPayment').addEventListener('click', function (e) {
+    document.getElementById('confirmPayment').addEventListener('click', function (e) {
         storage.clear();
     });
 }

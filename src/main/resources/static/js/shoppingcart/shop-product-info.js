@@ -48,3 +48,13 @@ function addItem(itemId,itemValue){
     // document.getElementById('subtotal').innerText = subtotal;
 }
 window.addEventListener('load', doFirst);
+
+$(function () {
+
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+});

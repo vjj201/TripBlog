@@ -1,7 +1,16 @@
 package com.java017.tripblog.controller.shop;
 
+import com.java017.tripblog.entity.Intro;
+import com.java017.tripblog.entity.Product;
+import com.java017.tripblog.entity.User;
+import com.java017.tripblog.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @author YuCheng
@@ -10,6 +19,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ShopPageController {
+
+    private final ProductService productService;
+
+    @Autowired
+    public ShopPageController(ProductService productService) {
+        this.productService = productService;
+    }
 
     //購物車頁
     @GetMapping("/shop/shopcart")
@@ -24,4 +40,13 @@ public class ShopPageController {
         return "/shop/shop_order_list";
     }
 
+    //檢查商品庫存
+    @ResponseBody
+    @PostMapping("/shop/productStock/{id}")
+    public boolean updateIntro(@PathVariable Long id, @RequestParam Map<String, String> params) {
+
+        Product product = productService.findProductById(id);
+        System.out.println("產品資訊 ：" + product);
+        return product.getInStock() >= Integer.parseInt(params.get("count"));
+    }
 }
