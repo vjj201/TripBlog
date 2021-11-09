@@ -19,7 +19,17 @@ public class Item {
 
     private Integer quantity;
 
+    private Integer price;
+
     private String title;
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public Long getId() {
         return id;
@@ -59,6 +69,7 @@ public class Item {
                 "id=" + id +
                 ", productId=" + productId +
                 ", quantity=" + quantity +
+                ", price=" + price +
                 ", title='" + title + '\'' +
                 '}';
     }

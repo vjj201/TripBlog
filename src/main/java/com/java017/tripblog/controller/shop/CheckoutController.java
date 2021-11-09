@@ -21,9 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author YuCheng
@@ -126,7 +124,7 @@ public class CheckoutController {
                                            HttpSession session,
                                            SessionStatus sessionStatus) {
         System.out.println("donePage:" + checkout);
-        String message = "";
+        StringBuilder message = new StringBuilder();
         int amounts = 0;
         for (Item item : itemList) {
             Product product = productService.findProductById(item.getProductId());
@@ -137,15 +135,23 @@ public class CheckoutController {
             if (inStock >= orderQuantity) {
                 product.setInStock(inStock - orderQuantity);
                 product.setAlreadySold(product.getAlreadySold() + orderQuantity);
-                amounts += product.getPrice() * orderQuantity;
+                Integer price = product.getPrice();
+
+                if(price.equals(item.getPrice())) {
+                    amounts += price * orderQuantity;
+                } else {
+                    message.append(item.getTitle() + "金額不符" + ".\n") ;
+                }
+
+
             } else {
-                message += item.getTitle() + "庫存少於" + orderQuantity + "\n";
+                message.append(item.getTitle() + "庫存少於" + orderQuantity + ".\n");
             }
         }
 
-        if (!"".equals(message)) {
+        if (message.length() != 0) {
             System.out.println("訂單有錯誤");
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(message.toString(), HttpStatus.BAD_REQUEST);
         }
 
         amounts += checkout.getFreight();
@@ -164,33 +170,45 @@ public class CheckoutController {
         productOrder.setOrderTime(new Date());
         if (session.getAttribute("user") == null) {
             productOrderService.createOrUpdate(productOrder);
-            message = "親愛的訪客，感謝您的購買，訂單編號:" +
+            message.append("親愛的訪客，感謝您的購買，訂單編號:" +
                     productOrder.getId().toString() +
-                    "，請妥善保存";
+                    "，請妥善保存");
             sessionStatus.setComplete();
-            return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(message.toString(), HttpStatus.ACCEPTED);
         }
 
         Long userId = userService.getCurrentUser().getId();
         User user = userService.findUserById(userId);
         productOrder.setUser(user);
         productOrderService.createOrUpdate(productOrder);
-
-        message = "Dear" + user.getNickname() + "，感謝您的購買，訂單編號:" +
+        message.append("Dear" + user.getNickname() + "，感謝您的購買，訂單編號:" +
                 productOrder.getId().toString() +
-                "，請妥善保存";
+                "，請妥善保存");
 
         sessionStatus.setComplete();
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return new ResponseEntity<>(message.toString(), HttpStatus.OK);
     }
 
     //已購買清單
     @GetMapping("/orderList")
     public String orderListPage(Model model,HttpSession session) {
         User user = (User)session.getAttribute("user");
+        if (ObjectUtils.isEmpty(user)) {
+            return "redirect:/user/loginPage";
+        }
         List<ProductOrder> productOrderList = productOrderService.findAllByUser(userService.findUserById(user.getId()));
+
         model.addAttribute("productOrderList", productOrderList);
         return "/shop/shop_order_list";
+    }
+
+    //訂單詳細頁
+    @GetMapping("/productOrder/{id}")
+    public String productOrderPage(@PathVariable Long id, Model model) {
+        ProductOrder productOrder = productOrderService.findById(id);
+        model.addAttribute("productOrder", productOrder);
+        model.addAttribute("itemList", productOrder.getOrderItems());
+        return "/shop/shop_order_info";
     }
 
 

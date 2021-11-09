@@ -81,8 +81,9 @@ function createCartList(itemId, itemValue){
             let productId = itemInfo.split('|')[1];
             let title = itemInfo.split('|')[0];
             let quantity = itemInfo.split('|')[3];
+            let price = itemInfo.split('|')[2];
 
-            JData[i] = {productId, title, quantity}
+            JData[i] = {productId, title, quantity , price};
         }
 
         if (storage['totalPrice'] != null) {
