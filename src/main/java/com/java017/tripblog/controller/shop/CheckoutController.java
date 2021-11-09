@@ -1,5 +1,6 @@
 package com.java017.tripblog.controller.shop;
 
+import com.java017.tripblog.entity.Item;
 import com.java017.tripblog.service.CityService;
 import com.java017.tripblog.vo.CheckoutSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.List;
 
 /**
  * @author YuCheng
@@ -56,10 +59,13 @@ public class CheckoutController {
             checkout.setDistrict(checkoutSession.getDistrict());
             checkout.setAddress(checkoutSession.getAddress());
             checkout.setDeliver(checkoutSession.getDeliver());
+            checkout.setFreight(checkoutSession.getFreight());
             model.addAttribute("checkout", checkout);
+
+            System.out.println(checkout);
             return;
         }
-
+        System.out.println(checkoutSession);
         model.addAttribute("checkout", checkoutSession);
     }
 
@@ -89,8 +95,15 @@ public class CheckoutController {
     }
 
     //訂單完成頁
-    @GetMapping("/done")
-    public String donePage(SessionStatus sessionStatus) {
+    @PostMapping("/done")
+    public String donePage(@SessionAttribute(name = "checkout", required = false) CheckoutSession checkout,
+                           @RequestBody List<Item> itemList,
+                           SessionStatus sessionStatus) {
+        System.out.println("donePage");
+
+        for(Item item : itemList) {
+            System.out.println(item);
+        }
         sessionStatus.setComplete();
         return "/shop/shop_done";
     }

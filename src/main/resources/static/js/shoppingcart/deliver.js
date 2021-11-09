@@ -51,6 +51,24 @@ function doFirst(){
     spanCurrency.innerText = "TWD"
     spanDeliverFee.appendChild(spanCurrency);
 
+    let location =  $('#location').val();
+
+    if(location === '外島') {
+        $('#freight').text(180);
+    }
+
+    if(location === '南部') {
+        $('#freight').text(100);
+    }
+
+    if(location === '中部') {
+        $('#freight').text(80);
+    }
+
+    if(location === '北部') {
+        $('#freight').text(60);
+    }
+
     // 建立總金額li
     let liITotal = document.createElement('li');
     liITotal.className = 'list-group-item d-flex justify-content-between';
@@ -213,8 +231,9 @@ $(function () {
         let location =  $('#location').val();
         let city =  $('#city').val();
         let district =  $('#district').val();
-        let address =  $('#address').val();
+        let freight =  $('#freight').text();
         let deliver =  $("input[name='deliver']:checked").val();
+        let address =  $('#address').val();
 
         let error = {};
         if('' === receiver) {
@@ -251,6 +270,7 @@ $(function () {
         data['district'] = district;
         data['address'] = address;
         data['deliver'] = deliver;
+        data['freight'] = freight;
 
         $.ajax({
             url: '/shop/deliver/done',

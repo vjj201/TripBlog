@@ -8,6 +8,9 @@
     <meta name="description" content="Confirm">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -253,7 +256,7 @@
                                 </div>
 
                                 <div class="col-6">
-                                    <a id="comfirmPayment" class="btn btn-info form-control fs-5 shadow-sm w-50" th:href="@{/shop/done}">
+                                    <a id="confirmPayment" class="btn btn-info form-control fs-5 shadow-sm w-50" th:href="@{/shop/done}">
                                         確認付款
                                     </a>
                                 </div>

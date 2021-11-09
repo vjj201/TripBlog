@@ -12,9 +12,18 @@ public class CheckoutSession {
     private String district;
     private String address;
     private String deliver;
+    private Integer freight;
     private String payment;
     private String cardOwner;
     private String cardNumber;
+
+    public Integer getFreight() {
+        return freight;
+    }
+
+    public void setFreight(Integer freight) {
+        this.freight = freight;
+    }
 
     public String getReceiver() {
         return receiver;
@@ -101,6 +110,7 @@ public class CheckoutSession {
                 ", district='" + district + '\'' +
                 ", address='" + address + '\'' +
                 ", deliver='" + deliver + '\'' +
+                ", freight=" + freight +
                 ", payment='" + payment + '\'' +
                 ", cardOwner='" + cardOwner + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +

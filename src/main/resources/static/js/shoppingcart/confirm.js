@@ -1,5 +1,13 @@
 let storage = localStorage;
 function doFirst(){
+
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
+    });
+
 	let itemString = storage.getItem('addItemList');
     items = itemString.substr(0, itemString.length - 2).split(', ');
     console.log(items);
@@ -57,8 +65,43 @@ function createCartList(itemId, itemValue){
     trItemList.appendChild(tdItemPrice);
 
     //確認按鈕
-    document.getElementById('comfirmPayment').addEventListener('click', function (e) {
-        storage.clear();
+    document.getElementById('confirmPayment').addEventListener('click', function (e) {
+
+        e.preventDefault();
+
+        let itemString = storage.getItem('addItemList');
+        let items = itemString.substr(0, itemString.length - 2).split(', ');
+        console.log(items);
+
+        let JData = [];
+
+        for(let i = 0; i < items.length; i++){
+            let itemInfo = storage.getItem(items[i]);
+
+            let productId = itemInfo.split('|')[1];
+            let title = itemInfo.split('|')[0];
+            let quantity = itemInfo.split('|')[3];
+
+            JData[i] = {productId, title, quantity}
+        }
+        alert(JSON.stringify(JData));
+
+        if (storage['totalPrice'] != null) {
+            storage.removeItem('totalPrice'); //storage.setItem('addItemList','');
+        }
+
+        console.log(JData);
+            $.ajax({
+                url: '/shop/done',
+                type: 'POST',
+                async: false,
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(JData),
+                success: function () {
+                    console.log("傳送成功");
+                    storage.clear();
+                }
+            });
     });
 }
 window.addEventListener('load', doFirst);
