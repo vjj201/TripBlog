@@ -1,5 +1,10 @@
 let storage = localStorage;
 function doFirst(){
+    // 重新載入頁面，將location值清除
+    document.getElementById("location").value = null;
+    document.getElementById("city").value = null;
+    document.getElementById("district").value = null;
+
 	let itemString = storage.getItem('addItemList');
     items = itemString.substr(0, itemString.length - 2).split(', ');
     console.log(items);

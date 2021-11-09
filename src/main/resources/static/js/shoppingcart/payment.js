@@ -129,7 +129,13 @@ $(function () {
         return str;
     }
 
-
+    //上一步按鈕，刪除運費紀錄
+    $('#lastStep').click(function (e) {
+        if (storage['totalPrice'] != null) {
+            storage.removeItem('totalPrice'); //storage.setItem('addItemList','');
+        }
+    });
+    
     //提交
     $('#submit').click(function (e) {
        e.preventDefault();
