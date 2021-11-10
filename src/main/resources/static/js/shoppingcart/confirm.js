@@ -109,7 +109,7 @@ function createCartList(itemId, itemValue){
                         document.location.href = "/shop";
                     },
                     400 : function (response) {
-                        alert(response);
+                        alert(JSON.stringify(response.responseText));
                     }
                 }
             });

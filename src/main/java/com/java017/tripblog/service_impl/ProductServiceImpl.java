@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional(rollbackForClassName = "RuntimeException")
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;

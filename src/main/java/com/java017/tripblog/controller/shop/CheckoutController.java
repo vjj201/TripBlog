@@ -13,13 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -116,14 +118,15 @@ public class CheckoutController {
     }
 
     //訂單完成
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @ResponseBody
     @PostMapping("/done")
     public ResponseEntity<String> donePage(@SessionAttribute(name = "checkout", required = false) CheckoutSession checkout,
                                            @RequestBody List<Item> itemList,
                                            HttpSession session,
                                            SessionStatus sessionStatus) {
-        System.out.println("donePage:" + checkout);
+
+
         StringBuilder message = new StringBuilder();
         int amounts = 0;
         for (Item item : itemList) {
@@ -137,20 +140,25 @@ public class CheckoutController {
                 product.setAlreadySold(product.getAlreadySold() + orderQuantity);
                 Integer price = product.getPrice();
 
-                if(price.equals(item.getPrice())) {
+                if (price.equals(item.getPrice())) {
                     amounts += price * orderQuantity;
                 } else {
-                    message.append(item.getTitle() + "金額不符" + ".\n") ;
+                    message.append(item.getTitle()).append("金額不符.");
                 }
 
 
             } else {
-                message.append(item.getTitle() + "庫存少於" + orderQuantity + ".\n");
+                message.append(item.getTitle()).append("庫存少於").append(orderQuantity).append(".");
             }
         }
 
         if (message.length() != 0) {
-            System.out.println("訂單有錯誤");
+            try {
+                throw new RuntimeException("訂單有錯誤:" + message);
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            }
             return new ResponseEntity<>(message.toString(), HttpStatus.BAD_REQUEST);
         }
 
@@ -170,9 +178,9 @@ public class CheckoutController {
         productOrder.setOrderTime(new Date());
         if (session.getAttribute("user") == null) {
             productOrderService.createOrUpdate(productOrder);
-            message.append("親愛的訪客，感謝您的購買，訂單編號:" +
-                    productOrder.getId().toString() +
-                    "，請妥善保存");
+            message.append("親愛的訪客，感謝您的購買，訂單編號:").
+                    append(productOrder.getId().toString()).
+                    append("，請妥善保存");
             sessionStatus.setComplete();
             return new ResponseEntity<>(message.toString(), HttpStatus.ACCEPTED);
         }
@@ -181,9 +189,10 @@ public class CheckoutController {
         User user = userService.findUserById(userId);
         productOrder.setUser(user);
         productOrderService.createOrUpdate(productOrder);
-        message.append("Dear" + user.getNickname() + "，感謝您的購買，訂單編號:" +
-                productOrder.getId().toString() +
-                "，請妥善保存");
+        message.append("Dear").append(user.getNickname()).
+                append("，感謝您的購買，訂單編號:").
+                append(productOrder.getId().toString()).
+                append("，請妥善保存");
 
         sessionStatus.setComplete();
         return new ResponseEntity<>(message.toString(), HttpStatus.OK);
@@ -191,8 +200,8 @@ public class CheckoutController {
 
     //已購買清單
     @GetMapping("/orderList")
-    public String orderListPage(Model model,HttpSession session) {
-        User user = (User)session.getAttribute("user");
+    public String orderListPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
         if (ObjectUtils.isEmpty(user)) {
             return "redirect:/user/loginPage";
         }
