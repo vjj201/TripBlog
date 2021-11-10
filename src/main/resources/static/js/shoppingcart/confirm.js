@@ -122,6 +122,4 @@ function createCartList(itemId, itemValue) {
 
 }
 
-
-
 window.addEventListener('load', doFirst);

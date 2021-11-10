@@ -4,7 +4,7 @@ function doFirst(){
     items = itemString.substr(0, itemString.length - 2).split(', ');
     console.log(items);
     
-    itemsCount = items.length;
+    itemsCount = 0;
     total = 0;
     deliverFee = 0;
     sum = 0;
@@ -19,17 +19,10 @@ function doFirst(){
     for(let i = 0; i < items.length; i++){
         let itemInfo = storage.getItem(items[i]);
         createCartList(items[i],itemInfo);
-
-        let itemPrice = parseInt(itemInfo.split('|')[2]);
-        total += itemPrice;
     }
     
-    //總金額計算
-    if(itemString.length == 0) {
-        document.getElementById('items').innerText = 0;
-    } else {
-        document.getElementById('items').innerText = itemsCount;
-    }
+    //總金額、數量計算
+    document.getElementById('items').innerText = itemsCount;
     document.getElementById('total').innerText = total;
 }
 function createCartList(itemId, itemValue){
@@ -76,8 +69,11 @@ function createCartList(itemId, itemValue){
     // 建立商品價格-- 第三個 td
     let tdPrice = document.createElement('td');
     tdPrice.style.width = '100px';
-    tdPrice.innerText = itemPrice;
 
+    if (itemValue.split('|')[3] != null) {
+        itemPrice = parseInt(itemValue.split('|')[3]) * parseInt(itemValue.split('|')[2]);
+    } 
+    tdPrice.innerText = itemPrice;
     trItemList.appendChild(tdPrice);
 
     // 建立商品數量-- 第四個 td
@@ -93,8 +89,13 @@ function createCartList(itemId, itemValue){
     inputItemCount.id = itemId + 'num';
     inputItemCount.addEventListener('input', changeItemCount);
 
+    if (itemValue.split('|')[3] != null) {
+        inputItemCount.value = itemValue.split('|')[3];
+    } else {inputItemCount.value = 1;}
+
     tdItemCount.appendChild(inputItemCount);
     trItemList.appendChild(tdItemCount);
+    itemsCount +=  parseInt(inputItemCount.value);  
 
     // 建立移除按鈕-- 第五個 td
     let tdRemove = document.createElement('td');
@@ -105,6 +106,9 @@ function createCartList(itemId, itemValue){
 
     tdRemove.appendChild(delButton);
     trItemList.appendChild(tdRemove);
+
+    // 計算總金額
+    total += parseInt(itemPrice);
 }
 function deleteItem(){
     let itemId = this.parentNode.previousSibling.previousSibling.previousSibling.id;
@@ -117,7 +121,7 @@ function deleteItem(){
     let itemCount = parseInt(this.parentNode.previousSibling.previousSibling.innerText) / itemPrice;
     
     total -= itemPrice * itemCount;
-    itemsCount = itemsCount - itemCount;
+    itemsCount -= itemCount;
 
     document.getElementById('total').innerText = total;
     document.getElementById('items').innerText = itemsCount;
@@ -142,8 +146,9 @@ function changeItemCount(){
 
     //計算商品總數
     itemNum = parseInt(this.value);
-    itemsCount = parseInt(itemsCount) - itemOldCount + parseInt(this.value);
+    itemsCount = parseInt(itemsCount) - itemOldCount + parseInt(itemNum);
     document.getElementById('items').innerText = itemsCount;
+
 
     //計算商品金額、總金額
     this.parentNode.previousSibling.innerText = subtotal;
@@ -165,13 +170,11 @@ $(function () {
 
      //結帳按鈕
     $(document).on('click', '#checkPayment', function (e) {
-
+        let stockCheck = true;
         let itemString = storage.getItem('addItemList');
         items = itemString.substr(0, itemString.length - 2).split(', ');
         console.log(items);
         
-        JData = [];
-
         for(let i = 0; i < items.length; i++){
             let itemInfo = storage.getItem(items[i]);
 
@@ -183,24 +186,34 @@ $(function () {
             let infoStr = title + "|" + itemId + "|" + price + "|" + count;
             console.log(infoStr);
             storage.setItem(itemId, infoStr);
-            // JData[i] = {title, itemId, price, count}
-        }
 
+            //創建物件
+            let data = {};
+            data['count'] = parseInt(count);
+
+            $.ajax({
+                url: '/shop/productStock/' + itemId,
+                type: 'POST',
+                async: false,
+                data: data,
+                success: function (response) {
+                    if (response){
+                        console.log("庫存足夠");
+                    } else {
+                        alert(title + "庫存不足，請更改訂購數量");
+                        stockCheck = false;
+                    }
+                }
+            });
+        }
+        if (stockCheck) {window.location.href = "deliver";}
+    
         if (storage['totalPrice'] != null) {
             storage.removeItem('totalPrice'); //storage.setItem('addItemList','');
         }
-    //     console.log(JData);
-    //     // storage.clear();
-    //     $.ajax({
-    //         url: '/shop/checkShopCart',
-    //         type: 'POST',
-    //         async: false,
-    //         contentType: 'application/json;charset=utf-8',
-    //         data: JSON.stringify(JData),
-    //         success: function (response) {
-    //             console.log("傳送成功");  
-    //         }
-    //     });
+
+        
+        
         
     });
 

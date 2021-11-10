@@ -271,14 +271,14 @@
                                 </a>
 
                                 <div class="card-body">
-                                    <div class="row">
+                                    <div class="row d-flex bd-highlight mb-3">
 
-                                        <a class="col-6 link-dark text-decoration-none" href="#"
+                                        <a class="col-auto link-dark text-decoration-none p-2 bd-highlight" href="#"
                                            th:href="@{'/shop/product/'+${product.id}}">
                                             <h5 class="card-title" th:text="${product.productName}">商品名稱</h5>
                                         </a>
 
-                                        <div class="col-6 text-end">
+                                        <div class="col-auto text-end ms-auto p-2 bd-highlight">
                                             <p><span id="price" th:text="${product.price}">100</span> TWD</p>
                                         </div>
 
