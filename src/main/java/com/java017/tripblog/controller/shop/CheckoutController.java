@@ -159,7 +159,7 @@ public class CheckoutController {
                 System.out.println(e.getMessage());
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             }
-            return new ResponseEntity<>(message.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(message.toString(), HttpStatus.SERVICE_UNAVAILABLE);
         }
 
         amounts += checkout.getFreight();

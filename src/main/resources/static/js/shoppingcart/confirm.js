@@ -1,5 +1,6 @@
 let storage = localStorage;
-function doFirst(){
+
+function doFirst() {
 
     //csrf防護
     let token = $("meta[name='_csrf']").attr("content");
@@ -8,7 +9,9 @@ function doFirst(){
         xhr.setRequestHeader(header, token);
     });
 
-	let itemString = storage.getItem('addItemList');
+
+
+    let itemString = storage.getItem('addItemList');
     items = itemString.substr(0, itemString.length - 2).split(', ');
     console.log(items);
     itemsCount = items.length;
@@ -21,11 +24,64 @@ function doFirst(){
     //動態新增開始購物車
     newTbody = document.createElement('tbody');
     document.getElementById('cartList').appendChild(newTbody);
-    
-    for(let i = 0; i < items.length; i++){
+
+    for (let i = 0; i < items.length; i++) {
         let itemInfo = storage.getItem(items[i]);
-        createCartList(items[i],itemInfo);
+        createCartList(items[i], itemInfo);
     }
+
+    //確認按鈕
+    $('#confirmPayment').one('click', function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        let itemString = storage.getItem('addItemList');
+        let items = itemString.substr(0, itemString.length - 2).split(', ');
+        console.log(items);
+
+        let JData = [];
+
+        for (let i = 0; i < items.length; i++) {
+            let itemInfo = storage.getItem(items[i]);
+
+            let productId = itemInfo.split('|')[1];
+            let title = itemInfo.split('|')[0];
+            let quantity = itemInfo.split('|')[3];
+            let price = itemInfo.split('|')[2];
+
+            JData[i] = {productId, title, quantity, price};
+        }
+
+        if (storage['totalPrice'] != null) {
+            storage.removeItem('totalPrice'); //storage.setItem('addItemList','');
+        }
+
+        $.ajax({
+            url: '/shop/done',
+            type: 'POST',
+            async: false,
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(JData),
+            statusCode: {
+                200: function (response) {
+                    storage.clear();
+                    alert(response);
+                    document.location.href = "/shop/orderList";
+                },
+                202: function (response) {
+                    storage.clear();
+                    alert(response);
+                    document.location.href = "/shop";
+                },
+                503: function (response) {
+                    alert(JSON.stringify(response.responseText));
+                    document.location.href = "/shop";
+                }
+            }
+        });
+
+    });
 
     // 讀入運費與總金額
     document.getElementById('freight').innerText = storage.getItem('totalPrice').split(', ')[1];
@@ -33,7 +89,7 @@ function doFirst(){
 }
 
 //動態新增購物車商品方法
-function createCartList(itemId, itemValue){
+function createCartList(itemId, itemValue) {
     // alert(`${itemId} : ${itemValue}`)
     let itemTitle = itemValue.split('|')[0];
     let item = itemValue.split('|')[1];
@@ -64,55 +120,8 @@ function createCartList(itemId, itemValue){
     tdItemPrice.innerText = parseInt(itemNum) * itemPrice;
     trItemList.appendChild(tdItemPrice);
 
-    //確認按鈕
-    document.getElementById('confirmPayment').addEventListener('click', function (e) {
-
-        e.preventDefault();
-
-        let itemString = storage.getItem('addItemList');
-        let items = itemString.substr(0, itemString.length - 2).split(', ');
-        console.log(items);
-
-        let JData = [];
-
-        for(let i = 0; i < items.length; i++){
-            let itemInfo = storage.getItem(items[i]);
-
-            let productId = itemInfo.split('|')[1];
-            let title = itemInfo.split('|')[0];
-            let quantity = itemInfo.split('|')[3];
-            let price = itemInfo.split('|')[2];
-
-            JData[i] = {productId, title, quantity , price};
-        }
-
-        if (storage['totalPrice'] != null) {
-            storage.removeItem('totalPrice'); //storage.setItem('addItemList','');
-        }
-
-        console.log(JData);
-            $.ajax({
-                url: '/shop/done',
-                type: 'POST',
-                async: false,
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify(JData),
-                statusCode : {
-                    200 : function (response) {
-                        storage.clear();
-                        alert(response);
-                        document.location.href = "/shop/orderList";
-                    },
-                    202 : function (response) {
-                        storage.clear();
-                        alert(response);
-                        document.location.href = "/shop";
-                    },
-                    400 : function (response) {
-                        alert(JSON.stringify(response.responseText));
-                    }
-                }
-            });
-    });
 }
+
+
+
 window.addEventListener('load', doFirst);
