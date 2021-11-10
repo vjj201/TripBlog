@@ -128,7 +128,7 @@
         <!-- 頭貼 -->
         <div class="col-1 p-2">
             <!-- 頭像 -->
-            <img th:src="${session.user != null && session.user.isHasMemberPic() ? '/user/memberPic' : 'https://semantic-ui.com/images/avatar2/small/elyse.png'}" src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
+            <img th:src="${session.user != null && session.user.isHasMemberPic()} ? '/user/memberPic' : @{/images/oman_10_ani_10.svg}" src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
                  id="memberPic" class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;">
         </div>
 
