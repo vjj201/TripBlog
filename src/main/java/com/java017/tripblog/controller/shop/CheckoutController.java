@@ -8,6 +8,7 @@ import com.java017.tripblog.service.CityService;
 import com.java017.tripblog.service.ProductOrderService;
 import com.java017.tripblog.service.ProductService;
 import com.java017.tripblog.service.UserService;
+import com.java017.tripblog.util.OrderIdCreator;
 import com.java017.tripblog.vo.CheckoutSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author YuCheng
@@ -165,6 +167,7 @@ public class CheckoutController {
         amounts += checkout.getFreight();
         System.out.println("訂單總金額" + amounts);
         ProductOrder productOrder = new ProductOrder();
+        productOrder.setUuid(OrderIdCreator.createOrderNumber());
         productOrder.setAmounts(amounts);
         productOrder.setReceiver(checkout.getReceiver());
         productOrder.setFreight(checkout.getFreight());
@@ -179,8 +182,8 @@ public class CheckoutController {
         if (session.getAttribute("user") == null) {
             productOrderService.createOrUpdate(productOrder);
             message.append("親愛的訪客，感謝您的購買，訂單編號:").
-                    append(productOrder.getId().toString()).
-                    append("，請妥善保存");
+                    append(productOrder.getUuid()).
+                    append("，請妥善保存訂單，方便後續追蹤，完整功能也請註冊本站會員");
             sessionStatus.setComplete();
             return new ResponseEntity<>(message.toString(), HttpStatus.ACCEPTED);
         }
@@ -191,7 +194,7 @@ public class CheckoutController {
         productOrderService.createOrUpdate(productOrder);
         message.append("Dear").append(user.getNickname()).
                 append("，感謝您的購買，訂單編號:").
-                append(productOrder.getId().toString()).
+                append(productOrder.getUuid()).
                 append("，請妥善保存");
 
         sessionStatus.setComplete();

@@ -20,6 +20,8 @@ public class ProductOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String uuid;
+
     private Integer amounts;
     private Integer freight;
     private String receiver;
@@ -44,6 +46,14 @@ public class ProductOrder {
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "orderItems", referencedColumnName = "id")
     List<Item> orderItems;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public Long getId() {
         return id;
@@ -153,6 +163,7 @@ public class ProductOrder {
     public String toString() {
         return "ProductOrder{" +
                 "id=" + id +
+                ", uuid='" + uuid + '\'' +
                 ", amounts=" + amounts +
                 ", freight=" + freight +
                 ", receiver='" + receiver + '\'' +
@@ -164,6 +175,7 @@ public class ProductOrder {
                 ", orderStatus=" + orderStatus +
                 ", orderTime=" + orderTime +
                 ", user=" + user +
+                ", orderItems=" + orderItems +
                 '}';
     }
 }

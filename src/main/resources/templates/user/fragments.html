@@ -18,27 +18,27 @@
 <div th:fragment="userNav(page)" class="card-header d-flex sticky-top bg-gr0201 rounded-3">
     <ul class="nav nav-tabs card-header-tabs h4 mx-auto">
         <li class="nav-item me-3">
-            <a class="nav-link " href="my_space.html" th:classappend="${page==1} ? 'active disabled'" th:href="@{/user/space}">Introduce</a>
+            <a class="nav-link " href="my_space.html" th:classappend="${page==1} ? 'active disabled'" th:href="@{/user/space}">自我介紹</a>
         </li>
 
         <li class="nav-item me-3">
-            <a class="nav-link " href="my_article_travel.html" th:classappend="${page==2} ? 'active disabled'" th:href="@{/user/travel}">MyTravel</a>
+            <a class="nav-link " href="my_article_travel.html" th:classappend="${page==2} ? 'active disabled'" th:href="@{/user/travel}">景點文章</a>
         </li>
 
         <li class="nav-item me-3">
-            <a class="nav-link" href="my_article_eat.html" th:classappend="${page==3} ? 'active disabled'" th:href="@{/user/eat}">MyEat</a>
+            <a class="nav-link" href="my_article_eat.html" th:classappend="${page==3} ? 'active disabled'" th:href="@{/user/eat}">美食文章</a>
         </li>
 
         <li class="nav-item me-3">
-            <a class="nav-link " href="my_collection.html" th:classappend="${page==4} ? 'active disabled'" th:href="@{/user/collection}">MyCollect</a>
+            <a class="nav-link " href="my_collection.html" th:classappend="${page==4} ? 'active disabled'" th:href="@{/user/collection}">我的收藏</a>
         </li>
 
         <li class="nav-item me-3">
-            <a class="nav-link" href="my_profile.html" th:classappend="${page==5} ? 'active disabled'" th:href="@{/user/profile}">Edition</a>
+            <a class="nav-link" href="my_profile.html" th:classappend="${page==5} ? 'active disabled'" th:href="@{/user/profile}">個人資料</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link " href="my_notify.html" th:classappend="${page==6} ? 'active disabled'" th:href="@{/user/notify}">Message</a>
+            <a class="nav-link " href="my_notify.html" th:classappend="${page==6} ? 'active disabled'" th:href="@{/user/notify}">訊息通知</a>
         </li>
     </ul>
 </div>

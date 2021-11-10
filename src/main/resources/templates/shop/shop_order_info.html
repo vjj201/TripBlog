@@ -132,11 +132,11 @@
                     <div class="p-4">
 
                         <div class="row">
-                            <div class="col-6">
-                                <h4 class="mb-3">訂單編號:<span class="mx-2" th:text="${productOrder.id}"></span></h4>
+                            <div class="col-8">
+                                <h4 class="mb-3">訂單編號:<span class="mx-2" th:text="${productOrder.uuid}"></span></h4>
                             </div>
 
-                            <div class="col-6 text-end">
+                            <div class="col-4 text-end">
                                 <h4 class="mb-3">狀態:<span class="mx-2" th:text="${productOrder.orderStatus == -1} ? '待出貨' : (${productOrder.orderStatus == 0} ? '運送中' : '已收件')">已出貨</span></h4>
                             </div>
                         </div>

@@ -119,7 +119,7 @@
 
     
     <!-- 已購買清單 -->
-    <main class="d-flex align-items-center py-md-0 py-sm-2 my-5" style="height: 70vh;margin-top: 20%;">
+    <main class="d-flex align-items-center py-md-0 py-sm-2 my-5" style="margin-top: 20%;">
         <div class="container">
 
           <div class="card shadow p-3 d-flex flex-wrap align-content-center my-5">
@@ -152,9 +152,10 @@
                         </tr>
                         </thead>
                         <tbody th:if="${productOrderList!=null and !productOrderList.empty}">
+
                         <tr th:each="productOrder : ${productOrderList}">
 
-                                <th  scope="row"> <a href="#" th:href="@{'/shop/productOrder/'+${productOrder.id}}"><span th:text="${productOrder.id}">1</span></a></th>
+                                <th  scope="row"> <a href="#" th:href="@{'/shop/productOrder/'+${productOrder.id}}"><span th:text="${productOrder.uuid}">1</span></a></th>
                                 <td th:text="${#dates.format(productOrder.orderTime, 'yyyy-MM-dd HH:mm')}">date</td>
                                 <td th:text="${productOrder.orderStatus == -1} ? '待出貨' : (${productOrder.orderStatus == 0} ? '運送中' : '已收件')">待出貨</td>
                                 <td><span th:text="${productOrder.amounts}">10</span>TWD</td>
@@ -175,9 +176,9 @@
 
               <div class="row justify-content-center align-items-center align-content-center">
                   <div class="col-7 mx-5 w-25">
-                      <div class="btn btn-info form-control fs-5">
+                      <a class="btn btn-info form-control fs-5" th:href="@{/shop/}">
                           返回
-                      </div>
+                      </a>
                   </div>
               </div>
 
