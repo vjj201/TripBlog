@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author YuCheng
@@ -93,5 +94,15 @@ public class ProductController {
         String dir = "src/main/resources/static/images/shop/product/" + id + ".jpg";
         File file = new File(dir);
         return Files.readAllBytes(file.toPath());
+    }
+
+    //檢查商品庫存
+    @ResponseBody
+    @PostMapping("/productStock/{id}")
+    public boolean updateIntro(@PathVariable Long id, @RequestParam Map<String, String> params) {
+
+        Product product = productService.findProductById(id);
+        System.out.println("產品資訊 ：" + product);
+        return product.getInStock() >= Integer.parseInt(params.get("count"));
     }
 }
