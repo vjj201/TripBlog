@@ -75,22 +75,28 @@ $(function () {
         let oldPassword = $('#oldPassword').val();
         let password = $('#password').val();
         let confirmPassword = $('#confirmPassword').val();
-
+        //舊密碼非空判斷
         if (!oldPasswordtCheck) {
             $('#submit').addClass('disabled');
             $('#message').text('請輸入舊密碼');
             return;
         }
-
+        //新密碼非空判斷
         if (!passwordtCheck) {
             $('#submit').addClass('disabled');
             $('#message').text('請輸入新密碼');
             return;
         }
-
+        //新密碼確認判斷
         if (password != confirmPassword) {
             $('#submit').addClass('disabled');
             $('#message').text('請確認新密碼');
+            return;
+        }
+        //新舊密碼不重複判斷
+        if (password == oldPassword) {
+            $('#submit').addClass('disabled');
+            $('#message').text('新密碼不可與舊密碼相同');
             return;
         }
 
