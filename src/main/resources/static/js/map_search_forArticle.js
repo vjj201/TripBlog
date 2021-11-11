@@ -14,12 +14,14 @@ $(function () {
         let enteraddress = $("#searchAddress").val();
         let subject = $('#subject option:selected').val();
         let timeDirect = $('#timeDirect option:selected').val();
+        console.log("時間排序" + timeDirect)
 
 //創建物件
         let article = {};
         article["enterAddressName"] = enteraddress;
         article["subject"] = subject;
         article["timeDirect"] = timeDirect;
+        console.log("article時間排序" + article.timeDirect)
 //輸入搜尋吧查詢並送出第一頁
         $.ajax({
             url: "/firstSearchOfPage",
@@ -37,12 +39,14 @@ $(function () {
                     let enterAddress = articleAll.enterAddressName;
                     let subjectCategory = articleAll.subjectCategory;
                     let createDate = articleAll.createDate;
+                    let createTime = articleAll.createTime;
+                    let saveImgPath =articleAll.saveImgPath;
                     // 從資料庫取出文章資訊
                     html += `
            <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
               <div class="row g-0">
                 <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                  <img class="w-100 h-100" src="https://localhost:8080/user/articlePhoto" alt="一張圖">
+                  <img class="w-100 h-100" src="${saveImgPath}" alt="一張圖">
                 </div>
                 <div class="col-md-9">
                   <div class="card-body">
@@ -53,7 +57,7 @@ $(function () {
                     <p class="card-text">
                     <small class="text-bl04">分類:&nbsp${subjectCategory}</small></p>
                     <p class="card-text">
-                    <small class="text-bl04">發表於:&nbsp${createDate}</small></p>
+                    <small class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</small></p>
                     <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
                     <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</button>
                     <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
@@ -132,12 +136,13 @@ $(function () {
                         let enterAddress = articleAll.enterAddressName;
                         let subjectCategory = articleAll.subjectCategory;
                         let createDate = articleAll.createDate;
+                        let saveImgPath =articleAll.saveImgPath;
                         // 從資料庫取出文章資訊
                         html += `
                   <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
               <div class="row g-0">
                 <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                  <img class="w-100 h-100" src="https://localhost:8080/user/articlePhoto" alt="一張圖">
+                  <img class="w-100 h-100" src="${saveImgPath}" alt="一張圖">
                 </div>
                 <div class="col-md-9">
                   <div class="card-body">
@@ -150,8 +155,8 @@ $(function () {
                     <p class="card-text">
                     <small class="text-bl04">發表於:&nbsp${createDate}</small></p>
                       <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</button>
-                          <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                          <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
+                      <button name = "${articleTitle}" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
+                      <button name = "${articleTitle}" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</button>
                   </div>
                 </div>
               </div>

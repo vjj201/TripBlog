@@ -1,9 +1,13 @@
 package com.java017.tripblog.controller;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.ArticleService;
+import com.java017.tripblog.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,16 +20,18 @@ public class UserArticleController {
 
     @Autowired
     private final ArticleService articleService;
+    private final UserService userService;
 
-    public UserArticleController(ArticleService articleService) {
+    public UserArticleController(ArticleService articleService, UserService userService) {
         this.articleService = articleService;
+        this.userService = userService;
     }
 
 
 //庭妤: 文章自動生成_輸入搜尋吧查詢並送出第一頁
     @ResponseBody
     @GetMapping("/firstSearchOfPageEatTravel")
-    public List<Article> firstSearchOfPage(@RequestParam String enterAddressName,@RequestParam String subject, @RequestParam int timeDirect) {
+    public List<Article> firstSearchOfPage(@RequestParam String enterAddressName, @RequestParam String subject, @RequestParam int timeDirect) {
         System.out.println("搜尋吧-enterAddressName=" + enterAddressName);
         System.out.println("搜尋吧-subject=" + subject);
 
@@ -33,6 +39,8 @@ public class UserArticleController {
         messageList = articleService.getPagedArticles(0, 5, enterAddressName, subject, timeDirect);
         System.out.println("搜尋吧-順序timeDirect=" + timeDirect);
         System.out.println("搜尋吧-messageList=" + messageList);
+//        User user = userService.getCurrentUser();
+//        model.addAttribute("user",user);
         return messageList;
     }
 
@@ -52,21 +60,6 @@ public class UserArticleController {
     }
 
 
-
-//庭妤:    文章自動生成_點擊換頁按鈕並換頁
-    @ResponseBody
-    @GetMapping("/changeSearchOfPageEatTravel")
-    public List<Article> changeSearchOfPage(@RequestParam String enterAddressName,@RequestParam String subject, @RequestParam int page, @RequestParam int timeDirect) {
-        System.out.println("點擊換頁按鈕並換頁的enterAddressName=" + enterAddressName);
-        System.out.println("點擊換頁按鈕並換頁的subject=" + subject);
-
-        List<Article> messageList;
-        messageList = articleService.getPagedArticles(page, 5, enterAddressName,subject, timeDirect);
-        System.out.println("點擊換頁按鈕並換頁的-順序timeDirect=" + timeDirect);
-        System.out.println("點擊換頁按鈕並換頁的messageList=" + messageList);
-        return messageList;
-
-    }
 
 
 }

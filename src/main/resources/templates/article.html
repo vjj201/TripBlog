@@ -70,7 +70,7 @@
     </style>
 
 </head>
-<body>
+
 <!--<body style="background-image: url(../static/images/background/background_02.svg);">-->
 <!-- 總導覽列 -->
 <nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
@@ -163,7 +163,7 @@
         <div class="col-4"></div>
         <div class="col-4 text-center ">
             <h6 class="updateTime text-bl04 fw-bold bg-milkyellow">
-                發表于: <span th:text="${showArticle.createDate}"></span>
+                發表于: <span th:text="${showArticle.createDate}+' '+${showArticle.createTime}"></span>
             </h6>
         </div>
         <div class="col-4"></div>
@@ -172,6 +172,7 @@
 <!-- 主題分類(美食.旅遊)、地區分類、地址標籤、發票收據-->
 <div class="container">
     <div class="row justify-content-center text-bl04 fw-bold">
+
         <div class="col-md-4 mt-2 text-md-end">
             主題><span th:text="${showArticle.subjectCategory}"></span>
         </div>
@@ -228,7 +229,7 @@
             <div id="carouselExampleInterval" class="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="2000">
-                        <img src="https://localhost:8080/user/articlePhoto"
+                        <img th:src="${'https://localhost:8080/' + showArticle.getSaveImgPath()}"
                              class="d-block" width="100%" height="400px" alt="未修改">
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
@@ -259,7 +260,7 @@
         <div class="col-md-9  bg-white rounded-3">
             <span th:utext="${showArticle.getTextEditor()}"></span>
             <hr>
-            標籤 :<span th:text="${showArticle.free_tag}"></span>
+            標籤 :<span th:text="${showArticle.freeTag}"></span>
         </div>
     </div>
 </div>

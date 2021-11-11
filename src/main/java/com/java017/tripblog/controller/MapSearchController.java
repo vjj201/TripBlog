@@ -27,7 +27,6 @@ public class MapSearchController {
         this.userService = userService;
     }
 
-
     @ResponseBody
     @GetMapping("/findByAddress")
     public ArrayList<Article> findByAddress(@RequestParam String enterAddressName) {
@@ -37,15 +36,13 @@ public class MapSearchController {
         System.out.println(list);
         return list;
     }
-
-    ;
 //----------------------------------------------------------------------------------
-
     //輸入搜尋吧查詢並送出第一頁
     @ResponseBody
     @GetMapping("/firstSearchOfPage")
     public List<Article> firstSearchOfPage(@RequestParam String enterAddressName, @RequestParam String subject, @RequestParam int timeDirect) {
 
+        System.out.println("控制器裡面的排序");
         List<Article> messageList;
         messageList = articleService.getPagedArticles(0, 5, enterAddressName, subject, timeDirect);
         System.out.println("timeDirect=" + timeDirect);

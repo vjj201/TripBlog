@@ -18,7 +18,7 @@ $(function() {
         else{
             $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q="+ $("#enteraddress").val());
         }
-});
+    });
 // -------上傳圖片----------
     (function($) {
         var width_crop = 500, // 圖片裁切寬度 px 值
@@ -158,12 +158,12 @@ $(function() {
         data: "json",
         success: function (response) {
             for (let tag of response) {
-         //       let id = tag.id;
-          //      let name = tag.name;
-           //      console.log(tag);
+                //       let id = tag.id;
+                //      let name = tag.name;
+                //      console.log(tag);
                 $("#articleTag").append(
                     $("<option></option>").text(tag)
-               );
+                );
             }
         },
     });
@@ -210,6 +210,8 @@ $(function() {
                 let articletitle = $('#articletitle').val();
                 let texteditor = editor.getData();
                 let freeTags =$("#articleTag").val();
+                let articleId = $("#surprise").val();
+                console.log(articleId)
                 //創建物件
                 let article = {};
                 article['subjectCategory'] = subjectcategory;
@@ -219,25 +221,27 @@ $(function() {
                 article['enterAddressLat'] = enterAddressLat;
                 article['articleTitle'] = articletitle;
                 article['textEditor'] = texteditor;
-                article['free_Tags'] = freeTags;
+                article['articleId'] = articleId;
+                console.log(article.articleTitle);
+                console.log(article.enterAddressName);
+                console.log(article.subjectCategory);
+                console.log(article.selectRegion);
+                console.log(article.enterAddressLng);
+                console.log(article.enterAddressLat);
+                console.log(article.textEditor);
+
+
 
 
                 $.ajax({
-                    url: '/user/newArticle',
+                    url: '/user/updateArticle',
                     type: 'POST',
                     async: false,
                     contentType: 'application/json;charset=utf-8',
                     data: JSON.stringify(article),
                     success: function () {
-                        let name_1 = "美食";
 
-                        if (subjectcategory == name_1) {
-                            window.location.href='eat';
-                            console.log("跳轉EAT");
-                        } else {
-                            window.location.href='travel';
-                            console.log("跳轉travel");
-                        }
+                        window.location.href='https://localhost:8080/user/eat';
                     }
                 });
             })
@@ -284,6 +288,8 @@ $(function() {
                 let articletitle = $('#articletitle').val();
                 let texteditor = editor.getData();
                 let freeTags =$("#articleTag").val();
+                let articleId = $("#surprise").val();
+                console.log(articleId)
                 //創建物件
                 let article = {};
                 article['subjectCategory'] = subjectcategory;
@@ -294,8 +300,10 @@ $(function() {
                 article['articleTitle'] = articletitle;
                 article['textEditor'] = texteditor;
                 article['free_Tags'] = freeTags;
+                article['articleId'] = articleId;
+
                 $.ajax({
-                    url: '/user/newArticle',
+                    url: '/user/updateArticle',
                     type: 'POST',
                     async: false,
                     contentType: 'application/json;charset=utf-8',
@@ -303,8 +311,8 @@ $(function() {
                     success: alert("已經為您儲存草稿")
                 });
             })
-        }
-	
-    });
+    }
+
+});
 
 

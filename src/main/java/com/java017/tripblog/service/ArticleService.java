@@ -40,4 +40,8 @@ public interface ArticleService {
     ArrayList<Article> findByRandomArticle();
 
     ArrayList<Article> findUserById(User id);
+
+    ArrayList<Article>findByUserIdForPage(User id);
+
+    String upDateArticle(Article inputArticle);
 }
