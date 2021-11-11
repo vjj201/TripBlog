@@ -37,5 +37,7 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
 
      ArrayList<Article> findByUserId(User id);
 
+//     Page<Article> findByUserIdAndSubjectCategory(User user, String subject);
+
 }
 

@@ -8,13 +8,20 @@ $(function () {
     });
 
     //開啟頁面即啟動-抓入所有文章
-    let timeDirect = "000";
+    let subject = $("#subject option:selected").val();
+    let timeDirect = $("#timeDirect option:selected").val();
 
+    let article = {};
+    article["subject"] = subject;
+    article["timeDirect"] = timeDirect;
+    console.log("subject" + subject);
+    console.log("timeDirect" + timeDirect)
     console.log("ajax前-輸入搜尋吧查詢並送出第一頁");
 
     $.ajax({
         url: "/user/findByUserId",
         type: "GET",
+        // data: article,
         success: function (response) {
             console.log("第一頁文章response" + response);
             console.log("建立空的html");

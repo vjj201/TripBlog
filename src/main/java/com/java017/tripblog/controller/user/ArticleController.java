@@ -31,7 +31,6 @@ import java.util.ArrayList;
 public class ArticleController {
 
 
-
     private final UserService userService;
     private final ArticleService articleService;
 
@@ -58,24 +57,24 @@ public class ArticleController {
     //上傳文章圖片
     @ResponseBody
     @PostMapping("/updateArticleImg")
-    public boolean updateArticleImg(@RequestParam(value="file") MultipartFile multipartFile,
+    public boolean updateArticleImg(@RequestParam(value = "file") MultipartFile multipartFile,
                                     HttpSession session) {
-        double ma = Math.random()*100;
+        double ma = Math.random() * 100;
 
-        if(!multipartFile.isEmpty()){
+        if (!multipartFile.isEmpty()) {
 
             long size = multipartFile.getSize();
-            if(size > 1920*1080){
+            if (size > 1920 * 1080) {
                 System.out.println("圖片尺寸過大");
                 return false;
             }
 
-            User user = (User)session.getAttribute("user");
+            User user = (User) session.getAttribute("user");
 
             String fileName = "articleImg.jpg";
-            String dir = "../TripBlog/target/classes/static/images/" + user.getId() +"/"+ ma;
+            String dir = "../TripBlog/target/classes/static/images/" + user.getId() + "/" + ma;
 
-            session.setAttribute("ma",ma);
+            session.setAttribute("ma", ma);
 
             FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
 //            user = userService.findUserById(user.getId());
@@ -90,7 +89,7 @@ public class ArticleController {
     @RequestMapping(value = "/articlePhoto", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getImage(HttpSession session) throws IOException {
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         String dir = "src/main/resources/static/images/" + user.getId() + "/articleImg.jpg";
         File file = new File(dir);
         return Files.readAllBytes(file.toPath());
@@ -98,8 +97,8 @@ public class ArticleController {
 
     @ResponseBody
     @PostMapping("/newArticle")
-    public String insert(@RequestBody ArticleParam articleParam,HttpSession session) {
-        User user = (User)session.getAttribute("user");
+    public String insert(@RequestBody ArticleParam articleParam, HttpSession session) {
+        User user = (User) session.getAttribute("user");
         Article article = new Article();
         for (String tag : articleParam.getFree_Tags()) {
             try {
@@ -121,10 +120,10 @@ public class ArticleController {
         article.setSubjectCategory(articleParam.getSubjectCategory());
         article.setUserId(userService.findUserById(user.getId()));
         Double ma = (Double) session.getAttribute("ma");
-        if (ma != null){
-            String saveDir = "images/" + user.getId() + "/"+ ma +"/articleImg.jpg";
+        if (ma != null) {
+            String saveDir = "images/" + user.getId() + "/" + ma + "/articleImg.jpg";
             article.setSaveImgPath(saveDir);
-            session.setAttribute("ma",null);
+            session.setAttribute("ma", null);
         }
         articleService.insertArticle(article);
 
@@ -133,9 +132,8 @@ public class ArticleController {
 
     @ResponseBody
     @GetMapping("/findByUserId")
-    public ArrayList<Article> findByUserId( HttpSession session){
-
-        User user = (User)session.getAttribute("user");
+    public ArrayList<Article> findByUserId(HttpSession session) {
+        User user = (User) session.getAttribute("user");
         ArrayList<Article> result = articleService.findUserById(user);
         System.out.println("檢查controller 回傳直" + result);
         return result;
@@ -145,7 +143,7 @@ public class ArticleController {
     @ResponseBody
     @GetMapping("/newPageButtonForUser")
     public Integer newChangePageButton(HttpSession session) {
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         ArrayList<Article> list;
         list = articleService.findByUserIdForPage(user);
         System.out.println("分頁按鈕" + list);
@@ -158,16 +156,17 @@ public class ArticleController {
     @GetMapping("/article/{articleTitle}")
     public String articlePage(Model model, @PathVariable String articleTitle) {
         Article showArticle = articleService.findByArticleTitle(articleTitle);
-        model.addAttribute("showArticle",showArticle);
+        model.addAttribute("showArticle", showArticle);
         User showUser = userService.getCurrentUser();
-        model.addAttribute("showUser",showUser);
-        return "article"; }
+        model.addAttribute("showUser", showUser);
+        return "article";
+    }
 
     //跳轉編輯文章頁
     @GetMapping("/edit/{articleTitle}")
     public String editArticle(Model model, @PathVariable String articleTitle) {
         Article editArticle = articleService.findByArticleTitle(articleTitle);
-        model.addAttribute("editArticle",editArticle);
+        model.addAttribute("editArticle", editArticle);
         return "user/edit_article";
     }
 
@@ -175,15 +174,15 @@ public class ArticleController {
     //儲存編輯後的文章
     @ResponseBody
     @PostMapping("/updateArticle")
-    public String upDateArticle(@RequestBody Article article,HttpSession session){
+    public String upDateArticle(@RequestBody Article article, HttpSession session) {
         System.out.println(article.getArticleTitle());
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         Double ma = (Double) session.getAttribute("ma");
         article.setUserId(userService.findUserById(user.getId()));
-        if (ma != null){
-            String saveDir = "images/" + user.getId() + "/"+ ma +"/articleImg.jpg";
+        if (ma != null) {
+            String saveDir = "images/" + user.getId() + "/" + ma + "/articleImg.jpg";
             article.setSaveImgPath(saveDir);
-            session.setAttribute("ma",null);
+            session.setAttribute("ma", null);
         }
         articleService.upDateArticle(article);
         return "編輯成功";
@@ -191,12 +190,10 @@ public class ArticleController {
 }
 
 
-
-
-    //   public  List< Article> Get(TagEnum tag)
-    //   {
-    //       String x= "select * from Article where free_tag like ='%{tag}%' ";
-    //   }
+//   public  List< Article> Get(TagEnum tag)
+//   {
+//       String x= "select * from Article where free_tag like ='%{tag}%' ";
+//   }
 
 
 //    @ResponseBody

@@ -217,22 +217,20 @@
                 <div class="container">
                     <div class="row justify-content-center" style="margin: 5vh;">
 
-                        <div class="col-6 col-md-5 mb-2">
-                            <select class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                                    aria-label="Default select example">
-                                <option selected disabled>時間排序</option>
-                                <option value="1">新 --> 舊</option>
-                                <option value="2">舊 <-- 新</option>
-                                <option value="3">HOT!</option>
+                        <div class="ms-1" style="width:14.5vw">
+                            <select id="timeDirect" class="filterloc form-select  border-2 border-bl03 bg-gr0200 rounded-pill"
+                                    aria-label="Default select example border-2 border-bl03 bg-gr0200">
+                                <option selected value="000">舊--->新</option>
+                                <option value=100 >新--->舊</option>
                             </select>
                         </div>
 
-                        <div class="col-6 col-md-5 mb-2">
-                            <select class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                                    aria-label="Default select example">
-                                <option selected disabled>地區分類</option>
-                                <option value="1">台北市</option>
-                                <option value="2">新北市</option>
+                        <div class="ms-0" style="width:14.5vw">
+                            <select class="filtersub form-select border-2 border-bl03 bg-gr0200 rounded-pill"
+                                    aria-label="Default select example" id="subject">
+                                <option selected value="" >主題分類</option>
+                                <option value="美食">美食</option>
+                                <option value="旅遊">旅遊</option>
                             </select>
                         </div>
 

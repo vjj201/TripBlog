@@ -44,4 +44,6 @@ public interface ArticleService {
     ArrayList<Article>findByUserIdForPage(User id);
 
     String upDateArticle(Article inputArticle);
+
+//     List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect);
 }

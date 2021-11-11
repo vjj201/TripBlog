@@ -118,6 +118,7 @@ public class ArticleServiceImpl implements ArticleService {
       Article result = articleRepository.findByArticleTitle(articleTitle);
       return result;
    }
+
     @Override
     public String updateRecommend(String articleTitle){
         Article result = articleRepository.findByArticleTitle(articleTitle);
@@ -202,6 +203,30 @@ public class ArticleServiceImpl implements ArticleService {
         return "ok";
     }
 
+//    @Override
+//    public List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect) {
+//
+//        //預設-時間舊到新
+//        Pageable pageable = PageRequest.of(page, size,Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+//        System.out.println("實作serverce裡面的排序" + timeDirect);
+//        //時間新到舊
+//        if( 100 == timeDirect){
+//            System.out.println("desc有抓到[IF新到舊]");
+//            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+//        }
+//
+//        Page<Article> pageResult;
+//
+//        if(StringUtils.isEmpty(subject)){
+//            pageResult = articleRepository.findByUserId(user);
+//        }else {
+//            pageResult = articleRepository.findByUserIdAndSubjectCategory(user,subject);
+//        }
+//
+//        Page<Article> pageResult;
+//        return messageList;
+//
+//    }
 
 }
 
