@@ -82,12 +82,13 @@ function createCartList(itemId, itemValue){
 
     inputItemCount = document.createElement('input');
     inputItemCount.type = 'number';
-    inputItemCount.value = 1;
     inputItemCount.min = 1;
-    inputItemCount.max = 50;
-    inputItemCount.style.width = '50px'
+    inputItemCount.style.width = '50px';
     inputItemCount.id = itemId + 'num';
+    inputItemCount.oninput = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/,'')}else{this.value=this.value.replace(/\D/g,'')};if(value>stockNum)value=stockNum";
+    inputItemCount.pattern = "[1-9][0-9]";
     inputItemCount.addEventListener('input', changeItemCount);
+
 
     if (itemValue.split('|')[3] != null) {
         inputItemCount.value = itemValue.split('|')[3];
@@ -144,16 +145,59 @@ function changeItemCount(){
     let subtotal = parseInt(this.value) * itemPrice;
     let itemOldCount = parseInt(itemOldPrice) / itemPrice;
 
+    checkStock(itemId, itemValue);
+
     //計算商品總數
     itemNum = parseInt(this.value);
     itemsCount = parseInt(itemsCount) - itemOldCount + parseInt(itemNum);
     document.getElementById('items').innerText = itemsCount;
 
-
     //計算商品金額、總金額
     this.parentNode.previousSibling.innerText = subtotal;
     total = total - itemOldPrice + subtotal;
     document.getElementById('total').innerText = total;
+}
+function checkStock(itemId, itemValue) {
+    let title = itemValue.split('|')[0];
+    let price = itemValue.split('|')[2];
+    let productNum = itemId + "num";
+    let count = document.getElementById(productNum).value;
+    let infoStr = title + "|" + itemId + "|" + price + "|" + count;
+    console.log(infoStr);
+    storage.setItem(itemId, infoStr);
+
+    //創建物件
+    let data = {};
+    data['count'] = parseInt(count);
+
+    $.ajax({
+        url: '/shop/productStock/' + itemId,
+        type: 'POST',
+        async: false,
+        data: data,
+        statusCode: {
+            200: function (response) {
+                console.log(response);
+            },
+            503: function (response) {
+                let stockNum = JSON.stringify(response.responseText).split("：")[1].split("）")[0];
+                console.log("stock:"+ stockNum);
+                let infoStr = title + "|" + itemId + "|" + price + "|" + stockNum;
+                console.log(infoStr);
+                storage.setItem(itemId, infoStr);
+                document.getElementById('items').innerText = stockNum;
+                alert(JSON.stringify(response.responseText));
+                window.location.href = "shopcart";
+            },
+            500: function (response) {
+                console.log(response);
+                let infoStr = title + "|" + itemId + "|" + price + "|" + 1;
+                console.log(infoStr);
+                storage.setItem(itemId, infoStr);
+                window.location.href = "shopcart";
+            }
+        }
+    });
 }
 window.addEventListener('load', doFirst);
 
@@ -196,25 +240,21 @@ $(function () {
                 type: 'POST',
                 async: false,
                 data: data,
-                success: function (response) {
-                    if (response){
-                        console.log("庫存足夠");
-                    } else {
-                        alert(title + "庫存不足，請更改訂購數量");
-                        stockCheck = false;
+                statusCode: {
+                    200: function (response) {
+                        console.log(response);
+                        window.location.href = "deliver";
+                    },
+                    503: function (response) {
+
+                        alert(JSON.stringify(response.responseText));
                     }
                 }
             });
-        }
-        if (stockCheck) {window.location.href = "deliver";}
-    
+        }    
         if (storage['totalPrice'] != null) {
             storage.removeItem('totalPrice'); //storage.setItem('addItemList','');
         }
-
-        
-        
-        
+        window.location.href = "deliver";
     });
-
 });

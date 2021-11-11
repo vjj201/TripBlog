@@ -10,10 +10,13 @@ import com.java017.tripblog.vo.ProductQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,10 +102,21 @@ public class ProductController {
     //檢查商品庫存
     @ResponseBody
     @PostMapping("/productStock/{id}")
-    public boolean updateIntro(@PathVariable Long id, @RequestParam Map<String, String> params) {
+    public ResponseEntity<String> checkProductStock(@PathVariable Long id, @RequestParam Map<String, String> params, SessionStatus sessionStatus) {
 
         Product product = productService.findProductById(id);
         System.out.println("產品資訊 ：" + product);
-        return product.getInStock() >= Integer.parseInt(params.get("count"));
+        StringBuilder message = new StringBuilder();
+
+        if(product.getInStock() < Integer.parseInt(params.get("count"))){
+            message.append(product.getProductName()).append("庫存不足（庫存：")
+                    .append(product.getInStock()).append("），請更改訂購數量");
+        }
+
+        if (message.length() != 0) {
+            return new ResponseEntity<>(message.toString(), HttpStatus.SERVICE_UNAVAILABLE);
+        } else {
+            return new ResponseEntity<>(message.toString(), HttpStatus.ACCEPTED);
+        }
     }
 }
