@@ -130,8 +130,8 @@
                         <h3>分類管理</h3>
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#createModal">新增分類</button>
+                        <button id="createBtn" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#Modal">新增分類</button>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -146,26 +146,25 @@
                         </thead>
                         <tbody id="tbody">
 
-                            <!-- <tr class="my-3 h-100">
+                            <tr class="my-3 h-100">
                                 <td class="pt-3">1</td>
-                                <td class="pt-3">
-                                    在地佳餚
-                                </td>
+                                <td class="pt-3">在地佳餚</td>
                                 <td>
                                     <ul class="list-group list-group-horizontal">
-                                        <li class="list-group-item"><small>主菜</small></li>
-                                        <li class="list-group-item"><small>麵食</small></li>
-                                        <li class="list-group-item"><small>米飯</small></li>
-                                        <li class="list-group-item"><small>餃類</small></li>
-                                        <li class="list-group-item"><small>燉湯</small></li>
+                                        <li class="list-group-item"><small name="tagName">主菜</small></li>
+                                        <li class="list-group-item"><small name="tagName">麵食</small></li>
+                                        <li class="list-group-item"><small name="tagName">米飯</small></li>
+                                        <li class="list-group-item"><small name="tagName">餃類</small></li>
+                                        <li class="list-group-item"><small name="tagName">燉湯</small></li>
                                     </ul>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary me-2">編輯</button>
-                                    <button type="button" class="btn btn-danger me-2">刪除</button>
+                                    <button name="update" type="button" class="btn btn-primary me-2"
+                                        data-bs-toggle="modal" data-bs-target="#Modal">編輯</button>
+                                    <button name="delete" type="button" class="btn btn-danger me-2">刪除</button>
                                 </td>
 
-                            </tr> -->
+                            </tr>
 
                         </tbody>
                     </table>
@@ -176,11 +175,11 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" tabindex="-1" id="createModal">
+    <div class="modal fade" tabindex="-1" id="Modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">新增分類</h5>
+                    <h5 id="modelName" class="modal-title">新增分類</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 

@@ -41,7 +41,7 @@ public class ProductSortController {
     @GetMapping("/productSort/{id}")
     public ResponseEntity<ProductSort> findProductSortById(@PathVariable Long id) {
         ProductSort productSort = productSortService.findProductSortById(id);
-        if(ObjectUtils.isEmpty(productSort)) {
+        if (ObjectUtils.isEmpty(productSort)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(productSort, HttpStatus.OK);
@@ -61,10 +61,12 @@ public class ProductSortController {
     @PutMapping("/productSort/{id}")
     public ResponseEntity<ProductSort> updateProductSortById(@PathVariable Long id, @RequestBody ProductSort productSort) {
         ProductSort productSortById = productSortService.findProductSortById(id);
-        if(ObjectUtils.isEmpty(productSortById)) {
+        if (ObjectUtils.isEmpty(productSortById)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(productSortService.createOrUpdateProductSort(productSort), HttpStatus.OK);
+        productSortById.setSortName(productSort.getSortName());
+        productSortById.setTagList(productSort.getTagList());
+        return new ResponseEntity<>(productSortService.createOrUpdateProductSort(productSortById), HttpStatus.OK);
     }
 
     @DeleteMapping("/productSort/{id}")
