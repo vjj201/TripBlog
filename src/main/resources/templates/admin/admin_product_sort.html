@@ -19,6 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- js -->
+    <script src="../../static/js/admin/productSort.js" th:src="@{/js/admin/productSort.js}"></script>
 
     <style>
         .my-nav-link:hover {
@@ -129,7 +130,8 @@
                         <h3>分類管理</h3>
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <button type="button" class="btn btn-warning btn-sm">新增分類</button>
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#createModal">新增分類</button>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -142,9 +144,9 @@
                                 <th scope="col">操作</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody">
 
-                            <tr class="my-3 h-100">
+                            <!-- <tr class="my-3 h-100">
                                 <td class="pt-3">1</td>
                                 <td class="pt-3">
                                     在地佳餚
@@ -163,7 +165,7 @@
                                     <button type="button" class="btn btn-danger me-2">刪除</button>
                                 </td>
 
-                            </tr>
+                            </tr> -->
 
                         </tbody>
                     </table>
@@ -172,6 +174,51 @@
             <!-- 結束:主內容 -->
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" id="createModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增分類</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <label for="productSortName" class="input-group-text">名稱</label>
+                        <input id="productSortName" type="text" class="form-control" placeholder="product sort"
+                            aria-label="productSortName" aria-describedby="product_sort_name">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label for="productSortName" class="input-group-text">標籤</label>
+                        <input id="productTag" type="text" class="form-control" placeholder="product tag"
+                            aria-label="productTag" aria-describedby="product_tag">
+                        <button class="btn btn-info" type="button" id="createTag">新增</button>
+                    </div>
+
+                    <div id="tagZone">
+                        <!-- <div class="badge bg-light text-dark me-2">
+                            <span class="me-1">Light</span>
+
+                            <button type="button" name="removeTag" class="btn-close position-absolute"
+                                style="width: 0.1px; height:0.1px;" aria-label="Close"></button>
+                        </div> -->
+                    </div>
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button id="createBack" type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
+                    <button id="create" type="button" class="btn btn-primary">創建</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End-Modal -->
 
 
     <footer class="bg-bl04 py-5">

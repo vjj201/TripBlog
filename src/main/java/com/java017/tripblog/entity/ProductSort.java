@@ -21,7 +21,6 @@ public class ProductSort {
     //分類名稱
     private String sortName;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
     private List<ProductTag> tagList;
