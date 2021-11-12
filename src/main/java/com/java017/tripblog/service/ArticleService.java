@@ -43,6 +43,7 @@ public interface ArticleService {
 
     ArrayList<Article>findByUserIdForPage(User id);
 
+    ArrayList<Article>findAll();
     String upDateArticle(Article inputArticle);
 
 //     List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect);

@@ -119,7 +119,8 @@ public class ArticleServiceImpl implements ArticleService {
       return result;
    }
 
-    @Override
+
+        @Override
     public String updateRecommend(String articleTitle){
         Article result = articleRepository.findByArticleTitle(articleTitle);
         Integer Recommend = result.getRecommend();

@@ -1,11 +1,15 @@
 package com.java017.tripblog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -13,11 +17,12 @@ import java.util.Set;
  * @author YuCheng
  * @date 2021/9/26 - 下午 10:27
  */
-
+@JsonIgnoreProperties("intro")
 @EntityListeners(AuditingEntityListener.class)
+@JsonSerialize
 @Entity
 @Table(name = "User")
-public class User {
+public class User{
 
     //會員編號
     @Id
@@ -63,7 +68,7 @@ public class User {
     private boolean mailVerified;
 
     //自我介紹外來鍵
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL},fetch=FetchType.LAZY)
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
