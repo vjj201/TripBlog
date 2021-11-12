@@ -45,7 +45,7 @@
     /* 控制圖片大小 */
     .hot-carousel-item{
         /* margin-top: 2.5vh; */
-        width: 80vw;
+        width: 67vw;
         height: 80vh;
 
     }
@@ -145,48 +145,10 @@
 </nav>
 <!-- 結束:總導覽列 -->
 
-<!-- 篩選器 -->
-<div class="container">
-    <div class="row justify-content-center" style="margin: 5vh;">
-
-        <div class="col-2 col-md-2 mb-2">
-            <select id="timeDirect" class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                    aria-label="Default select example">
-                    <option selected value="000">舊--->新</option>
-                    <option value=100 >新--->舊</option>
-            </select>
-        </div>
-
-
-
-        <div class="col-2 col-md-2 mb-2">
-            <select  id="subject" class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                    aria-label="Default select example">
-                <option selected value="">主題分類</option>
-                <option value="美食">美食</option>
-                <option value="旅遊">旅遊</option>
-            </select>
-        </div>
-
-        <div class="col-6">
-            <div class="iteam">
-                <form class="d-flex">
-                    <input id="searchAddress" class="form-control me-2 border-2 border-bl03 bg-gr0200 rounded-pill" type="search"
-                           placeholder="" aria-label="Search">
-                    <button id="btsearch"
-                            class="btn btn-outline-bl04 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                            type="submit">Search</button>
-
-                </form>
-            </div>
-        </div>
-
-
-    </div>
-
 
     <!-- 文章推廣 -->
-    <div class="hot-container container  p-0">
+<!--    <div class="hot-container container  p-0">-->
+        <div class="hot-container container mt-5 p-0">
         <div class="row  p-0">
             <!-- 按鈕>換頁>幻燈片文章 -->
             <div class=" hot-slide p-0 m-0">
@@ -238,6 +200,43 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 篩選器 -->
+<div class="container">
+    <div class="row justify-content-center" style="margin: 5vh;">
+
+        <div class="col-2 col-md-2 mb-2">
+            <select id="timeDirect" class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
+                    aria-label="Default select example">
+                <option selected value="000">舊--->新</option>
+                <option value=100 >新--->舊</option>
+            </select>
+        </div>
+
+
+
+        <div class="col-2 col-md-2 mb-2">
+            <select  id="subject" class="form-select border-2 border-bl03 bg-gr0200 rounded-pill"
+                     aria-label="Default select example">
+                <option selected value="">主題分類</option>
+                <option value="美食">美食</option>
+                <option value="旅遊">旅遊</option>
+            </select>
+        </div>
+
+        <div class="col-6">
+            <div class="iteam">
+                <form class="d-flex">
+                    <input id="searchAddress" class="form-control me-2 border-2 border-bl03 bg-gr0200 rounded-pill" type="search"
+                           placeholder="" aria-label="Search">
+                    <button id="btsearch"
+                            class="btn btn-outline-bl04 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                            type="submit">Search</button>
+
+                </form>
             </div>
         </div>
     </div>

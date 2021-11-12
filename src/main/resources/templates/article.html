@@ -285,7 +285,9 @@
                                 <h6 class="authorHome text-bl04">
                                     <span th:text="${showUser.intro.getIntroContent()}"></span>
                                 </h6>
-                                <h6 class="authorRead">閱讀數<span>0</span> 推薦數<span id="recommendCount">0</span> 收藏數<span id="collectCount">0</span>
+                                <h6>推薦數<span id="recommendCount"  th:text="${numRecommend}">0</span> 收藏數<span id="collectCount">0</span>
+                                </h6>
+
                                 </h6>
                             </div>
                             <div class="col-md-3" id="t3">
