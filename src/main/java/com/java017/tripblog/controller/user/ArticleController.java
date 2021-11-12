@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 /**
  * @author YuCheng
@@ -98,9 +99,8 @@ public class ArticleController {
 
     @ResponseBody
     @PostMapping("/newArticle")
-    public String insert(@RequestBody ArticleParam articleParam) {
-
-        //    articleRepository.save(article);
+    public String insert(@RequestBody ArticleParam articleParam,HttpSession session) {
+        User user = (User)session.getAttribute("user");
         Article article = new Article();
         for (String tag : articleParam.getFree_Tags()) {
             try {
@@ -120,9 +120,33 @@ public class ArticleController {
         article.setSelectRegion(articleParam.getSelectRegion());
         article.setTextEditor(articleParam.getTextEditor());
         article.setSubjectCategory(articleParam.getSubjectCategory());
+        article.setUserId(userService.findUserById(user.getId()));
         articleService.insertArticle(article);
 
         return "ok";
+    }
+
+    @ResponseBody
+    @GetMapping("/findByUserId")
+    public ArrayList<Article> findByUserId( HttpSession session){
+
+        User user = (User)session.getAttribute("user");
+        ArrayList<Article> result = articleService.findUserById(user);
+        System.out.println("檢查controller 回傳直" + result);
+        return result;
+    }
+
+    //自動生成換頁按鈕
+    @ResponseBody
+    @GetMapping("/newPageButtonForUser")
+    public Integer newChangePageButton(HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        ArrayList<Article> list;
+        list = articleService.findByUserIdForPage(user);
+        System.out.println("分頁按鈕" + list);
+        double listSize = list.size();
+        int pageMount = (int) Math.ceil(listSize / 5);
+        return pageMount;
     }
 
 }

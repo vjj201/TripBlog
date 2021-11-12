@@ -2,6 +2,7 @@ package com.java017.tripblog.repository;
 
 import com.java017.tripblog.entity.Article;
 
+import com.java017.tripblog.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article,Integer> {
@@ -31,6 +33,9 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
 //庭妤:      主題+搜尋吧_物件陣列
      ArrayList<Article> findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(String enterAddressName,String articleTitle,String textEditor,String freeTag,String subject);
 
+     Optional<Article> findById(Integer id);
+
+     ArrayList<Article> findByUserId(User id);
 
 }
 

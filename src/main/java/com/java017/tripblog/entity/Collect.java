@@ -13,12 +13,12 @@ public class Collect {
     Integer id;
 
 
-    @ManyToOne
-    @JoinColumn(name = "article_recommend_id")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "article_collect_id")
     private Article articlesCollectId;
 
-    @ManyToOne
-    @JoinColumn(name = "User_recommend_id")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "User_collect_id")
     private User userCollectId;
 
     public Integer getId() {

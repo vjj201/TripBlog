@@ -1,16 +1,21 @@
 package com.java017.tripblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-
+@JsonIgnoreProperties("userId")
+@JsonSerialize
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "article")
-public class Article {
+public class Article{
 
 
     @Id
@@ -39,17 +44,17 @@ public class Article {
 
     Integer collect = 0;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "User", referencedColumnName = "id")
-    User Fk_User_Id;
+    @OneToOne(cascade = {CascadeType.ALL},fetch=FetchType.LAZY)
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+     User userId;
 
-    @OneToMany(mappedBy="articlesRecommendId",cascade=CascadeType.ALL)
-    private Set<Recommend>  recommendSet ;
+//    @OneToMany(mappedBy="articlesRecommendId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+//    private Set<Recommend>  recommendSet ;
 
-    @OneToMany(mappedBy="articlesReportId",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="articlesReportId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private Set<Report>  reportSet ;
 
-    @OneToMany(mappedBy="articlesCollectId",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="articlesCollectId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private Set<Collect>  collectSet ;
 
 
@@ -61,12 +66,39 @@ public class Article {
     public Article() {
     }
 
-    public User getFk_User_Id() {
-        return Fk_User_Id;
+
+
+
+    public User getUserId() {
+        return userId;
     }
 
-    public void setFk_User_Id(User fk_User_Id) {
-        Fk_User_Id = fk_User_Id;
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+//    public Set<Recommend> getRecommendSet() {
+//        return recommendSet;
+//    }
+//
+//    public void setRecommendSet(Set<Recommend> recommendSet) {
+//        this.recommendSet = recommendSet;
+//    }
+
+    public Set<com.java017.tripblog.entity.Report> getReportSet() {
+        return reportSet;
+    }
+
+    public void setReportSet(Set<com.java017.tripblog.entity.Report> reportSet) {
+        this.reportSet = reportSet;
+    }
+
+    public Set<Collect> getCollectSet() {
+        return collectSet;
+    }
+
+    public void setCollectSet(Set<Collect> collectSet) {
+        this.collectSet = collectSet;
     }
 
     public Integer getRecommend() {

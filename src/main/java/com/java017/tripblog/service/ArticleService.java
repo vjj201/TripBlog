@@ -1,6 +1,12 @@
 package com.java017.tripblog.service;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.User;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 import java.util.ArrayList;
@@ -31,4 +37,11 @@ public interface ArticleService {
 //庭妤:    文章換頁按鈕自動生成
     ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject);
 
+    ArrayList<Article> findByRandomArticle();
+
+    ArrayList<Article> findUserById(User id);
+
+    ArrayList<Article>findByUserIdForPage(User id);
+
+    ArrayList<Article>findAll();
 }

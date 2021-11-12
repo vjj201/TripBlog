@@ -1,16 +1,20 @@
 package com.java017.tripblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * @author Sandy
  * @date
  */
-
+@JsonSerialize
 @Entity
 @Table(name = "intro")
-public class Intro {
+public class Intro{
 
     //主鍵 會員編號外鍵
     @Id
