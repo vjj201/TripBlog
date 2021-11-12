@@ -10,8 +10,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-@JsonIgnoreProperties("userId")
-@JsonSerialize
+//@JsonIgnoreProperties("userId")
+//@JsonSerialize
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "article")

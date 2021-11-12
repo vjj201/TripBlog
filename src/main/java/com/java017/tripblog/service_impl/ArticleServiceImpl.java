@@ -80,6 +80,7 @@ public class ArticleServiceImpl implements ArticleService {
         if(StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)){
 //            如果都沒有填
             pageResult = articleRepository.findAll(pageable);
+
         }else if(StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)){
 //            只有填主題(subject)
             pageResult = articleRepository.findBySubjectCategory(subject,pageable);
@@ -183,6 +184,11 @@ public class ArticleServiceImpl implements ArticleService {
     public ArrayList<Article> findByUserIdForPage(User id){
         ArrayList<Article> result = articleRepository.findByUserId(id);
         return result;
+    }
+
+    @Override
+    public ArrayList<Article> findAll() {
+        return null;
     }
 
     @Override

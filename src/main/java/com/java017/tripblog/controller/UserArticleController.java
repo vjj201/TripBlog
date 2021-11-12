@@ -59,6 +59,7 @@ public class UserArticleController {
     public List<Article> firstSearchOfPage(@RequestParam String enterAddressName, @RequestParam String subject, @RequestParam int timeDirect) {
         System.out.println("搜尋吧-enterAddressName=" + enterAddressName);
         System.out.println("搜尋吧-subject=" + subject);
+
         List<Article> messageList;
         messageList = articleService.getPagedArticles(0, 5, enterAddressName, subject, timeDirect);
         System.out.println("搜尋吧-順序timeDirect=" + timeDirect);

@@ -179,6 +179,7 @@ public class MapSearchController {
         model.addAttribute("showUser",showUser);
         return "article"; }
 
+
     @ResponseBody
     @GetMapping("/randomArticle")
     public List<Article> articles(){
