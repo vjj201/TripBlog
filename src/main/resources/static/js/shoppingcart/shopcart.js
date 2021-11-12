@@ -173,7 +173,6 @@ function checkStock(itemId, itemValue) {
     $.ajax({
         url: '/shop/productStock/' + itemId,
         type: 'POST',
-        async: false,
         data: data,
         statusCode: {
             200: function (response) {
