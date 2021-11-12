@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <meta name="description" content="Admin">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}" />
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <!--  jquery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/admin/productAdmin.js" th:src="@{/js/admin/productAdmin.js}"></script>
+
+    <style>
+        .my-nav-link:hover {
+            color: rgb(127, 135, 156);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="navbar navbar-dark sticky-top bg-bl04 flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-8 col-md-4 col-lg-2 me-0 px-3 p-3 text-center" href="#">TripBlog 後台管理</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#">登出</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- 側邊工具列 -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-3">
+                            <a class="nav-link my-nav-link" aria-current="page" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-home" aria-hidden="true">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                首頁
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="nav-link my-nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                    <polyline points="13 2 13 9 20 9"></polyline>
+                                </svg>
+                                訂單管理
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="nav-link my-nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-shopping-cart" aria-hidden="true">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                商品管理
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="nav-link my-nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-users" aria-hidden="true">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                會員管理
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link my-nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-file-text" aria-hidden="true">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                檢舉回報
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+            <!-- 結束:側邊工具列 -->
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-5">
+            <!-- 主內容 -->
+            <div class="container rounded">
+                <div class="row shadow p-3 m-5">
+            
+                    <div class="row my-2">
+                        <div class="col-3">
+                            <h1>商品上架</h1>
+                        </div>
+                        <div class="col">
+                            <!-- Button trigger addModal -->
+                            <button type="button" class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#addModal">
+                            上架新商品
+                            </button>
+                        </div>
+                    </div>
+            
+                    <table id="productAdmin" class="table">
+                        <thead>
+                          <tr class="table-dark">
+                            <th scope="col">ID</th>
+                            <th scope="col" style="width: 70px;">商品照片</th>
+                            <th scope="col" style="width: 120px;">商品名稱</th>
+                            <th scope="col" style="width: 150px;">簡介</th>
+                            <th scope="col" style="width: 350px;">詳細介紹</th>
+                            <th scope="col" style="width: 100px;">價格</th>
+                            <th scope="col" style="width: 80px;">庫存</th>
+                            <th scope="col" style="width: 80px;">已售出</th>
+                            <th scope="col" style="width: 100px;">店家</th>
+                            <th scope="col" style="width: 80px;">標籤</th>
+                            <th scope="col" style="width: 150px;"></th>
+                          </tr>
+                        </thead>
+<!--                        動態新增部分-->
+<!--                        <tbody>-->
+<!--                          <tr>-->
+<!--                            <th scope="row">1</th>-->
+<!--                            <td><img src="../../static/images/shop/product/36.jpg" style="width: 70px;"></td>-->
+<!--                            <td>我的生日蛋糕</td>-->
+<!--                            <td>超美的人魚雙層夢幻生日蛋糕</td>-->
+<!--                            <td>超美的客製化檸檬戚風麻糬蛋糕，生日就值得吃個美美的生日蛋糕好好慶祝，夢幻的人魚和淡粉色又美又質感，最適合要步入三字頭迎接更有質感生活的女孩兒了</td>-->
+<!--                            <td>9999TWD</td>-->
+<!--                            <td>30</td>-->
+<!--                            <td>1</td>-->
+<!--                            <td>佩佩屋</td>-->
+<!--                            <td>蛋糕</td>-->
+<!--                            <td>-->
+<!--                                <button data-bs-toggle="modal" data-bs-target="#editModal" type="button" class="btn btn-primary m-1">編輯</button>-->
+<!--                                <button type="button" class="btn btn-danger m-1">移除</button>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                        </tbody>-->
+                      </table>
+            
+                        <!-- 上架商品Model 第一頁-->
+                        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">上架新商品</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <!-- 上架商品model內容 第一頁-->
+                                <div class="mb-3">
+                                    <label for="addProductTitle" class="form-label">商品名稱</label>
+                                    <input type="text" class="form-control" id="addProductTitle">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductAbout" class="form-label">商品簡介</label>
+                                    <input type="text" class="form-control" id="addProductAbout">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductInfo" class="form-label">商品詳細介紹</label>
+                                    <textarea class="form-control" id="addProductInfo"rows="2"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductPrice" class="form-label">商品價格</label>
+                                    <input type="number" class="form-control" id="addProductPrice">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductStock" class="form-label">商品庫存</label>
+                                    <input type="number" class="form-control" id="addProductStock">
+                                </div>
+                                <div>
+                                    <label for="addProductBrand" class="form-label">上架店家</label>
+                                    <select class="form-select" aria-label="select Brand" id="addProductBrand">
+                                        <option selected>選擇店家</option>
+                                        <option value="1">佩佩甜點</option>
+                                        <option value="2">阿貓麵攤</option>
+                                        <option value="3">額額鵝肉</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="addProductTag" class="form-label">商品標籤</label>
+                                    <select class="form-select" aria-label="select Tag" id="addProductTag">
+                                        <option selected>選擇商品標籤</option>
+                                        <option value="1">蛋糕</option>
+                                        <option value="2">點心</option>
+                                        <option value="3">主菜</option>
+                                    </select>
+                                </div>
+                                <!-- 上架商品model內容 第一頁 結束-->
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductImgModal">下一步</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- 上架商品Model 第一頁結束-->
+                        <!-- 上架商品圖片Model -->
+                        <div class="modal fade" id="addProductImgModal" tabindex="-1" aria-labelledby="addProductImgModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">新增商品圖片</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label for="productImg" class="form-label">圖片長寬建議為方形</label>
+                                    <input class="form-control" type="file" id="productImg"
+                                           accept="image/*" onchange="readFile(this)"
+                                           targetID="main-cropper">
+                                    <!-- 預覽封面圖的欄位 -->
+                                    <div class="row mt-2" id="main-cropper" style="display: none;">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                  <button type="button" class="btn btn-primary">上架</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- 上架商品圖片Model 結束-->
+
+                        <!-- 編輯商品Model 第一頁-->
+                        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">編輯商品資訊</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <!-- 編輯商品model內容 第一頁-->
+                                <div class="mb-3">
+                                    <label for="editProductTitle" class="form-label">商品名稱</label>
+                                    <input type="text" class="form-control" id="editProductTitle">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductAbout" class="form-label">商品簡介</label>
+                                    <input type="text" class="form-control" id="editProductAbout">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductInfo" class="form-label">商品詳細介紹</label>
+                                    <textarea class="form-control" id="editProductInfo"rows="2"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductPrice" class="form-label">商品價格</label>
+                                    <input type="number" class="form-control" id="editProductPrice">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductStock" class="form-label">商品庫存</label>
+                                    <input type="number" class="form-control" id="editProductStock">
+                                </div>
+                                <div>
+                                    <label for="editProductBrand" class="form-label">上架店家</label>
+                                    <select class="form-select" aria-label="select Brand" id="editProductBrand">
+                                        <option selected>選擇店家</option>
+                                        <option value="1">佩佩甜點</option>
+                                        <option value="2">阿貓麵攤</option>
+                                        <option value="3">額額鵝肉</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="editProductTag" class="form-label">商品標籤</label>
+                                    <select class="form-select" aria-label="select Tag" id="editProductTag">
+                                        <option selected>選擇商品標籤</option>
+                                        <option value="1">蛋糕</option>
+                                        <option value="2">點心</option>
+                                        <option value="3">主菜</option>
+                                    </select>
+                                </div>
+                                <!-- 編輯商品model內容 第一頁 結束-->
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProductImgModal">下一步</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- 編輯商品Model 第一頁結束-->
+                        <!-- 編輯商品圖片Model -->
+                        <div class="modal fade" id="editProductImgModal" tabindex="-1" aria-labelledby="editProductImgModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">編輯商品圖片</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label for="productImg" class="form-label">圖片長寬建議為方形</label>
+                                    <input class="form-control" type="file" id="productImg"
+                                           accept="image/*" onchange="readFile(this)"
+                                           targetID="main-cropper">
+                                    <!-- 預覽封面圖的欄位 -->
+                                    <div class="row mt-2" id="main-cropper" style="display: none;">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                  <button type="button" class="btn btn-primary">更新</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- 編輯商品圖片Model 結束-->
+
+            
+            
+                </div>
+            </div>
+            <!-- 結束:主內容 -->
+        </main>
+        </div>
+    </div>
+
+
+    <footer class="bg-bl04 py-5">
+        <div class="container px-4 px-lg-5 py-2">
+            <div class="small text-center text-milkyellow ">
+                Copyright &copy; 2021 - TripBlog
+            </div>
+            <div class="small text-center text-milkyellow ">
+                國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
+            </div>
+        </div>
+    </footer>
+    <!-- 結束:尾頁 -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
+
+</body>
+</html>

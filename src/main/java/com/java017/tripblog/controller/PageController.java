@@ -73,4 +73,7 @@ public class PageController {
         return "/user_space";
     }
 
+    //跳轉產品管理頁
+    @GetMapping("/admin/product")
+    public String showProductsManagePage() {return "/admin/admin_product"; }
 }
