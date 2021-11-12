@@ -124,7 +124,7 @@ $(function () {
             article["timeDirect"] = timeDirect;
 
             $.ajax({
-                url: "/changeSearchOfPage",
+                url: "/changeSearchOfPageEatTravel",
                 type: "GET",
                 data: article,
                 success: function (response) {

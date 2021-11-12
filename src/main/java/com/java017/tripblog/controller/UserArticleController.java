@@ -44,6 +44,20 @@ public class UserArticleController {
         return messageList;
     }
 
+    // 點擊換頁按鈕並換頁
+    @ResponseBody
+    @GetMapping("/changeSearchOfPageEatTravel")
+    public List<Article> changeSearchOfPage(@RequestParam String enterAddressName,@RequestParam String subject, @RequestParam int page, @RequestParam int timeDirect) {
+        System.out.println("點擊換頁按鈕並換頁的enterAddressName=" + enterAddressName);
+        System.out.println("點擊換頁按鈕並換頁的subject=" + subject);
+
+        List<Article> messageList;
+        messageList = articleService.getPagedArticles(page, 5, enterAddressName,subject, timeDirect);
+        System.out.println("點擊換頁按鈕並換頁的-順序timeDirect=" + timeDirect);
+        System.out.println("點擊換頁按鈕並換頁的messageList=" + messageList);
+        return messageList;
+
+    }
 
 //庭妤:  文章自動生成_自動生成換頁按鈕
     @ResponseBody
@@ -58,6 +72,7 @@ public class UserArticleController {
         int pageMount = (int) Math.ceil(listSize / 5);
         return pageMount;
     }
+
 
 
 
