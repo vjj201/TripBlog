@@ -40,11 +40,7 @@ public class UserArticleController {
         User user = (User) session.getAttribute("user");
         User userId;
         userId = userService.findUserById(user.getId());  //userId
-//        user1.setId(userId.getId());
-//        System.out.println("已收藏userId="+userId);
-//        System.out.println("user1"+user1);
 
-//        ArrayList<Article> A = articleService.findAll();
         ArrayList<Recommend> messageList;
         messageList = recommendService.findByuserRecommendId(userId);
 
@@ -62,15 +58,6 @@ public class UserArticleController {
     public List<Article> firstSearchOfPage(@RequestParam String enterAddressName,@RequestParam String subject, @RequestParam int timeDirect) {
         System.out.println("搜尋吧-enterAddressName=" + enterAddressName);
         System.out.println("搜尋吧-subject=" + subject);
-        //------------------------
-//     Recommend recommend = new Recommend();
-//     Article article = new Article();
-//     article.setArticleId(1);
-//     recommend.setArticlesRecommendId(article);
-//     String result =  recommend.getArticlesRecommendId();
-//        System.out.println("幹你老師!!!!!!!!!!!!!!!!!"+ result);
-
-        //------------------------
         List<Article> messageList;
         messageList = articleService.getPagedArticles(0, 5, enterAddressName, subject, timeDirect);
         System.out.println("搜尋吧-順序timeDirect=" + timeDirect);

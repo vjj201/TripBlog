@@ -133,10 +133,6 @@ public class MapSearchController {
     public String updateRecommend (HttpSession session, @RequestParam String articleTitle) {
         System.out.println("有到forRecommend 控制器");
         articleService.updateRecommend(articleTitle);
-//        return "推薦成功";
-
-//        System.out.println("參數：articleTitle" + articleTitle);
-
         User user = (User) session.getAttribute("user");
         User userId;
         userId = userService.findUserById(user.getId());  //userId
