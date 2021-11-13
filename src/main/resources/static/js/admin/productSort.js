@@ -8,6 +8,7 @@ $(document).ready(function () {
     });
 
     loadData();
+    $('#changeTag').hide();
 
     //動態新增標籤
     $('#createTag').on('click', function () {
@@ -31,6 +32,23 @@ $(document).ready(function () {
     //刪除動態新增標籤
     $(document).on('click', 'button[name="removeTag"]', function () {
         $(this).parent().remove();
+    });
+
+    //編輯標籤文字
+    $(document).on('click', 'span[name="tag"]', function () {
+        $('#changeTag').toggle();
+        $('#changeTag').children().eq(0).children().eq(1).text($(this).attr('data-tag-id'));
+        $('#changeTag').children().eq(1).val($(this).text());
+        // $('#changeTag').children().eq(0).focus();
+    });
+
+    //標籤框按鈕
+    $('#changeTag').children().eq(2).click(function () {
+        let id = $('#changeTag').children().eq(0).children().eq(1).text();
+        let name = $('#changeTag').children().eq(1).val();
+        $('[data-tag-id=' + id + ']').text(name);
+
+        $('#changeTag').toggle();
     });
 
     //刪除分類
@@ -75,7 +93,7 @@ $(document).ready(function () {
 
             let tagList = new Array();
             $('span[name="tag"]').each(function () {
-                let data = { 'id': $(this).attr('data-id'), 'tagName': $(this).text() };
+                let data = { 'id': $(this).attr('data-tag-id'), 'tagName': $(this).text() };
                 tagList.push(data);
             });
 
@@ -174,7 +192,7 @@ $(document).ready(function () {
             let id = $(this).attr('data-id');
             let div =
                 '<div class="badge bg-light text-dark me-2">' +
-                '<span name="tag" class="me-1" data-id="' +
+                '<span name="tag" class="me-1" data-tag-id="' +
                 id +
                 '">' +
                 productTag +
