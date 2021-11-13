@@ -1,6 +1,10 @@
 package com.java017.tripblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -43,12 +47,10 @@ public class Product {
     //商品詳細資訊
     private String productDetail;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Brand brand;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private ProductTag productTag;
@@ -153,6 +155,8 @@ public class Product {
                 ", alreadySold=" + alreadySold +
                 ", aboutProduct='" + aboutProduct + '\'' +
                 ", productDetail='" + productDetail + '\'' +
+                ", brand='" + brand +
+                ", productTag='" + productTag +
                 '}';
     }
 }

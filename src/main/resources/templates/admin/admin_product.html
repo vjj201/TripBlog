@@ -133,7 +133,7 @@
                         </div>
                         <div class="col">
                             <!-- Button trigger addModal -->
-                            <button type="button" class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#addModal">
+                            <button id="addNewProduct" type="button" class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#addModal">
                             上架新商品
                             </button>
                         </div>
@@ -174,9 +174,10 @@
 <!--                            </td>-->
 <!--                          </tr>-->
 <!--                        </tbody>-->
+<!--                        動態新增結束-->
                       </table>
             
-                        <!-- 上架商品Model 第一頁-->
+                        <!-- 上架商品Modal 第一頁-->
                         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
@@ -185,82 +186,93 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                <!-- 上架商品model內容 第一頁-->
+                                <!-- 上架商品modal內容 第一頁-->
                                 <div class="mb-3">
                                     <label for="addProductTitle" class="form-label">商品名稱</label>
                                     <input type="text" class="form-control" id="addProductTitle">
+                                    <p id="messageProductTitle" style="color: red"></p>
                                 </div>
                                 <div class="mb-3">
                                     <label for="addProductAbout" class="form-label">商品簡介</label>
                                     <input type="text" class="form-control" id="addProductAbout">
+                                    <p id="messageProductAbout" style="color: red"></p>
                                 </div>
                                 <div class="mb-3">
                                     <label for="addProductInfo" class="form-label">商品詳細介紹</label>
                                     <textarea class="form-control" id="addProductInfo"rows="2"></textarea>
+                                    <p id="messageProductInfo" style="color: red"></p>
                                 </div>
                                 <div class="mb-3">
                                     <label for="addProductPrice" class="form-label">商品價格</label>
-                                    <input type="number" class="form-control" id="addProductPrice">
+                                    <input type="number" class="form-control" id="addProductPrice"
+                                           oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}
+                                                       else{this.value=this.value.replace(/\D/g,'')}">
+                                    <p id="messageProductPrice" style="color: red"></p>
                                 </div>
                                 <div class="mb-3">
                                     <label for="addProductStock" class="form-label">商品庫存</label>
-                                    <input type="number" class="form-control" id="addProductStock">
+                                    <input type="number" class="form-control" id="addProductStock"
+                                           oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}
+                                                       else{this.value=this.value.replace(/\D/g,'')}">
+                                    <p id="messageProductStock" style="color: red"></p>
                                 </div>
-                                <div>
+                                <div class="mb-3">
                                     <label for="addProductBrand" class="form-label">上架店家</label>
-                                    <select class="form-select" aria-label="select Brand" id="addProductBrand">
-                                        <option selected>選擇店家</option>
-                                        <option value="1">佩佩甜點</option>
-                                        <option value="2">阿貓麵攤</option>
-                                        <option value="3">額額鵝肉</option>
+                                    <select class="form-select" aria-label="select Brand" id="addProductBrand" required>
+<!--                                        動態新增抓取資料庫-->
+<!--                                        <option selected>選擇店家</option>-->
+<!--                                        <option value="1">佩佩甜點</option>-->
+<!--                                        <option value="2">阿貓麵攤</option>-->
+<!--                                        <option value="3">額額鵝肉</option>-->
                                     </select>
+                                    <p id="messageProductBrand" style="color: red"></p>
                                 </div>
-                                <div>
+                                <div class="mb-3">
                                     <label for="addProductTag" class="form-label">商品標籤</label>
-                                    <select class="form-select" aria-label="select Tag" id="addProductTag">
-                                        <option selected>選擇商品標籤</option>
-                                        <option value="1">蛋糕</option>
-                                        <option value="2">點心</option>
-                                        <option value="3">主菜</option>
+                                    <select class="form-select" aria-label="select Tag" id="addProductTag" required>
+<!--                                        動態新增抓取資料庫-->
+<!--                                        <option selected>選擇商品標籤</option>-->
+<!--                                        <option value="1">蛋糕</option>-->
+<!--                                        <option value="2">點心</option>-->
+<!--                                        <option value="3">主菜</option>-->
                                     </select>
+                                    <p id="messageProductTag" style="color: red"></p>
                                 </div>
-                                <!-- 上架商品model內容 第一頁 結束-->
+                                <!-- 上架商品modal內容 第一頁 結束-->
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductImgModal">下一步</button>
+                                <button id="addNewProductNext" type="button" class="btn btn-primary">下一步</button>
+<!--                                    data-bs-toggle="modal" data-bs-target="#addProductImgModal"-->
                                 </div>
                             </div>
                             </div>
                         </div>
-                        <!-- 上架商品Model 第一頁結束-->
-                        <!-- 上架商品圖片Model -->
-                        <div class="modal fade" id="addProductImgModal" tabindex="-1" aria-labelledby="addProductImgModalLabel" aria-hidden="true">
+                        <!-- 上架商品Modal 第一頁結束-->
+                        <!-- 上架商品圖片Modal -->
+                        <div class="modal fade" id="addProductImgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">新增商品圖片</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  <h5 class="modal-title" id="staticBackdropLabel">新增商品圖片</h5>
+                                  <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                                 </div>
                                 <div class="modal-body">
+                                    <!-- Modal內容 -->
                                     <label for="productImg" class="form-label">圖片長寬建議為方形</label>
-                                    <input class="form-control" type="file" id="productImg"
-                                           accept="image/*" onchange="readFile(this)"
-                                           targetID="main-cropper">
-                                    <!-- 預覽封面圖的欄位 -->
-                                    <div class="row mt-2" id="main-cropper" style="display: none;">
-                                    </div>
+                                    <input class="form-control" type="file" id="productImg" accept="image/*">
+                                    <!-- Modal內容 結束-->
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                                  <button type="button" class="btn btn-primary">上架</button>
+                                  <button id="closeAddProduct" type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                  <button id="submitProductImg" type="button" class="btn btn-primary">上架商品</button>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        <!-- 上架商品圖片Model 結束-->
+                        <!-- 上架商品圖片Modal 結束-->
 
-                        <!-- 編輯商品Model 第一頁-->
+                        <!-- 編輯商品Modal 第一頁-->
                         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
@@ -269,7 +281,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                <!-- 編輯商品model內容 第一頁-->
+                                <!-- 編輯商品modal內容 第一頁-->
                                 <div class="mb-3">
                                     <label for="editProductTitle" class="form-label">商品名稱</label>
                                     <input type="text" class="form-control" id="editProductTitle">
@@ -308,7 +320,7 @@
                                         <option value="3">主菜</option>
                                     </select>
                                 </div>
-                                <!-- 編輯商品model內容 第一頁 結束-->
+                                <!-- 編輯商品modal內容 第一頁 結束-->
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
@@ -317,23 +329,22 @@
                             </div>
                             </div>
                         </div>
-                        <!-- 編輯商品Model 第一頁結束-->
-                        <!-- 編輯商品圖片Model -->
-                        <div class="modal fade" id="editProductImgModal" tabindex="-1" aria-labelledby="editProductImgModalLabel" aria-hidden="true">
+                        <!-- 編輯商品Modal 第一頁結束-->
+                        <!-- 編輯商品圖片Modal -->
+                        <div class="modal fade" id="editProductImgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">編輯商品圖片</h5>
+                                  <h5 class="modal-title" id="staticBackdropLabel">編輯商品圖片</h5>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    <!-- Modal內容 -->
                                     <label for="productImg" class="form-label">圖片長寬建議為方形</label>
                                     <input class="form-control" type="file" id="productImg"
                                            accept="image/*" onchange="readFile(this)"
                                            targetID="main-cropper">
-                                    <!-- 預覽封面圖的欄位 -->
-                                    <div class="row mt-2" id="main-cropper" style="display: none;">
-                                    </div>
+                                    <!-- Modal內容 結束-->
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
@@ -342,7 +353,7 @@
                               </div>
                             </div>
                           </div>
-                        <!-- 編輯商品圖片Model 結束-->
+                        <!-- 編輯商品圖片Modal 結束-->
 
             
             
