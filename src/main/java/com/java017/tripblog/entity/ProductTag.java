@@ -19,10 +19,11 @@ public class ProductTag {
     private Long id;
 
     //分類名稱
+    @Column(unique = true, nullable = false)
     private String tagName;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "productTag")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productTag")
     private List<Product> productList;
 
     public List<Product> getProductList() {
@@ -47,6 +48,18 @@ public class ProductTag {
 
     public void setTagName(String tagName) {
         this.tagName = tagName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ProductTag)) {
+            return false;
+        }
+        ProductTag otherTag = (ProductTag)obj;
+        if(getId() == null || otherTag.getId() == null) {
+            return otherTag.getTagName().equals(getTagName());
+        }
+        return otherTag.getId().equals(getId());
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.java017.tripblog.repository.ProductTagRepository;
 import com.java017.tripblog.service.ProductTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @date 2021/11/3 - 下午 06:19
  */
 
+@Transactional
 @Service
 public class ProductTagServiceImpl implements ProductTagService {
 
@@ -31,6 +33,11 @@ public class ProductTagServiceImpl implements ProductTagService {
     @Override
     public void deleteProductTagById(Long productTagId) {
         productTagRepository.deleteById(productTagId);
+    }
+
+    @Override
+    public void deleteByList(List<ProductTag> productTagList) {
+        productTagRepository.deleteAllInBatch(productTagList);
     }
 
     @Override

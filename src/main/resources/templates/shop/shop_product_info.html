@@ -138,8 +138,8 @@
             <!-- 第一行 商品分類、品牌 -->
             <div class="row pt-3">
                 <div class="col-3">
-                    <button id="productTag" type="button" class="btn btn-secondary mx-1" th:text="${product.productTag.tagName}">分類</button>
-                    <button id="productBrand"type="button" class="btn btn-secondary mx-1" th:text="${product.brand.brandName}">品牌</button>
+                    <button id="productTag" type="button" class="btn btn-secondary mx-1" th:if="${product.productTag != null}" th:text="${product.productTag.tagName}">分類</button>
+                    <button id="productBrand"type="button" class="btn btn-secondary mx-1" th:if="${product.brand != null}" th:text="${product.brand.brandName}">品牌</button>
                 </div>
                 <div class="col-6"></div>
                 <div class="col-3 mt-2 text-secondary">

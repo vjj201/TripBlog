@@ -62,7 +62,7 @@ $(document).ready(function () {
     //判斷更新或新增
     let updateId = null;
 
-    //創建分類
+    //創建或更新分類
     $('#create').on('click', function () {
         let sortName = $('#productSortName').val();
 
@@ -70,17 +70,20 @@ $(document).ready(function () {
             $('#productSortName').attr('placeholder', '麻煩輸入分類名稱');
             return;
         }
-        let tagList = new Array();
-        $('span[name="tag"]').each(function () {
-            let data = { 'tagName': $(this).text() };
-            tagList.push(data);
-        });
-
-        let data = {};
-        data['sortName'] = sortName;
-        data['tagList'] = tagList;
 
         if (updateId != null) {
+
+            let tagList = new Array();
+            $('span[name="tag"]').each(function () {
+                let data = { 'id': $(this).attr('data-id'), 'tagName': $(this).text() };
+                tagList.push(data);
+            });
+
+            let data = {};
+            data['sortName'] = sortName;
+            data['tagList'] = tagList;
+
+
             $.ajax({
                 url: '/admin/productSort/' + updateId,
                 type: 'PUT',
@@ -100,11 +103,24 @@ $(document).ready(function () {
                         $('#createBack').trigger('click');
                     },
                     404: function () {
+                        alert('查無資料');
+                    },
+                    500: function () {
                         alert('編輯失敗');
                     }
                 }
             });
         } else {
+
+            let tagList = new Array();
+            $('span[name="tag"]').each(function () {
+                let data = { 'tagName': $(this).text() };
+                tagList.push(data);
+            });
+
+            let data = {};
+            data['sortName'] = sortName;
+            data['tagList'] = tagList;
 
             $.ajax({
                 url: '/admin/productSort',
@@ -147,16 +163,20 @@ $(document).ready(function () {
         $('button[name="removeTag"]').trigger('click');
         $('#modelName').text('編輯分類');
         $('#create').text('編輯')
+
         updateId = $(this).parent().parent().children().first().text();
         let name = $(this).parent().parent().children().eq(1).text();
-        let tagList = $(this).parent().parent().children().eq(2).children().children();
+        let tagList = $(this).parent().parent().children().eq(2).children().children().children();
 
         $('#productSortName').val(name);
         $(tagList).each(function () {
             let productTag = ($(this).text());
+            let id = $(this).attr('data-id');
             let div =
                 '<div class="badge bg-light text-dark me-2">' +
-                '<span name="tag" class="me-1">' +
+                '<span name="tag" class="me-1" data-id="' +
+                id +
+                '">' +
                 productTag +
                 '</span>' +
                 '<button type="button" name="removeTag" class="btn-close position-absolute" style="width: 0.1px; height:0.1px;" aria-label="Close"></button>' +
@@ -185,7 +205,9 @@ function loadData() {
                     $.each(productSort.tagList, function (i, tag) {
 
                         li +=
-                            '<li class="list-group-item"><small name="tagName">' +
+                            '<li class="list-group-item"><small name="tagName" data-id="' +
+                            tag.id +
+                            '">' +
                             tag.tagName +
                             '</small></li>';
 

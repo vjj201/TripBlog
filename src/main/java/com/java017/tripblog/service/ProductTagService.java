@@ -17,6 +17,9 @@ public interface ProductTagService {
     //id刪除
     void deleteProductTagById(Long productTagId);
 
+    //批量刪除
+    void deleteByList(List<ProductTag> productTagList);
+
     //id查詢
     ProductTag findProductTagById(Long productTagId);
 
