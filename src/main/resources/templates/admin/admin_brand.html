@@ -125,50 +125,51 @@
 
             <!-- 主內容 -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-5">
+                <div class="container my-5 pb-5">
 
-
-                <div class="row mb-2">
-                    <div class="col">
-                        <h3>店家管理</h3>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <h3>店家管理</h3>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <button id="createBtn" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#Modal">新增商家</button>
+                        </div>
                     </div>
-                    <div class="col d-flex justify-content-end">
-                        <button id="createBtn" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#Modal">新增商家</button>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">店家名稱</th>
+                                    <th scope="col">地址</th>
+                                    <th scope="col">簡介</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+
+                                <tr class="my-3 h-100">
+                                    <td class="pt-2">1</td>
+                                    <td>
+                                        <button name="getProducts" type="button" class="btn btn-gr0201"
+                                            data-bs-toggle="modal" data-bs-target="#Modal2">阿貓麵攤
+                                        </button>
+                                    </td>
+                                    <td class="pt-2">台北市大安區富陽街</td>
+                                    <td class="pt-2">有好多麵麵，也有好多貓貓</td>
+
+                                    <td>
+                                        <button name="update" type="button" class="btn btn-primary me-2"
+                                            data-bs-toggle="modal" data-bs-target="#Modal">編輯</button>
+                                        <button name="delete" type="button" class="btn btn-danger me-2">刪除</button>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">店家名稱</th>
-                                <th scope="col">地址</th>
-                                <th scope="col">簡介</th>
-                                <th scope="col">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody">
-
-                            <tr class="my-3 h-100">
-                                <td class="pt-2">1</td>
-                                <td>
-                                    <button name="getProducts" type="button" class="btn btn-gr0201"
-                                        data-bs-toggle="modal" data-bs-target="#Modal2">阿貓麵攤
-                                    </button>
-                                </td>
-                                <td class="pt-2">台北市大安區富陽街</td>
-                                <td class="pt-2">有好多麵麵，也有好多貓貓</td>
-
-                                <td>
-                                    <button name="update" type="button" class="btn btn-primary me-2"
-                                        data-bs-toggle="modal" data-bs-target="#Modal">編輯</button>
-                                    <button name="delete" type="button" class="btn btn-danger me-2">刪除</button>
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-                    </table>
                 </div>
             </main>
             <!-- 結束:主內容 -->

@@ -21,7 +21,6 @@ public class ProductOrder {
     private Long id;
 
     private String uuid;
-
     private Integer amounts;
     private Integer freight;
     private String receiver;

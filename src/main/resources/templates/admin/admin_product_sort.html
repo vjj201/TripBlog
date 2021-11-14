@@ -124,54 +124,62 @@
             <!-- 結束:側邊工具列 -->
 
             <!-- 主內容 -->
+
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-5">
+                <div class="container my-5 pb-5">
 
-
-                <div class="row mb-2">
-                    <div class="col">
-                        <h3>分類標籤</h3>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <h3>分類標籤</h3>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <button id="createBtn" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#Modal">新增分類</button>
+                        </div>
                     </div>
-                    <div class="col d-flex justify-content-end">
-                        <button id="createBtn" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#Modal">新增分類</button>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">分類名稱</th>
+                                    <th scope="col">標籤名稱</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+
+                                <tr class="my-3 h-100">
+                                    <td class="pt-3">1</td>
+                                    <td class="pt-3">在地佳餚</td>
+                                    <td>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item"><small data-id="1" name="tagName">主菜</small>
+                                            </li>
+                                            <li class="list-group-item"><small data-id="2" name="tagName">麵食</small>
+                                            </li>
+                                            <li class="list-group-item"><small data-id="3" name="tagName">米飯</small>
+                                            </li>
+                                            <li class="list-group-item"><small data-id="4" name="tagName">餃類</small>
+                                            </li>
+                                            <li class="list-group-item"><small data-id="5" name="tagName">燉湯</small>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <button name="update" type="button" class="btn btn-primary me-2"
+                                            data-bs-toggle="modal" data-bs-target="#Modal">編輯</button>
+                                        <button name="delete" type="button" class="btn btn-danger me-2">刪除</button>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">分類名稱</th>
-                                <th scope="col">標籤名稱</th>
-                                <th scope="col">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody">
-
-                            <tr class="my-3 h-100">
-                                <td class="pt-3">1</td>
-                                <td class="pt-3">在地佳餚</td>
-                                <td>
-                                    <ul class="list-group list-group-horizontal">
-                                        <li class="list-group-item"><small data-id="1" name="tagName">主菜</small></li>
-                                        <li class="list-group-item"><small data-id="2" name="tagName">麵食</small></li>
-                                        <li class="list-group-item"><small data-id="3" name="tagName">米飯</small></li>
-                                        <li class="list-group-item"><small data-id="4" name="tagName">餃類</small></li>
-                                        <li class="list-group-item"><small data-id="5" name="tagName">燉湯</small></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <button name="update" type="button" class="btn btn-primary me-2"
-                                        data-bs-toggle="modal" data-bs-target="#Modal">編輯</button>
-                                    <button name="delete" type="button" class="btn btn-danger me-2">刪除</button>
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-                    </table>
                 </div>
             </main>
+
             <!-- 結束:主內容 -->
         </div>
     </div>

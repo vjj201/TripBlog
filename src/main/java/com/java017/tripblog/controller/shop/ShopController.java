@@ -31,14 +31,14 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/shop")
-public class ProductController {
+public class ShopController {
 
     private final ProductSortService productSortService;
     private final ProductService productService;
     private final BrandService brandService;
 
     @Autowired
-    public ProductController(ProductSortService productSortService, ProductService productService, BrandService brandService) {
+    public ShopController(ProductSortService productSortService, ProductService productService, BrandService brandService) {
         this.productSortService = productSortService;
         this.productService = productService;
         this.brandService = brandService;

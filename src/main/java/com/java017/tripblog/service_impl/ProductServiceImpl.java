@@ -75,20 +75,22 @@ public class ProductServiceImpl implements ProductService {
                 //條件表單
                 List<Predicate> predicateList = new ArrayList<>();
 
-                //判斷第一個條件輸入的標題不為空
-                if (!ObjectUtils.isEmpty(productQuery.getProductName())) {
-                    //添加語句語法和欄位名稱，第二個參數為屬性值，like前後需加百分號
-                    predicateList.add(criteriaBuilder.like(root.<String>get("productName"), "%" + productQuery.getProductName() + "%"));
-                }
+                if(!ObjectUtils.isEmpty(productQuery)) {
+                    //判斷第一個條件輸入的標題不為空
+                    if (!ObjectUtils.isEmpty(productQuery.getProductName())) {
+                        //添加語句語法和欄位名稱，第二個參數為屬性值，like前後需加百分號
+                        predicateList.add(criteriaBuilder.like(root.<String>get("productName"), "%" + productQuery.getProductName() + "%"));
+                    }
 
-                //判斷第二個條件分類選單，內容不為空
-                if (!ObjectUtils.isEmpty(productQuery.getBrandId())) {
-                    predicateList.add(criteriaBuilder.equal(root.<Brand>get("brand").get("id"), productQuery.getBrandId()));
-                }
+                    //判斷第二個條件分類選單，內容不為空
+                    if (!ObjectUtils.isEmpty(productQuery.getBrandId())) {
+                        predicateList.add(criteriaBuilder.equal(root.<Brand>get("brand").get("id"), productQuery.getBrandId()));
+                    }
 
-                //判斷第三個條件分類選單，內容不為空
-                if (!ObjectUtils.isEmpty(productQuery.getTagId())) {
-                    predicateList.add(criteriaBuilder.equal(root.<ProductTag>get("productTag"), productQuery.getTagId()));
+                    //判斷第三個條件分類選單，內容不為空
+                    if (!ObjectUtils.isEmpty(productQuery.getTagId())) {
+                        predicateList.add(criteriaBuilder.equal(root.<ProductTag>get("productTag"), productQuery.getTagId()));
+                    }
                 }
 
                 //動態條件傳入語句，清單需轉為陣列

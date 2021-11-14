@@ -2,6 +2,7 @@ package com.java017.tripblog.service;
 
 import com.java017.tripblog.entity.ProductOrder;
 import com.java017.tripblog.entity.User;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -21,4 +22,7 @@ public interface ProductOrderService {
     List<ProductOrder> findAllByUser(User user);
 
     void deleteById(Long id);
+
+    //條件查詢
+    Page<ProductOrder> findProductOrderPageByQuery(int page, ProductOrder productOrder);
 }
