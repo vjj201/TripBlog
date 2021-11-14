@@ -3,7 +3,6 @@ package com.java017.tripblog.controller.admin;
 import com.java017.tripblog.entity.Brand;
 import com.java017.tripblog.entity.Product;
 import com.java017.tripblog.entity.ProductTag;
-import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.BrandService;
 import com.java017.tripblog.service.ProductService;
 import com.java017.tripblog.service.ProductTagService;
@@ -15,11 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author YuCheng
@@ -76,6 +73,29 @@ public class AdminController {
         }
     }
 
+    //獲取商品資訊
+    @GetMapping("/product/manage/{id}")
+    public ResponseEntity<String> showProduct(@PathVariable Long id) {
+        try {
+            System.out.println("Yes");
+            Product product = productService.findProductById(id);
+            System.out.println(product);
+            JSONObject JSONproduct = new JSONObject();
+            JSONproduct.put("productID", id);
+            JSONproduct.put("productName", product.getProductName());
+            JSONproduct.put("aboutProduct", product.getAboutProduct());
+            JSONproduct.put("productDetail", product.getProductDetail());
+            JSONproduct.put("price", product.getPrice());
+            JSONproduct.put("inStock", product.getInStock());
+            JSONproduct.put("alreadySold", product.getAlreadySold());
+            JSONproduct.put("brand", product.getBrand().getBrandName());
+            JSONproduct.put("productTag", product.getProductTag().getTagName());
+            return new ResponseEntity<>(JSONproduct.toString(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     //獲取店家資訊
     @GetMapping("/product/showBrands")
     public ResponseEntity<List<Brand>> showBrands() {
@@ -119,7 +139,7 @@ public class AdminController {
 
     //商品管理頁新增上架商品的店家
     @ResponseBody
-    @PostMapping("/product/manage/{id}/brand")
+    @PostMapping("/product/manage/brand/{id}")
     public void addProductBrand(@PathVariable Long id, @RequestBody Long brandId) {
         Product product = productService.findProductById(id);
         System.out.println("讀到的商品: "  + product);
@@ -132,7 +152,7 @@ public class AdminController {
 
     //商品管理頁新增上架商品的標籤
     @ResponseBody
-    @PostMapping("/product/manage/{id}/productTag")
+    @PostMapping("/product/manage/productTag/{id}")
     public void addProductTag(@PathVariable Long id, @RequestBody Long pTagId) {
         Product product = productService.findProductById(id);
         System.out.println("讀到的商品: "  + product);
@@ -145,7 +165,7 @@ public class AdminController {
 
     //上傳商品照片
     @ResponseBody
-    @PostMapping("/product/manage/{id}/productImg")
+    @PostMapping("/product/manage/productImg/{id}")
     public boolean addProductImg(@PathVariable Long id, @RequestParam(value="file") MultipartFile multipartFile) {
 
         if(!multipartFile.isEmpty()){
@@ -171,4 +191,77 @@ public class AdminController {
         productService.deleteProductById(id);
         return "redirect:/admin/product";
     }
+
+    //修改
+    //修改商品資訊
+    @PutMapping("/product/manage/{id}")
+    public void updateProductInfo(@PathVariable Long id, @RequestBody Product product) {
+        Product productInfo = productService.findProductById(id);
+
+        System.out.println("傳進來的資訊: "  + product);
+
+        if (!"".equals(product.getProductName())) {
+            productInfo.setProductName(product.getProductName());
+        }
+        if (!"".equals(product.getAboutProduct())) {
+            productInfo.setAboutProduct(product.getAboutProduct());
+        }
+        if (!"".equals(product.getProductDetail())) {
+            productInfo.setProductDetail(product.getProductDetail());
+        }
+        if (product.getPrice() != null) {
+            productInfo.setPrice(product.getPrice());
+        }
+        if (product.getInStock() != null) {
+            productInfo.setInStock(product.getInStock());
+        }
+        System.out.println(productInfo);
+        productService.createOrUpdateProduct(productInfo);
+    }
+
+    //修改商品的店家
+    @PutMapping("/product/manage/brand/{id}")
+    public void updateProductBrand(@PathVariable Long id, @RequestBody Long brandId) {
+        Product product = productService.findProductById(id);
+        System.out.println("讀到的商品: "  + product);
+        System.out.println("傳進的店家: "  + brandId);
+        Brand brand = brandService.findBrandById(brandId);
+        product.setBrand(brand);
+        System.out.println(product);
+        productService.createOrUpdateProduct(product);
+    }
+
+    //修改商品的標籤
+    @PutMapping("/product/manage/productTag/{id}")
+    public void updateProductTag(@PathVariable Long id, @RequestBody Long pTagId) {
+        Product product = productService.findProductById(id);
+        System.out.println("讀到的商品: "  + product);
+        System.out.println("傳進的店家: "  + pTagId);
+        ProductTag pTag = productTagService.findProductTagById(pTagId);
+        product.setProductTag(pTag);
+        productService.createOrUpdateProduct(product);
+        System.out.println(product);
+    }
+
+    //修改商品照片
+    @PutMapping("/product/manage/productImg/{id}")
+    public boolean updateProductImg(@PathVariable Long id, @RequestParam(value="file") MultipartFile multipartFile) {
+
+        if(!multipartFile.isEmpty()){
+
+            long size = multipartFile.getSize();
+            if(size > 1920*1080){
+                System.out.println("圖片尺寸過大");
+                return false;
+            }
+
+            String fileName = id + ".jpg";
+            String dir = "src/main/resources/static/images/shop/product";
+
+            FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
+            return true;
+        }
+        return false;
+    }
+
 }
