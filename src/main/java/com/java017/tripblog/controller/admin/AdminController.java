@@ -57,8 +57,16 @@ public class AdminController {
                     JSONproduct.put("price", product.getPrice());
                     JSONproduct.put("inStock", product.getInStock());
                     JSONproduct.put("alreadySold", product.getAlreadySold());
-                    JSONproduct.put("brand", product.getBrand().getBrandName());
-                    JSONproduct.put("productTag", product.getProductTag().getTagName());
+                    if (product.getBrand() != null) {
+                        JSONproduct.put("brand", product.getBrand().getBrandName());
+                    } else {
+                        JSONproduct.put("brand", "未設定");
+                    }
+                    if (product.getProductTag() != null) {
+                        JSONproduct.put("productTag", product.getProductTag().getTagName());
+                    } else {
+                        JSONproduct.put("productTag", "未設定");
+                    }
                     productsInfo.add(JSONproduct);
                     System.out.println(productsInfo);
                     id++;
@@ -77,7 +85,6 @@ public class AdminController {
     @GetMapping("/product/manage/{id}")
     public ResponseEntity<String> showProduct(@PathVariable Long id) {
         try {
-            System.out.println("Yes");
             Product product = productService.findProductById(id);
             System.out.println(product);
             JSONObject JSONproduct = new JSONObject();
@@ -88,8 +95,16 @@ public class AdminController {
             JSONproduct.put("price", product.getPrice());
             JSONproduct.put("inStock", product.getInStock());
             JSONproduct.put("alreadySold", product.getAlreadySold());
-            JSONproduct.put("brand", product.getBrand().getBrandName());
-            JSONproduct.put("productTag", product.getProductTag().getTagName());
+            if (product.getBrand() != null) {
+                JSONproduct.put("brand", product.getBrand().getBrandName());
+            } else {
+                JSONproduct.put("brand", "選擇店家");
+            }
+            if (product.getProductTag() != null) {
+                JSONproduct.put("productTag", product.getProductTag().getTagName());
+            } else {
+                JSONproduct.put("productTag", "選擇商品標籤");
+            }
             return new ResponseEntity<>(JSONproduct.toString(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

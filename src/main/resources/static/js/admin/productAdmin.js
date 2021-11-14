@@ -500,7 +500,6 @@ $(function(){
         // 動態新增店家下拉式選單部分
         function createBrandsList(brands, brand){
             let opBrands = document.createElement('option');
-            // opBrands.selected;
             opBrands.value = '0';
             opBrands.innerText = brand;
             document.getElementById('editProductBrand').appendChild(opBrands);
@@ -514,7 +513,6 @@ $(function(){
         // 動態新增標籤下拉式選單部分
         function createTagsList(pTags, tag){
             let opTags = document.createElement('option');
-            // opTags.selected;
             opTags.value = '0';
             opTags.innerText = tag;
             document.getElementById('editProductTag').appendChild(opTags);
@@ -528,85 +526,6 @@ $(function(){
     }
 
     //編輯商品的所有Modal頁面(兩頁)
-    //檢查編輯商品表單非空&格式
-    $('#editProductTitle').blur(function (e) {
-        e.preventDefault();
-        let editProductName = $('#editProductTitle').val();
-        if (!editProductName) {
-            $('#editProductNext').addClass('disabled');
-            $('#messageProductTitleEdit').text('請輸入商品名稱');
-        } else {
-            $('#editProductNext').removeClass('disabled');
-            $('#messageProductTitleEdit').empty();
-        }
-    });
-    $('#editProductAbout').blur(function (e) {
-        e.preventDefault();
-        let editAboutProduct = $('#editProductAbout').val();
-        if (!editAboutProduct) {
-            $('#editProductNext').addClass('disabled');
-            $('#messageProductAboutEdit').text('請輸入商品簡介');
-        } else {
-            $('#editProductNext').removeClass('disabled');
-            $('#messageProductAboutEdit').empty();
-        }
-    });
-    $('#editProductInfo').blur(function (e) {
-        e.preventDefault();
-        let editProductDetail = $('#editProductInfo').val();
-        if (!editProductDetail) {
-            $('#editProductNext').addClass('disabled');
-            $('#messageProductInfoEdit').text('請輸入商品詳細介紹');
-        } else {
-            $('#editProductNext').removeClass('disabled');
-            $('#messageProductInfoEdit').empty();
-        }
-    });
-    $('#editProductPrice').blur(function (e) {
-        e.preventDefault();
-        let editProductPrice = $('#editProductPrice').val();
-        if (!editProductPrice) {
-            $('#editProductNext').addClass('disabled');
-            $('#messageProductPriceEdit').text('請輸入商品價格');
-        } else {
-            $('#editProductNext').removeClass('disabled');
-            $('#messageProductPriceEdit').empty();
-        }
-    });
-    $('#editProductStock').blur(function (e) {
-        e.preventDefault();
-        let editProductStock = $('#editProductStock').val();
-        if (!editProductStock) {
-            $('#editProductNext').addClass('disabled');
-            $('#messageProductStockEdit').text('請輸入商品庫存');
-        } else {
-            $('#editProductNext').removeClass('disabled');
-            $('#messageProductStockEdit').empty();
-        }
-    });
-    $('#editProductBrand').blur(function (e) {
-        e.preventDefault();
-        let editProductBrand = $('#editProductBrand').val();
-        if (editProductBrand == '0') {
-            $('#editProductNext').addClass('disabled');
-            $('#messageProductBrandEdit').text('請選擇上架店家');
-        } else {
-            $('#editProductNext').removeClass('disabled');
-            $('#messageProductBrandEdit').empty();
-        }
-    });
-    $('#editProductTag').blur(function (e) {
-        e.preventDefault();
-        let editProductTag = $('#editProductTag').val();
-        if (editProductTag == '0') {
-            $('#editProductNext').addClass('disabled');
-            $('#messageProductTagEdit').text('請選擇商品標籤');
-        } else {
-            $('#editProductNext').removeClass('disabled');
-            $('#messageProductTagEdit').empty();
-        }
-    });
-
     // 離開編輯商品第一頁頁面
     $('#editProductExit').click(function (e) {
         e.preventDefault();
