@@ -43,6 +43,12 @@ public interface ArticleService {
 
     ArrayList<Article>findByUserIdForPage(User id);
 
+    //大方：  我的空間 - 文章換頁按鈕自動生成
+    ArrayList<Article>findByUserIdAndSubjectCategoryForPage(User id,String subject);
+
+    //大方:    我的空間 - 文章首頁&文章換頁
+    List<Article> getMyPagedArticles(int page, int size,Long id, String subject,int timeDirect);
+
     ArrayList<Article>findAll();
     String upDateArticle(Article inputArticle);
 

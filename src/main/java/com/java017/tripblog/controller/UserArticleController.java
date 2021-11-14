@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -84,7 +85,27 @@ public class UserArticleController {
 
     }
 
-//庭妤:  文章自動生成_自動生成換頁按鈕
+    // 點擊換頁按鈕並換頁(myEat) 大方 1113
+
+    @ResponseBody
+    @GetMapping("/myChangeSearchOfPageEatTravel")
+    public List<Article> myChangeSearchOfPage(HttpSession session, @RequestParam String subject, @RequestParam Integer page, @RequestParam Integer timeDirect){
+        System.out.println("點擊換頁按鈕並換頁的subject=" + subject);
+        User user = (User) session.getAttribute("user");
+        user = userService.findUserById(user.getId());
+        Long userId = user.getId();
+
+        System.out.println("myChangeSearchOfPageEatTravel的" + userId);
+
+
+        List<Article> messageList;
+        messageList = articleService.getMyPagedArticles(page,5,userId, subject,timeDirect);
+        System.out.println("點擊換頁按鈕並換頁的-順序my_timeDirect=" + timeDirect);
+        System.out.println("點擊換頁按鈕並換頁的my_messageList=" + messageList);
+        return messageList;
+    }
+
+    //庭妤:  文章自動生成_自動生成換頁按鈕
     @ResponseBody
     @GetMapping("/newPageButtonEatTravel")
     public Integer newChangePageButton(@RequestParam String enterAddressName, @RequestParam String subject) {

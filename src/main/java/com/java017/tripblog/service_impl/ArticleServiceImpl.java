@@ -186,6 +186,68 @@ public class ArticleServiceImpl implements ArticleService {
         return result;
     }
 
+    //大方：  文章換頁按鈕自動生成
+    @Override
+    public ArrayList<Article> findByUserIdAndSubjectCategoryForPage(User id, String subject){
+        ArrayList<Article> result = articleRepository.findByUserId(id);
+
+        if(StringUtils.isEmpty(subject)){
+            return result;
+        }else{
+            // 有填主題(subject)
+            return articleRepository.findByUserIdAndSubjectCategory(id,subject);
+        }
+    }
+
+    //大方:  我的空間 - 文章首頁&文章換頁
+    @Override
+    public List<Article> getMyPagedArticles(int page, int size, Long id, String subject, int timeDirect) {
+
+        System.out.println("articlaserviceimpl getMyPagedArticles"+ id);
+
+        //預設-時間舊到新
+        Pageable pageable = PageRequest.of(page,
+                                           size,
+                                           Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+
+
+        System.out.println("實作service的排序" + timeDirect);
+
+        //時間新到舊
+        if(timeDirect == 100){
+            System.out.println("desc有抓到(if 新到舊)");
+            pageable = PageRequest.of(page,
+                                      size,
+                                      Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+        }
+
+        Page<Article> pageResult;
+
+        if(!StringUtils.isEmpty(subject)){
+            System.out.println("你有問題");
+            pageResult = articleRepository.findByUserId_IdAndSubjectCategory(id,subject,pageable);
+            System.out.println("你有問題ㄉ2");
+//            List<Article> A =articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
+//            List<Article> newA = new ArrayList<>();
+//            for(Article loopdata:A){
+//                if(subject.equals(loopdata.getSubjectCategory())){
+//                    newA.add(loopdata);
+//                }
+//            }
+//            pageResult = new PageImpl<>(newA,pageable,newA.size());
+        }else {
+            pageResult = articleRepository.findByUserId(id, pageable);
+        }
+
+        List<Article> messageList = pageResult.getContent();
+
+        System.out.println("ArticleServiceImpl的 messageList" + messageList);
+
+        return messageList;
+    }
+
+
+
     @Override
     public ArrayList<Article> findAll() {
         return null;
