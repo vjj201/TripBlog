@@ -10,7 +10,7 @@ $(function () {
     //------
     // ~~~開啟及啟用－文章用~~~
 
-    let subject;
+    let subject = "";
     let timeDirect;
     let myArticle = {};
 
@@ -20,7 +20,7 @@ $(function () {
 
     function loadPage() {
 
-        timeDirect = 000;
+        timeDirect = "000";
         subject = "";
         myArticle["subject"] = subject;
         myArticle["timeDirect"] = timeDirect;
@@ -29,7 +29,7 @@ $(function () {
         newButton();
         clickPage();
 
-        //test 1 start
+        //點擊主題
         $("#subject").change(function (e1){
                 e1.preventDefault();
                 subject = $("#subject option:selected").val();
@@ -44,9 +44,8 @@ $(function () {
                 newButton();
                 clickPage();
         })
-        //test end
-
-        //test 2 start
+    }
+        //點擊時間排序
         $("#timeDirect").change(function (e2){
                 e2.preventDefault();
                 subject = $("#subject option:selected").val();
@@ -61,26 +60,6 @@ $(function () {
                 newButton();
                 clickPage();
         })
-        //test end
-
-
-        //test ori start
-        // $("#timeDirect").change(function (e){
-        //     e.preventDefault();
-        //     subject = $("#subject option:selected").val();
-        //     timeDirect = $("#timeDirect option:selected").val();
-        //     console.log("subject" + subject);
-        //     console.log("timeDirect" + timeDirect);
-        //     console.log("ajax前-輸入搜尋吧查詢並送出第一頁");
-        //     myArticle["subject"] = subject;
-        //     myArticle["timeDirect"] = timeDirect;
-        //
-        //     firstPage();
-        //     newButton();
-        //     clickPage();
-        // })
-        //test ori end
-    }
 
     //文章內容
     function getHtmlArticle(myArticleAll){
@@ -88,18 +67,17 @@ $(function () {
         let textEditor = myArticleAll.textEditor;
         let createDate = myArticleAll.createDate;
         let createTime = myArticleAll.createTime;
-        let saveImgPath = myArticleAll.saveImgPath;
+        let saveImgPath = myArticleAll.saveImgPath;  //照片有問題
 
         return `
-
         <!-- 文章圖片  -->
                      <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
                     data-wow-duration="1000ms">
                     <div class="row align-items-center">
                         <div class="col-12 col-md-6">
                             <div class="single-blog-thumbnail">
-                             <img src="${'https://localhost:8080/user/' + saveImgPath}">
-                            <!-- //  <img src="${saveImgPath}">  -->
+                             <img src="${'https://localhost:8080/' + saveImgPath}">
+                             <img src="${saveImgPath}"> 
                             </div>
                         </div>
                         <div class="col-12 col-md-6 text-bl04">
@@ -117,7 +95,7 @@ $(function () {
                                         type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/edit/${articleTitle}'">編輯</button>
                                             <button
                                          class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                        type="submit" name="${articleTitle}">刪除</button>
+                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/delete/${articleTitle}'">刪除</button>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +159,6 @@ $(function () {
         })
     };
 
-
     //點擊換頁按鈕
     function clickPage(){
         $("#changePageAll").on("click", "#pageSearch", function (event) {
@@ -215,10 +192,44 @@ $(function () {
                 }
             })
         })
-    };
+    }
+    //大方 end
+
+    //大方  刪除文章
+    // $("#btArticleDelete").on("click", "#btArticleDelete", function (e2) {
+    //     e2.preventDefault();
+    //     console.log("刪除 step1")
+    //
+    //     let articleTitle;
+    //     let myArticle = {};
+    //
+    //     articleTitle = $("#articleTitle").text();
+    //     myArticle["articleTitle"] = articleTitle;
+    //
+    //     $.ajax({
+    //         url:"/myArticleDelete",
+    //         type: "DELETE",
+    //         data: myArticle,
+    //         success: function (response) {
+    //             console.log("刪除文章： " + myArticle);
+    //             alert("文章刪除成功" + myArticle)
+    //         }
+    //     })
+    // })
+
+    //點擊主題
+    // $("#subject").change(function (e1){
+    //     e1.preventDefault();
+    //     subject = $("#subject option:selected").val();
+    //     timeDirect = $("#timeDirect option:selected").val();
+    //     console.log("subject" + subject);
+    //     console.log("timeDirect" + timeDirect);
+    //     console.log("ajax前-輸入搜尋吧查詢並送出第一頁");
+    //     myArticle["subject"] = subject;
+    //     myArticle["timeDirect"] = timeDirect;
 
 
-    // try try DIY end
+
 
 
 
@@ -350,4 +361,7 @@ $(function () {
    //
    //  });
 
-});
+
+})
+
+

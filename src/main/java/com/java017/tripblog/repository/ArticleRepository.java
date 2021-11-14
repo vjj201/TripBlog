@@ -42,11 +42,15 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
 
 //大方: 使用者 (分頁）
 
-     Page<Article> findByUserId (Long id, Pageable pageable);
+     Page<Article>  findByUserId_Id (Long id, Pageable pageable);
 
 //大方: 使用者+主題
 
      ArrayList<Article> findByUserIdAndSubjectCategory(User id, String subject);
+
+//大方: 刪除文章
+
+     String deleteArticleByArticleTitle(String articleTitle);
 
 //     Page<Article> findByUserIdAndSubjectCategory(User user, String subject);
 

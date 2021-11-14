@@ -170,7 +170,7 @@ public class ArticleController {
 //        return pageMount;
 //    }
 
-    //自動生成換頁按鈕(myEat) 大方 1113更
+    //大方： 自動生成換頁按鈕(myEat) 1113更
     @ResponseBody
     @GetMapping("/newPageButtonForUser")
     public Integer newChangePageButton(HttpSession session, @RequestParam String subject) {
@@ -185,6 +185,24 @@ public class ArticleController {
         double listSize = list.size();
         int pageMount = (int) Math.ceil(listSize / 5);
         return pageMount;
+    }
+
+    //大方： 刪除文章 (My eat)
+    @ResponseBody
+    @GetMapping("/delete/{articleTitle}")
+//    private String deleteArticle(HttpSession session, @PathVariable String articleTitle){
+    private String deleteArticle(@PathVariable String articleTitle){
+
+//        User user = (User) session.getAttribute("user");
+//        User userId = userService.findUserById(user.getId());
+
+//        Integer articleId = articleTitle.getArticleId();
+//        System.out.println("刪除文章/文章標題：" + articleId + "/" + articleTitle);
+        System.out.println("刪除文章標題：" + articleTitle);
+
+        articleService.deleteMyArticle(articleTitle);
+
+        return "文章刪除(controller)";
     }
 
 

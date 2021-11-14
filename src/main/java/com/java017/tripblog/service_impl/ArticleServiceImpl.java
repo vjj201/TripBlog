@@ -224,22 +224,14 @@ public class ArticleServiceImpl implements ArticleService {
         Page<Article> pageResult;
 
         if(!StringUtils.isEmpty(subject)){
-            System.out.println("你有問題");
+            System.out.println("subject" + subject);
             pageResult = articleRepository.findByUserId_IdAndSubjectCategory(id,subject,pageable);
-            System.out.println("你有問題ㄉ2");
-//            List<Article> A =articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
-//            List<Article> newA = new ArrayList<>();
-//            for(Article loopdata:A){
-//                if(subject.equals(loopdata.getSubjectCategory())){
-//                    newA.add(loopdata);
-//                }
-//            }
-//            pageResult = new PageImpl<>(newA,pageable,newA.size());
         }else {
-            pageResult = articleRepository.findByUserId(id, pageable);
+            pageResult = articleRepository.findByUserId_Id(id, pageable);
         }
 
         List<Article> messageList = pageResult.getContent();
+
 
         System.out.println("ArticleServiceImpl的 messageList" + messageList);
 
@@ -247,6 +239,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
+    //大方:    我的空間 - 刪除文章
+    public String deleteMyArticle(String articleTitle){
+
+        articleRepository.deleteArticleByArticleTitle(articleTitle);
+
+        return "文章刪除(Service)";
+    }
 
     @Override
     public ArrayList<Article> findAll() {
