@@ -51,13 +51,13 @@
         <div class="row">
 
             <!-- 側邊工具列 -->
-            <nav th:fragment="adminNav(page)" id="sidebarMenu"
+            <nav th:replace="/admin/admin_index :: adminNav(2)" id="sidebarMenu"
                 class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
 
                         <li class="nav-item my-3">
-                            <a class="nav-link my-nav-link" href="#" th:classappend="${page==1} ? 'active disabled'"
+                            <a class="nav-link my-nav-link" href="#"
                                 th:href="@{/admin/orderPage}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -72,7 +72,7 @@
                             </a>
                         </li>
                         <li class="nav-item mb-3">
-                            <a class="nav-link my-nav-link" th:classappend="${page==2} ? 'active disabled'" href="#"
+                            <a class="nav-link my-nav-link" href="#"
                                 th:href="@{/admin/product}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     class="bi bi-cart-plus" viewBox="0 0 16 16">
@@ -85,7 +85,7 @@
                             </a>
                         </li>
                         <li class="nav-item mb-3">
-                            <a class="nav-link my-nav-link" th:classappend="${page==3} ? 'active disabled'" href="#"
+                            <a class="nav-link my-nav-link" href="#"
                                 th:href="@{/admin/brandPage}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     class="bi bi-building" viewBox="0 0 16 16">
@@ -98,7 +98,7 @@
                             </a>
                         </li>
                         <li class="nav-item mb-3">
-                            <a class="nav-link my-nav-link" th:classappend="${page==4} ? 'active disabled'" href="#"
+                            <a class="nav-link my-nav-link" href="#"
                                 th:href="@{/admin/productSortPage}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     class="bi bi-inbox" viewBox="0 0 16 16">
@@ -109,7 +109,7 @@
                             </a>
                         </li>
                         <li class="nav-item mb-3">
-                            <a class="nav-link my-nav-link" th:classappend="${page==5} ? 'active disabled'" href="#"
+                            <a class="nav-link my-nav-link" href="#"
                                 th:href="@{/admin/userPage}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     class="bi bi-person" viewBox="0 0 16 16">
@@ -121,7 +121,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link my-nav-link" th:classappend="${page==6} ? 'active disabled'" href="#">
+                            <a class="nav-link my-nav-link" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     class="bi bi-chat-dots" viewBox="0 0 16 16">
                                     <path

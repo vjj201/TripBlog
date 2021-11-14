@@ -17,6 +17,10 @@ public class AdminPageController {
         return "/admin/admin_index";
     }
 
+    //跳轉產品管理頁
+    @GetMapping("/productPage")
+    public String showProductsManagePage() {return "/admin/admin_product"; }
+
     @GetMapping("/brandPage")
     public String brandPage() {
         return "/admin/admin_brand";

@@ -25,14 +25,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController {
+public class ProductController {
 
     private final ProductService productService;
     private final BrandService brandService;
     private final ProductTagService productTagService;
 
     @Autowired
-    public AdminController(ProductService productService, BrandService brandService, ProductTagService productTagService) {
+    public ProductController(ProductService productService, BrandService brandService, ProductTagService productTagService) {
         this.productService = productService;
         this.brandService = brandService;
         this.productTagService = productTagService;
