@@ -37,16 +37,16 @@ $(document).ready(function () {
     //編輯標籤文字
     $(document).on('click', 'span[name="tag"]', function () {
         $('#changeTag').toggle();
-        $('#changeTag').children().eq(0).children().eq(1).text($(this).attr('data-tag-id'));
-        $('#changeTag').children().eq(1).val($(this).text());
+        $('#changeTag').children().eq(1).text($(this).text());
+        $('#changeTag').children().eq(2).val($(this).text());
         // $('#changeTag').children().eq(0).focus();
     });
 
     //標籤框按鈕
-    $('#changeTag').children().eq(2).click(function () {
-        let id = $('#changeTag').children().eq(0).children().eq(1).text();
-        let name = $('#changeTag').children().eq(1).val();
-        $('[data-tag-id=' + id + ']').text(name);
+    $('#changeTag').children().eq(3).click(function () {
+        let oldName = $('#changeTag').children().eq(1).text();
+        let name = $('#changeTag').children().eq(2).val();
+        $('span:contains(' + oldName + '):last').text(name);
 
         $('#changeTag').toggle();
     });
@@ -168,6 +168,7 @@ $(document).ready(function () {
 
     //新增按鈕
     $(document).on('click', '#createBtn', function () {
+        $('#changeTag').hide();
         updateId = null;
         $('#modelName').text('新增分類');
         $('#create').text('創建');
@@ -178,6 +179,7 @@ $(document).ready(function () {
 
     //編輯按鈕
     $(document).on('click', 'button[name="update"]', function () {
+        $('#changeTag').hide();
         $('button[name="removeTag"]').trigger('click');
         $('#modelName').text('編輯分類');
         $('#create').text('編輯')
