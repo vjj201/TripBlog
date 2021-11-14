@@ -406,6 +406,9 @@ $(function(){
                                         alert('商品上架失敗');
                                         window.location.href = "product";
                                     }
+                                },
+                                error: function() {
+                                    alert('圖片檔案過大');
                                 }
                             });
                         }
@@ -441,7 +444,6 @@ $(function(){
             type: "DELETE",
             url: "product/manage/" + this.id,
             data: this.id,
-            // async: false,
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
             success: function () {
@@ -675,6 +677,9 @@ $(function(){
                     success: function () {
                         alert('商品照片已更新');
                         window.location.href = "product";
+                    },
+                    error: function() {
+                        alert('圖片檔案過大');
                     }
                 });
             }
