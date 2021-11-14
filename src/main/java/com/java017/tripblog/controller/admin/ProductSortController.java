@@ -3,7 +3,6 @@ package com.java017.tripblog.controller.admin;
 import com.java017.tripblog.entity.Product;
 import com.java017.tripblog.entity.ProductSort;
 import com.java017.tripblog.entity.ProductTag;
-import com.java017.tripblog.service.ProductService;
 import com.java017.tripblog.service.ProductSortService;
 import com.java017.tripblog.service.ProductTagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import java.util.List;
  * @date 2021/11/12 - 下午 03:43
  */
 
+@Transactional
 @RestController
 @RequestMapping("/admin")
 public class ProductSortController {
@@ -54,8 +54,8 @@ public class ProductSortController {
 
     @PostMapping("/productSort")
     public ResponseEntity<HttpStatus> createProductSort(@RequestBody ProductSort productSort) {
+        System.out.println(productSort);
         try {
-            System.out.println(productSort);
             productSortService.createOrUpdateProductSort(productSort);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -63,7 +63,6 @@ public class ProductSortController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Transactional
     @PutMapping("/productSort/{id}")
     public ResponseEntity<HttpStatus> updateProductSortById(@PathVariable Long id, @RequestBody ProductSort productSort) {
         ProductSort productSortById = productSortService.findProductSortById(id);

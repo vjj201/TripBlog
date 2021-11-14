@@ -19,6 +19,7 @@ public class ProductSort {
     private Long id;
 
     //分類名稱
+    @Column(unique = true, nullable = false)
     private String sortName;
 
     @OneToMany(cascade = CascadeType.ALL)

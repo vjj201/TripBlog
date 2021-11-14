@@ -19,6 +19,7 @@ public class Brand {
     private Long id;
 
     //品牌名稱
+    @Column(unique = true, nullable = false)
     private String brandName;
 
     //關於品牌

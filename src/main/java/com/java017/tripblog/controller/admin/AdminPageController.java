@@ -17,6 +17,11 @@ public class AdminPageController {
         return "/admin/admin_index";
     }
 
+    @GetMapping("/brandPage")
+    public String brandPage() {
+        return "/admin/admin_brand";
+    }
+
     @GetMapping("/productSortPage")
     public String productSortPage() {
         return "/admin/admin_product_sort";

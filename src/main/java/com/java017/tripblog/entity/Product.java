@@ -43,12 +43,10 @@ public class Product {
     //商品詳細資訊
     private String productDetail;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Brand brand;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private ProductTag productTag;
