@@ -35,8 +35,13 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     }
 
     @Override
-    public ProductOrder findByUser(User user) {
-        return productOrderRepository.findByUser(user);
+    public ProductOrder findByUuid(String uuid) {
+        return productOrderRepository.findByUuid(uuid);
+    }
+
+    @Override
+    public List<ProductOrder> findAll() {
+        return productOrderRepository.findAll();
     }
 
     @Override

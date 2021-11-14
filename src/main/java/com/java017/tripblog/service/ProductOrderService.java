@@ -14,7 +14,9 @@ public interface ProductOrderService {
 
     ProductOrder findById(Long id);
 
-    ProductOrder findByUser(User user);
+    ProductOrder findByUuid(String uuid);
+
+    List<ProductOrder> findAll();
 
     List<ProductOrder> findAllByUser(User user);
 

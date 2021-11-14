@@ -1,6 +1,7 @@
 package com.java017.tripblog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -75,6 +76,7 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private ShopCart shopCart;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<ProductOrder> productOrderList = new HashSet<>();
 

@@ -191,6 +191,7 @@ public class CheckoutController {
         Long userId = userService.getCurrentUser().getId();
         User user = userService.findUserById(userId);
         productOrder.setUser(user);
+        productOrder.setUsername(user.getUsername());
         productOrderService.createOrUpdate(productOrder);
         message.append("Dear").append(user.getNickname()).
                 append("，感謝您的購買，訂單編號:").

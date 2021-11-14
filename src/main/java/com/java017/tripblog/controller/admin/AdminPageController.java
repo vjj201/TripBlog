@@ -26,4 +26,9 @@ public class AdminPageController {
     public String productSortPage() {
         return "/admin/admin_product_sort";
     }
+
+    @GetMapping("/orderPage")
+    public String orderPage() {
+        return "/admin/admin_order";
+    }
 }

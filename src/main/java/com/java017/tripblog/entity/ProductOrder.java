@@ -30,6 +30,7 @@ public class ProductOrder {
     private String payment;
     private String cardOwner;
     private String cardNumber;
+    private String username;
 
     //訂單狀態(待出貨-1、運送中0、已收件1)
     private Integer orderStatus;
@@ -37,6 +38,7 @@ public class ProductOrder {
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderTime;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
@@ -159,6 +161,14 @@ public class ProductOrder {
         this.cardNumber = cardNumber;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "ProductOrder{" +
@@ -172,9 +182,9 @@ public class ProductOrder {
                 ", payment='" + payment + '\'' +
                 ", cardOwner='" + cardOwner + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
+                ", username='" + username + '\'' +
                 ", orderStatus=" + orderStatus +
                 ", orderTime=" + orderTime +
-                ", user=" + user +
                 ", orderItems=" + orderItems +
                 '}';
     }
