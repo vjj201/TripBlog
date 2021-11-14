@@ -89,7 +89,7 @@ public class ArticleServiceImpl implements ArticleService {
             pageResult = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName,enterAddressName,enterAddressName, pageable);
         }else{
 //            都有填
-            List<Article> A =articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
+            List<Article> A = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
             List<Article> newA = new ArrayList<>();
             for(Article loopdata:A){
                 if(subject.equals(loopdata.getSubjectCategory())){
@@ -215,7 +215,7 @@ public class ArticleServiceImpl implements ArticleService {
 //
 //        //預設-時間舊到新
 //        Pageable pageable = PageRequest.of(page, size,Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
-//        System.out.println("實作serverce裡面的排序" + timeDirect);
+//        System.out.println("實作service裡面的排序" + timeDirect);
 //        //時間新到舊
 //        if( 100 == timeDirect){
 //            System.out.println("desc有抓到[IF新到舊]");

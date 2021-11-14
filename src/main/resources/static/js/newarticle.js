@@ -229,15 +229,8 @@ $(function() {
                     contentType: 'application/json;charset=utf-8',
                     data: JSON.stringify(article),
                     success: function () {
-                        let name_1 = "美食";
-
-                        if (subjectcategory == name_1) {
                             window.location.href='eat';
                             console.log("跳轉EAT");
-                        } else {
-                            window.location.href='travel';
-                            console.log("跳轉travel");
-                        }
                     }
                 });
             })

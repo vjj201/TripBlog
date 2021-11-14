@@ -1,122 +1,132 @@
 console.log("有抓到這個js");
 // --------------------------------------
 $(function () {
-  //csrf防護
-  let token = $("meta[name='_csrf']").attr("content");
-  let header = $("meta[name='_csrf_header']").attr("content");
-  $(document).ajaxSend(function (e, xhr) {
-    xhr.setRequestHeader(header, token);
-  });
-  //-----------------------------------------------
-  // 全域變數
-  //~~~登入判定用~~~
-  let loginCheck = $("#dropdownMenuLink").text().split(" ").join("");
-  let cus = loginCheck.search("訪客");
-  console.log("這是" + loginCheck);
-  if (cus == true) {
-    console.log("判斷為訪客");
-  } else {
-    console.log("判斷是會員或其他");
-  }
-
-  // })
-
-  // ~~~開啟即起用-文章用~~~
-  let timeDirect;
-  let enteraddress;
-  let subject;
-
-  //...創建物件...
-
-  let article = {};
-
-  //-----------------------------------------------
-  // if登入或未登入
-  console.log("這是" + loginCheck);
-  if (cus == true) {
-    console.log("判斷為訪客");
-    //~~~未登入~~~
-    unlogin();
-  } else {
-    console.log("判斷是會員或其他");
-    //~~~登入~~~
-    login();
-  }
-  //-----------------------------------------------
-
-  // 未登入
-  function unlogin() {
-    // 開啟頁面即生成
-
-    timeDirect = 000;
-    enteraddress = "";
-    subject = "";
-    article["enterAddressName"] = enteraddress;
-    article["subject"] = subject;
-    article["timeDirect"] = timeDirect;
-    console.log("typeof_enteraddress-->" + typeof enteraddress);
-    unloginFirstPage();
-    newButton();
-    unloginClickPage();
-    //按下搜尋吧按鈕
-    $("#btsearch").click(function (e) {
-      e.preventDefault();
-      enteraddress = $("#searchAddress").val();
-      subject = $("#subject option:selected").val();
-      timeDirect = $("#timeDirect option:selected").val();
-      article["enterAddressName"] = enteraddress;
-      article["subject"] = subject;
-      article["timeDirect"] = timeDirect;
-
-      unloginFirstPage();
-      newButton();
-      unloginClickPage();
+    //csrf防護
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr) {
+        xhr.setRequestHeader(header, token);
     });
-  }
-  //-----------------------------------------------
-  // 登入
-  function login() {
-    let recommend = {};
-    recommend = alreadyButtoned();
+    //-----------------------------------------------
+    // 全域變數
+    //~~~登入判定用~~~
+    let loginCheck = $("#dropdownMenuLink").text().split(" ").join("");
+    let cus = loginCheck.search("訪客");
+    console.log("這是" + loginCheck);
+    if (cus == true) {
+        console.log("判斷為訪客");
+    } else {
+        console.log("判斷是會員或其他");
+    }
 
-    timeDirect = 000;
-    enteraddress = "";
-    subject = "";
-    article["enterAddressName"] = enteraddress;
-    article["subject"] = subject;
-    article["timeDirect"] = timeDirect;
-    loginFirstPage(recommend);
-    newButton();
-    loginClickPage(recommend);
-    $("#btsearch").click(function (e) {
-      e.preventDefault();
-      enteraddress = $("#searchAddress").val();
-      subject = $("#subject option:selected").val();
-      timeDirect = $("#timeDirect option:selected").val();
-      article["enterAddressName"] = enteraddress;
-      article["subject"] = subject;
-      article["timeDirect"] = timeDirect;
-      loginFirstPage(recommend);
-      newButton();
-      loginClickPage(recommend);
-    });
-  }
-  //--------------------------------------------
+    // })
 
-  //-----------------------------------------------
-  // 原-機動生成文章
+    // ~~~開啟即起用-文章用~~~
+    let timeDirect;
+    let enteraddress;
+    let subject;
 
-  //~~~未登入-html自動生成文章~~~
-  function getHtmlArticleUnlog(articleAll) {
-    let articleTitle = articleAll.articleTitle;
-    let textEditor = articleAll.textEditor;
-    let createDate = articleAll.createDate;
-    let createTime = articleAll.createTime;
-    let saveImgPath =articleAll.saveImgPath;
-    let user = articleAll.userId.nickname;
+    //...創建物件...
+
+    let article = {};
+    //-----------------------------------------------
+    // if登入或未登入
+    console.log("這是" + loginCheck);
+    if (cus == true) {
+        console.log("判斷為訪客");
+        //~~~未登入~~~
+        unlogin();
+    } else {
+        console.log("判斷是會員或其他");
+        //~~~登入~~~
+        login();
+    }
+    //-----------------------------------------------
+
+    // 未登入
+    function unlogin() {
+        // 開啟頁面即生成
+        timeDirect = 000;
+        enteraddress = "";
+        subject = "";
+        article["enterAddressName"] = enteraddress;
+        article["subject"] = subject;
+        article["timeDirect"] = timeDirect;
+        console.log("typeof_enteraddress-->" + typeof enteraddress);
+        unloginFirstPage();
+        newButton();
+        unloginClickPage();
+        //按下搜尋吧按鈕
+        $("#btsearch").click(function (e) {
+            e.preventDefault();
+            enteraddress = $("#searchAddress").val();
+            subject = $("#subject option:selected").val();
+            timeDirect = $("#timeDirect option:selected").val();
+            article["enterAddressName"] = enteraddress;
+            article["subject"] = subject;
+            article["timeDirect"] = timeDirect;
+
+            unloginFirstPage();
+            newButton();
+            unloginClickPage();
+        });
+        $("#travelArticleBox").on('click', 'input', function (event){
+            window.location.href='/user/loginPage';
+        })
+    }
+
+    //-----------------------------------------------
+    // 登入
+    function login() {
+        let recommend = {};
+        recommend = alreadyButtoned();
+
+        timeDirect = 000;
+        enteraddress = "";
+        subject = "";
+        article["enterAddressName"] = enteraddress;
+        article["subject"] = subject;
+        article["timeDirect"] = timeDirect;
+        loginFirstPage(recommend);
+        newButton();
+        loginClickPage(recommend);
+        $("#btsearch").click(function (e) {
+            e.preventDefault();
+            enteraddress = $("#searchAddress").val();
+            subject = $("#subject option:selected").val();
+            timeDirect = $("#timeDirect option:selected").val();
+            article["enterAddressName"] = enteraddress;
+            article["subject"] = subject;
+            article["timeDirect"] = timeDirect;
+            loginFirstPage(recommend);
+            newButton();
+            loginClickPage(recommend);
+        });
+        $("#travelArticleBox").on('click', 'input', function (event){
+            let choose = $(this).text();
+            let articleTitle = $(this).attr('name');
+            article["articleTitle"] = articleTitle;
+            console.log("choose" + choose);
+            clickButton(choose);
+        })
+    }
+
+    //--------------------------------------------
+
+    //-----------------------------------------------
+    // 原-機動生成文章
+
+    //~~~未登入-html自動生成文章~~~
+    function getHtmlArticleUnlog(articleAll) {
+        let articleTitle = articleAll.articleTitle;
+        let textEditor = articleAll.textEditor;
+        let createDate = articleAll.createDate;
+        let createTime = articleAll.createTime;
+        let saveImgPath = articleAll.saveImgPath;
+        let user = articleAll.userId.nickname;
 
 
-    return `
+        return `
 
 <!-- 文章圖片  -->
      <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
@@ -156,106 +166,109 @@ $(function () {
     </div>
 </div>
 `;
-  }
+    }
 
 
-  // ~~~第一頁~~~
-  function unloginFirstPage() {
+    // ~~~第一頁~~~
+    function unloginFirstPage() {
 
-    $.ajax({
-      url: "/firstSearchOfPageEatTravel",
-      type: "GET",
-      data: article,
-      success: function (response) {
-        console.log("第一頁文章response" + response);
-        console.log("建立空的html");
-        let html = "";
-        console.log("文章-for迴圈開始");
-        // (開始)文章換頁生成
-        for (let articleAll of response) {
+        $.ajax({
+            url: "/firstSearchOfPageEatTravel",
+            type: "GET",
+            data: article,
+            success: function (response) {
+                console.log("第一頁文章response" + response);
+                console.log("建立空的html");
+                let html = "";
+                console.log("文章-for迴圈開始");
+                // (開始)文章換頁生成
+                for (let articleAll of response) {
 
-          // 從資料庫取出文章資訊
-          html += getHtmlArticleUnlog(articleAll);
+                    // 從資料庫取出文章資訊
+                    html += getHtmlArticleUnlog(articleAll);
 
-          console.log("文章-for迴圈結束");
-          $("#travelArticleBox").html(html);
-          console.log("跑完--輸入搜尋吧查詢並送出第一頁");
+                    console.log("文章-for迴圈結束");
+                    $("#travelArticleBox").html(html);
+                    console.log("跑完--輸入搜尋吧查詢並送出第一頁");
 
-          // (結束)文章換頁生成
+                    // (結束)文章換頁生成
+                }
+            },
+        });
+    }
+
+    //~~~點擊換頁按鈕~~~
+    function unloginClickPage() {
+        $("#changePageAll").on("click", "#pageSearch", function (event) {
+            // let a = $(this).attr("name",true)
+            // console.log(a);
+
+            let pageValue = $("#changePageBox option:selected").val();
+
+            console.log("pageValue=" + pageValue);
+
+            let page = pageValue - 1;
+            let article = {};
+            article["page"] = page;
+            article["enterAddressName"] = enteraddress;
+            article["subject"] = subject;
+            article["timeDirect"] = timeDirect;
+
+            $.ajax({
+                url: "/changeSearchOfPageEatTravel",
+                type: "GET",
+                data: article,
+                success: function (response) {
+                    let html = "";
+                    console.log("文章-for迴圈開始");
+                    // (開始)文章換頁生成
+                    for (let articleAll of response) {
+
+                        // 從資料庫取出文章資訊
+
+                        html += getHtmlArticleUnlog(articleAll);
+
+                        console.log("文章-for迴圈結束");
+                        $("#travelArticleBox").html(html);
+                        console.log("跑完--輸入搜尋吧查詢並送出第一頁");
+                    }
+                },
+            });
+        });
+    }
+
+
+
+        //-----------------------------------------------
+        // 判斷會員-機動生成文章(已推薦收藏檢舉)
+        // ~~~get已經收藏&推薦&檢舉並存入function外的全域變數~~~
+        function alreadyButtoned() {
+            let recommendresult = [];
+            $.ajax({
+                url: "/alreadyTravelEatButtoned",
+                type: "GET",
+                success: function (response) {
+                    for (let recommend of response) {
+                        recommendresult.push(recommend.articlesRecommendId.articleId);
+                    }
+                    console.log("所有的recommend" + recommendresult);
+                },
+            });
+
+            return recommendresult;
         }
-      },
-    });
-  }
-  //~~~點擊換頁按鈕~~~
-  function unloginClickPage() {
-    $("#changePageAll").on("click", "#pageSearch", function (event) {
-      // let a = $(this).attr("name",true)
-      // console.log(a);
 
-      let pageValue = $("#changePageBox option:selected").val();
+        //~~~登入版-html自動生成文章~~~
+        function getHtmlArticle(articleAll, recommend) {
+            let articleTitle = articleAll.articleTitle;
+            let textEditor = articleAll.textEditor;
+            let createDate = articleAll.createDate;
+            let createTime = articleAll.createTime;
+            let saveImgPath = articleAll.saveImgPath;
+            let user = articleAll.userId.nickname;
+            let articleId = articleAll.articleId;
 
-      console.log("pageValue=" + pageValue);
-
-      let page = pageValue - 1;
-      let article = {};
-      article["page"] = page;
-      article["enterAddressName"] = enteraddress;
-      article["subject"] = subject;
-      article["timeDirect"] = timeDirect;
-
-      $.ajax({
-        url: "/changeSearchOfPageEatTravel",
-        type: "GET",
-        data: article,
-        success: function (response) {
-          let html = "";
-          console.log("文章-for迴圈開始");
-          // (開始)文章換頁生成
-          for (let articleAll of response) {
-
-            // 從資料庫取出文章資訊
-
-            html += getHtmlArticleUnlog(articleAll);
-
-            console.log("文章-for迴圈結束");
-            $("#travelArticleBox").html(html);
-            console.log("跑完--輸入搜尋吧查詢並送出第一頁");
-          }
-        },
-      });
-    });
-  }
-
-  //-----------------------------------------------
-  // 判斷會員-機動生成文章(已推薦收藏檢舉)
-  // ~~~get已經收藏&推薦&檢舉並存入function外的全域變數~~~
-  function alreadyButtoned() {
-    let recommendresult = [];
-    $.ajax({
-      url: "/alreadyTravelEatButtoned",
-      type: "GET",
-      success: function (response) {
-        for (let recommend of response) {
-          recommendresult.push(recommend.articlesRecommendId.articleId);
-        }
-        console.log("所有的recommend" + recommendresult);
-      },
-    });
-
-    return recommendresult;
-  }
-
-  //~~~登入版-html自動生成文章~~~
-  function getHtmlArticle(articleAll, recommend) {
-    let articleTitle = articleAll.articleTitle;
-    let textEditor = articleAll.textEditor;
-    let createDate = articleAll.createDate;
-    let createTime = articleAll.createTime;
-    let saveImgPath = articleAll.saveImgPath;
-    let user = articleAll.userId.nickname;
-    let articleId = articleAll.articleId;
-
-    return `
+            return `
 
 <!-- 文章圖片  -->
      <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
@@ -281,9 +294,9 @@ $(function () {
                     name="${articleTitle}"
                         class="btn-recommend btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
                         type="submit" value="${getRecommendStatus(
-        articleId,
-        recommend
-    )}">
+                articleId,
+                recommend
+            )}">
                     <input
                     name="${articleTitle}"
                         class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
@@ -298,111 +311,141 @@ $(function () {
     </div>
 </div>
 `;
-  }
-
-  //~~~[已推薦]放進html方法~~~
-  function getRecommendStatus(articleId, recommend) {
-    if (recommend.includes(articleId)) {
-      return "已推薦";
-    }
-    return "推薦";
-  }
-
-  // ~~~第一頁~~~
-  function loginFirstPage(recommend) {
-    //for迴圈機動生成文章&判斷已收藏
-    $.ajax({
-      url: "/firstSearchOfPageEatTravel",
-      type: "GET",
-      data: article,
-      success: function (response) {
-        console.log("第一頁文章response" + response);
-        console.log("建立空的html");
-        let html = "";
-        console.log("文章-for迴圈開始");
-        // (開始)文章換頁生成
-        for (let articleAll of response) {
-          // 從資料庫取出文章資訊
-          html += getHtmlArticle(articleAll, recommend);
-
-          console.log("文章-for迴圈結束");
-          $("#travelArticleBox").html(html);
-          console.log("跑完--輸入搜尋吧查詢並送出第一頁");
-
-          // (結束)文章換頁生成
         }
-      },
-    });
-  }
 
-  //~~~點擊換頁按鈕~~~
-  function loginClickPage(recommend) {
-    $("#changePageAll").on("click", "#pageSearch", function (event) {
-      // let a = $(this).attr("name",true)
-      // console.log(a);
+        //~~~[已推薦]放進html方法~~~
+        function getRecommendStatus(articleId, recommend) {
+            if (recommend.includes(articleId)) {
+                return "已推薦";
+            }
+            return "推薦";
+        }
 
-      let pageValue = $("#changePageBox option:selected").val();
+        // ~~~第一頁~~~
+        function loginFirstPage(recommend) {
+            //for迴圈機動生成文章&判斷已收藏
+            $.ajax({
+                url: "/firstSearchOfPageEatTravel",
+                type: "GET",
+                data: article,
+                success: function (response) {
+                    console.log("第一頁文章response" + response);
+                    console.log("建立空的html");
+                    let html = "";
+                    console.log("文章-for迴圈開始");
+                    // (開始)文章換頁生成
+                    for (let articleAll of response) {
+                        // 從資料庫取出文章資訊
+                        html += getHtmlArticle(articleAll, recommend);
 
-      console.log("pageValue=" + pageValue);
+                        console.log("文章-for迴圈結束");
+                        $("#travelArticleBox").html(html);
+                        console.log("跑完--輸入搜尋吧查詢並送出第一頁");
 
-      let page = pageValue - 1;
-      let article = {};
-      article["page"] = page;
-      article["enterAddressName"] = enteraddress;
-      article["subject"] = subject;
-      article["timeDirect"] = timeDirect;
+                        // (結束)文章換頁生成
+                    }
+                },
+            });
+        }
 
-      $.ajax({
-        url: "/changeSearchOfPageEatTravel",
-        type: "GET",
-        data: article,
-        success: function (response) {
-          let html = "";
-          console.log("文章-for迴圈開始");
-          // (開始)文章換頁生成
-          for (let articleAll of response) {
-            // 從資料庫取出文章資訊
-            html += getHtmlArticle(articleAll, recommend);
-            console.log("文章-for迴圈結束");
-            $("#travelArticleBox").html(html);
-            console.log("跑完--輸入搜尋吧查詢並送出第一頁");
-          }
-        },
-      });
-    });
-  }
-  //-----------------------------------------------
-  // 自動生成按鈕
-  function newButton() {
-    $.ajax({
-      url: "/newPageButtonEatTravel",
-      type: "GET",
-      data: article,
-      success: function (response) {
-        console.log("按鈕換頁response=" + response);
+        //~~~點擊換頁按鈕~~~
+        function loginClickPage(recommend) {
+            $("#changePageAll").on("click", "#pageSearch", function (event) {
+                // let a = $(this).attr("name",true)
+                // console.log(a);
 
-        let html = "";
+                let pageValue = $("#changePageBox option:selected").val();
 
-        // 取出頁數總數(頁數總數，於後端檔案，已計算完成)
+                console.log("pageValue=" + pageValue);
 
-        console.log("有取出頁數總數pageMount=" + response);
+                let page = pageValue - 1;
+                let article = {};
+                article["page"] = page;
+                article["enterAddressName"] = enteraddress;
+                article["subject"] = subject;
+                article["timeDirect"] = timeDirect;
 
-        //迴圈放入數字(例如:總共5頁；分別放入5,4,3,2,1)
-        for (p = 1; p <= response; p++) {
-          console.log("p迴圈=" + p);
+                $.ajax({
+                    url: "/changeSearchOfPageEatTravel",
+                    type: "GET",
+                    data: article,
+                    success: function (response) {
+                        let html = "";
+                        console.log("文章-for迴圈開始");
+                        // (開始)文章換頁生成
+                        for (let articleAll of response) {
+                            // 從資料庫取出文章資訊
+                            html += getHtmlArticle(articleAll, recommend);
+                            console.log("文章-for迴圈結束");
+                            $("#travelArticleBox").html(html);
+                            console.log("跑完--輸入搜尋吧查詢並送出第一頁");
+                        }
+                    },
+                });
+            });
+        }
 
-          // 自動生成的html格式
-          html += `
+        //-----------------------------------------------
+        // 自動生成按鈕
+        function newButton() {
+            $.ajax({
+                url: "/newPageButtonEatTravel",
+                type: "GET",
+                data: article,
+                success: function (response) {
+                    console.log("按鈕換頁response=" + response);
+
+                    let html = "";
+
+                    // 取出頁數總數(頁數總數，於後端檔案，已計算完成)
+
+                    console.log("有取出頁數總數pageMount=" + response);
+
+                    //迴圈放入數字(例如:總共5頁；分別放入5,4,3,2,1)
+                    for (p = 1; p <= response; p++) {
+                        console.log("p迴圈=" + p);
+
+                        // 自動生成的html格式
+                        html += `
   
                   <option value="${p}">${p}</option>
   
         `;
-          // 裝入[自動生成]的位置
-          $("#changePageBox").html(html);
-          console.log("跑完--裝入[自動生成]的位置");
+                        // 裝入[自動生成]的位置
+                        $("#changePageBox").html(html);
+                        console.log("跑完--裝入[自動生成]的位置");
+                    }
+                }
+            })
         }
-      },
-    });
-  }
-  //-----------------------------------------------
-});
+        //-----------------------------------------------
+        function clickButton(choose){
+            let TUrl;
+            console.log("choose" + choose);
+            if (choose == "推薦") {
+                // article["recommend"] = choose;
+                TUrl = "/forRecommend";
+                console.log("recommend" + article.articleTitle)
+            } else if (choose == "檢舉") {
+                // article["Report"] = choose;
+                TUrl = "/forReport";
+                console.log("Report" + article.articleTitle)
+            } else {
+                // article["collect"] = choose;
+                TUrl = "/forCollect";
+                console.log("collect" + article.articleTitle)
+            }
+            $.ajax({
+                url: TUrl,
+                type: "POST",
+                data: article,
+                success: function (response) {
+                    alert("林北按鈕回來瞜")
+                }
+            });
+        }
+    //-------------------------------------------------------
+    }
+
+)
+

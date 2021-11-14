@@ -177,45 +177,10 @@ $(function () {
 
     });
 //-----------------------------------------------------------------------------
-    $("#articleBox").on('click', 'a', function (event) {
-        //    alert("a標籤被點了");
-        let articleTitle = $(this).text();
-        //    alert(articleTitle);
-        let article = {};
-        article["articleTitle"] = articleTitle;
-
-        // $.ajax({
-        //     url: "articleForone",
-        //     type:"GET",
-        //     success: function (){
-        //         alert("跳轉搂")
-        //     }
-        // })
-
-
-        $.ajax({
-            url: "/findByArticleTitle",
-            type: "GET",
-            data: article,
-            success: function (response) {
-                //      alert("林北成功用標題找到文章了")
-
-                // $(location).attr("href","https://localhost:63342/TripBlog/templates/article.html");
-//---------------------------------------------------------------------------------------------------
-                //for秉豐
-//---------------------------------------------------------------------------------------------------
-
-            }
-
-
-        });
-
-    });
 
     $("#articleBox").on('click', 'button', function (event) {
         let choose = $(this).text();
         let articleTitle = $(this).attr('name');
-
         let article = {};
         article["articleTitle"] = articleTitle;
         let TUrl;
