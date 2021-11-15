@@ -1,17 +1,15 @@
 package com.java017.tripblog.repository;
 
 import com.java017.tripblog.entity.Article;
-
 import com.java017.tripblog.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -39,7 +37,26 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
 
      ArrayList<Article> findByUserId(User id);
 
-//     Page<Article> findByUserIdAndSubjectCategory(User user, String subject);
+//大方: 使用者+主題 (分頁）
+     Page<Article> findByUserId_IdAndSubjectCategory (Long id, String subject, Pageable pageable);
+
+//大方: 使用者 (分頁）
+
+     Page<Article>  findByUserId_Id (Long id, Pageable pageable);
+
+//大方: 使用者+主題
+
+     ArrayList<Article> findByUserIdAndSubjectCategory(User id, String subject);
+
+     //大方: 刪除文章
+
+     @Modifying
+     @Transactional
+     @Query("delete from Article where ArticleId = ?1")
+     void deleteByArticleId(Integer id);
+
+
+//   Page<Article> findByUserIdAndSubjectCategory(User user, String subject);
 
 }
 

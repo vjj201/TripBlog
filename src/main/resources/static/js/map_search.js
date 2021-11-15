@@ -22,6 +22,7 @@ function initMap() {
 
 $(function () {
     let markers = [];
+    let bounds = new google.maps.LatLngBounds();
     firstinitmap();
     $('#btsearch').click(function (e) {
         e.preventDefault();
@@ -39,7 +40,6 @@ $(function () {
         let points = [];
         let inpoint;
 
-        var bounds = new google.maps.LatLngBounds();
         article['enterAddressName'] = enteraddress;
         article["subject"] = subject;
         article["timeDirect"] = timeDirect;

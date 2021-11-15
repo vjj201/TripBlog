@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author YuCheng
@@ -127,27 +128,73 @@ public class ArticleController {
         return "ok";
     }
 
+//    @ResponseBody
+//    @GetMapping("/findByUserId")
+//    public ArrayList<Article> findByUserId(HttpSession session) {
+//        User user = (User) session.getAttribute("user");
+//        ArrayList<Article> result = articleService.findUserById(user);
+//        System.out.println("檢查controller 回傳直" + result);
+//        return result;
+//    }
+
+    //大方: 文章自動生成_輸入搜尋吧查詢並送出第一頁 1113更 (原findByUserId
     @ResponseBody
-    @GetMapping("/findByUserId")
-    public ArrayList<Article> findByUserId(HttpSession session) {
+    @GetMapping("/myFirstSearchOfPageEatTravel")
+    public List<Article> myFirstSearchOfPage(HttpSession session, @RequestParam String subject, @RequestParam int timeDirect) {
+
+        System.out.println("搜尋吧-subject=" + subject);
         User user = (User) session.getAttribute("user");
-        ArrayList<Article> result = articleService.findUserById(user);
-        System.out.println("檢查controller 回傳直" + result);
-        return result;
+
+        List<Article> messagedList;
+
+         messagedList = articleService.getMyPagedArticles(0, 5,user.getId(), subject, timeDirect);
+         System.out.println("搜尋吧-順序timeDirect(myEat)=" + timeDirect);
+         System.out.println("搜尋吧-messageList(myEat)=" + messagedList);
+
+        return messagedList;
     }
 
     //自動生成換頁按鈕
+//    @ResponseBody
+//    @GetMapping("/newPageButtonForUser")
+//    public Integer newChangePageButton(HttpSession session) {
+//        User user = (User) session.getAttribute("user");
+//        ArrayList<Article> list;
+//        list = articleService.findByUserIdForPage(user);
+//        System.out.println("分頁按鈕" + list);
+//        double listSize = list.size();
+//        int pageMount = (int) Math.ceil(listSize / 5);
+//        return pageMount;
+//    }
+
+    //大方： 自動生成換頁按鈕(myEat) 1113更
     @ResponseBody
     @GetMapping("/newPageButtonForUser")
-    public Integer newChangePageButton(HttpSession session) {
+    public Integer newChangePageButton(HttpSession session, @RequestParam String subject) {
+        System.out.println("自動生成換頁按鈕subject=" + subject);
+
         User user = (User) session.getAttribute("user");
+
         ArrayList<Article> list;
-        list = articleService.findByUserIdForPage(user);
+//        list = articleService.findByUserIdForPage(user);
+        list = articleService.findByUserIdAndSubjectCategoryForPage(user, subject);
         System.out.println("分頁按鈕" + list);
         double listSize = list.size();
         int pageMount = (int) Math.ceil(listSize / 5);
         return pageMount;
     }
+
+    //大方： 刪除文章 (My eat)
+    @GetMapping("/delete/{articleTitle}/{articleId}")
+    private String deleteMyArticle(@PathVariable String articleTitle,@PathVariable String articleId){
+
+        System.out.println("刪除文章標題：" + articleTitle);
+
+        articleService.deleteMyArticle(articleId);
+        System.out.println("執行刪除文章ok");
+        return "redirect:/user/eat";
+    }
+
 
     //渲染會員文章畫面
     @GetMapping("/article/{articleTitle}")

@@ -12,8 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -185,6 +188,71 @@ public class ArticleServiceImpl implements ArticleService {
         ArrayList<Article> result = articleRepository.findByUserId(id);
         return result;
     }
+
+    //大方：  文章換頁按鈕自動生成
+    @Override
+    public ArrayList<Article> findByUserIdAndSubjectCategoryForPage(User id, String subject){
+        ArrayList<Article> result = articleRepository.findByUserId(id);
+
+        if(StringUtils.isEmpty(subject)){
+            return result;
+        }else{
+            // 有填主題(subject)
+            return articleRepository.findByUserIdAndSubjectCategory(id,subject);
+        }
+    }
+
+    //大方:  我的空間 - 文章首頁&文章換頁
+    @Override
+    public List<Article> getMyPagedArticles(int page, int size, Long id, String subject, int timeDirect) {
+
+        System.out.println("articlaserviceimpl getMyPagedArticles"+ id);
+
+        //預設-時間舊到新
+        Pageable pageable = PageRequest.of(page,
+                                           size,
+                                           Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+
+
+        System.out.println("實作service的排序" + timeDirect);
+
+        //時間新到舊
+        if(timeDirect == 100){
+            System.out.println("desc有抓到(if 新到舊)");
+            pageable = PageRequest.of(page,
+                                      size,
+                                      Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+        }
+
+        Page<Article> pageResult;
+
+        if(!StringUtils.isEmpty(subject)){
+            System.out.println("subject" + subject);
+            pageResult = articleRepository.findByUserId_IdAndSubjectCategory(id,subject,pageable);
+        }else {
+            pageResult = articleRepository.findByUserId_Id(id, pageable);
+        }
+
+        List<Article> messageList = pageResult.getContent();
+
+
+        System.out.println("ArticleServiceImpl的 messageList" + messageList);
+
+        return messageList;
+    }
+
+
+    //大方:    我的空間 - 刪除文章
+    public String deleteMyArticle(String articleId){
+
+
+        System.out.println(articleId);
+        Integer articleIdNum = Integer.parseInt(articleId);
+        articleRepository.deleteByArticleId(articleIdNum);
+        System.out.println("執行刪除文章");
+        return "文章刪除(Service)";
+    }
+
 
     @Override
     public ArrayList<Article> findAll() {
