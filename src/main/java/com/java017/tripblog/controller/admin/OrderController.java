@@ -6,8 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,12 +48,29 @@ public class OrderController {
     }
 
     @GetMapping("/order/{uuid}")
-    public ResponseEntity<ProductOrder> findOrderbyUUID(@PathVariable String uuid) {
+    public ResponseEntity<ProductOrder> findOrderByUUID(@PathVariable String uuid) {
         ProductOrder productOrder = productOrderService.findByUuid(uuid);
         System.out.println(productOrder);
-        if (productOrder.equals(null)) {
+        if (ObjectUtils.isEmpty(productOrder)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(productOrder, HttpStatus.OK);
+    }
+
+    @PutMapping("/order")
+    public ResponseEntity<Integer> updateAllStatus(@RequestBody List<ProductOrder> productOrderList) {
+        List<ProductOrder> productOrders = new ArrayList<>(productOrderList.size());
+        for (ProductOrder productOrder : productOrderList) {
+            ProductOrder order = productOrderService.findByUuid(productOrder.getUuid());
+            order.setOrderStatus(productOrder.getOrderStatus());
+            productOrders.add(order);
+        }
+        int updateCount;
+        try {
+            updateCount = productOrderService.updateBatch(productOrders);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(updateCount, HttpStatus.OK);
     }
 }

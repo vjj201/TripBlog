@@ -16,6 +16,39 @@ $(document).ready(function () {
         loadData();
     });
 
+    //狀態更新
+    $('#updateBtn').on('click', function () {
+
+        let result = confirm('確定更新');
+
+        if (result) {
+            let updateList = new Array();
+            $("select[name='orderStatus']").find(":selected").each(function () {
+                let uuid = $(this).parent().parent().parent().children().children().eq(0).text();
+                let data = { 'uuid': uuid, 'orderStatus': $(this).val() };
+                updateList.push(data);
+            });
+
+            $.ajax({
+                url: '/admin/order',
+                type: 'PUT',
+                async: false,
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(updateList),
+                statusCode: {
+                    200: function () {
+                        alert('編輯成功');
+                        location.reload(true);
+                    },
+                    500: function () {
+                        alert('編輯失敗');
+                    }
+                }
+            });
+        }
+
+    })
+
     //下一頁
     $('#next').on('click', function () {
         page = ++page;
@@ -55,7 +88,6 @@ function loadData() {
         data: JSON.stringify(data),
         statusCode: {
             200: function (response) {
-                console.log(response);
                 let totalPage = response.totalPages;
                 let orderList = response.content;
                 let first = response.first;
@@ -66,6 +98,11 @@ function loadData() {
 
                     let option = '';
                     let orderStatus = order.orderStatus;
+
+                    let username = order.username;
+                    if (username === null) {
+                        username = '訪客';
+                    }
 
 
                     if (orderStatus === -1) {
@@ -90,16 +127,16 @@ function loadData() {
                         '<tr class="my-3 h-100">' +
                         '<td>' +
                         '<button name="getProducts" type="button" class="btn btn-gr0201" data-bs-toggle="modal"' +
-                        'data-bs-target="#Modal2">' +
+                        'data-bs-target="#Modal">' +
                         order.uuid +
                         '</button></td>' +
                         '<td class="pt-2">' +
-                        order.username +
+                        username +
                         '</td>' +
                         '<td class="pt-2">' +
                         order.orderTime +
                         '</td> ' +
-                        '<td><select name="status" class="form-select me-2" style = "width: 9rem"><li>' +
+                        '<td><select name="orderStatus" class="form-select me-2" style = "width: 9rem"><li>' +
                         option +
                         '</li></select></td> ' +
                         '<td class="pt-2">' +

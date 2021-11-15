@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -24,6 +25,7 @@ import java.util.List;
  * @date 2021/11/9 - 下午 10:33
  */
 
+@Transactional
 @Service
 public class ProductOrderServiceImpl implements ProductOrderService {
 
@@ -62,6 +64,12 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public void deleteById(Long id) {
         productOrderRepository.deleteById(id);
+    }
+
+    @Override
+    public int updateBatch(List<ProductOrder> productOrderList) {
+        List<ProductOrder> productOrders = productOrderRepository.saveAll(productOrderList);
+        return productOrders.size();
     }
 
     @Override

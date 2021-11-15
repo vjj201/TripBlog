@@ -25,4 +25,7 @@ public interface ProductOrderService {
 
     //條件查詢
     Page<ProductOrder> findProductOrderPageByQuery(int page, ProductOrder productOrder);
+
+    //批量更新
+    int updateBatch(List<ProductOrder> productOrderList);
 }
