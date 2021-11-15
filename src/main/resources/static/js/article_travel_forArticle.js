@@ -65,6 +65,7 @@ $(function () {
                 article["enterAddressName"] = enteraddress;
                 article["subject"] = subject;
                 article["timeDirect"] = timeDirect;
+
                 unloginFirstPage();
                 newButton();
                 unloginClickPage();
@@ -77,6 +78,7 @@ $(function () {
         //-----------------------------------------------
         // 登入
         function login() {
+            console.log("gggggggggg");
 
             alreadyButtoned().then(recommend => {
                 console.log("login的recommend" + recommend)
@@ -234,6 +236,9 @@ $(function () {
         //-----------------------------------------------
         // 判斷會員-機動生成文章(已推薦收藏檢舉)
         // ~~~get已經收藏&推薦&檢舉並存入function外的全域變數~~~
+
+
+
         function alreadyButtoned() {
             return fetch('/alreadyTravelEatButtoned')
                 .then(res => res.json())
@@ -244,6 +249,23 @@ $(function () {
                     }
                     return recommendresult;
                 });
+
+            // let recommendresult = [];
+            // $.ajax({
+            //     url: "/alreadyTravelEatButtoned",
+            //     type: "GET",
+            //     success: function (response) {
+            //         for (let recommend of response) {
+            //             recommendresult.push(recommend.articlesRecommendId.articleId);
+            //         }
+            //         console.log("所有的recommend" + recommendresult);
+            //     },
+            //     error:function (response){
+            //         console.log(response);
+            //     }
+            // });
+
+            // return recommendresult;
         }
 
         //~~~登入版-html自動生成文章~~~
@@ -327,6 +349,8 @@ $(function () {
                     // (開始)文章換頁生成
                     for (let articleAll of response) {
                         // 從資料庫取出文章資訊
+                        console.log("---------------------------------------");
+                        console.log(articleAll,recommend);
                         html += getHtmlArticle(articleAll, recommend);
 
                         console.log("文章-for迴圈結束");
@@ -341,10 +365,11 @@ $(function () {
 
         //~~~點擊換頁按鈕~~~
         function loginClickPage(recommend) {
+            console.log("典籍換頁按鈕外" + recommend);
             $("#changePageAll").on("click", "#pageSearch", function (event) {
                 // let a = $(this).attr("name",true)
                 // console.log(a);
-
+        console.log("典籍換頁按鈕" + recommend);
                 let pageValue = $("#changePageBox option:selected").val();
 
                 console.log("pageValue=" + pageValue);

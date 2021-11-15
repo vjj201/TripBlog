@@ -182,7 +182,7 @@ $(function () {
                         html += getHtmlArticleUnlog(articleAll);
 
                         console.log("文章-for迴圈結束");
-                        $("#articleBox").html(html);
+                        $("#travelArticleBox").html(html);
                         console.log("跑完--輸入搜尋吧查詢並送出第一頁");
 
                         // (結束)文章換頁生成
@@ -223,7 +223,7 @@ $(function () {
                             html += getHtmlArticleUnlog(articleAll);
 
                             console.log("文章-for迴圈結束");
-                            $("#articleBox").html(html);
+                            $("#travelArticleBox").html(html);
                             console.log("跑完--輸入搜尋吧查詢並送出第一頁");
                         }
                     },
@@ -348,7 +348,7 @@ $(function () {
                         html += getHtmlArticle(articleAll, recommend);
 
                         console.log("文章-for迴圈結束");
-                        $("#articleBox").html(html);
+                        $("#travelArticleBox").html(html);
                         console.log("跑完--輸入搜尋吧查詢並送出第一頁");
 
                         // (結束)文章換頁生成
@@ -386,7 +386,7 @@ $(function () {
                             // 從資料庫取出文章資訊
                             html += getHtmlArticle(articleAll, recommend);
                             console.log("文章-for迴圈結束");
-                            $("#articleBox").html(html);
+                            $("#travelArticleBox").html(html);
                             console.log("跑完--輸入搜尋吧查詢並送出第一頁");
                         }
                     },
