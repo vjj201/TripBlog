@@ -44,4 +44,14 @@ public class OrderController {
         }
         return new ResponseEntity<>(orderPage.toList(), HttpStatus.OK);
     }
+
+    @GetMapping("/order/{uuid}")
+    public ResponseEntity<ProductOrder> findOrderbyUUID(@PathVariable String uuid) {
+        ProductOrder productOrder = productOrderService.findByUuid(uuid);
+        System.out.println(productOrder);
+        if (productOrder.equals(null)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productOrder, HttpStatus.OK);
+    }
 }
