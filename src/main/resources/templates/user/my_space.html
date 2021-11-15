@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TripBlog MyIntroduce</title>
-    <meta name="description" content="MyIntroduce">
+    <meta name="description" content="My Space">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Sandy">
     <!--csrf防護-->
@@ -182,7 +182,7 @@
             <!--   頭像  -->
             <div>
 
-                <img th:src="${session.user != null && session.user.hasMemberPic() ? '/user/memberPic' : 'https://semantic-ui.com/images/avatar2/small/elyse.png'}"
+                <img th:src="${session.user != null && session.user.isHasMemberPic()} ? '/user/memberPic' : @{/images/oman_10_ani_10.svg}"
                      src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
                      id="memberPic" class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;">
 

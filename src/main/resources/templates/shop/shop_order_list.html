@@ -119,7 +119,7 @@
 
     
     <!-- 已購買清單 -->
-    <main class="d-flex align-items-center py-md-0 py-sm-2 my-5" style="height: 70vh;margin-top: 20%;">
+    <main class="d-flex align-items-center py-md-0 py-sm-2 my-5" style="margin-top: 20%;">
         <div class="container">
 
           <div class="card shadow p-3 d-flex flex-wrap align-content-center my-5">
@@ -145,47 +145,30 @@
                            data-show-columns-toggle-all="true">
                         <thead>
                         <tr>
-                            <th scope="col" class="sortable both" data-field="Id" data-sortable="true">商品編號</th>
-                            <th scope="col" class="sortable both" data-field="ProductName"  data-sortable="true">商品名稱</th>
+                            <th scope="col" class="sortable both" data-field="Id" data-sortable="true">訂單編號</th>
+                            <th scope="col" class="sortable both" data-field="orderTime"  data-sortable="true">購買日期</th>
                             <th scope="col" class="sortable both" data-field="ShippingStatus"  data-sortable="true">出貨狀態</th>
-                            <th scope="col" class="sortable both" data-field="Qty"  data-sortable="true">數量</th>
-                            <th scope="col" class="sortable both" data-field="UnitPrice"  data-sortable="true">單價</th>
-                            <th scope="col" class="sortable both" data-field="total"  data-sortable="true">小計</th>
+                            <th scope="col" class="sortable both" data-field="total"  data-sortable="true">金額</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>滷蛋</td>
-                            <td>待出貨</td>
-                            <td>1</td>
-                            <td>$10</td>
-                            <td>$10</td>
+                        <tbody th:if="${productOrderList!=null and !productOrderList.empty}">
+
+                        <tr th:each="productOrder : ${productOrderList}">
+
+                                <th  scope="row"> <a href="#" th:href="@{'/shop/productOrder/'+${productOrder.id}}"><span th:text="${productOrder.uuid}">1</span></a></th>
+                                <td th:text="${#dates.format(productOrder.orderTime, 'yyyy-MM-dd HH:mm')}">date</td>
+                                <td th:text="${productOrder.orderStatus == -1} ? '待出貨' : (${productOrder.orderStatus == 0} ? '運送中' : '已收件')">待出貨</td>
+                                <td><span th:text="${productOrder.amounts}">10</span>TWD</td>
+
+
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>茶葉蛋</td>
-                            <td>待收貨</td>
-                            <td>3</td>
-                            <td>$20</td>
-                            <td>$60</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>雲朵千層蛋</td>
-                            <td>訂單已完成</td>
-                            <td>5</td>
-                            <td>$30</td>
-                            <td>$150</td>
-                        </tr>
+
+
                         </tbody>
                     </table>
                     <hr style="box-sizing:border-box">
                     <div class="d-flex justify-content-end">
-                    <tr>
-                        <th scope="row">總計：</th>
-                        <th scope="row">$1000</th>
-                    </tr>
+
                     </div>
                   </div>
                 </div>
@@ -193,9 +176,9 @@
 
               <div class="row justify-content-center align-items-center align-content-center">
                   <div class="col-7 mx-5 w-25">
-                      <div class="btn btn-info form-control fs-5">
+                      <a class="btn btn-info form-control fs-5" th:href="@{/shop/}">
                           返回
-                      </div>
+                      </a>
                   </div>
               </div>
 

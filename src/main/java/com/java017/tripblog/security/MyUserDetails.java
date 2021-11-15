@@ -70,7 +70,7 @@ public class MyUserDetails implements UserDetails {
     }
 
     public boolean hasMemberPic() {
-        return user.hasMemberPic();
+        return user.isHasMemberPic();
     }
 
     public User getUser() {

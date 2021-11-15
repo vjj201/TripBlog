@@ -8,13 +8,18 @@
     <meta name="description" content="Shop">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/shoppingcart/shopindex.js" th:src="@{/js/shoppingcart/shopindex.js}"></script>
     <style>
         .sidebar li .submenu {
             list-style: none;
@@ -24,8 +29,8 @@
             padding-right: 1rem;
         }
 
-        .nav-item>a:hover {
-            color: rgb(97, 109, 109);
+       .my-nav-item:hover {
+         background-color: #0dcaf0;
         }
     </style>
 </head>
@@ -126,362 +131,240 @@
 <!-- 結束:總導覽列 -->
 
 
-    <div class="container mt-5">
-        <!-- 上半 -->
-        <div class="row justify-content-center align-items-center my-5">
-            <!-- 導覽輪撥 -->
-            <div class="col-12">
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+<div class="container mt-5">
+    <!-- 上半 -->
+    <div class="row justify-content-center align-items-center my-5">
+        <!-- 導覽輪撥 -->
+        <div class="col-12">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
                             class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
                             aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
                             aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://fakeimg.pl//1200x380/" th:src="@{/images/shop_banner_1.jpg}" style="width: 1200px; height: 380px;" class="d-block w-100" alt="...">
                     </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://fakeimg.pl//1200x380/" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://fakeimg.pl//1200x380/" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://fakeimg.pl//1200x380/" class="d-block w-100" alt="...">
-                        </div>
+                    <div class="carousel-item">
+                        <img src="https://fakeimg.pl//1200x380/" th:src="@{/images/shop_banner_2.jpg}" style="width: 1200px; height: 380px;" class="d-block w-100" alt="...">
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    <div class="carousel-item">
+                        <img src="https://fakeimg.pl//1200x380/" th:src="@{/images/shop_banner_3.jpg}" style="width: 1200px; height: 380px;" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <!-- 結束:導覽輪撥 -->
         </div>
-        <!-- 結束上半 -->
+        <!-- 結束:導覽輪撥 -->
+    </div>
+    <!-- 結束上半 -->
 
-        <!-- 中間 -->
-        <div class="row">
+    <!-- 中間 -->
+    <main class="row">
 
-            <!-- 側邊欄 -->
-            <div class="col-2">
-                <nav class="sidebar card py-2 mb-4 bg-light">
+        <!-- 側邊欄 -->
+        <div class="col-2">
+            <nav class="sidebar card py-2 mb-4 bg-light">
 
-                    <ul class="nav flex-column" id="nav_accordion">
+                <ul class="nav flex-column" id="nav_accordion">
 
-                        <li class="nav-item fs-4 fw-bold">
-                            <a class="nav-link disabled">分類</a>
-                        </li>
-
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 在地美食 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 1 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 2 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 3 </a> </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 周邊小物 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 4 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 7 </a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 創意服飾 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 4 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 7 </a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 精美卡片 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 4 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 7 </a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-submenu">
-                            <a class="nav-link fw-bold" href="#"> 其他 </a>
-                            <ul class="submenu collapse">
-                                <li><a class="nav-link" href="#">Submenu item 4 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-                                <li><a class="nav-link" href="#">Submenu item 7 </a></li>
-                            </ul>
-                        </li>
+                    <li class="nav-item d-flex justify-content-start my-nav-item">
+                        <input value="0" type="radio" class="btn-check" name="options-outlined" id="tagTitle" autocomplete="off">
+                        <label class="nav-link" for="tagTitle">
+                            <div class="fs-4 text-black-50 fw-bold">
+                                所有分類
+                            </div>
+                        </label>
+                    </li>
 
 
-                    </ul>
-                </nav>
-            </div>
-            <!-- 結束:側邊欄 -->
-
-            <!-- 主內容 -->
-            <div class="col-10">
-
-                <!-- 搜尋框 -->
-                <div class="col-12 mb-5 d-flex align-items-center justify-content-center  d-flex flex-wrap">
-                    <div class="input-group me-4 w-50">
-                        <input type="search" placeholder="輸入要尋找的商品" aria-describedby="button-addon5"
-                            class="form-control">
-                        <div class="input-group-append">
-                            <button id="button-addon5" type="submit" class="btn btn-primary"><i
-                                    class="fa fa-search"></i></button>
+                    <li th:each=" sort : ${sortList}" class="nav-item has-submenu my-nav-item">
+                        <div class="fs-5 nav-link fw-bold" data-value="1" th:text="${sort.sortName}" th:data-value="${sort.id}">
+                            在地美食
                         </div>
-                    </div>
+                        <ul class="submenu collapse">
 
-                    <div class="btn-group me-2">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            時間
-                        </button>
-                        <ul class="dropdown-menu bg-white">
-                            <li><a class="dropdown-item" href="#">日期: 新到舊</a></li>
-                            <li><a class="dropdown-item" href="#">日期: 舊到新</a></li>
+                            <li class="mb-2" th:each="tag : ${sort.tagList}">
+                                <input th:value="${tag.id}" th:id="${tag.id}"  type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off">
+                                <label th:text="${tag.tagName}" th:for="${tag.id}" class="btn btn-outline-secondary" for="success-outlined">Item</label>
+                            </li>
+
                         </ul>
-                    </div>
+                    </li>
 
-                    <div class="btn-group">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            價位
-                        </button>
-                        <ul class="dropdown-menu bg-white">
-                            <li><a class="dropdown-item" href="#">價格: 低到高</a></li>
-                            <li><a class="dropdown-item" href="#">價格: 高到低</a></li>
-                        </ul>
-                    </div>
 
-                    <div class="btn-group text-center mx-5 my-3">
-                        <a class="btn btn-white btn-lg" type="button" aria-expanded="false" th:href="@{/shop/shopcart}">
-                            <span class="mx-2 text-danger fw-bolder">1</span><i
-                                class="fas fa-shopping-cart text-primary">購物車</i>
-                        </a>
-                    </div>
+                </ul>
+            </nav>
+        </div>
+        <!-- 結束:側邊欄 -->
 
+        <!-- 主內容 -->
+        <div class="col-10">
+
+            <!-- 搜尋框 -->
+            <div class="col-12 mb-5 d-flex align-items-center justify-content-center  d-flex flex-wrap">
+
+                <select name="brand" class="form-select mx-2" aria-label=".form-select-lg example" style="width: 9rem">
+                    <option selected value="0">全部品牌</option>
+                    <li th:each="brand : ${brandList}">
+                        <option th:text="${brand.brandName}" th:value="${brand.id}">One</option>
+                    </li>
+
+                </select>
+
+                <div class="input-group me-4 w-50">
+                    <input name="productName" type="search" placeholder="輸入商品名稱" aria-describedby="button-addon5"
+                           class="form-control">
+                    <div class="input-group-append">
+                        <button id="button-addon5" value="1" type="button" class="btn btn-primary"><i
+                                class="fa fa-search"></i></button>
+                    </div>
+                </div>
+
+                <div class="btn-group me-2 my-2">
+
+                    <select name="sort" class="form-select form-select-sm bg-secondary text-white" aria-label=".form-select-sm example">
+                        <option selected value="0">排序方式</option>
+                        <option value="1">日期: 新到舊</option>
+                        <option value="2">日期: 舊到新</option>
+                        <option value="3">價格: 低到高</option>
+                        <option value="4">價格: 高到低</option>
+                    </select>
 
                 </div>
-                <!-- 結束:搜尋框 -->
 
+
+                <div class="btn-group text-center mx-3 my-3">
+                    <a class="btn btn-white btn-lg" type="button" aria-expanded="false" th:href="@{/shop/shopcart}">
+                        <span class="mx-2 text-danger fw-bolder" id="itemCount">0</span><i
+                            class="fas fa-shopping-cart text-primary">購物車</i>
+                    </a>
+                </div>
+
+
+            </div>
+            <!-- 結束:搜尋框 -->
+            <div id="main">
                 <!-- 商品列 -->
                 <div class="row mb-5 flex-wrap row-cols-md-2">
 
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
+                    <div class="col-lg-4 mb-4" th:each="product : ${productPage}">
+
+                        <div class="col-lg-4 mb-4">
+
+                            <div class="card" style="width: 20rem; overflow: hidden">
+                                <a href="#" th:href="@{'/shop/product/'+${product.id}}">
+                                    <img src="https://fakeimg.pl//280x180/" th:src="${'/shop/productPic/' + product.id}" class="card-img-top" style="height: 212px" alt="...">
+                                </a>
+
+                                <div class="card-body">
+                                    <div class="row d-flex bd-highlight mb-3">
+
+                                        <a class="col-auto link-dark text-decoration-none p-2 bd-highlight" href="#"
+                                           th:href="@{'/shop/product/'+${product.id}}">
+                                            <h5 class="card-title" th:text="${product.productName}">商品名稱</h5>
+                                        </a>
+
+                                        <div class="col-auto text-end ms-auto p-2 bd-highlight">
+                                            <p><span id="price" th:text="${product.price}">100</span> TWD</p>
+                                        </div>
+
+                                    </div>
+
+
+                                    <p class="card-text"  th:text="${product.aboutProduct}">Some quick example text to
+                                        build
+                                        on the card title and make up the
+                                        bulk of the card's content.</p>
+
+                                    <p class="m-2 small text-center" th:text="${#dates.format(product.launchedTime, 'yyyy-MM-dd HH:mm')}">2021-11-03
+                                        11:40</p>
+
+                                    <div th:id="${product.productName}" th:classappend="${product.inStock < 1} ? 'disabled' : 'btn-primary'" class="addButton btn btn-primary form-control">
+                                       <span th:text="${product.inStock < 1} ? '售完' : '加入購物車'">加入購物車</span>
+                                        <input class="info" type="hidden" th:value="${product.productName + '|' + product.id + '|' + product.price}">
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
+
                     </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" style="width: 20rem;">
-                            <img src="https://fakeimg.pl//280x180/" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">商品名稱</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary form-control">加入購物車</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
                 </div>
-            </div>
-            <!-- 結束:商品列 -->
+                <!-- 結束:商品列 -->
 
-            <!-- 換頁 -->
-            <div class="d-flex justify-content-center my-5">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <!-- 換頁 -->
+                <div class="d-flex justify-content-center mt-5">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a id="pre" class="page-link"
+                                   th:href="${productPage.isFirst()} ? 'javascript:void(0)' : '/shop/'+${currentPage - 1}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" disabled="true" th:text="${currentPage}">1</a>
+                            </li>
+
+                            <li class="page-item">
+                                <a id="next" class="page-link"
+                                   th:href="${productPage.isLast()} ? 'javascript:void(0)' : '/shop/'+${currentPage + 1}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="d-flex justify-content-center mb-5">
+                    <small>共<span th:text="${productPage.totalPages}">20</span>頁</small>
+                </div>
+                <!-- 結束:換頁 -->
             </div>
-            <!-- 結束:換頁 -->
+            <!-- 結束:主內容 -->
         </div>
-        <!-- 結束:主內容 -->
-    </div>
+    </main>
     <!-- 結束:中間 -->
 
 
-    </div>
+</div>
 
 
-
-
-    <!-- 尾頁 -->
-    <footer class="bg-bl04 py-5">
-        <div class="container px-4 px-lg-5 py-2">
-            <div class="small text-center text-milkyellow ">
-                Copyright &copy; 2021 - TripBlog
-            </div>
-            <div class="small text-center text-milkyellow ">
-                國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
-            </div>
+<!-- 尾頁 -->
+<footer class="bg-bl04 py-5">
+    <div class="container px-4 px-lg-5 py-2">
+        <div class="small text-center text-milkyellow ">
+            Copyright &copy; 2021 - TripBlog
         </div>
-    </footer>
-    <!-- 結束:尾頁 -->
+        <div class="small text-center text-milkyellow ">
+            國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
+        </div>
+    </div>
+</footer>
+<!-- 結束:尾頁 -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll('.sidebar .nav-link').forEach(function (element) {
 
-                element.addEventListener('click', function (e) {
-
-                    let nextEl = element.nextElementSibling;
-                    let parentEl = element.parentElement;
-
-                    if (nextEl) {
-                        e.preventDefault();
-                        let mycollapse = new bootstrap.Collapse(nextEl);
-
-                        if (nextEl.classList.contains('show')) {
-                            mycollapse.hide();
-                        } else {
-                            mycollapse.show();
-                            var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
-                            if (opened_submenu) {
-                                new bootstrap.Collapse(opened_submenu);
-                            }
-                        }
-                    }
-                });
-            })
-        });
-    </script>
 </body>
 
 </html>

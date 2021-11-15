@@ -63,8 +63,7 @@ public class UserController {
 
     //跳轉註冊畫面
     @GetMapping("/signup")
-    public String signupPage(Model model) {
-        model.addAttribute("user", new User());
+    public String signupPage() {
         return "user/signup";
     }
 
@@ -164,7 +163,7 @@ public class UserController {
 
     //註冊會員
     @ResponseBody
-    @PostMapping("/signup")
+    @PostMapping(value = "/signup")
     public boolean signup(@RequestBody User user, HttpSession session) {
 
         System.out.println("會員註冊 : " + user);

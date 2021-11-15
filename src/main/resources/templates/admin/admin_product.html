@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <meta name="description" content="Admin">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}" />
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <!--  jquery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/admin/productAdmin.js" th:src="@{/js/admin/productAdmin.js}"></script>
+    <style>
+        .my-nav-link:hover {
+            color: rgb(127, 135, 156);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="navbar navbar-dark sticky-top bg-bl04 flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-8 col-md-4 col-lg-2 me-0 px-3 p-3 text-center" href="#" th:href="@{/admin}">TripBlog
+            後台管理</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#">登出</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- 側邊工具列 -->
+            <nav th:replace="/admin/admin_index :: adminNav(2)" id="sidebarMenu"
+                class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+
+                        <li class="nav-item my-3">
+                            <a class="nav-link my-nav-link" href="#"
+                                th:href="@{/admin/orderPage}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-clipboard-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                    <path
+                                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                    <path
+                                        d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                </svg>
+                                訂單管理
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="nav-link my-nav-link" href="#"
+                                th:href="@{/admin/product}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                    <path
+                                        d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                                    <path
+                                        d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                </svg>
+                                商品上架
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="nav-link my-nav-link" href="#"
+                                th:href="@{/admin/brandPage}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-building" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
+                                    <path
+                                        d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
+                                </svg>
+                                店家管理
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="nav-link my-nav-link" href="#"
+                                th:href="@{/admin/productSortPage}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-inbox" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4.98 4a.5.5 0 0 0-.39.188L1.54 8H6a.5.5 0 0 1 .5.5 1.5 1.5 0 1 0 3 0A.5.5 0 0 1 10 8h4.46l-3.05-3.812A.5.5 0 0 0 11.02 4H4.98zm9.954 5H10.45a2.5 2.5 0 0 1-4.9 0H1.066l.32 2.562a.5.5 0 0 0 .497.438h12.234a.5.5 0 0 0 .496-.438L14.933 9zM3.809 3.563A1.5 1.5 0 0 1 4.981 3h6.038a1.5 1.5 0 0 1 1.172.563l3.7 4.625a.5.5 0 0 1 .105.374l-.39 3.124A1.5 1.5 0 0 1 14.117 13H1.883a1.5 1.5 0 0 1-1.489-1.314l-.39-3.124a.5.5 0 0 1 .106-.374l3.7-4.625z" />
+                                </svg>
+                                分類標籤
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="nav-link my-nav-link" href="#"
+                                th:href="@{/admin/userPage}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-person" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                                </svg>
+                                會員管理
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link my-nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-chat-dots" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                    <path
+                                        d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
+                                </svg>
+                                檢舉回報
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+            <!-- 結束:側邊工具列 -->
+
+
+
+            <!-- 主內容 -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-5">
+            <div class="container rounded">
+                <div class="row shadow p-3 m-5">
+            
+                    <div class="row my-2">
+                        <div class="col-3">
+                            <h1>商品上架</h1>
+                        </div>
+                        <div class="col">
+                            <!-- Button trigger addModal -->
+                            <button id="addNewProduct" type="button" class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#addModal">
+                            上架新商品
+                            </button>
+                        </div>
+                    </div>
+            
+                    <table id="productAdmin" class="table">
+                        <thead>
+                          <tr class="table-dark">
+                            <th scope="col">ID</th>
+                            <th scope="col" style="width: 70px;">商品照片</th>
+                            <th scope="col" style="width: 150px;">商品名稱</th>
+                            <th scope="col" style="width: 150px;">簡介</th>
+                            <th scope="col" style="width: 350px;">詳細介紹</th>
+                            <th scope="col" style="width: 100px;">價格</th>
+                            <th scope="col" style="width: 80px;">庫存</th>
+                            <th scope="col" style="width: 80px;">已售出</th>
+                            <th scope="col" style="width: 100px;">店家</th>
+                            <th scope="col" style="width: 80px;">標籤</th>
+                            <th scope="col" style="width: 150px;"></th>
+                          </tr>
+                        </thead>
+<!--                        動態新增部分-->
+<!--                        <tbody>-->
+<!--                          <tr>-->
+<!--                            <th scope="row">1</th>-->
+<!--                            <td><img src="../../static/images/shop/product/36.jpg" style="width: 70px;"></td>-->
+<!--                            <td>我的生日蛋糕</td>-->
+<!--                            <td>超美的人魚雙層夢幻生日蛋糕</td>-->
+<!--                            <td>超美的客製化檸檬戚風麻糬蛋糕，生日就值得吃個美美的生日蛋糕好好慶祝，夢幻的人魚和淡粉色又美又質感，最適合要步入三字頭迎接更有質感生活的女孩兒了</td>-->
+<!--                            <td>9999TWD</td>-->
+<!--                            <td>30</td>-->
+<!--                            <td>1</td>-->
+<!--                            <td>佩佩屋</td>-->
+<!--                            <td>蛋糕</td>-->
+<!--                            <td>-->
+<!--                                <button data-bs-toggle="modal" data-bs-target="#editModal" type="button" class="btn btn-primary m-1">編輯</button>-->
+<!--                                <button type="button" class="btn btn-danger m-1">移除</button>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                        </tbody>-->
+<!--                        動態新增結束-->
+                      </table>
+            
+                        <!-- 上架商品Modal 第一頁-->
+                        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">上架新商品</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <!-- 上架商品modal內容 第一頁-->
+                                <div class="mb-3">
+                                    <label for="addProductTitle" class="form-label">商品名稱</label>
+                                    <input type="text" class="form-control" id="addProductTitle">
+                                    <p id="messageProductTitle" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductAbout" class="form-label">商品簡介</label>
+                                    <input type="text" class="form-control" id="addProductAbout">
+                                    <p id="messageProductAbout" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductInfo" class="form-label">商品詳細介紹</label>
+                                    <textarea class="form-control" id="addProductInfo"rows="2"></textarea>
+                                    <p id="messageProductInfo" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductPrice" class="form-label">商品價格</label>
+                                    <input type="number" class="form-control" id="addProductPrice"
+                                           oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}
+                                                       else{this.value=this.value.replace(/\D/g,'')}">
+                                    <p id="messageProductPrice" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductStock" class="form-label">商品庫存</label>
+                                    <input type="number" class="form-control" id="addProductStock"
+                                           oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}
+                                                       else{this.value=this.value.replace(/\D/g,'')}">
+                                    <p id="messageProductStock" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductBrand" class="form-label">上架店家</label>
+                                    <select class="form-select" aria-label="select Brand" id="addProductBrand" required>
+<!--                                        動態新增抓取資料庫-->
+<!--                                        <option selected>選擇店家</option>-->
+<!--                                        <option value="1">佩佩甜點</option>-->
+<!--                                        <option value="2">阿貓麵攤</option>-->
+<!--                                        <option value="3">額額鵝肉</option>-->
+                                    </select>
+                                    <p id="messageProductBrand" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="addProductTag" class="form-label">商品標籤</label>
+                                    <select class="form-select" aria-label="select Tag" id="addProductTag" required>
+<!--                                        動態新增抓取資料庫-->
+<!--                                        <option selected>選擇商品標籤</option>-->
+<!--                                        <option value="1">蛋糕</option>-->
+<!--                                        <option value="2">點心</option>-->
+<!--                                        <option value="3">主菜</option>-->
+                                    </select>
+                                    <p id="messageProductTag" style="color: red"></p>
+                                </div>
+                                <!-- 上架商品modal內容 第一頁 結束-->
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
+                                <button id="addNewProductNext" type="button" class="btn btn-primary">下一步</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- 上架商品Modal 第一頁結束-->
+                        <!-- 上架商品圖片Modal -->
+                        <div class="modal fade" id="addProductImgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">新增商品圖片</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Modal內容 -->
+                                    <label for="productImg" class="form-label">圖片長寬建議為方形</label>
+                                    <input class="form-control" type="file" id="productImg" accept="image/*">
+                                    <!-- Modal內容 結束-->
+                                </div>
+                                <div class="modal-footer">
+                                  <button id="closeAddProduct" type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                  <button id="submitProductImg" type="button" class="btn btn-primary">上架商品</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- 上架商品圖片Modal 結束-->
+
+                        <!-- 編輯商品Modal 第一頁-->
+                        <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">編輯商品資訊</h5>
+                                </div>
+                                <div class="modal-body">
+                                <!-- 編輯商品modal內容 第一頁-->
+                                <div class="mb-3">
+                                    <label for="editProductTitle" class="form-label">商品名稱</label>
+                                    <input type="text" class="form-control" id="editProductTitle">
+                                    <p id="messageProductTitleEdit" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductAbout" class="form-label">商品簡介</label>
+                                    <input type="text" class="form-control" id="editProductAbout">
+                                    <p id="messageProductAboutEdit" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductInfo" class="form-label">商品詳細介紹</label>
+                                    <textarea class="form-control" id="editProductInfo"rows="2"></textarea>
+                                    <p id="messageProductInfoEdit" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductPrice" class="form-label">商品價格</label>
+                                    <input type="number" class="form-control" id="editProductPrice"
+                                           oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}
+                                                       else{this.value=this.value.replace(/\D/g,'')}">
+                                    <p id="messageProductPriceEdit" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductStock" class="form-label">商品庫存</label>
+                                    <input type="number" class="form-control" id="editProductStock"
+                                           oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}
+                                                       else{this.value=this.value.replace(/\D/g,'')}">
+                                    <p id="messageProductStockEdit" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductBrand" class="form-label">上架店家</label>
+                                    <select class="form-select" aria-label="select Brand" id="editProductBrand" required>
+<!--                                        動態新增抓取資料庫-->
+<!--                                        <option selected>選擇店家</option>-->
+<!--                                        <option value="1">佩佩甜點</option>-->
+<!--                                        <option value="2">阿貓麵攤</option>-->
+<!--                                        <option value="3">額額鵝肉</option>-->
+                                    </select>
+                                    <p id="messageProductBrandEdit" style="color: red"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editProductTag" class="form-label">商品標籤</label>
+                                    <select class="form-select" aria-label="select Tag" id="editProductTag" required>
+<!--                                        動態新增抓取資料庫-->
+<!--                                        <option selected>選擇商品標籤</option>-->
+<!--                                        <option value="1">蛋糕</option>-->
+<!--                                        <option value="2">點心</option>-->
+<!--                                        <option value="3">主菜</option>-->
+                                    </select>
+                                    <p id="messageProductTagEdit" style="color: red"></p>
+                                </div>
+                                <!-- 編輯商品modal內容 第一頁 結束-->
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="editProductExit" type="button" class="btn btn-secondary" data-bs-dismiss="modal">離開</button>
+                                    <button id="toEditProductImg" type="button" class="btn btn-primary">前往更新商品圖片</button>
+                                    <button id="editProductNext" type="button" class="btn btn-primary">更新商品資訊</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- 編輯商品Modal 第一頁結束-->
+                        <!-- 編輯商品圖片Modal -->
+                        <div class="modal fade" id="editProductImgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">編輯商品圖片</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Modal內容 -->
+                                    <label for="productImgEdit" class="form-label">圖片長寬建議為方形</label>
+                                    <input class="form-control" type="file" id="productImgEdit" accept="image/*">
+                                    <p id="messageProductImg" style="color: red"></p>
+                                    <!-- Modal內容 結束-->
+                                </div>
+                                <div class="modal-footer">
+                                  <button id="closeEditProduct" type="button" class="btn btn-secondary" data-bs-dismiss="modal">離開</button>
+                                  <button id="submitProductImgEdit" type="button" class="btn btn-primary">更新商品圖片</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- 編輯商品圖片Modal 結束-->
+                </div>
+            </div>
+        </main>
+        <!-- 結束:主內容 -->
+    </div>
+</div>
+
+
+<footer class="bg-bl04 py-5">
+    <div class="container px-4 px-lg-5 py-2">
+        <div class="small text-center text-milkyellow ">
+            Copyright &copy; 2021 - TripBlog
+        </div>
+        <div class="small text-center text-milkyellow ">
+            國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
+        </div>
+    </div>
+</footer>
+<!-- 結束:尾頁 -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

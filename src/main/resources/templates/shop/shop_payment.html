@@ -8,6 +8,9 @@
     <meta name="description" content="Payment">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,6 +18,8 @@
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/shoppingcart/payment.js" th:src="@{/js/shoppingcart/payment.js}"></script>
 
 </head>
 
@@ -132,12 +137,13 @@
 
             <!-- 左邊購物清單 -->
             <div class="col-md-4 order-md-2 mb-4">
+                <div id="cartList">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">購物車</span>
                     <span class="badge badge-secondary badge-pill">3</span>
                 </h4>
-
-                <ul class="list-group mb-3">
+                <!-- 動態新增部分 -->
+                <!-- <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between">
                         <div>
                             <h6 class="my-0">Product name</h6>
@@ -163,12 +169,18 @@
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between">
+                        <span>運費</span>
+                        <span class="text-muted"><span id="freight ">80</span>TWD</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between">
                         <span>總金額</span>
                         <strong><span>4375</span>TWD</strong>
                     </li>
-                </ul>
+                </ul> -->
+                <!-- 動態新增部分 結束-->
 
-
+                </div>
                 <form class="card p-2">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="折扣碼">
@@ -189,18 +201,15 @@
 
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input mb-2"
-                                checked required>
+                            <input id="credit" name="payment" type="radio" th:checked="${checkout.payment} == 信用卡" value="信用卡" class="custom-control-input mb-2" required>
                             <label class="custom-control-label" for="credit">信用卡</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input mb-2"
-                                required>
+                            <input id="debit" name="payment" type="radio" th:checked="${checkout.payment} == 金融卡" value="金融卡" class="custom-control-input mb-2" required>
                             <label class="custom-control-label" for="debit">金融卡</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input mb-2"
-                                required>
+                            <input id="paypal" name="payment" type="radio" th:checked="${checkout.payment} == PayPal" value="PayPal" class="custom-control-input mb-2" required>
                             <label class="custom-control-label" for="paypal">PayPal</label>
                         </div>
                     </div>
@@ -210,23 +219,23 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="cc-name">持卡人姓名</label>
-                            <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                            <label for="cardOwner">持卡人姓名</label>
+                            <input th:value="${checkout != null} ? ${checkout.cardOwner} : null" type="text" class="form-control" id="cardOwner" placeholder="" required>
 
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="cc-number">卡片號碼</label>
-                            <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                            <label for="cardNumber">卡片號碼</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 mb-3">
-                            <label for="cc-expiration">到期時間</label>
-                            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                            <label for="expiration">到期時間</label>
+                            <input type="date" class="form-control" id="expiration" placeholder="" required>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="cc-cvv">CVV</label>
-                            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                            <label for="cvv">CVV</label>
+                            <input type="password" class="form-control" id="cvv" placeholder="" required>
                             <div class="invalid-feedback">
                                 Security code required
                             </div>
@@ -234,22 +243,25 @@
                     </div>
                     <hr class="mb-4">
 
+                    <!--錯誤提示-->
+                    <div id="message" class=" text-center m-2 fs-4 text-danger"></div>
+
 
 
                     <!-- 按鈕 -->
                     <div class="col-12 my-5 text-center mx-auto">
                         <div class="row justify-content-center">
                             <div class="col-6">
-                                <a class="btn btn-warning form-control fs-5 shadow-sm w-50" th:href="@{/shop/deliver}">
+                                <a id="lastStep" class="btn btn-warning form-control fs-5 shadow-sm w-50" th:href="@{/shop/deliver}">
                                     上一步
                                 </a>
 
                             </div>
 
                             <div class="col-6">
-                                <a class="btn btn-info form-control fs-5 shadow-sm w-50" th:href="@{/shop/confirm}">
+                                <button id="submit" class="btn btn-info form-control fs-5 shadow-sm w-50">
                                     下一步
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

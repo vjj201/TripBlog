@@ -66,17 +66,6 @@ $(function(){
             readFile(this);
         });
 
-        // oldImg.onload = function() {
-        //     var width = this.width,
-        //         height = this.height,
-        //         fileSize = Math.round(file.size / 1000),
-        //         html = "";
-        //
-        //     // html += "<p>原始圖片尺寸 " + width + "x" + height + "</p>";
-        //     // html += "<p>檔案大小約 " + fileSize + "k</p>";
-        //     $("#main-cropper").before(html);
-        // };
-
         $("#uploadIntroBanner").on("click", function() {
             myCrop.croppie("result", {
                 type: "canvas",

@@ -8,6 +8,9 @@
     <meta name="description" content="Deliver">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,6 +18,8 @@
     <!--  jquery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="../../static/js/shoppingcart/deliver.js" th:src="@{/js/shoppingcart/deliver.js}"></script>
 
 </head>
 
@@ -131,13 +136,14 @@
         <div class="row  shadow-lg p-5">
 
             <!-- 左邊購物清單 -->
-            <div class="col-md-4 order-md-2 mb-4">
+            <div id="cartList" class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">購物車</span>
                     <span class="badge badge-secondary badge-pill">3</span>
                 </h4>
 
-                <ul class="list-group mb-3">
+                <!-- 動態新增開始 -->
+                <!-- <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between">
                         <div>
                             <h6 class="my-0">Product name</h6>
@@ -163,20 +169,18 @@
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between">
+                        <span>運費</span>
+                        <span class="text-muted"><span id="freight">60</span>TWD</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between">
                         <span>總金額</span>
                         <strong><span>4375</span>TWD</strong>
                     </li>
-                </ul>
+                </ul> -->
+                <!-- 動態新增結束 -->
 
 
-                <form class="card p-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="折扣碼">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary">提交</button>
-                        </div>
-                    </div>
-                </form>
             </div>
             <!-- 結束:左邊購物清單 -->
 
@@ -187,7 +191,7 @@
                 <form>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="姓名" required>
+                            <input th:value="${checkout != null} ? ${checkout.receiver} : null" type="text" class="form-control" id="receiver" name="receiver" placeholder="姓名" required>
                         </div>
                     </div>
 
@@ -196,53 +200,62 @@
                         <h4 class="my-3">地址</h4>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <select class="custom-select d-block w-100" style="height: 2rem;" id="city" name="city"
-                                    required>
-                                    <option value="">縣市</option>
-                                    <option>台北</option>
-                                    <option>台中</option>
-                                    <option>台南</option>
+                            <div class="col-md-4 mb-3">
+                                <select class="custom-select d-block w-100" style="height: 2rem;" id="location" name="location"
+                                        required>
+                                    <option th:value="${checkout != null} ? ${checkout.location} : null" th:text="${checkout != null} ? ${checkout.location} : 位置">位置</option>
+                                    <option>北部</option>
+                                    <option>中部</option>
+                                    <option>南部</option>
+                                    <option>外島</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-6 mb-3">
-                                <select class="custom-select d-block w-100" style="height: 2rem;" id="state"
-                                    name="state" required>
-                                    <option value="">鄉鎮市區</option>
-                                    <option>大安區</option>
-                                    <option>信義區</option>
+                            <div class="col-md-4 mb-3">
+                                <select class="custom-select d-block w-100" style="height: 2rem;" id="city" name="city"
+                                    required>
+                                    <option th:text="${checkout != null} ? ${checkout.city} : 縣市">縣市</option>
+                                    <option th:each="city : ${cityList}" th:text="${city.cityName}">台北市</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <select class="custom-select d-block w-100" style="height: 2rem;" id="district"
+                                    name="district" required>
+                                    <option th:text="${checkout != null} ? ${checkout.district} : 鄉鎮市區">鄉鎮市區</option>
+                                    <option th:each="district : ${districtList}" th:text="${district.districtName}"></option>
                                 </select>
                             </div>
                         </div>
 
-                        <input type="text" class="form-control mt-2" id="address" placeholder="道路街名樓室" required>
+                        <input th:value="${checkout != null} ? ${checkout.address} : null" type="text" class="form-control mt-2" id="address" placeholder="道路街名樓室" required>
 
                     </div>
 
                     <h4 class="mt-5 mb-3">貨運</h4>
 
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" class="custom-control-input mb-3" id="deliver" name="deliver">
-                        <label class="custom-control-label" for="save-info">中華郵政</label>
+                        <input id="1" type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'中華郵政')}" value="中華郵政">
+                        <label class="custom-control-label" for="1">中華郵政</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver">
-                        <label class="custom-control-label" for="save-info">貓貓貨運</label>
+                        <input id="2" type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'貓貓貨運')}" value="貓貓貨運">
+                        <label class="custom-control-label" for="2">貓貓貨運</label>
                         <br>
-                        <input type="radio" class="custom-control-input mb-3" name="deliver">
-                        <label class="custom-control-label" for="save-info">隆隆貨運</label>
+                        <input id="3" type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'大大貨運')}" value="大大貨運">
+                        <label class="custom-control-label" for="3">大大貨運</label>
+                        <br>
+                        <input id="4" type="radio" class="custom-control-input mb-3" name="deliver" th:checked="${checkout != null && #strings.equals(checkout.deliver,'很快貨運')}" value="很快貨運">
+                        <label class="custom-control-label" for="4">很快貨運</label>
                     </div>
 
 
-                    <hr class="my-4">
 
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="save-info">
-                        <label class="custom-control-label" for="save-info">保存本次配送紀錄</label>
-                    </div>
 
                     <hr class="my-4">
                     <!-- 結束:配送地址 -->
+
+                    <!--錯誤提示-->
+                    <div id="message" class=" text-center m-2 fs-4 text-danger"></div>
 
                     <!-- 按鈕 -->
                     <div class="col-12 my-5 text-center mx-auto">
@@ -256,25 +269,18 @@
                             </div>
 
                             <div class="col-6">
-                                <a class="btn btn-info form-control fs-5 shadow-sm w-50" th:href="@{/shop/payment}">
+                                <button id="submit" type="submit" class="btn btn-info form-control fs-5 shadow-sm w-50">
                                     下一步
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
                     <!-- 結束:按鈕 -->
 
-
                     </form>
-
                 </form>
 
-
-
     </div>
-
-
-
 
     </div>
 

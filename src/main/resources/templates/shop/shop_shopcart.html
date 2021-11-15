@@ -17,7 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- js -->
-    <script src="../../static/js/shopcart.js" th:src="@{/js/shopcart.js}"></script>
+    <script src="../../static/js/shoppingcart/shopcart.js" th:src="@{/js/shoppingcart/shopcart.js}"></script>
     <style>
         .navbar a div {
             filter: drop-shadow(1px 1px 2px rgba(22, 47, 189, 0.4))
@@ -171,115 +171,45 @@
 
 <!-- 購物車清單 -->
 <div class="container rounded">
-
-<!--    &lt;!&ndash; 購物步驟 &ndash;&gt;-->
-<!--    <div class="position-relative m-5">-->
-<!--        <div class="progress" style="height: 1px;">-->
-<!--          <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>-->
-<!--        </div>-->
-<!--        <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">1</button>-->
-<!--        <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">2</button>-->
-<!--        <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>-->
-<!--    </div>-->
-
     <!-- 中間區塊 -->
     <div class="row shadow p-3 m-5">
 
         <!-- 左邊購物車內容部分 -->
         <div class="col-8 p-3">
             <div id="myCart">
-                <h1>Shopping Cart</h1>
-                <div id="cartList">
-                    <!-- <table style="border-bottom:1px solid #ddd;">
-                        <tr class="itemHead">
-                            <td style="width:200px;">商品</td>
-                            <td style="width:280px;"></td>
-                            <td style="width:170px;">單價</td>								
-                            <td style="width:60px;">數量</td>
-                        </tr>	
-                    </table> -->
-                    <table class="table m-3 align-middle">
-                        <thead>
+                <h1>購物車</h1>
+                <header id="cartList">
+                    <table class="table align-middle">
                           <tr>
                             <th scope="col" style="width:200px;">商品</th>
-                            <th scope="col" style="width:200px;"></th>
-                            <th scope="col">單價</th>
+                            <th scope="col" style="width:160px;"></th>
+                            <th scope="col" style="width:120px;">價格(NT$)</th>
                             <th scope="col" style="width:60px;">數量</th>
                             <th scope="col"></th>
                           </tr>
-                        </thead>
-                    <!-- </table> -->
-                    <!-- 動態新增開始 -->
-                        <tbody>
-                          <tr>
-                            <td style="width:200px;">
-                                <img src="../../static/images/brown.jpg" width="70">
-                            </td>
-                            <td>棕色泰迪熊熊</td>
-                            <td style="width:100px;"> 5000</td>
-                            <td style="width:100px;">
-                                <input type="number" value="1" min="1" style="width:50px;">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-dark">移除</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width:200px;">
-                                <img src="../../static/images/brown.jpg" width="70">
-                            </td>
-                            <td>棕色泰迪熊熊</td>
-                            <td style="width:100px;"> 5000</td>
-                            <td style="width:100px;">
-                                <input type="number" value="1" min="1" style="width:50px;">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-dark">移除</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width:200px;">
-                                <img src="../../static/images/brown.jpg" width="70">
-                            </td>
-                            <td>棕色泰迪熊熊</td>
-                            <td style="width:100px;"> 5000</td>
-                            <td style="width:100px;">
-                                <input type="number" value="1" min="1" style="width:50px;">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-dark">移除</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width:200px;">
-                                <img src="../../static/images/brown.jpg" width="70">
-                            </td>
-                            <td>棕色泰迪熊熊</td>
-                            <td style="width:100px;"> 5000</td>
-                            <td style="width:100px;">
-                                <input type="number" value="1" min="1" style="width:50px;">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-dark">移除</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width:200px;">
-                                <img src="../../static/images/brown.jpg" width="70">
-                            </td>
-                            <td>棕色泰迪熊熊</td>
-                            <td style="width:100px;"> 5000</td>
-                            <td style="width:100px;">
-                                <input type="number" value="1" min="1" style="width:50px;">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-dark">移除</button>
-                            </td>
-                          </tr>
-                        </tbody>
                     </table>
-                    <!-- 動態新增結束 -->
-                </div>
+                    <!-- 動態新增開始 -->
+                        <!-- <table>
+                          <tr class="item">
+                            <td style="width:200px;">
+                                <img src="../../static/images/brown.jpg" style="width: 70px;">
+                            </td>
+                            <td style="width:200px;" id="A1001">
+                                <a href="#">
+                                    棕色泰迪熊熊
+                                </a>
+                            </td>
+                            <td style="width:100px;">5000</td>
+                            <td style="width:100px;">
+                                <input type="number" value="1" min="1" style="width: 50px;">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-dark">移除</button>
+                            </td>
+                          </tr>
+                        </table> -->
+                <!-- 動態新增結束 -->
+                </header>
             </div>
         </div>
 
@@ -287,7 +217,7 @@
         <div class="col-4 bg-secondary rounded text-light d-flex align-items flex-column bd-highlight mb-3">
             <div class="row p-2 bd-highlight">
                 <span class="summary p-3 text-center">
-                    <h2>Summary</h2>
+                    <h2>購物明細</h2>
                 </span>
             </div>
             <div class="row my-3 bd-highlight">
@@ -296,52 +226,7 @@
                 <div class="col-1">：</div>
                 <div class="col-2"><span id="items">0</span></div>
             </div>
-            <div class="row my-3 bd-highlight">
-                <div class="col-1"></div>
-                <div class="col-3">配送地區</div>
-                <div class="col-1">：</div>
-                <div class="col-7">
-                    <span id="deliver">
-                        <select class="form-select" aria-label="deliver location">
-                            <option selected>選擇運送地區</option>
-                            <option value="1">台灣地區</option>
-                            <option value="2">離島地區</option>
-                            <option value="3">海外地區</option>
-                          </select>
-                    </span>
-                </div>            
-            </div>
-            <div class="row my-3 bd-highlight">
-                <div class="col-1"></div>
-                <div class="col-3">優惠代碼</div>
-                <div class="col-1">：</div>
-                <div class="col-7">
-                    <span id="coupon">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-label="coupon" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-light" type="button" id="button-addon2">確認</button>
-                          </div>
-                    </span>
-                </div>
-            </div>
-
-            <div class="row my-1 text-warning bd-highlight">
-                <div class="col-1"></div>
-                <div class="col-4">商品金額：</div>
-                <div class="col-2"><span id="itemsPrice">0</span></div>
-            </div>
-            <div class="row my-1 text-warning bd-highlight">
-                <div class="col-1"></div>
-                <div class="col-4">優惠折扣：</div>
-                <div class="col-2"><span id="discount">0</span></div>
-            </div>
-            <div class="row my-1 text-warning bd-highlight">
-                <div class="col-1"></div>
-                <div class="col-4">運費：</div>
-                <div class="col-2"><span id="deliverFee">0</span></div>
-            </div>
-
-            <footer class="mt-auto p-3 bd-highligh">
+            <footer class="mt-auto p-3 bd-highlight">
                 <div class="row my-3">
                     <div class="col-3"></div>
                     <div class="col-3"><h5>總金額</h5></div>
@@ -353,7 +238,7 @@
                         <a type="button" class="btn btn-warning" th:href="@{/shop}">返回</a>
                     </div>
                     <div class="col-5 d-grid">
-                        <a type="button" class="btn btn-info" th:href="@{/shop/deliver}">結帳</a>
+                        <a id="checkPayment" type="button" class="btn btn-info" >結帳</a>
                     </div>
                 </div>
             </footer>
@@ -375,7 +260,6 @@
     </div>
 </footer>
 <!-- 結束:尾頁 -->
-
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
