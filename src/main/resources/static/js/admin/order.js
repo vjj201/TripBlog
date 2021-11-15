@@ -37,6 +37,21 @@ $(document).ready(function () {
                     $('#freight').text(order.freight);
                     $('#totalAmount').text(order.amounts);
                     loadItem(uuid);
+                    if (!order.adminCheck) {
+                        $.ajax({
+                            type: 'PUT',
+                            url: "/admin/order/checked/" + uuid,
+                            statusCode: {
+                                200: function () {
+                                    $('button:contains(' + uuid + ')').removeClass('btn-info');
+                                    $('button:contains(' + uuid + ')').addClass('btn-gr0201');
+                                },
+                                404: function () {
+                                    alert('查看狀態，更新失敗');
+                                }
+                            }
+                        });
+                    }
                 },
                 404: function () {
                     let trHTML = '<tr class="my-3 h-100">' +
@@ -131,6 +146,7 @@ function loadData() {
                 $.each(orderList, function (i, order) {
 
                     let option = '';
+                    let btnColor = 'btn-info';
                     let orderStatus = order.orderStatus;
 
                     let username = order.username;
@@ -138,6 +154,9 @@ function loadData() {
                         username = '訪客';
                     }
 
+                    if (order.adminCheck) {
+                        btnColor = 'btn-gr0201';
+                    }
 
                     if (orderStatus === -1) {
                         option += '<option selected value="-1">待出貨</option>';
@@ -157,10 +176,11 @@ function loadData() {
                         option += '<option value="1">已收件</option>';
                     }
 
+
                     trHTML +=
                         '<tr class="my-3 h-100">' +
                         '<td>' +
-                        '<button name="getOrders" type="button" class="btn btn-gr0201" data-bs-toggle="modal"' +
+                        '<button name="getOrders" type="button" class="btn ' + btnColor + '" data-bs-toggle="modal"' +
                         'data-bs-target="#Modal">' +
                         order.uuid +
                         '</button></td>' +

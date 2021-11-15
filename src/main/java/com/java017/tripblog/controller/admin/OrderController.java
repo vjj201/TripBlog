@@ -67,6 +67,21 @@ public class OrderController {
         return new ResponseEntity<>(productOrder.getOrderItems(), HttpStatus.OK);
     }
 
+    @PutMapping("/order/checked/{uuid}")
+    public ResponseEntity<HttpStatus> updateOrderAdminCheck(@PathVariable String uuid) {
+        ProductOrder productOrder = productOrderService.findByUuid(uuid);
+        if (ObjectUtils.isEmpty(productOrder)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        productOrder.setAdminCheck(true);
+        try {
+            productOrderService.createOrUpdate(productOrder);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PutMapping("/order")
     public ResponseEntity<Integer> updateAllStatus(@RequestBody List<ProductOrder> productOrderList) {
         List<ProductOrder> productOrders = new ArrayList<>(productOrderList.size());
