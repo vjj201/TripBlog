@@ -68,6 +68,7 @@ $(function () {
         let createDate = myArticleAll.createDate;
         let createTime = myArticleAll.createTime;
         let saveImgPath = myArticleAll.saveImgPath;
+        let articleId = myArticleAll.articleId;
         const imgPath = "https://localhost:8080/";
 
         return `
@@ -95,14 +96,13 @@ $(function () {
                                         type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/edit/${articleTitle}'">編輯</button>
                                             <button
                                          class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/delete/${articleTitle}'">刪除</button>
+                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/delete/${articleTitle}/${articleId}'">刪除</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
         `;}
-
     //~~第一頁~~
     function firstPage(){
 

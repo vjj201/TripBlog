@@ -50,8 +50,7 @@ public interface ArticleService {
     List<Article> getMyPagedArticles(int page, int size,Long id, String subject,int timeDirect);
 
     //大方:    我的空間 - 刪除文章
-    String deleteMyArticle(String articleTitle);
-
+    String deleteMyArticle(String articleId);
 
     ArrayList<Article>findAll();
     String upDateArticle(Article inputArticle);

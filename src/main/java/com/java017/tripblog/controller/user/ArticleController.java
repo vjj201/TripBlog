@@ -189,20 +189,14 @@ public class ArticleController {
 
     //大方： 刪除文章 (My eat)
     @ResponseBody
-    @GetMapping("/delete/{articleTitle}")
-//    private String deleteArticle(HttpSession session, @PathVariable String articleTitle){
-    private String deleteArticle(@PathVariable String articleTitle){
+    @GetMapping("/delete/{articleTitle}/{articleId}")
+    private String deleteMyArticle(@PathVariable String articleTitle,@PathVariable String articleId){
 
-//        User user = (User) session.getAttribute("user");
-//        User userId = userService.findUserById(user.getId());
-
-//        Integer articleId = articleTitle.getArticleId();
-//        System.out.println("刪除文章/文章標題：" + articleId + "/" + articleTitle);
         System.out.println("刪除文章標題：" + articleTitle);
 
-        articleService.deleteMyArticle(articleTitle);
-
-        return "文章刪除(controller)";
+        articleService.deleteMyArticle(articleId);
+        System.out.println("執行刪除文章ok");
+        return "redirect:https://localhost:8080/user/eat";
     }
 
 

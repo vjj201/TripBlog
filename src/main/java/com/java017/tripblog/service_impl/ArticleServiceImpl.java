@@ -12,8 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -240,12 +243,16 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     //大方:    我的空間 - 刪除文章
-    public String deleteMyArticle(String articleTitle){
+    public String deleteMyArticle(String articleId){
 
-        articleRepository.deleteArticleByArticleTitle(articleTitle);
 
+        System.out.println(articleId);
+        Integer articleIdNum = Integer.parseInt(articleId);
+        articleRepository.deleteByArticleId(articleIdNum);
+        System.out.println("執行刪除文章");
         return "文章刪除(Service)";
     }
+
 
     @Override
     public ArrayList<Article> findAll() {

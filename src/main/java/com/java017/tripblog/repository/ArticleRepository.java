@@ -3,13 +3,19 @@ package com.java017.tripblog.repository;
 import com.java017.tripblog.entity.Article;
 
 import com.java017.tripblog.entity.User;
+import javafx.scene.shape.ArcTo;
+import org.hibernate.sql.Delete;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -48,11 +54,15 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
 
      ArrayList<Article> findByUserIdAndSubjectCategory(User id, String subject);
 
-//大方: 刪除文章
+     //大方: 刪除文章
 
-     String deleteArticleByArticleTitle(String articleTitle);
+     @Modifying
+     @Transactional
+     @Query("delete from Article where ArticleId = ?1")
+     void deleteByArticleId(Integer id);
 
-//     Page<Article> findByUserIdAndSubjectCategory(User user, String subject);
+
+//   Page<Article> findByUserIdAndSubjectCategory(User user, String subject);
 
 }
 
