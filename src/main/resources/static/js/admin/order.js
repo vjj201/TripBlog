@@ -16,6 +16,40 @@ $(document).ready(function () {
         loadData();
     });
 
+    //商家產品列表
+    $(document).on('click', 'button[name="getOrders"]', function () {
+        let uuid = $(this).text();
+        let orderStatus = $(this).parent().parent().children().eq(3).children().find(":selected").text();
+        $('#orderId').text(uuid);
+        $('#orderStatus').text(orderStatus);
+        $.ajax({
+            type: 'GET',
+            url: "/admin/order/detail/" + uuid,
+            statusCode: {
+                200: function (order) {
+                    $('#payment').val(order.payment);
+                    $('#owner').val(order.cardOwner);
+                    $('#cardNumber').val(order.cardNumber);
+                    $('#deliver').val(order.deliver);
+                    $('#sendFor').val(order.receiver);
+                    $('#address').val(order.address);
+
+                    $('#freight').text(order.freight);
+                    $('#totalAmount').text(order.amounts);
+                    loadItem(uuid);
+                },
+                404: function () {
+                    let trHTML = '<tr class="my-3 h-100">' +
+                        '<td class="pt-2"></td>' +
+                        '<td class="pt-2">查無資訊</td>' +
+                        '<td class="pt-2"></td>' +
+                        '</tr>';
+                    $('#Modal').html(trHTML);
+                }
+            }
+        });
+    });
+
     //狀態更新
     $('#updateBtn').on('click', function () {
 
@@ -126,7 +160,7 @@ function loadData() {
                     trHTML +=
                         '<tr class="my-3 h-100">' +
                         '<td>' +
-                        '<button name="getProducts" type="button" class="btn btn-gr0201" data-bs-toggle="modal"' +
+                        '<button name="getOrders" type="button" class="btn btn-gr0201" data-bs-toggle="modal"' +
                         'data-bs-target="#Modal">' +
                         order.uuid +
                         '</button></td>' +
@@ -173,6 +207,44 @@ function loadData() {
             },
             204: function () {
                 $('#tbody').html('<tr><td colspan="5" class="text-center p-5 m-5"><h3>查無資料</h3></td></tr>');
+            }
+        }
+    });
+}
+
+function loadItem(uuid) {
+    $.ajax({
+        type: 'GET',
+        url: "/admin/order/detail/" + uuid + "/item",
+        statusCode: {
+            200: function (response) {
+
+                let trHTML = '';
+                $.each(response, function (i, item) {
+
+                    trHTML +=
+                        '<tr class="my-3 border-bottom">' +
+                        '<td class="pt-3"><h6>' +
+                        item.title +
+                        '</h6></td>' +
+                        '<td class="pt-3">' +
+                        item.quantity +
+                        '</td> ' +
+                        '<td class="pt-3">' +
+                        item.price +
+                        'TWD</td></tr>';
+                });
+
+                $('#itemZone').html(trHTML);
+
+            },
+            404: function () {
+                let trHTML = '<tr class="my-3 h-100">' +
+                    '<td class="pt-2"></td>' +
+                    '<td class="pt-2">查無資訊</td>' +
+                    '<td class="pt-2"></td>' +
+                    '</tr>';
+                $('#Modal').html(trHTML);
             }
         }
     });

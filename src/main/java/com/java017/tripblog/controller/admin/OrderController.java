@@ -1,5 +1,6 @@
 package com.java017.tripblog.controller.admin;
 
+import com.java017.tripblog.entity.Item;
 import com.java017.tripblog.entity.ProductOrder;
 import com.java017.tripblog.service.ProductOrderService;
 import org.springframework.data.domain.Page;
@@ -47,7 +48,7 @@ public class OrderController {
         return new ResponseEntity<>(orderPage, HttpStatus.OK);
     }
 
-    @GetMapping("/order/{uuid}")
+    @GetMapping("/order/detail/{uuid}")
     public ResponseEntity<ProductOrder> findOrderByUUID(@PathVariable String uuid) {
         ProductOrder productOrder = productOrderService.findByUuid(uuid);
         System.out.println(productOrder);
@@ -55,6 +56,15 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(productOrder, HttpStatus.OK);
+    }
+
+    @GetMapping("/order/detail/{uuid}/item")
+    public ResponseEntity<List<Item>> findOrderItemsByUUID(@PathVariable String uuid) {
+        ProductOrder productOrder = productOrderService.findByUuid(uuid);
+        if (ObjectUtils.isEmpty(productOrder)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productOrder.getOrderItems(), HttpStatus.OK);
     }
 
     @PutMapping("/order")
