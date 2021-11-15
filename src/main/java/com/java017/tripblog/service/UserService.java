@@ -1,9 +1,11 @@
 package com.java017.tripblog.service;
 
+import com.java017.tripblog.entity.Brand;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author YuCheng
@@ -42,4 +44,6 @@ public interface UserService {
     //更新自我介紹
     Intro updateIntro(Intro intro);
 
+    //查詢全部
+    List<User> findAllUser();
 }

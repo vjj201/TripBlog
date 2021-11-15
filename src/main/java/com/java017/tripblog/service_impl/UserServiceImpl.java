@@ -1,11 +1,8 @@
 package com.java017.tripblog.service_impl;
 
-import com.java017.tripblog.entity.ProductOrder;
-import com.java017.tripblog.entity.ShopCart;
+import com.java017.tripblog.entity.*;
 import com.java017.tripblog.repository.IntroRepository;
 import com.java017.tripblog.repository.UserRepository;
-import com.java017.tripblog.entity.Intro;
-import com.java017.tripblog.entity.User;
 import com.java017.tripblog.security.MyUserDetails;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,5 +108,10 @@ public class UserServiceImpl implements UserService {
     @Override//更新自我介紹頁面資訊
     public Intro updateIntro(Intro intro) {
         return introRepository.save(intro);
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        return userRepository.findAll();
     }
 }

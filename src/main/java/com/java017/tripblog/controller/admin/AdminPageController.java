@@ -2,6 +2,7 @@ package com.java017.tripblog.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -35,4 +36,10 @@ public class AdminPageController {
     public String orderPage() {
         return "/admin/admin_order";
     }
+
+    @GetMapping("/userPage")
+    public String memberPage() {
+        return "/admin/admin_member";
+    }
+
 }
