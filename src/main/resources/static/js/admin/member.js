@@ -93,9 +93,9 @@ $(document).ready(function () {
                             '<td class="pt-2">' +
                             userOrder.orderTime +
                             '</td>' +
-                            '<td class="pt-2">' +
+                            '<td class="pt-2"><span>' +
                             userOrder.amounts +
-                            '</td>';
+                            '</span>TWD</td>';
                     });
                     $('#tbody3').html(trHTML);
                 },
@@ -110,6 +110,12 @@ $(document).ready(function () {
             }
         });
     });
+
+    //會員訂單跳轉按鈕
+    $(document).on('click', 'button[name="getProductOrder"]', function () {
+
+    });
+
 });
 
 //載入頁面

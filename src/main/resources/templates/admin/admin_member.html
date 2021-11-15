@@ -52,7 +52,7 @@
         <div class="row">
 
             <!-- 側邊工具列 -->
-            <nav th:replace="/admin/admin_index :: adminNav(3)" id="sidebarMenu"
+            <nav th:replace="/admin/admin_index :: adminNav(5)" id="sidebarMenu"
                 class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
@@ -126,44 +126,49 @@
             <!-- 主內容 -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-5">
 
-
-                <div class="row mb-2">
-                    <div class="col">
-                        <h3>會員管理</h3>
+                <div class="container my-5 pb-5">
+                    <div class="row mb-2">
+                        <div class="col-2 mb-5 d-flex align-items-center">
+                            <h3>會員管理</h3>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">帳號</th>
+                                    <th scope="col">姓名</th>
+                                    <th scope="col">訂單資訊</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr class="my-3 h-100">
+                                    <td class="pt-2">1</td>
+                                    <td>
+                                        <button name="getMemberInfo" type="button" class="btn btn-gr0201"
+                                            data-bs-toggle="modal" data-bs-target="#Modal2">cat123
+                                        </button>
+                                    </td>
+                                    <td class="pt-2">貓小咪</td>
+                                    <td>
+                                        <button name="orderList" type="button" class="btn btn-info me-2"
+                                            data-bs-toggle="modal" data-bs-target="#Modal3">訂單查詢
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button name="delete" type="button" class="btn btn-danger me-2">封鎖</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">帳號</th>
-                                <th scope="col">姓名</th>
-                                <th scope="col">訂單資訊</th>
-                                <th scope="col">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody">
-                            <tr class="my-3 h-100">
-                                <td class="pt-2">1</td>
-                                <td>
-                                    <button name="getMemberInfo" type="button" class="btn btn-gr0201"
-                                        data-bs-toggle="modal" data-bs-target="#Modal2">cat123
-                                    </button>
-                                </td>
-                                <td class="pt-2">貓小咪</td>
-                                <td>
-                                    <button name="orderList" type="button" class="btn btn-info me-2"
-                                        data-bs-toggle="modal" data-bs-target="#Modal3">訂單查詢
-                                    </button>
-                                </td>
-                                <td>
-                                    <button name="delete" type="button" class="btn btn-danger me-2">封鎖</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+
+
+
+                
             </main>
             <!-- 結束:主內容 -->
         </div>
@@ -179,8 +184,8 @@
                 </div>
 
                 <div class="modal-body">
-
-                    <table id="tbody2" class="table table-striped table-sm">
+                    <table class="table table-striped table-sm">
+                        <tbody id="tbody2">
                         <tr class="my-3 h-100">
                             <th scope="row">暱稱</th>
                             <td class="pt-2">喵喵</td>
@@ -205,6 +210,7 @@
                             <th scope="row">註冊時間</th>
                             <td class="pt-2"></td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
 
@@ -219,7 +225,7 @@
      <!-- 會員訂單Modal -->
      <div class="modal fade" tabindex="-1" id="Modal3">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="width: 600px;">
                 <div class="modal-header">
                     <h5 id="userOrder" class="modal-title">會員訂單資訊</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
