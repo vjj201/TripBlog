@@ -30,7 +30,6 @@ import java.util.ArrayList;
 @RequestMapping("/user")
 public class ArticleController {
 
-
     private final UserService userService;
     private final ArticleService articleService;
 
@@ -40,8 +39,6 @@ public class ArticleController {
         this.articleService = articleService;
         this.userService = userService;
     }
-
-
     //跳轉撰寫新文章頁
     @GetMapping("/write")
     public String writePage() {
@@ -72,7 +69,7 @@ public class ArticleController {
             User user = (User) session.getAttribute("user");
 
             String fileName = "articleImg.jpg";
-            String dir = "../TripBlog/target/classes/static/images/" + user.getId() + "/" + ma;
+            String dir = "target/classes/static/images/" + user.getId() + "/" + ma;
 
             session.setAttribute("ma", ma);
 

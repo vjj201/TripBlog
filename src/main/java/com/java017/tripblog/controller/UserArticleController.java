@@ -41,7 +41,6 @@ public class UserArticleController {
         User user = (User) session.getAttribute("user");
         User userId;
         userId = userService.findUserById(user.getId());  //userId
-
         ArrayList<Recommend> messageList;
         messageList = recommendService.findByuserRecommendId(userId);
 
