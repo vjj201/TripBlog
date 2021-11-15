@@ -36,12 +36,12 @@ public class OrderController {
     }
 
     @PostMapping("/order/page/{page}")
-    public ResponseEntity<List<ProductOrder>> findAllOrderByQuery(@PathVariable int page,
+    public ResponseEntity<Page<ProductOrder>> findAllOrderByQuery(@PathVariable int page,
                                                                   @RequestBody(required = false) ProductOrder productOrder) {
         Page<ProductOrder> orderPage = productOrderService.findProductOrderPageByQuery(page, productOrder);
         if (orderPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(orderPage.toList(), HttpStatus.OK);
+        return new ResponseEntity<>(orderPage, HttpStatus.OK);
     }
 }

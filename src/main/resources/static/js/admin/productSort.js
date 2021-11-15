@@ -253,7 +253,7 @@ function loadData() {
                 $('#tbody').html(trHTML);
             },
             204: function () {
-                alert("204");
+                $('#tbody').html('<tr><td colspan="5" class="text-center p-5 m-5"><h3>查無資料</h3></td></tr>');
             }
         }
     });

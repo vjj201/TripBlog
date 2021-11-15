@@ -66,7 +66,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
     @Override
     public Page<ProductOrder> findProductOrderPageByQuery(int page, ProductOrder productOrder) {
-        PageRequest pageRequest = PageRequest.of(page - 1, 9, Sort.by("orderTime").descending());
+        PageRequest pageRequest = PageRequest.of(page - 1, 8, Sort.by("orderTime").descending());
         return productOrderRepository.findAll(new Specification<ProductOrder>() {
             @Override
             public Predicate toPredicate(Root<ProductOrder> root,
