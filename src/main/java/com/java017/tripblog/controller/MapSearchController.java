@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Controller
 public class MapSearchController {
@@ -60,10 +62,7 @@ public class MapSearchController {
         System.out.println(list);
         return list;
     }
-
-    ;
 //----------------------------------------------------------------------------------
-
     //輸入搜尋吧查詢並送出第一頁
     @ResponseBody
     @GetMapping("/firstSearchOfPage")
@@ -91,19 +90,8 @@ public class MapSearchController {
         return pageMount;
     }
 
-    ;
 
-    // 點擊換頁按鈕並換頁
-    @ResponseBody
-    @GetMapping("/changeSearchOfPage")
-    public List<Article> changeSearchOfPage(@RequestParam String enterAddressName, @RequestParam String subject, @RequestParam int page, @RequestParam int timeDirect) {
 
-        List<Article> messageList;
-        messageList = articleService.getPagedArticles(page, 5, enterAddressName, subject, timeDirect);
-        System.out.println("點擊換頁按鈕並換頁的messageList" + messageList);
-        return messageList;
-
-    }
 
 
 
@@ -190,6 +178,7 @@ public class MapSearchController {
         User showUser = userService.getCurrentUser();
         model.addAttribute("showUser",showUser);
         return "article"; }
+
 
     @ResponseBody
     @GetMapping("/randomArticle")

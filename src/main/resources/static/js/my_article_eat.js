@@ -8,13 +8,20 @@ $(function () {
     });
 
     //開啟頁面即啟動-抓入所有文章
-    let timeDirect = "000";
+    let subject = $("#subject option:selected").val();
+    let timeDirect = $("#timeDirect option:selected").val();
 
+    let article = {};
+    article["subject"] = subject;
+    article["timeDirect"] = timeDirect;
+    console.log("subject" + subject);
+    console.log("timeDirect" + timeDirect)
     console.log("ajax前-輸入搜尋吧查詢並送出第一頁");
 
     $.ajax({
         url: "/user/findByUserId",
         type: "GET",
+        // data: article,
         success: function (response) {
             console.log("第一頁文章response" + response);
             console.log("建立空的html");
@@ -25,6 +32,8 @@ $(function () {
                 let articleTitle = articleAll.articleTitle;
                 let textEditor = articleAll.textEditor;
                 let createDate = articleAll.createDate;
+                let createTime = articleAll.createTime;
+                let saveImgPath =articleAll.saveImgPath;
 
                 // 從資料庫取出文章資訊
                 html += `
@@ -35,27 +44,25 @@ $(function () {
                     <div class="row align-items-center">
                         <div class="col-12 col-md-6">
                             <div class="single-blog-thumbnail">
-                                <img src="https://localhost:8080/user/articlePhoto">
+                            <img src="${'https://localhost:8080/' + saveImgPath}">
                             </div>
                         </div>
                         <div class="col-12 col-md-6 text-bl04">
                             <!-- 文章內容 -->
                             <div class="single-blog-content">
-                                <h4><a href="https://localhost:8080/article/${articleTitle}" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
+                                <h4><a href="https://localhost:8080/user/article/${articleTitle}" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
                                     ${articleTitle}   
                                     </a></h4>
 
-                                <p class="text-bl04">${textEditor}</p>
+                                <p class="text-bl04">${textEditor.substring(0,45)}...</p>
                                 <div class="post-meta">
-                                    <p class="text-bl04">By <a href="#" class="text-bl04">作者</a></p>
-                                   <p class="text-bl04">發表於:&nbsp${createDate}</p>
-                                    <input
-                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                        type="submit" value="編輯">
-                                    <input
-                                        class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                        type="submit" value="刪除">
-
+                                   <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
+                                    <button
+                                         class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/edit/${articleTitle}'">編輯</button>
+                                            <button
+                                         class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                        type="submit" name="${articleTitle}">刪除</button>
                                 </div>
                             </div>
                         </div>
@@ -100,15 +107,37 @@ $(function () {
         }
     });
 
-    //點按鈕
-    $("#articleBox").on('click', 'a', function (event) {
-
-
-
-
-    })
-
-
+   // 點按鈕
+   //  $("#articleBox").on('click', 'button', function (event) {
+   //      let choose = $(this).text();
+   //      let articleTitle = $(this).attr('name');
+   //      let article = {};
+   //      article["articleTitle"] = articleTitle;
+   //      let TUrl;
+   //      console.log("choose" + choose);
+   //      if (choose == "編輯") {
+   //          // article["recommend"] = choose;
+   //          TUrl = "/user/changleArticle";
+   //          console.log("recommend" + article.articleTitle)
+   //      } else {
+   //          // article["collect"] = choose;
+   //          TUrl = "/forCollect";
+   //          console.log("collect" + article.articleTitle)
+   //      }
+   //      $.ajax({
+   //          url: TUrl,
+   //          type: "GET",
+   //          data: article,
+   //          success: function (response) {
+   //              alert("林北按鈕回來瞜")
+   //
+   //          }
+   //
+   //
+   //      });
+   //
+   //
+   //  });
 
 
 });

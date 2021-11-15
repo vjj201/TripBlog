@@ -67,12 +67,12 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getPagedArticles(int page, int size, String enterAddressName,String subject,int timeDirect) {
 
         //預設-時間舊到新
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
-
+        Pageable pageable = PageRequest.of(page, size,Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+        System.out.println("實作serverce裡面的排序" + timeDirect);
         //時間新到舊
-        if(timeDirect==100){
+        if( 100 == timeDirect){
             System.out.println("desc有抓到[IF新到舊]");
-            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
         }
 
         Page<Article> pageResult;
@@ -80,6 +80,7 @@ public class ArticleServiceImpl implements ArticleService {
         if(StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)){
 //            如果都沒有填
             pageResult = articleRepository.findAll(pageable);
+
         }else if(StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)){
 //            只有填主題(subject)
             pageResult = articleRepository.findBySubjectCategory(subject,pageable);
@@ -88,7 +89,7 @@ public class ArticleServiceImpl implements ArticleService {
             pageResult = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName,enterAddressName,enterAddressName, pageable);
         }else{
 //            都有填
-            List<Article> A =articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
+            List<Article> A = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
             List<Article> newA = new ArrayList<>();
             for(Article loopdata:A){
                 if(subject.equals(loopdata.getSubjectCategory())){
@@ -187,9 +188,52 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArrayList<Article> findAll() {
-        return articleRepository.findAll();
+        return null;
     }
 
+    @Override
+    public String upDateArticle(Article inputArticle) {
+        Optional<Article> article = articleRepository.findById(inputArticle.getArticleId());
+        Article article1 = new Article();
+        article1.setArticleId(article.get().getArticleId());
+        article1.setArticleTitle(inputArticle.getArticleTitle());
+        article1.setSubjectCategory(inputArticle.getSubjectCategory());
+        article1.setEnterAddressLat(inputArticle.getEnterAddressLat());
+        article1.setEnterAddressLng(inputArticle.getEnterAddressLng());
+        article1.setEnterAddressName(inputArticle.getEnterAddressName());
+        article1.setSaveImgPath(inputArticle.getSaveImgPath());
+        article1.setTextEditor(inputArticle.getTextEditor());
+        article1.setFreeTag(inputArticle.getFreeTag());
+        article1.setCreateTime(inputArticle.getCreateTime());
+        article1.setUserId(inputArticle.getUserId());
+        articleRepository.save(article1);
+        return "ok";
+    }
+
+//    @Override
+//    public List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect) {
+//
+//        //預設-時間舊到新
+//        Pageable pageable = PageRequest.of(page, size,Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+//        System.out.println("實作service裡面的排序" + timeDirect);
+//        //時間新到舊
+//        if( 100 == timeDirect){
+//            System.out.println("desc有抓到[IF新到舊]");
+//            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+//        }
+//
+//        Page<Article> pageResult;
+//
+//        if(StringUtils.isEmpty(subject)){
+//            pageResult = articleRepository.findByUserId(user);
+//        }else {
+//            pageResult = articleRepository.findByUserIdAndSubjectCategory(user,subject);
+//        }
+//
+//        Page<Article> pageResult;
+//        return messageList;
+//
+//    }
 
 }
 

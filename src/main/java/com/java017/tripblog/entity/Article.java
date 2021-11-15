@@ -10,8 +10,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-@JsonIgnoreProperties("userId")
-@JsonSerialize
+//@JsonIgnoreProperties("userId")
+//@JsonSerialize
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "article")
@@ -44,7 +44,9 @@ public class Article{
 
     Integer collect = 0;
 
-    @OneToOne(cascade = {CascadeType.ALL},fetch=FetchType.LAZY)
+    String saveImgPath;
+
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "userId", referencedColumnName = "id")
      User userId;
 
@@ -58,16 +60,33 @@ public class Article{
     private Set<Collect>  collectSet ;
 
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date createDate;
 
+    @Temporal(TemporalType.TIME)
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private Date createTime;
     public Article() {
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
 
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
+    public String getSaveImgPath() {
+        return saveImgPath;
+    }
+
+    public void setSaveImgPath(String saveImgPath) {
+        this.saveImgPath = saveImgPath;
+    }
 
     public User getUserId() {
         return userId;

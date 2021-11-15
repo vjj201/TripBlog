@@ -18,12 +18,8 @@ $(function() {
         else{
             $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q="+ $("#enteraddress").val());
         }
-
-
-
 });
-
-    // -------上傳圖片----------
+// -------上傳圖片----------
     (function($) {
         var width_crop = 500, // 圖片裁切寬度 px 值
             height_crop = 400, // 圖片裁切高度 px 值
@@ -126,9 +122,6 @@ $(function() {
                     const blob = new Blob(byteArrays, {type: contentType});
                     return blob;
                 }
-
-
-
                 let formData = new FormData();
                 formData.append('file', b64toBlob(b64data, contentType, sliceSize=512));
 
@@ -182,7 +175,6 @@ $(function() {
         let enteraddress = $('#enteraddress').val();
         geocode(enteraddress);
 //------------------------------------------------------------------------------------
-
     });
 //-----------經緯度轉換------------------------------------------------------------
     function geocode(enteradress){
@@ -237,16 +229,9 @@ $(function() {
                     contentType: 'application/json;charset=utf-8',
                     data: JSON.stringify(article),
                     success: function () {
-                let name_1 = "美食";
-
-                if (subjectcategory == name_1) {
-                    window.location.href='eat';
-                    console.log("跳轉EAT");
-                } else {
-                    window.location.href='travel';
-                    console.log("跳轉travel");
-                }
-            }
+                            window.location.href='eat';
+                            console.log("跳轉EAT");
+                    }
                 });
             })
     }

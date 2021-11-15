@@ -17,9 +17,8 @@ import java.util.Set;
  * @author YuCheng
  * @date 2021/9/26 - 下午 10:27
  */
-@JsonIgnoreProperties("intro")
+//@JsonIgnoreProperties("intro")
 @EntityListeners(AuditingEntityListener.class)
-@JsonSerialize
 @Entity
 @Table(name = "User")
 public class User{
@@ -68,7 +67,7 @@ public class User{
     private boolean mailVerified;
 
     //自我介紹外來鍵
-    @OneToOne(cascade = {CascadeType.ALL},fetch=FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 

@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @author Sandy
  * @date
  */
-@JsonSerialize
+
 @Entity
 @Table(name = "intro")
 public class Intro{
