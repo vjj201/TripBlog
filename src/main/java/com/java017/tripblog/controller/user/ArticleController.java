@@ -73,7 +73,7 @@ public class ArticleController {
             User user = (User) session.getAttribute("user");
 
             String fileName = "articleImg.jpg";
-            String dir = "../TripBlog/target/classes/static/images/" + user.getId() + "/" + ma;
+            String dir = "target/classes/static/images/" + user.getId() + "/" + ma;
 
             session.setAttribute("ma", ma);
 

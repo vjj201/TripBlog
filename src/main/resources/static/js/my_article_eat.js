@@ -67,7 +67,8 @@ $(function () {
         let textEditor = myArticleAll.textEditor;
         let createDate = myArticleAll.createDate;
         let createTime = myArticleAll.createTime;
-        let saveImgPath = myArticleAll.saveImgPath;  //照片有問題
+        let saveImgPath = myArticleAll.saveImgPath;
+        const imgPath = "https://localhost:8080/";
 
         return `
         <!-- 文章圖片  -->
@@ -76,8 +77,7 @@ $(function () {
                     <div class="row align-items-center">
                         <div class="col-12 col-md-6">
                             <div class="single-blog-thumbnail">
-                             <img src="${'https://localhost:8080/' + saveImgPath}">
-                             <img src="${saveImgPath}"> 
+                             <img src="${ imgPath + saveImgPath}">
                             </div>
                         </div>
                         <div class="col-12 col-md-6 text-bl04">
