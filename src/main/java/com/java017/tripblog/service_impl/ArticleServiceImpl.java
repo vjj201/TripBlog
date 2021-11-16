@@ -166,11 +166,16 @@ public class ArticleServiceImpl implements ArticleService {
             Integer math = (int)(Math.random()*listSize)+1;
             System.out.println("Math" + math);
             OpArticle = articleRepository.findById(math);
-            article.setEnterAddressLat(OpArticle.get().getEnterAddressLat());
-            article.setEnterAddressLng(OpArticle.get().getEnterAddressLng());
-            article.setArticleTitle(OpArticle.get().getArticleTitle());
-            resultList.add(article);
-            System.out.println("For裡面"+ resultList);
+            if(OpArticle.isPresent()) {
+                System.out.println("OpArticle" + OpArticle.get().getArticleTitle());
+                article.setEnterAddressLat(OpArticle.get().getEnterAddressLat());
+                article.setEnterAddressLng(OpArticle.get().getEnterAddressLng());
+                article.setArticleTitle(OpArticle.get().getArticleTitle());
+                resultList.add(article);
+                System.out.println("For裡面" + resultList);
+            }else {
+                System.out.println("空的");
+            }
         }
         System.out.println("server回傳" +resultList );
         return (ArrayList<Article>) resultList;
@@ -244,8 +249,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     //大方:    我的空間 - 刪除文章
     public String deleteMyArticle(String articleId){
-
-
         System.out.println(articleId);
         Integer articleIdNum = Integer.parseInt(articleId);
         articleRepository.deleteByArticleId(articleIdNum);

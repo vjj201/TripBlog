@@ -187,9 +187,7 @@ public class ArticleController {
     //大方： 刪除文章 (My eat)
     @GetMapping("/delete/{articleTitle}/{articleId}")
     private String deleteMyArticle(@PathVariable String articleTitle,@PathVariable String articleId){
-
         System.out.println("刪除文章標題：" + articleTitle);
-
         articleService.deleteMyArticle(articleId);
         System.out.println("執行刪除文章ok");
         return "redirect:/user/eat";
