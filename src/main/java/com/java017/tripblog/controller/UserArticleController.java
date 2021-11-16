@@ -1,13 +1,7 @@
 package com.java017.tripblog.controller;
 
-import com.java017.tripblog.entity.Article;
-import com.java017.tripblog.entity.Collect;
-import com.java017.tripblog.entity.Recommend;
-import com.java017.tripblog.entity.User;
-import com.java017.tripblog.service.ArticleService;
-import com.java017.tripblog.service.CollectService;
-import com.java017.tripblog.service.RecommendService;
-import com.java017.tripblog.service.UserService;
+import com.java017.tripblog.entity.*;
+import com.java017.tripblog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +20,15 @@ public class UserArticleController {
     private final UserService userService;
     private final RecommendService recommendService;
     private final CollectService collectService;
+    private final ReportService reportService;
 
 
-    public UserArticleController(ArticleService articleService, UserService userService, RecommendService recommendService, CollectService collectService) {
+    public UserArticleController(ArticleService articleService, UserService userService, RecommendService recommendService, CollectService collectService, ReportService reportService) {
         this.articleService = articleService;
         this.userService = userService;
         this.recommendService = recommendService;
         this.collectService = collectService;
+        this.reportService = reportService;
     }
 
     //庭妤   前端get已經推薦
@@ -59,6 +55,20 @@ public class UserArticleController {
         System.out.println("controller裡面的userID" + userId);
         ArrayList<Collect> messageList;
         messageList = collectService.findByuserCollectId(userId);
+        System.out.println("controller裡面的messageList" + messageList);
+        System.out.println(" 已收藏messageList="+ messageList);
+        return messageList;
+    }
+
+    @ResponseBody
+    @GetMapping("/alreadyTravelEatButtonedForReport")
+    public ArrayList<Report> alreadyButtonedForReport (HttpSession session){
+        User user = (User) session.getAttribute("user");
+        User userId;
+        userId = userService.findUserById(user.getId());  //userId
+        System.out.println("controller裡面的userID" + userId);
+        ArrayList<Report> messageList;
+        messageList = reportService.findByuserReportId(userId);
         System.out.println("controller裡面的messageList" + messageList);
         System.out.println(" 已收藏messageList="+ messageList);
         return messageList;

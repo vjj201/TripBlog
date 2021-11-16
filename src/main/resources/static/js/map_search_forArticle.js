@@ -259,8 +259,20 @@ $(function () {
                 });
         }
 
+        function alreadyButtonedForReport() {
+            return fetch('alreadyTravelEatButtonedForReport')
+                .then(res => res.json())
+                .then(function (data) {
+                    let reportResult = [];
+                    for (let report of data) {
+                        reportResult.push(report.articlesReportId.articleId);
+                    }
+                    return reportResult;
+                });
+        }
+
         //~~~登入版-html自動生成文章~~~
-        function getHtmlArticle(articleAll, recommend, collect) {
+        function getHtmlArticle(articleAll, recommend, collect, report) {
             let articleTitle = articleAll.articleTitle;
             let textEditor = articleAll.textEditor;
             let createDate = articleAll.createDate;
@@ -311,7 +323,10 @@ $(function () {
                     <input
                     name="${articleTitle}"
                         class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                        type="submit" value="檢舉">
+                        type="submit" value="${getReportStatus(
+                articleId,
+                report
+            )}">
                 </div>
             </div>
         </div>
@@ -335,36 +350,45 @@ $(function () {
             return "收藏";
         }
 
+        function getReportStatus(articleId, report) {
+            if (report.includes(articleId)) {
+                return "已檢舉";
+            }
+            return "檢舉";
+        }
+
         // ~~~第一頁~~~
         function loginFirstPage(recommend) {
             //for迴圈機動生成文章&判斷已收藏
-            alreadyButtonedForCollect().then(collect => {
-                alreadyButtoned().then(recommend => {
-                    console.log("loginFirstPage裡面的recommend" + recommend)
-                    console.log("loginFirstPage裡面的collect" + collect)
-                    $.ajax({
-                        url: "/firstSearchOfPageEatTravel",
-                        type: "GET",
-                        data: article,
-                        success: function (response) {
-                            console.log("第一頁文章responselogin" + response);
-                            console.log("建立空的html");
-                            let html = "";
-                            console.log("文章-for迴圈開始");
-                            // (開始)文章換頁生成
-                            for (let articleAll of response) {
-                                // 從資料庫取出文章資訊
-                                html += getHtmlArticle(articleAll, recommend, collect);
+            alreadyButtonedForReport().then(report => {
+                alreadyButtonedForCollect().then(collect => {
+                    alreadyButtoned().then(recommend => {
+                        console.log("loginFirstPage裡面的recommend" + recommend)
+                        console.log("loginFirstPage裡面的collect" + collect)
+                        $.ajax({
+                            url: "/firstSearchOfPageEatTravel",
+                            type: "GET",
+                            data: article,
+                            success: function (response) {
+                                console.log("第一頁文章responselogin" + response);
+                                console.log("建立空的html");
+                                let html = "";
+                                console.log("文章-for迴圈開始");
+                                // (開始)文章換頁生成
+                                for (let articleAll of response) {
+                                    // 從資料庫取出文章資訊
+                                    html += getHtmlArticle(articleAll, recommend, collect, report);
 
-                                console.log("文章-for迴圈結束");
-                                $("#travelArticleBox").html(html);
-                                console.log("跑完--輸入搜尋吧查詢並送出第一頁");
+                                    console.log("文章-for迴圈結束");
+                                    $("#travelArticleBox").html(html);
+                                    console.log("跑完--輸入搜尋吧查詢並送出第一頁");
 
-                                // (結束)文章換頁生成
-                            }
-                        },
-                    });
-                })
+                                    // (結束)文章換頁生成
+                                }
+                            },
+                        });
+                    })
+                });
             });
         }
 
@@ -373,36 +397,38 @@ $(function () {
             $("#changePageAll").on("click", "#pageSearch", function (event) {
                 // let a = $(this).attr("name",true)
                 // console.log(a);
-                alreadyButtonedForCollect().then(collect => {
-                    alreadyButtoned().then(recommend => {
-                        let pageValue = $("#changePageBox option:selected").val();
+                alreadyButtonedForReport().then(report => {
+                    alreadyButtonedForCollect().then(collect => {
+                        alreadyButtoned().then(recommend => {
+                            let pageValue = $("#changePageBox option:selected").val();
 
-                        console.log("pageValue=" + pageValue);
+                            console.log("pageValue=" + pageValue);
 
-                        let page = pageValue - 1;
-                        let article = {};
-                        article["page"] = page;
-                        article["enterAddressName"] = enteraddress;
-                        article["subject"] = subject;
-                        article["timeDirect"] = timeDirect;
+                            let page = pageValue - 1;
+                            let article = {};
+                            article["page"] = page;
+                            article["enterAddressName"] = enteraddress;
+                            article["subject"] = subject;
+                            article["timeDirect"] = timeDirect;
 
-                        $.ajax({
-                            url: "/changeSearchOfPageEatTravel",
-                            type: "GET",
-                            data: article,
-                            success: function (response) {
-                                let html = "";
-                                console.log("文章-for迴圈開始");
-                                // (開始)文章換頁生成
-                                for (let articleAll of response) {
-                                    // 從資料庫取出文章資訊
-                                    console.log("文章-for裡面的recommend" + recommend)
-                                    html += getHtmlArticle(articleAll, recommend , collect);
-                                    console.log("文章-for迴圈結束");
-                                    $("#travelArticleBox").html(html);
-                                    console.log("跑完--輸入搜尋吧查詢並送出第一頁");
-                                }
-                            },
+                            $.ajax({
+                                url: "/changeSearchOfPageEatTravel",
+                                type: "GET",
+                                data: article,
+                                success: function (response) {
+                                    let html = "";
+                                    console.log("文章-for迴圈開始");
+                                    // (開始)文章換頁生成
+                                    for (let articleAll of response) {
+                                        // 從資料庫取出文章資訊
+                                        console.log("文章-for裡面的recommend" + recommend)
+                                        html += getHtmlArticle(articleAll, recommend, collect ,report);
+                                        console.log("文章-for迴圈結束");
+                                        $("#travelArticleBox").html(html);
+                                        console.log("跑完--輸入搜尋吧查詢並送出第一頁");
+                                    }
+                                },
+                            });
                         });
                     });
                 });
