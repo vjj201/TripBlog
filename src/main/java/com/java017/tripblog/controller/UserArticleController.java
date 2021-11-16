@@ -110,8 +110,6 @@ public class UserArticleController {
 
     }
 
-    // 點擊換頁按鈕並換頁(myEat) 大方 1113
-
     @ResponseBody
     @GetMapping("/myChangeSearchOfPageEatTravel")
     public List<Article> myChangeSearchOfPage(HttpSession session, @RequestParam String subject, @RequestParam Integer page, @RequestParam Integer timeDirect){
@@ -119,10 +117,7 @@ public class UserArticleController {
         User user = (User) session.getAttribute("user");
         user = userService.findUserById(user.getId());
         Long userId = user.getId();
-
         System.out.println("myChangeSearchOfPageEatTravel的" + userId);
-
-
         List<Article> messageList;
         messageList = articleService.getMyPagedArticles(page,5,userId, subject,timeDirect);
         System.out.println("點擊換頁按鈕並換頁的-順序my_timeDirect=" + timeDirect);
