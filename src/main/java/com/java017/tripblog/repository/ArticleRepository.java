@@ -56,6 +56,7 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
      void deleteByArticleId(Integer id);
 
 
+
 //   Page<Article> findByUserIdAndSubjectCategory(User user, String subject);
 
 }
