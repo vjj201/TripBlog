@@ -30,8 +30,9 @@ public class ProductOrder {
     private String cardOwner;
     private String cardNumber;
     private String username;
+    private boolean adminCheck;
 
-    //訂單狀態(待出貨-1、運送中0、已收件1)
+    //訂單狀態(待出貨未查看-1、運送中0、已收件1)
     private Integer orderStatus;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -47,6 +48,14 @@ public class ProductOrder {
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "orderItems", referencedColumnName = "id")
     List<Item> orderItems;
+
+    public boolean isAdminCheck() {
+        return adminCheck;
+    }
+
+    public void setAdminCheck(boolean adminCheck) {
+        this.adminCheck = adminCheck;
+    }
 
     public String getUuid() {
         return uuid;
@@ -182,9 +191,9 @@ public class ProductOrder {
                 ", cardOwner='" + cardOwner + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", username='" + username + '\'' +
+                ", adminCheck=" + adminCheck +
                 ", orderStatus=" + orderStatus +
                 ", orderTime=" + orderTime +
-                ", orderItems=" + orderItems +
                 '}';
     }
 }

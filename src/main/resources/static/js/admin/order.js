@@ -16,6 +16,88 @@ $(document).ready(function () {
         loadData();
     });
 
+    //商家產品列表
+    $(document).on('click', 'button[name="getOrders"]', function () {
+        let uuid = $(this).text();
+        let orderStatus = $(this).parent().parent().children().eq(3).children().find(":selected").text();
+        $('#orderId').text(uuid);
+        $('#orderStatus').text(orderStatus);
+        $.ajax({
+            type: 'GET',
+            url: "/admin/order/detail/" + uuid,
+            statusCode: {
+                200: function (order) {
+                    $('#payment').val(order.payment);
+                    $('#owner').val(order.cardOwner);
+                    $('#cardNumber').val(order.cardNumber);
+                    $('#deliver').val(order.deliver);
+                    $('#sendFor').val(order.receiver);
+                    $('#address').val(order.address);
+
+                    $('#freight').text(order.freight);
+                    $('#totalAmount').text(order.amounts);
+                    loadItem(uuid);
+                    if (!order.adminCheck) {
+                        $.ajax({
+                            type: 'PUT',
+                            url: "/admin/order/checked/" + uuid,
+                            statusCode: {
+                                200: function () {
+                                    $('button:contains(' + uuid + ')').removeClass('btn-info');
+                                    $('button:contains(' + uuid + ')').addClass('btn-gr0201');
+                                },
+                                404: function () {
+                                    alert('查看狀態，更新失敗');
+                                }
+                            }
+                        });
+                    }
+                },
+                404: function () {
+                    let trHTML = '<tr class="my-3 h-100">' +
+                        '<td class="pt-2"></td>' +
+                        '<td class="pt-2">查無資訊</td>' +
+                        '<td class="pt-2"></td>' +
+                        '</tr>';
+                    $('#Modal').html(trHTML);
+                }
+            }
+        });
+    });
+
+    //狀態更新
+    $('#updateBtn').on('click', function () {
+
+        let result = confirm('確定更新');
+
+        if (result) {
+            let updateList = new Array();
+            $("select[name='orderStatus']").find(":selected").each(function () {
+                let uuid = $(this).parent().parent().parent().children().children().eq(0).text();
+                let data = { 'uuid': uuid, 'orderStatus': $(this).val() };
+                updateList.push(data);
+            });
+
+            $.ajax({
+                url: '/admin/order',
+                type: 'PUT',
+                async: false,
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(updateList),
+                statusCode: {
+                    200: function () {
+                        alert('編輯成功');
+                        location.reload(true);
+                    },
+                    500: function () {
+                        alert('編輯失敗');
+                    }
+                }
+            });
+        }
+
+    })
+
     //下一頁
     $('#next').on('click', function () {
         page = ++page;
@@ -55,7 +137,6 @@ function loadData() {
         data: JSON.stringify(data),
         statusCode: {
             200: function (response) {
-                console.log(response);
                 let totalPage = response.totalPages;
                 let orderList = response.content;
                 let first = response.first;
@@ -65,8 +146,17 @@ function loadData() {
                 $.each(orderList, function (i, order) {
 
                     let option = '';
+                    let btnColor = 'btn-info';
                     let orderStatus = order.orderStatus;
 
+                    let username = order.username;
+                    if (username === null) {
+                        username = '訪客';
+                    }
+
+                    if (order.adminCheck) {
+                        btnColor = 'btn-gr0201';
+                    }
 
                     if (orderStatus === -1) {
                         option += '<option selected value="-1">待出貨</option>';
@@ -86,20 +176,21 @@ function loadData() {
                         option += '<option value="1">已收件</option>';
                     }
 
+
                     trHTML +=
                         '<tr class="my-3 h-100">' +
                         '<td>' +
-                        '<button name="getProducts" type="button" class="btn btn-gr0201" data-bs-toggle="modal"' +
-                        'data-bs-target="#Modal2">' +
+                        '<button name="getOrders" type="button" class="btn ' + btnColor + '" data-bs-toggle="modal"' +
+                        'data-bs-target="#Modal">' +
                         order.uuid +
                         '</button></td>' +
                         '<td class="pt-2">' +
-                        order.username +
+                        username +
                         '</td>' +
                         '<td class="pt-2">' +
                         order.orderTime +
                         '</td> ' +
-                        '<td><select name="status" class="form-select me-2" style = "width: 9rem"><li>' +
+                        '<td><select name="orderStatus" class="form-select me-2" style = "width: 9rem"><li>' +
                         option +
                         '</li></select></td> ' +
                         '<td class="pt-2">' +
@@ -136,6 +227,44 @@ function loadData() {
             },
             204: function () {
                 $('#tbody').html('<tr><td colspan="5" class="text-center p-5 m-5"><h3>查無資料</h3></td></tr>');
+            }
+        }
+    });
+}
+
+function loadItem(uuid) {
+    $.ajax({
+        type: 'GET',
+        url: "/admin/order/detail/" + uuid + "/item",
+        statusCode: {
+            200: function (response) {
+
+                let trHTML = '';
+                $.each(response, function (i, item) {
+
+                    trHTML +=
+                        '<tr class="my-3 border-bottom">' +
+                        '<td class="pt-3"><h6>' +
+                        item.title +
+                        '</h6></td>' +
+                        '<td class="pt-3">' +
+                        item.quantity +
+                        '</td> ' +
+                        '<td class="pt-3">' +
+                        item.price +
+                        'TWD</td></tr>';
+                });
+
+                $('#itemZone').html(trHTML);
+
+            },
+            404: function () {
+                let trHTML = '<tr class="my-3 h-100">' +
+                    '<td class="pt-2"></td>' +
+                    '<td class="pt-2">查無資訊</td>' +
+                    '<td class="pt-2"></td>' +
+                    '</tr>';
+                $('#Modal').html(trHTML);
             }
         }
     });
