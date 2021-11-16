@@ -38,7 +38,6 @@ public class VerifiedInterceptor implements HandlerInterceptor {
                 User userSession = new User();
                 userSession.setId(myUserDetails.getId());
                 userSession.setNickname(myUserDetails.getNickName());
-                System.out.println("--------------------------");
                 userSession.setEmail(myUserDetails.getEmail());
                 session.setAttribute("user", userSession);
                 response.sendRedirect("/user/signup-success");

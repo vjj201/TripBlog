@@ -22,7 +22,6 @@ public class AfterLoginFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("AfterFilter");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

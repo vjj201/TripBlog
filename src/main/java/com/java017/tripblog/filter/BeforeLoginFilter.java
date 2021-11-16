@@ -22,9 +22,8 @@ public class BeforeLoginFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("BeforeFilter");
+
         String uri = request.getRequestURI();
-        System.out.println("uri = " + uri);
 
         //登入阻擋，驗證圖形碼
         if (!"/user/login".equals(uri)) {
