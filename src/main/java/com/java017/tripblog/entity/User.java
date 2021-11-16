@@ -19,8 +19,8 @@ import java.util.Set;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "User")
+public class User{
 
     //會員編號
     @Id
@@ -215,9 +215,6 @@ public class User {
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
                 ", hasMemberPic=" + hasMemberPic +
-                ", intro=" + intro +
-                ", shopCart=" + shopCart +
-                ", productOrderList=" + productOrderList +
                 '}';
     }
 }

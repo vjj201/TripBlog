@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping("/loginPage")
     public String loginPage(HttpSession session) {
         //是否記住
-        if(userService.isRememberMeUser()) {
+        if (userService.isRememberMeUser()) {
             if (userService.isMailVerified(session)) {
                 return "redirect:/";
             } else {
@@ -75,7 +75,9 @@ public class UserController {
 
     //跳轉更改密碼畫面
     @GetMapping("/change-password")
-    public String changePasswordPage() {return "user/change_password"; }
+    public String changePasswordPage() {
+        return "user/change_password";
+    }
 
     //跳轉會員資料頁
     @GetMapping("/profile")
@@ -103,8 +105,8 @@ public class UserController {
         Intro intro = userService.findUserById(user.getId()).getIntro();
 
         //自我介紹內容空白、換行處理
-        if(intro.getIntroContent() != null){
-            String textarea = intro.getIntroContent().replace("\n","<br>").replace("\r"," ");
+        if (intro.getIntroContent() != null) {
+            String textarea = intro.getIntroContent().replace("\n", "<br>").replace("\r", " ");
             intro.setIntroContent(textarea);
         }
 
@@ -114,14 +116,14 @@ public class UserController {
     }
 
     //跳轉我的旅遊文章
-    @GetMapping("/travel")
-    public String travelPage(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        Intro intro = userService.findUserById(user.getId()).getIntro();
-        model.addAttribute("intro", intro);
-
-        return "/user/my_article_travel";
-    }
+//    @GetMapping("/travel")
+//    public String travelPage(HttpSession session, Model model) {
+//        User user = (User) session.getAttribute("user");
+//        Intro intro = userService.findUserById(user.getId()).getIntro();
+//        model.addAttribute("intro", intro);
+//
+//        return "/user/my_article_travel";
+//    }
 
     //跳轉我的美食文章
     @GetMapping("/eat")
@@ -163,7 +165,7 @@ public class UserController {
 
     //註冊會員
     @ResponseBody
-    @PostMapping(value = "/signup")
+    @PostMapping("/signup")
     public boolean signup(@RequestBody User user, HttpSession session) {
 
         System.out.println("會員註冊 : " + user);
@@ -292,18 +294,18 @@ public class UserController {
     //上傳會員封面
     @ResponseBody
     @PostMapping("/updateIntroBanner")
-    public boolean updateIntroBanner(@RequestParam(value="file") MultipartFile multipartFile,
+    public boolean updateIntroBanner(@RequestParam(value = "file") MultipartFile multipartFile,
                                      HttpSession session) {
 
-        if(!multipartFile.isEmpty()){
+        if (!multipartFile.isEmpty()) {
 
             long size = multipartFile.getSize();
-            if(size > 1920*1080){
+            if (size > 1920 * 1080) {
                 System.out.println("圖片尺寸過大");
                 return false;
             }
 
-            User user = (User)session.getAttribute("user");
+            User user = (User) session.getAttribute("user");
 
             String fileName = "bannerPic.jpg";
             String dir = "src/main/resources/static/images/userPhoto/" + user.getId();
@@ -321,7 +323,7 @@ public class UserController {
     @RequestMapping(value = "/introBanner", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getImage(HttpSession session) throws IOException {
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         String dir = "src/main/resources/static/images/userPhoto/" + user.getId() + "/bannerPic.jpg";
         File file = new File(dir);
         return Files.readAllBytes(file.toPath());
@@ -360,7 +362,7 @@ public class UserController {
     @RequestMapping(value = "/memberPic", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getMemberPic(HttpSession session) throws IOException {
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         String dir = "src/main/resources/static/images/userPhoto/" + user.getId() + "/memberPic.jpg";
         File file = new File(dir);
         return Files.readAllBytes(file.toPath());

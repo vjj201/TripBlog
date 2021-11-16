@@ -1,7 +1,6 @@
 package com.java017.tripblog.entity;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 /**
  * @author Sandy
@@ -10,7 +9,7 @@ import java.util.Arrays;
 
 @Entity
 @Table(name = "intro")
-public class Intro {
+public class Intro{
 
     //主鍵 會員編號外鍵
     @Id

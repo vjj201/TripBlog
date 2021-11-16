@@ -16,8 +16,6 @@ spring:
     restart:
       enabled: true
 
-
-
   #Email
   mail:
     default-encoding: UTF-8

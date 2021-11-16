@@ -5,8 +5,12 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"
           integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <!-- js -->
-  <script src="../../static/js/map_search.js" th:src="@{/js/map_search.js}"></script>
-<!--  <script src="../../static/js/map_search_forArticle.js" th:src="@{/js/map_search_forArticle.js}"></script>-->
+  <script src="../static/js/map_search.js" th:src="@{/js/map_search.js}"></script>
+  <script src="../static/js/map_search_forArticle.js" th:src="@{/js/map_search_forArticle.js}"></script>
+  <!--csrf防護-->
+  <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TripBlog Map</title>
@@ -18,12 +22,13 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../static/js/ClickButtom.js" th:src="@{/js/ClickButtom.js}"></script>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../static/css/all_css.css" th:href="@{/css/all_css.css}">
 
   <style>
-    
+
     /* 總導覽列 */
     /* 結束:總導覽列 */
     /* ----------------------------------------------- */
@@ -52,50 +57,50 @@
       .mapbox{
         padding-left: 1px;
         padding-right: 1px;
-        } 
-      
+        }
+
       .googlemap{
         height: 40vh;
         width: 100%;
         padding-right: 0px;
-        } 
+        }
 
       .filterad{
         margin-left:6vw;
         margin-right: 20px;
         width: 80vw;
         text-align: left;
-        } 
+        }
 
       .filtersub{
         margin: 0 10rem 0 6vw;
         width:37.5vw;
-      //  padding: auto;
-        } 
-      
+      /* //  padding: auto; */
+        }
+
       .filterloc{
         margin:0 0 0 33vw;
         width:37.5vw;
-      //  padding:auto;
-       
-        } 
+      /* //  padding:auto; */
+
+        }
 
       #btsearch{
-        margin:0 5vw 0 0; 
-  
-        } 
+        margin:0 5vw 0 0;
+
+        }
 
       #btclear{
         margin:0 0 0 6vw;
-        } 
+        }
     }
-    
 
-  </style> 
+
+  </style>
 
 </head>
 
-<body class="bg-milkyellow">
+<body>
 
 
 
@@ -178,319 +183,76 @@
     <!-- 結束:總導覽列 -->
 
     <!-- _______________________________________________________________________________ -->
-    
-    <div class="container-fluid px-0 mx-0 ">
-      <div class="row">
-        <div class="mapbox d-flex d-md-flex flex-wrap">
-        <!-- 地圖 -->
-        <div class="googlemap col-sm-12 col-md-8 col-8 px-2 ps-0 ms-0 map-pack ">
-          <div id="map" style="height: 800px; width: 100%;"></div>
-          <script
-                  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&callback=initMap&libraries=&v=weekly"
-                  async
-          ></script>
-        </div>
 
-        <!-- 搜尋&搜尋結果 -->
-        <div class="col-sm-12 col-md-4 col-lg-4">
+
+<div class="container-fluid px-0 mx-0 ">
+  <div class="row">
+    <div class="mapbox d-flex d-md-flex flex-wrap">
+      <!-- 地圖 -->
+      <div class="googlemap col-sm-12 col-md-8 col-8 px-2 ps-0 ms-0 map-pack ">
+        <div id="map" style="height: 800px; width: 100%;"></div>
+        <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&callback=initMap&libraries=&v=weekly"
+        ></script>
+      </div>
+
+      <!-- 搜尋&搜尋結果 -->
+      <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="container-fluid">
           <div class="row" >
             <!-- 搜尋 -->
-          <div class="up-pack d-flex flex-column">
-            <!-- 地址搜尋 -->
-            <div class="col mt-3 mb-2 ms-2" style="width:28vw">
-              <input id="searchAddress" class="filterad form-control border-2 border-bl03 bg-gr0200 rounded-pill " placeholder="輸入地址" type="text">
-            </div>
+            <div class="up-pack d-flex flex-column">
+              <!-- 地址搜尋 -->
+              <div class="col mt-3 mb-2 ms-2" style="width:28vw">
+                <input id="searchAddress" class="filterad form-control border-2 border-bl03 bg-gr0200 rounded-pill " placeholder="輸入地址" type="text">
+              </div>
 
-            <!-- 篩選器 -->
-            <div class=" col mb-2 px-2 d-flex justify-content-lg-center">
-              <!-- 篩選器1>主題分類 -->
-              <div class="ms-0" style="width:14.5vw">
-                <select class="filtersub form-select border-2 border-bl03 bg-gr0200 rounded-pill"
-                  aria-label="Default select example">
-                  <option selected disabled>主題分類</option>
-                  <option value="1">美食</option>
-                  <option value="2">旅遊</option>
-                </select>
+              <!-- 篩選器 -->
+              <div class="filterbox col mb-2 px-2 d-flex justify-content-lg-center">
+                <!-- 篩選器1>主題分類 -->
+                <div class="ms-0" style="width:14.5vw">
+                  <select class="filtersub form-select border-2 border-bl03 bg-gr0200 rounded-pill"
+                          aria-label="Default select example" id="subject">
+                    <option selected value="" >主題分類</option>
+                    <option value="美食">美食</option>
+                    <option value="旅遊">旅遊</option>
+                  </select>
+                </div>
+                <!-- 篩選器2>選擇地區 -->
+                <div class="ms-1" style="width:14.5vw">
+                  <select id="timeDirect" class="filterloc form-select  border-2 border-bl03 bg-gr0200 rounded-pill"
+                          aria-label="Default select example border-2 border-bl03 bg-gr0200">
+                    <option selected value="000">舊--->新</option>
+                    <option value=100 >新--->舊</option>
+                  </select>
+                </div>
               </div>
-              <!-- 篩選器2>選擇地區 -->
-              <div class="ms-1" style="width:14.5vw">
-                <select class="filterloc form-select  border-2 border-bl03 bg-gr0200 rounded-pill"
-                  aria-label="Default select example border-2 border-bl03 bg-gr0200">
-                  <option selected disabled>選擇地區</option>
-                  <option value="1">台北市</option>
-                  <option value="2">新北市</option>
-                </select>
+
+              <!-- 按鈕>送出/清除選取 -->
+              <div class="col-12 mb-2 px-2 d-flex justify-content-lg-center d-flex ">
+                <button class="col-3  btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btclear">清除</button>
+                <button type="submit"
+                        class="col ms-1 btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btsearch">搜尋</button>
               </div>
-            </div>
-            
-            <!-- 按鈕>送出/清除選取 -->
-            <div class="col-12 mb-2 px-2 d-flex justify-content-lg-center d-flex ">
-              <button class="col-3  btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btclear">清除</button>
-              <button type="submit"
-                class="col ms-1 btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btsearch">搜尋</button>
             </div>
           </div>
-        </div>
-        
+
           <!-- 搜尋結果(文章列表/換頁) -->
           <div class="row flex-column">
-          <div class=" article-part low-pack overflow-auto mt-1 bg-gr0201 rounded-3 px-1" style="height:48vh" >
-            <!-- 文章列表 -->
-            <div>
-              <!-- 1篇文章 -->
-              <div class="card mx-2 my-2 rounded-3" style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=1" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
+            <div class=" article-part low-pack overflow-auto mt-1 bg-gr0201 rounded-3 px-1" style="height:48vh" >
+              <!-- 文章列表 -->
+              <div id="travelArticleBox">
+              </div>
+              <!-- 換頁 -->
+              <div class="row justify-content-center">
+                <div id="changePageAll" class="col-1 d-flex  my-3">
+                  <select  id="changePageBox" class="col-1 form-select border-bl03 rounded-pill" aria-label="Default select example">
+
+                  </select>
+                  <button id="pageSearch"
+                          class="mx-1 btn btn-outline-bl04 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                          type="submit">Go</button>
                 </div>
-              </div>
-              <!-- 2篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=2" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 3篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=3" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 4篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=4" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 5篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=5" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 6篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=6" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 7篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=7" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 8篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=8" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 9篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=9" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 10篇文章 -->
-              <div class="card mx-2 my-2 rounded-3 " style="max-width: 540px;">
-                <div class="row g-0">
-                  <!-- 左圖片 -->
-                  <div class="col-md-3 py-3 px-2 overflow-hidden rounded-3">
-                    <img class="w-100 h-100" src="https://picsum.photos/300/300?random=10" alt="一張圖">
-                  </div>
-                  <!-- 右文字 -->
-                  <div class="col-md-9">
-                    <div class="card-body">
-                      <!-- 大標>超連結 -->
-                      <h5><a href="#" class="post-headline text-bl04 ">Party people in the house</a></h5>
-                      <!--小備註>地址 -->
-                      <p class="card-text m-0"><small class="text-bl04">106台北市大安區忠孝東路三段1號</small></p>
-                      <!--小備註>日期 -->
-                      <p class="card-text"><small class="text-bl04">Last updated 3 mins ago</small></p>
-                      <!-- 按鈕(推薦/收藏/檢舉) -->
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">推薦</a>
-                      <a href="#" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">收藏</a>
-                      <a href="#" class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold">檢舉</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- 換頁 -->
-              <div class="d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    <li class="page-item"><a class="page-link text-gr03" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link text-gr03" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link text-gr03" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link text-gr03" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link text-gr03" href="#">Next</a></li>
-                  </ul>
-                </nav>
-              </div>
               </div>
             </div>
           </div>
@@ -498,29 +260,30 @@
       </div>
     </div>
   </div>
+</div>
 
 
 
-    <!-- _______________________________________________________________________________ -->
+<!-- _______________________________________________________________________________ -->
 
-    <!-- 尾頁 -->
-    <footer class="bg-bl04 py-5">
-      <div class="container px-4 px-lg-5 py-2">
-        <div class="small text-center text-milkyellow ">
-          Copyright &copy; 2021 - TripBlog
-        </div>
-        <div class="small text-center text-milkyellow ">
-          國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
-        </div>
-      </div>
-    </footer>
-  <!-- 結束:尾頁 -->
-  <!-- ----------------------------------------------------------------------------------------------- -->
+<!-- 尾頁 -->
+<footer class="bg-bl04 py-5">
+  <div class="container px-4 px-lg-5 py-2">
+    <div class="small text-center text-milkyellow ">
+      Copyright &copy; 2021 - TripBlog
+    </div>
+    <div class="small text-center text-milkyellow ">
+      國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
+    </div>
+  </div>
+</footer>
+<!-- 結束:尾頁 -->
+<!-- ----------------------------------------------------------------------------------------------- -->
 
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
