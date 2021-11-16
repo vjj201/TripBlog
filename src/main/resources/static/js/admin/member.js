@@ -115,12 +115,22 @@ $(document).ready(function () {
     //會員訂單詳細列表按鈕
     $(document).on('click', 'button[name="getProductOrder"]', function () {
             let uuid = $(this).text();
+            let orderStatus;
             $('#orderId').text(uuid);
             $.ajax({
                 type: 'GET',
                 url: "/admin/order/detail/" + uuid,
                 statusCode: {
                     200: function (order) {
+                        if (order.orderStatus === -1) {
+                            $('#orderStatus').text("待出貨");
+                        }
+                        if (order.orderStatus === 0) {
+                            $('#orderStatus').text("運送中");
+                        }
+                        if (order.orderStatus === 1) {
+                            $('#orderStatus').text("已收件");
+                        }
                         $('#payment').val(order.payment);
                         $('#owner').val(order.cardOwner);
                         $('#cardNumber').val(order.cardNumber);
@@ -130,6 +140,7 @@ $(document).ready(function () {
 
                         $('#freight').text(order.freight);
                         $('#totalAmount').text(order.amounts);
+
                         loadItem(uuid);
                     },
                     404: function () {
