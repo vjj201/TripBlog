@@ -263,6 +263,99 @@
     </div>
     <!-- End-Modal -->
 
+    <!-- 會員訂單詳細資訊Modal -->
+    <div class="modal fade" tabindex="-1" id="Modal4">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modelOrderList" class="modal-title">訂單編號:<span id="orderId">123456</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="container">
+                            <div class="card border-0">
+                                <div>
+                                    <div class="card p-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <h5 class="my-4">付款資訊</h5>
+                                                    <div class="mt-2">
+                                                        <label for="payment">支付方式</label>
+                                                        <input type="text" class="form-control mb-3" id="payment"
+                                                               readonly>
+                                                        <label for="owner">持卡人</label>
+                                                        <input type="text" class="form-control mb-3" id="owner"
+                                                               readonly>
+                                                        <label for="cardNumber">卡號末4碼</label>
+                                                        <input type="text" class="form-control mb-3" id="cardNumber"
+                                                               readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <h5 class="my-4">配送資訊</h5>
+                                                    <div class="mt-2">
+                                                        <label for="deliver">貨運公司</label>
+                                                        <input type="text" class="form-control mb-3" id="deliver"
+                                                               readonly>
+                                                        <label for="sendFor">收件人</label>
+                                                        <input type="text" class="form-control mb-3" id="sendFor"
+                                                               readonly>
+                                                        <label for="address">收件地址</label>
+                                                        <input type="text" class="form-control mb-3" id="address"
+                                                               readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card table-responsive">
+                                    <table id="cartList" class="table table-borderless border-0 mt-5 w-100">
+                                        <thead class="border-bottom">
+                                        <tr>
+                                            <th class="text-start w-50">品項</th>
+                                            <th class="w-25">數量</th>
+                                            <th class="w-25">價格</th>
+                                        </tr>
+                                        </thead>
+                                        <!-- 動態新增部分 -->
+                                        <tbody id="itemZone">
+                                        <tr class="border-bottom my-2">
+                                            <td>
+                                                <h6>商品名稱</h6>
+                                            </td>
+                                            <td>1</td>
+                                            <td><span>金額</span>TWD
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <!-- 動態新增部分 結束-->
+                                    </table>
+                                    <li class="row w-100 mb-2 px-2 flex-wrap col-sm-1">
+                                        <div class="col-md-2 text-end">運費</div>
+                                        <div class="col-md-10 text-end"><span id="freight">00</span>TWD</div>
+                                    </li>
+                                    <div class="row w-100 mb-2 px-2 flex-wrap col-sm-1">
+                                        <div class="col-md-2 text-end">總金額</div>
+                                        <div class="col-md-10 text-end"><span id="totalAmount">00000</span>TWD</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End-Modal -->
 
     <footer class="bg-bl04 py-5">
         <div class="container px-4 px-lg-5 py-2">

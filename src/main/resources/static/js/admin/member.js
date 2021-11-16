@@ -86,7 +86,8 @@ $(document).ready(function () {
                         trHTML +=
                             '<tr class="my-3 h-100">' +
                             '<td class="pt-2">' +
-                            '<button name="getProductOrder" type="button" class="btn btn-gr0201 align-content-center"><span>' +
+                            '<button name="getProductOrder" type="button" class="btn btn-gr0201 align-content-center"' +
+                            'data-bs-toggle="modal" data-bs-target="#Modal4">' +
                             userOrder.uuid +
                             '</span></button>' +
                             '</td>' +
@@ -111,11 +112,37 @@ $(document).ready(function () {
         });
     });
 
-    //會員訂單跳轉按鈕
+    //會員訂單詳細列表按鈕
     $(document).on('click', 'button[name="getProductOrder"]', function () {
+            let uuid = $(this).text();
+            $('#orderId').text(uuid);
+            $.ajax({
+                type: 'GET',
+                url: "/admin/order/detail/" + uuid,
+                statusCode: {
+                    200: function (order) {
+                        $('#payment').val(order.payment);
+                        $('#owner').val(order.cardOwner);
+                        $('#cardNumber').val(order.cardNumber);
+                        $('#deliver').val(order.deliver);
+                        $('#sendFor').val(order.receiver);
+                        $('#address').val(order.address);
 
+                        $('#freight').text(order.freight);
+                        $('#totalAmount').text(order.amounts);
+                        loadItem(uuid);
+                    },
+                    404: function () {
+                        let trHTML = '<tr class="my-3 h-100">' +
+                            '<td class="pt-2"></td>' +
+                            '<td class="pt-2">查無資訊</td>' +
+                            '<td class="pt-2"></td>' +
+                            '</tr>';
+                        $('#Modal4').html(trHTML);
+                    }
+                }
+            });
     });
-
 });
 
 //載入頁面
@@ -154,6 +181,45 @@ function loadData() {
             },
             204: function () {
                 alert("204");
+            }
+        }
+    });
+}
+
+//載入訂單商品列表
+function loadItem(uuid) {
+    $.ajax({
+        type: 'GET',
+        url: "/admin/order/detail/" + uuid + "/item",
+        statusCode: {
+            200: function (response) {
+
+                let trHTML = '';
+                $.each(response, function (i, item) {
+
+                    trHTML +=
+                        '<tr class="my-3 border-bottom">' +
+                        '<td class="pt-3"><h6>' +
+                        item.title +
+                        '</h6></td>' +
+                        '<td class="pt-3">' +
+                        item.quantity +
+                        '</td> ' +
+                        '<td class="pt-3">' +
+                        item.price +
+                        'TWD</td></tr>';
+                });
+
+                $('#itemZone').html(trHTML);
+
+            },
+            404: function () {
+                let trHTML = '<tr class="my-3 h-100">' +
+                    '<td class="pt-2"></td>' +
+                    '<td class="pt-2">查無資訊</td>' +
+                    '<td class="pt-2"></td>' +
+                    '</tr>';
+                $('#Modal').html(trHTML);
             }
         }
     });
