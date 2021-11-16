@@ -28,7 +28,7 @@
 
 </head>
 
-<body>
+<body class="bg-light">
 
 <!-- 總導覽列 -->
 <nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
@@ -169,15 +169,15 @@
             <div class="card border border-2 rounded-0 border-top-0">
 
                 <!-- 會員導航欄 -->
-                <div th:replace="user/fragments :: userNav(5)" class="card-header d-flex sticky-top bg-gr0201 rounded-3">
+                <div th:replace="user/fragments :: userNav(4)" class="card-header d-flex sticky-top bg-gr0201 rounded-3">
                     <ul class="nav nav-tabs card-header-tabs h4 mx-auto">
                         <li class="nav-item me-3">
                             <a class="nav-link " href="my_space.html">Introduce</a>
                         </li>
 
-<!--                        <li class="nav-item me-3">-->
-<!--                            <a class="nav-link " href="my_article_travel.html">MyTravel</a>-->
-<!--                        </li>-->
+                        <li class="nav-item me-3">
+                            <a class="nav-link " href="my_article_travel.html">MyTravel</a>
+                        </li>
 
                         <li class="nav-item me-3">
                             <a class="nav-link" href="my_article_eat.html">MyEat</a>

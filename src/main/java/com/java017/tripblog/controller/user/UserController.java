@@ -115,16 +115,6 @@ public class UserController {
         return "/user/my_space";
     }
 
-    //跳轉我的旅遊文章
-//    @GetMapping("/travel")
-//    public String travelPage(HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("user");
-//        Intro intro = userService.findUserById(user.getId()).getIntro();
-//        model.addAttribute("intro", intro);
-//
-//        return "/user/my_article_travel";
-//    }
-
     //跳轉我的美食文章
     @GetMapping("/eat")
     public String eatPage(HttpSession session, Model model) {

@@ -37,7 +37,7 @@
 
 </style>
 
-<body style="background-image: url(../../static/images/background/food_background_03_01.png);">
+<body class="bg-light">
 
 <!-- 總導覽列 -->
 <nav th:replace="fragments :: nav(0)"
@@ -182,16 +182,16 @@
             <div class="card border border-2 rounded-0 border-top-0">
 
                 <!-- 會員導航欄 -->
-                <div th:replace="user/fragments :: userNav(3)"
+                <div th:replace="user/fragments :: userNav(2)"
                      class="card-header d-flex sticky-top bg-gr0201 rounded-3">
                     <ul class="nav nav-tabs card-header-tabs h4 mx-auto">
                         <li class="nav-item me-3">
                             <a class="nav-link " href="my_space.html">Introduce</a>
                         </li>
 
-<!--                        <li class="nav-item me-3">-->
-<!--                            <a class="nav-link " href="my_article_travel.html">MyTravel</a>-->
-<!--                        </li>-->
+                        <li class="nav-item me-3">
+                            <a class="nav-link " href="my_article_travel.html">MyTravel</a>
+                        </li>
 
                         <li class="nav-item me-3">
                             <a class="nav-link  active disabled " href="my_article_eat.html">MyEat</a>

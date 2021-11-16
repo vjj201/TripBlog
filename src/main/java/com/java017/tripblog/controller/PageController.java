@@ -31,12 +31,6 @@ public class PageController {
         return "/article";
     }
 
-    //跳轉美食主題文章
-    @GetMapping("/eat")
-    public String eat() {
-        return "/article_eat";
-    }
-
     //跳轉旅遊主題文章
     @GetMapping("/travel")
     public String travel() {
@@ -47,12 +41,6 @@ public class PageController {
     @GetMapping("/map")
     public String map() {
         return "/map_search";
-    }
-
-    //跳轉作者美食文章
-    @GetMapping("/userEat")
-    public String userEat() {
-        return "/user_article_eat";
     }
 
     //跳轉作者旅遊文章
