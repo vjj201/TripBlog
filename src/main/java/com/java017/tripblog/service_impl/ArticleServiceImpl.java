@@ -3,35 +3,38 @@ package com.java017.tripblog.service_impl;
 import com.java017.tripblog.entity.Article;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.repository.ArticleRepository;
+import com.java017.tripblog.repository.CollectRepository;
+import com.java017.tripblog.repository.RecommendRepository;
+import com.java017.tripblog.repository.ReportRepository;
 import com.java017.tripblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
-import org.springframework.lang.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final ReportRepository reportRepository;
+    private final CollectRepository collectRepository;
+    private final RecommendRepository recommendRepository;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, ReportRepository reportRepository, CollectRepository collectRepository, RecommendRepository recommendRepository) {
         this.articleRepository = articleRepository;
+        this.reportRepository = reportRepository;
+        this.collectRepository = collectRepository;
+        this.recommendRepository = recommendRepository;
     }
 
     @Override
@@ -46,138 +49,143 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findByEnterAddressNameContaining(enterAddressName);
     }
 
-//庭妤:    文章換頁按鈕自動生成
+    //庭妤:    文章換頁按鈕自動生成
     @Override
-    public ArrayList<Article>findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName,String subject) {
-        if(StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)){
+    public ArrayList<Article> findByEnterAddressNameLikeAndSubjectCategory(String enterAddressName, String subject) {
+        if (StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
 //            如果都沒有填
             return articleRepository.findAll();
-        }else if(StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)){
+        } else if (StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)) {
 //            只有填主題(subject)
             return articleRepository.findBySubjectCategory(subject);
-        }else if(!StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
+        } else if (!StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
 //            只有填搜尋吧(enterAddressName)
-            return articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName, enterAddressName,enterAddressName);
+            return articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName, enterAddressName, enterAddressName);
 
-       }else{
-            return articleRepository.findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName,subject);
+        } else {
+            return articleRepository.findBySubjectCategoryOrEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName, enterAddressName, enterAddressName, subject);
         }
 
     }
 
-//庭妤:    文章首頁&文章換頁
+    //庭妤:    文章首頁&文章換頁
     @Override
-    public List<Article> getPagedArticles(int page, int size, String enterAddressName,String subject,int timeDirect) {
+    public List<Article> getPagedArticles(int page, int size, String enterAddressName, String subject, int timeDirect) {
 
         //預設-時間舊到新
-        Pageable pageable = PageRequest.of(page, size,Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
         System.out.println("實作serverce裡面的排序" + timeDirect);
         //時間新到舊
-        if( 100 == timeDirect){
+        if (100 == timeDirect) {
             System.out.println("desc有抓到[IF新到舊]");
             pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
         }
 
         Page<Article> pageResult;
 
-        if(StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)){
+        if (StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
 //            如果都沒有填
             pageResult = articleRepository.findAll(pageable);
 
-        }else if(StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)){
+        } else if (StringUtils.isEmpty(enterAddressName) && !StringUtils.isEmpty(subject)) {
 //            只有填主題(subject)
-            pageResult = articleRepository.findBySubjectCategory(subject,pageable);
-        }else if(!StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
+            pageResult = articleRepository.findBySubjectCategory(subject, pageable);
+        } else if (!StringUtils.isEmpty(enterAddressName) && StringUtils.isEmpty(subject)) {
 //            只有填搜尋吧(enterAddressName)
-            pageResult = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName,enterAddressName,enterAddressName, pageable);
-        }else{
+            pageResult = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName, enterAddressName, enterAddressName, pageable);
+        } else {
 //            都有填
-            List<Article> A = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName,enterAddressName,enterAddressName,enterAddressName);
+            List<Article> A = articleRepository.findByEnterAddressNameContainingOrArticleTitleContainingOrTextEditorContainingOrFreeTagContaining(enterAddressName, enterAddressName, enterAddressName, enterAddressName);
             List<Article> newA = new ArrayList<>();
-            for(Article loopdata:A){
-                if(subject.equals(loopdata.getSubjectCategory())){
+            for (Article loopdata : A) {
+                if (subject.equals(loopdata.getSubjectCategory())) {
                     newA.add(loopdata);
                 }
             }
-            pageResult = new PageImpl<>(newA,pageable,newA.size());
+            pageResult = new PageImpl<>(newA, pageable, newA.size());
 
         }
 
 
-        List<Article> messageList =  pageResult.getContent();
+        List<Article> messageList = pageResult.getContent();
 
         return messageList;
 
     }
 
 
-//    庭妤:      主題_物件陣列
+    //    庭妤:      主題_物件陣列
     @Override
     public ArrayList<Article> findBySubjectCategory(String subject) {
         return articleRepository.findBySubjectCategory(subject);
     }
 
     @Override
-   public Article findByArticleTitle(String articleTitle){
-      Article result = articleRepository.findByArticleTitle(articleTitle);
-      return result;
-   }
+    public Article findByArticleTitle(String articleTitle) {
+        Article result = articleRepository.findByArticleTitle(articleTitle);
+        return result;
+    }
 
 
-        @Override
-    public String updateRecommend(String articleTitle){
+    @Override
+    public String updateRecommend(String articleTitle) {
         Article result = articleRepository.findByArticleTitle(articleTitle);
         Integer Recommend = result.getRecommend();
-        Recommend ++;
+        Recommend++;
         result.setRecommend(Recommend);
         articleRepository.save(result);
         return "推薦成功";
-    };
+    }
+
+    ;
+
     @Override
-    public String updateCollect(String articleTitle){
+    public String updateCollect(String articleTitle) {
         Article result = articleRepository.findByArticleTitle(articleTitle);
         Integer collect = result.getCollect();
-        collect ++;
+        collect++;
         result.setCollect(collect);
         articleRepository.save(result);
         return "收藏成功";
-    };
+    }
+
+    ;
+
     @Override
-    public String updateReport(String articleTitle){
+    public String updateReport(String articleTitle) {
         Article result = articleRepository.findByArticleTitle(articleTitle);
         Integer Report = result.getReport();
-        Report ++;
+        Report++;
         result.setReport(Report);
         articleRepository.save(result);
         return "收藏成功";
     }
 
 
-
     @Override
-    public ArrayList<Article> findByRandomArticle(){
+    public ArrayList<Article> findByRandomArticle() {
         ArrayList<Article> list = articleRepository.findAll();
         Optional<Article> OpArticle;
         List<Article> resultList = new ArrayList<>();
-        int listSize =  list.size();
+        int listSize = list.size();
         System.out.println(listSize);
-        for(int i = 0; i<listSize ; i++){
+        for (int i = 0; i < listSize; i++) {
             Article article = new Article();
-            Integer math = (int)(Math.random()*listSize)+1;
+            Integer math = (int) (Math.random() * listSize) + 1;
             System.out.println("Math" + math);
             OpArticle = articleRepository.findById(math);
-            if(OpArticle.isPresent()) {
+            if (OpArticle.isPresent()) {
                 System.out.println("OpArticle" + OpArticle.get().getArticleTitle());
                 article.setEnterAddressLat(OpArticle.get().getEnterAddressLat());
                 article.setEnterAddressLng(OpArticle.get().getEnterAddressLng());
                 article.setArticleTitle(OpArticle.get().getArticleTitle());
                 resultList.add(article);
                 System.out.println("For裡面" + resultList);
-            }else {
+            } else {
                 System.out.println("空的");
             }
         }
-        System.out.println("server回傳" +resultList );
+        System.out.println("server回傳" + resultList);
         return (ArrayList<Article>) resultList;
 
     }
@@ -189,21 +197,21 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArrayList<Article> findByUserIdForPage(User id){
+    public ArrayList<Article> findByUserIdForPage(User id) {
         ArrayList<Article> result = articleRepository.findByUserId(id);
         return result;
     }
 
     //大方：  文章換頁按鈕自動生成
     @Override
-    public ArrayList<Article> findByUserIdAndSubjectCategoryForPage(User id, String subject){
+    public ArrayList<Article> findByUserIdAndSubjectCategoryForPage(User id, String subject) {
         ArrayList<Article> result = articleRepository.findByUserId(id);
 
-        if(StringUtils.isEmpty(subject)){
+        if (StringUtils.isEmpty(subject)) {
             return result;
-        }else{
+        } else {
             // 有填主題(subject)
-            return articleRepository.findByUserIdAndSubjectCategory(id,subject);
+            return articleRepository.findByUserIdAndSubjectCategory(id, subject);
         }
     }
 
@@ -211,30 +219,30 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> getMyPagedArticles(int page, int size, Long id, String subject, int timeDirect) {
 
-        System.out.println("articlaserviceimpl getMyPagedArticles"+ id);
+        System.out.println("articlaserviceimpl getMyPagedArticles" + id);
 
         //預設-時間舊到新
         Pageable pageable = PageRequest.of(page,
-                                           size,
-                                           Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+                size,
+                Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
 
 
         System.out.println("實作service的排序" + timeDirect);
 
         //時間新到舊
-        if(timeDirect == 100){
+        if (timeDirect == 100) {
             System.out.println("desc有抓到(if 新到舊)");
             pageable = PageRequest.of(page,
-                                      size,
-                                      Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+                    size,
+                    Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
         }
 
         Page<Article> pageResult;
 
-        if(!StringUtils.isEmpty(subject)){
+        if (!StringUtils.isEmpty(subject)) {
             System.out.println("subject" + subject);
-            pageResult = articleRepository.findByUserId_IdAndSubjectCategory(id,subject,pageable);
-        }else {
+            pageResult = articleRepository.findByUserId_IdAndSubjectCategory(id, subject, pageable);
+        } else {
             pageResult = articleRepository.findByUserId_Id(id, pageable);
         }
 
@@ -248,9 +256,14 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     //大方:    我的空間 - 刪除文章
-    public String deleteMyArticle(String articleId){
+    public String deleteMyArticle(String articleId) {
         System.out.println(articleId);
         Integer articleIdNum = Integer.parseInt(articleId);
+        Article article = new Article();
+        article.setArticleId(articleIdNum);
+        reportRepository.deleteByArticleId(article);
+        collectRepository.deleteByArticleId(article);
+        recommendRepository.deleteByArticleId(article);
         articleRepository.deleteByArticleId(articleIdNum);
         System.out.println("執行刪除文章");
         return "文章刪除(Service)";

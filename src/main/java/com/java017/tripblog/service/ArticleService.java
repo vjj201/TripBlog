@@ -56,5 +56,6 @@ public interface ArticleService {
     String upDateArticle(Article inputArticle);
 
 
+
 //     List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect);
 }

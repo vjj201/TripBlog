@@ -17,7 +17,7 @@ public class Recommend {
     @JoinColumn(name = "article_recommend_id")
     private Article articlesRecommendId;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "User_recommend_id")
     private User userRecommendId;
 

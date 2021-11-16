@@ -106,7 +106,6 @@ public class ArticleController {
                 return "請確認標籤";
             }
         }
-
         String tag = String.join(",", articleParam.getFree_Tags());
         article.setFreeTag(tag);
         article.setArticleTitle(articleParam.getArticleTitle());
@@ -187,6 +186,7 @@ public class ArticleController {
     //大方： 刪除文章 (My eat)
     @GetMapping("/delete/{articleTitle}/{articleId}")
     private String deleteMyArticle(@PathVariable String articleTitle,@PathVariable String articleId){
+
         System.out.println("刪除文章標題：" + articleTitle);
         articleService.deleteMyArticle(articleId);
         System.out.println("執行刪除文章ok");
