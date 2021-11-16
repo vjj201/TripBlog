@@ -38,12 +38,18 @@ spring:
           timeout: 5000
           writetimeout: 5000
   thymeleaf:
-      cache: false
+    cache: false
 
 logging:
   level:
     root: info
-    com.yucheng: debug
+    com.java017: error
+    org:
+      springframework:
+        security: WARN
+    hibernate: WARN
+  file:
+    name: mylog.log
 
 #HTTPS憑證
 server:
@@ -55,8 +61,8 @@ server:
     protocol: TLS
     key-store-password: changeit
   servlet:
-      session:
-        persistent: false
+    session:
+      persistent: false
 
 
 
