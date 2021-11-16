@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+
 @Service
 public class CollectServicelmpl implements CollectService {
 
@@ -33,7 +34,7 @@ public class CollectServicelmpl implements CollectService {
             collectRepository.save(collect);
             System.out.println("使用者按讚執行成功");
 
-        }else if (collectRepository.existsByUserCollectIdAndArticlesCollectId(collectUserId, articleId)){
+        } else if (collectRepository.existsByUserCollectIdAndArticlesCollectId(collectUserId, articleId)) {
             System.out.println("資料庫已有相同資料(recommendUserId+articleId)");
             return null;
         }
@@ -42,7 +43,7 @@ public class CollectServicelmpl implements CollectService {
 
     //庭妤    顯示[已推薦]
 
-    public ArrayList<Collect> findByuserCollectId(User userCollectId) {
+    public ArrayList<Collect> findByUserCollectId(User userCollectId) {
         return collectRepository.findByUserCollectId(userCollectId);
     }
 }

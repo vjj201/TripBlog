@@ -1,4 +1,4 @@
-package com.java017.tripblog.controller;
+package com.java017.tripblog.controller.article;
 
 import com.java017.tripblog.entity.*;
 import com.java017.tripblog.service.*;
@@ -39,7 +39,7 @@ public class UserArticleController {
         User userId;
         userId = userService.findUserById(user.getId());  //userId
         ArrayList<Recommend> messageList;
-        messageList = recommendService.findByuserRecommendId(userId);
+        messageList = recommendService.findByUserRecommendId(userId);
 
         System.out.println(" 已推薦messageList="+ messageList);
 
@@ -54,7 +54,7 @@ public class UserArticleController {
         userId = userService.findUserById(user.getId());  //userId
         System.out.println("controller裡面的userID" + userId);
         ArrayList<Collect> messageList;
-        messageList = collectService.findByuserCollectId(userId);
+        messageList = collectService.findByUserCollectId(userId);
         System.out.println("controller裡面的messageList" + messageList);
         System.out.println(" 已收藏messageList="+ messageList);
         return messageList;
@@ -68,7 +68,7 @@ public class UserArticleController {
         userId = userService.findUserById(user.getId());  //userId
         System.out.println("controller裡面的userID" + userId);
         ArrayList<Report> messageList;
-        messageList = reportService.findByuserReportId(userId);
+        messageList = reportService.findByUserReportId(userId);
         System.out.println("controller裡面的messageList" + messageList);
         System.out.println(" 已收藏messageList="+ messageList);
         return messageList;

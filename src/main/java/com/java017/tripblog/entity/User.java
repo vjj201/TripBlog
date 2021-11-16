@@ -1,23 +1,18 @@
 package com.java017.tripblog.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * @author YuCheng
  * @date 2021/9/26 - 下午 10:27
  */
-//@JsonIgnoreProperties("intro")
+
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "User")
@@ -70,19 +65,6 @@ public class User{
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
-
-//    @OneToMany(mappedBy="userRecommendId",cascade=CascadeType.ALL)
-//    private Set<Recommend> recommendSet ;
-//
-//    @OneToMany(mappedBy="userReportId",cascade=CascadeType.ALL)
-//    private Set<Report> reportSet ;
-//
-//    @OneToMany(mappedBy="userCollectId",cascade=CascadeType.ALL)
-//    private Set<Collect> collectSet ;
-
-
-
-
 
     //是否有頭貼
     private boolean hasMemberPic;
@@ -206,7 +188,6 @@ public class User{
                 ", phone='" + phone + '\'' +
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
-                ", intro=" + intro +
                 ", hasMemberPic=" + hasMemberPic +
                 '}';
     }

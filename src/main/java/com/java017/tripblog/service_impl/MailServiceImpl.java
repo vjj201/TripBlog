@@ -1,9 +1,7 @@
 package com.java017.tripblog.service_impl;
 
-import com.java017.tripblog.entity.PasswordResetToken;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.MailService;
-import com.java017.tripblog.service.PasswordResetTokenService;
 import com.java017.tripblog.util.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +25,7 @@ public class MailServiceImpl implements MailService {
     private final MailUtils mailUtils;
 
     @Autowired
-    public MailServiceImpl(MailUtils mailUtils, PasswordResetTokenService passwordResetTokenService) {
+    public MailServiceImpl(MailUtils mailUtils) {
         this.mailUtils = mailUtils;
     }
 
@@ -81,7 +79,7 @@ public class MailServiceImpl implements MailService {
 
     //寄送重設密碼信
     @Override
-    public void sendPasswordResetMail(String email, String nickname,String link) {
+    public void sendPasswordResetMail(String email, String nickname, String link) {
         //創建信件
         String content = mailUtils.createMailResetPasswordContent(nickname, link);
         mailUtils.sendHtmlMail(email, RestPassword, content);

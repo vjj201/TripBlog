@@ -2,7 +2,6 @@ package com.java017.tripblog.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.UUID;
 
 /**
  * @author YuCheng

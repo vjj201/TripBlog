@@ -9,7 +9,5 @@ public interface RecommendService {
     // 使用者按讚 by 大方
     Recommend updateUserRecommend(Recommend recommend);
     //庭妤    顯示[已推薦]
-    ArrayList<Recommend> findByuserRecommendId(User userRecommendId);
-
-
+    ArrayList<Recommend> findByUserRecommendId(User userRecommendId);
 }

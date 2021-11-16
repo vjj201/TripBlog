@@ -1,7 +1,6 @@
 package com.java017.tripblog.repository;
 
 import com.java017.tripblog.entity.Article;
-import com.java017.tripblog.entity.Collect;
 import com.java017.tripblog.entity.Report;
 import com.java017.tripblog.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

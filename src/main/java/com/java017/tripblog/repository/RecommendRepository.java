@@ -15,8 +15,7 @@ import java.util.ArrayList;
 public interface RecommendRepository extends JpaRepository<Recommend,Integer> {
      boolean existsByUserRecommendIdAndArticlesRecommendId(User recommendUserId, Article articleId);
 
-//    @EntityGraph(value = "user.id", type = EntityGraph.EntityGraphType.FETCH)
-     ArrayList<Recommend> findByuserRecommendId(User userRecommendId);
+     ArrayList<Recommend> findByUserRecommendId(User userRecommendId);
 
      @Modifying
      @Transactional

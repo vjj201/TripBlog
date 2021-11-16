@@ -1,9 +1,9 @@
 package com.java017.tripblog.service_impl;
 
-import com.java017.tripblog.repository.IntroRepository;
-import com.java017.tripblog.repository.UserRepository;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
+import com.java017.tripblog.repository.IntroRepository;
+import com.java017.tripblog.repository.UserRepository;
 import com.java017.tripblog.security.MyUserDetails;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     //是否完成信箱驗證
     public boolean isMailVerified(HttpSession session) {
-            return getCurrentUser().isMailVerified();
+        return getCurrentUser().isMailVerified();
     }
 
     @Override//創建會員

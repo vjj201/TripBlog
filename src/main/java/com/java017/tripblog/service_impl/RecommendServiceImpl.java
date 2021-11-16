@@ -32,21 +32,20 @@ public class RecommendServiceImpl implements RecommendService {
             recommendRepository.save(recommend);
             System.out.println("使用者按讚執行成功");
 
-        }else if (recommendRepository.existsByUserRecommendIdAndArticlesRecommendId(recommendUserId, articleId)){
+        } else if (recommendRepository.existsByUserRecommendIdAndArticlesRecommendId(recommendUserId, articleId)) {
             System.out.println("資料庫已有相同資料(recommendUserId+articleId)");
             return null;
         }
         return recommend;
     }
 
-//庭妤    顯示[已推薦]
+    //庭妤    顯示[已推薦]
     @Override
-    public ArrayList<Recommend> findByuserRecommendId(User userRecommendId) {
+    public ArrayList<Recommend> findByUserRecommendId(User userRecommendId) {
 
 
-        return recommendRepository.findByuserRecommendId(userRecommendId);
+        return recommendRepository.findByUserRecommendId(userRecommendId);
     }
-
 
 
 }

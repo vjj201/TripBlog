@@ -43,7 +43,7 @@ public class ReportServicelmpl implements ReportService {
     }
 
     @Override
-    public ArrayList<Report> findByuserReportId(User userReportId) {
+    public ArrayList<Report> findByUserReportId(User userReportId) {
         return reportRepository.findByUserReportId(userReportId);
     }
 }

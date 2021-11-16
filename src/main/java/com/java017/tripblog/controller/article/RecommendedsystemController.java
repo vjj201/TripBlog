@@ -1,4 +1,4 @@
-package com.java017.tripblog.controller;
+package com.java017.tripblog.controller.article;
 
 import com.java017.tripblog.entity.*;
 import com.java017.tripblog.service.*;

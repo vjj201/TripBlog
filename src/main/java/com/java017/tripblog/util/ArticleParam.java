@@ -1,8 +1,7 @@
 package com.java017.tripblog.util;
 
 
-
-public class ArticleParam  {
+public class ArticleParam {
 
 
     Integer id;
