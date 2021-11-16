@@ -1,4 +1,4 @@
-alert("有進來嗎")
+
 $(function () {
     //--------------------全域變數的家---------------------------------------
     let article = {};
@@ -6,7 +6,13 @@ $(function () {
     $("#travelArticleBox").on('click', 'input', function (e) {
         let choose = $(this).val();
         let articleTitle = $(this).attr('name');
-        $(this).val("已推薦");
+        if(choose == "推薦"){
+            $(this).val("已推薦");
+        }else if(choose == "檢舉"){
+            $(this).val("已檢舉");
+        }else{
+            $(this).val("已收藏");
+        }
         article["articleTitle"] = articleTitle;
         clickButton(choose,articleTitle);
 

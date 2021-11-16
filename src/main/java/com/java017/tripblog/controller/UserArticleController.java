@@ -1,18 +1,16 @@
 package com.java017.tripblog.controller;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.Collect;
 import com.java017.tripblog.entity.Recommend;
 import com.java017.tripblog.entity.User;
-import com.java017.tripblog.repository.ArticleRepository;
-import com.java017.tripblog.repository.RecommendRepository;
 import com.java017.tripblog.service.ArticleService;
+import com.java017.tripblog.service.CollectService;
 import com.java017.tripblog.service.RecommendService;
 import com.java017.tripblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,15 +25,17 @@ public class UserArticleController {
     private final ArticleService articleService;
     private final UserService userService;
     private final RecommendService recommendService;
+    private final CollectService collectService;
 
 
-    public UserArticleController(ArticleService articleService, UserService userService, RecommendService recommendService) {
+    public UserArticleController(ArticleService articleService, UserService userService, RecommendService recommendService, CollectService collectService) {
         this.articleService = articleService;
         this.userService = userService;
         this.recommendService = recommendService;
+        this.collectService = collectService;
     }
 
-    //庭妤   前端get已經收藏&推薦&檢舉
+    //庭妤   前端get已經推薦
     @ResponseBody
     @GetMapping("/alreadyTravelEatButtoned")
     public ArrayList<Recommend> alreadyButtoned (HttpSession session){
@@ -45,10 +45,26 @@ public class UserArticleController {
         ArrayList<Recommend> messageList;
         messageList = recommendService.findByuserRecommendId(userId);
 
-        System.out.println(" 已收藏messageList="+ messageList);
+        System.out.println(" 已推薦messageList="+ messageList);
 
         return messageList;
     }
+
+    @ResponseBody
+    @GetMapping("/alreadyTravelEatButtonedForCollect")
+    public ArrayList<Collect> alreadyButtonedForCollect (HttpSession session){
+        User user = (User) session.getAttribute("user");
+        User userId;
+        userId = userService.findUserById(user.getId());  //userId
+        System.out.println("controller裡面的userID" + userId);
+        ArrayList<Collect> messageList;
+        messageList = collectService.findByuserCollectId(userId);
+        System.out.println("controller裡面的messageList" + messageList);
+        System.out.println(" 已收藏messageList="+ messageList);
+        return messageList;
+    }
+
+
 
 
 

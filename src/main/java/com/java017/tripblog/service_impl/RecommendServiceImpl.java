@@ -22,6 +22,7 @@ public class RecommendServiceImpl implements RecommendService {
 
 
     // 使用者按讚 by 大方
+    @Override
     public Recommend updateUserRecommend(Recommend recommend) {
         User recommendUserId = recommend.getUserRecommendId();
         Article articleId = recommend.getArticlesRecommendId();

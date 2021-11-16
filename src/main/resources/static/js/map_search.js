@@ -65,7 +65,6 @@ $(function () {
                     a++;
                 }
                 console.log("迴圈外面 " + points);
-                console.log("markers"+markers[1].position)
 
 
 

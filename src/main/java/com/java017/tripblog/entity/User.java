@@ -71,14 +71,14 @@ public class User{
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
-    @OneToMany(mappedBy="userRecommendId",cascade=CascadeType.ALL)
-    private Set<Recommend> recommendSet ;
-
-    @OneToMany(mappedBy="userReportId",cascade=CascadeType.ALL)
-    private Set<Report> reportSet ;
-
-    @OneToMany(mappedBy="userCollectId",cascade=CascadeType.ALL)
-    private Set<Collect> collectSet ;
+//    @OneToMany(mappedBy="userRecommendId",cascade=CascadeType.ALL)
+//    private Set<Recommend> recommendSet ;
+//
+//    @OneToMany(mappedBy="userReportId",cascade=CascadeType.ALL)
+//    private Set<Report> reportSet ;
+//
+//    @OneToMany(mappedBy="userCollectId",cascade=CascadeType.ALL)
+//    private Set<Collect> collectSet ;
 
 
 

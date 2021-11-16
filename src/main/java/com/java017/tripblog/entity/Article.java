@@ -46,6 +46,7 @@ public class Article{
 
     String saveImgPath;
 
+
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "userId", referencedColumnName = "id")
      User userId;
@@ -53,11 +54,11 @@ public class Article{
 //    @OneToMany(mappedBy="articlesRecommendId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 //    private Set<Recommend>  recommendSet ;
 
-    @OneToMany(mappedBy="articlesReportId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    private Set<Report>  reportSet ;
-
-    @OneToMany(mappedBy="articlesCollectId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    private Set<Collect>  collectSet ;
+//    @OneToMany(mappedBy="articlesReportId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+//    private Set<Report>  reportSet ;
+//
+//    @OneToMany(mappedBy="articlesCollectId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+//    private Set<Collect>  collectSet ;
 
 
     @Temporal(TemporalType.DATE)
@@ -104,21 +105,21 @@ public class Article{
 //        this.recommendSet = recommendSet;
 //    }
 
-    public Set<com.java017.tripblog.entity.Report> getReportSet() {
-        return reportSet;
-    }
-
-    public void setReportSet(Set<com.java017.tripblog.entity.Report> reportSet) {
-        this.reportSet = reportSet;
-    }
-
-    public Set<Collect> getCollectSet() {
-        return collectSet;
-    }
-
-    public void setCollectSet(Set<Collect> collectSet) {
-        this.collectSet = collectSet;
-    }
+//    public Set<com.java017.tripblog.entity.Report> getReportSet() {
+//        return reportSet;
+//    }
+//
+//    public void setReportSet(Set<com.java017.tripblog.entity.Report> reportSet) {
+//        this.reportSet = reportSet;
+//    }
+//
+//    public Set<Collect> getCollectSet() {
+//        return collectSet;
+//    }
+//
+//    public void setCollectSet(Set<Collect> collectSet) {
+//        this.collectSet = collectSet;
+//    }
 
     public Integer getRecommend() {
         return recommend;

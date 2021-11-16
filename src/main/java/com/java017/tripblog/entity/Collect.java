@@ -12,12 +12,11 @@ public class Collect {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "article_collect_id")
     private Article articlesCollectId;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "User_collect_id")
     private User userCollectId;
 

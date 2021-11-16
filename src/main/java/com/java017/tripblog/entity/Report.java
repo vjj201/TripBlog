@@ -14,11 +14,11 @@ public class Report {
     Integer id;
 
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "article_Report_id")
     private Article articlesReportId;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_Report_id")
     private User userReportId;
 
