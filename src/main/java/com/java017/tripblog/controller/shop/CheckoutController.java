@@ -8,6 +8,7 @@ import com.java017.tripblog.service.CityService;
 import com.java017.tripblog.service.ProductOrderService;
 import com.java017.tripblog.service.ProductService;
 import com.java017.tripblog.service.UserService;
+import com.java017.tripblog.socket.AdminSocket;
 import com.java017.tripblog.util.OrderIdCreator;
 import com.java017.tripblog.vo.CheckoutSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -199,6 +200,7 @@ public class CheckoutController {
                 append("，請妥善保存");
 
         sessionStatus.setComplete();
+        AdminSocket.sendInfo("有新的訂單");
         return new ResponseEntity<>(message.toString(), HttpStatus.OK);
     }
 

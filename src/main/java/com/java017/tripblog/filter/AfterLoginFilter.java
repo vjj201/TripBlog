@@ -37,6 +37,7 @@ public class AfterLoginFilter extends OncePerRequestFilter {
                     MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
                     User userSession = new User();
                     userSession.setId(userDetails.getId());
+                    userSession.setUsername(userDetails.getUsername());
                     userSession.setNickname(userDetails.getNickName());
                     userSession.setEmail(userDetails.getEmail());
                     userSession.setHasMemberPic(userDetails.hasMemberPic());
