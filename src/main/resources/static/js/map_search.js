@@ -23,12 +23,15 @@ function initMap() {
 $(function () {
     let markers = [];
     let bounds = new google.maps.LatLngBounds();
+    initMap();
     firstinitmap();
     $('#btsearch').click(function (e) {
         e.preventDefault();
+        initMap();
         firstinitmap();
     });
     $("#changePageAll").on("click", "#pageSearch", function () {
+        initMap();
         changlePageMap();
     });
     function firstinitmap(){
