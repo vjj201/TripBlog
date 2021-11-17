@@ -132,9 +132,7 @@
                                 檢舉回報
                             </a>
                         </li>
-
                     </ul>
-
                 </div>
             </nav>
             <!-- 結束:側邊工具列 -->
@@ -143,14 +141,55 @@
 
             <!-- 主內容 -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-5">
-            <div class="container rounded">
-                <div class="row shadow p-3 m-5">
-            
-                    <div class="row my-2">
-                        <div class="col-3">
-                            <h1>商品上架</h1>
+                <div class="container my-5 pb-5">
+                    <div class="row mb-2">
+
+                        <div class="col-2 mb-5 d-flex align-items-center">
+                            <h3>商品上架</h3>
                         </div>
-                        <div class="col">
+                        <!-- 搜尋bar -->
+                        <div class="col-10 mb-5 d-flex align-items-center justify-content-start  d-flex flex-wrap">
+                            <select id="searchProductBrand" name="productBrand" class="form-select me-2" aria-label=".form-select-lg example"
+                                    style="width: 8rem">
+<!--                                <option selected value="">選擇店家</option>-->
+<!--                                <li>-->
+<!--                                    <option value="-1">阿貓麵攤</option>-->
+<!--                                    <option value="0">異國料料</option>-->
+<!--                                    <option value="1">萬萬豬腳</option>-->
+<!--                                </li>-->
+                            </select>
+                            <select id="searchProductTag" name="productTag" class="form-select me-2" aria-label=".form-select-lg example"
+                                    style="width: 8rem">
+<!--                                <option selected value="">選擇標籤</option>-->
+<!--                                <li>-->
+<!--                                    <option value="-1">米飯</option>-->
+<!--                                    <option value="0">茶葉</option>-->
+<!--                                    <option value="1">水果</option>-->
+<!--                                </li>-->
+                            </select>
+
+                            <div class="input-group me-3 w-25">
+                                <input name="productName" type="search" placeholder="輸入商品名稱" aria-describedby="button-addon5"
+                                       class="form-control">
+                                <div class="input-group-append">
+                                    <button id="button-addon5" value="1" type="button" class="btn btn-primary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <select name="sort" class="form-select form-select-sm bg-secondary text-white me-3" aria-label=".form-select-sm example" style="width: 8rem">
+                                <option selected value="0">排序方式</option>
+                                <option value="1">日期: 新到舊</option>
+                                <option value="2">日期: 舊到新</option>
+                                <option value="3">價格: 低到高</option>
+                                <option value="4">價格: 高到低</option>
+                                <option value="5">庫存: 低到高</option>
+                                <option value="6">庫存: 高到低</option>
+                                <option value="7">已售: 低到高</option>
+                                <option value="8">已售: 高到低</option>
+                            </select>
+                        <!-- 搜尋bar 結束-->
                             <!-- Button trigger addModal -->
                             <button id="addNewProduct" type="button" class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#addModal">
                             上架新商品
@@ -175,7 +214,7 @@
                           </tr>
                         </thead>
 <!--                        動態新增部分-->
-<!--                        <tbody>-->
+                       <tbody id="tbody">
 <!--                          <tr>-->
 <!--                            <th scope="row">1</th>-->
 <!--                            <td><img src="../../static/images/shop/product/36.jpg" style="width: 70px;"></td>-->
@@ -192,8 +231,8 @@
 <!--                                <button type="button" class="btn btn-danger m-1">移除</button>-->
 <!--                            </td>-->
 <!--                          </tr>-->
-<!--                        </tbody>-->
 <!--                        動態新增結束-->
+                       </tbody>
                       </table>
             
                         <!-- 上架商品Modal 第一頁-->
@@ -382,8 +421,40 @@
                             </div>
                           </div>
                         <!-- 編輯商品圖片Modal 結束-->
-                </div>
             </div>
+
+                <!-- 換頁 -->
+                <div class="d-flex justify-content-center mt-5">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <button id="pre" class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </button>
+                            </li>
+
+                            <li class="page-item">
+                                <select id="pageZone" class="form-select" aria-label="Default select example">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
+                            </li>
+
+                            <li class="page-item">
+                                <button id="next" class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <small>共<span id="totalPage">20</span>頁</small>
+                </div>
+                <!-- 結束:換頁 -->
+
         </main>
         <!-- 結束:主內容 -->
     </div>
