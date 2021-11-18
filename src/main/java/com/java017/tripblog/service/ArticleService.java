@@ -1,6 +1,7 @@
 package com.java017.tripblog.service;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.Collect;
 import com.java017.tripblog.entity.User;
 
 import java.util.ArrayList;
@@ -49,6 +50,17 @@ public interface ArticleService {
     ArrayList<Article> findAll();
 
     String upDateArticle(Article inputArticle);
+
+    ArrayList<Collect> findCollectByUser(User userId);
+
+    //庭妤: 文章id搜尋，結果為list
+    List<Article>findArticleIdArray(Integer id);
+
+    Article findArticleById(Integer id);
+
+
+
+//    List<Article> getMyPagedArticlesForCollect(int page, int size, User user);
 
 
 //     List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect);

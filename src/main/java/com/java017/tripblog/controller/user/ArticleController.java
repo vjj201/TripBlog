@@ -1,5 +1,6 @@
 package com.java017.tripblog.controller.user;
 
+import com.java017.tripblog.entity.Collect;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.ArticleService;
 import com.java017.tripblog.service.UserService;
@@ -229,6 +230,42 @@ public class ArticleController {
         articleService.upDateArticle(article);
         return "編輯成功";
     }
+
+    //康test
+    @ResponseBody
+    @GetMapping("/myFirstSearchOfPageEatTravelForCollect")
+    public ArrayList<Collect> myFirstSearchOfPageForCollect(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        ArrayList<Collect> messagedList;
+        messagedList = articleService.findCollectByUser(user);
+        return messagedList;
+    }
+
+    //康test
+    @ResponseBody
+    @PostMapping("/newPageButtonForCollect")
+    public Integer newChangePageButtonForCollect(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        ArrayList<Collect> list;
+//        list = articleService.findByUserIdForPage(user);
+        list = articleService.findCollectByUser(user);
+        double listSize = list.size();
+        int pageMount = (int) Math.ceil(listSize / 5);
+        return pageMount;
+    }
+//TEST
+//    @ResponseBody
+//    @GetMapping("/myChangeSearchOfPageEatTravelForCollect")
+//    public List<Article> myChangeSearchOfPage(HttpSession session){
+//
+//        User user = (User) session.getAttribute("user");
+//        user = userService.findUserById(user.getId());
+//        List<Article> messageList;
+//        messageList = articleService.findCollectByUser(user);
+//        System.out.println("點擊換頁按鈕並換頁的my_messageList=" + messageList);
+//        return messageList;
+//    }
+
 }
 
 

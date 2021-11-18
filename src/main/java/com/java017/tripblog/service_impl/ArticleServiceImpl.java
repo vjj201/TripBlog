@@ -1,6 +1,7 @@
 package com.java017.tripblog.service_impl;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.Collect;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.repository.ArticleRepository;
 import com.java017.tripblog.repository.CollectRepository;
@@ -284,10 +285,51 @@ public class ArticleServiceImpl implements ArticleService {
         article1.setTextEditor(inputArticle.getTextEditor());
         article1.setFreeTag(inputArticle.getFreeTag());
         article1.setCreateTime(inputArticle.getCreateTime());
+        article1.setSelectRegion(inputArticle.getSelectRegion());
         article1.setUserId(inputArticle.getUserId());
         articleRepository.save(article1);
         return "ok";
     }
+
+    //從collect找出文章
+    @Override
+    public ArrayList<Collect> findCollectByUser(User userId) {
+        ArrayList<Collect> collects = collectRepository.findByUserCollectId(userId);
+//        ArrayList<Article> result;
+//        ChangleToArticle changleToArticle = new ChangleToArticle();
+//        result = changleToArticle.CollectChangleArticle(collects);
+        return collects;
+    }
+
+    @Override
+    public List<Article> findArticleIdArray(Integer id) {
+        List<Article> result = articleRepository.findArticleIdArray(id);
+        return result;
+    }
+
+    @Override
+    public Article findArticleById(Integer id) {
+        return articleRepository.findById(id).orElse(null);
+    }
+
+
+//    @Override
+//    public List<Article> getMyPagedArticlesForCollect(int page, User user) {
+//        int pagenum = 5;
+//        //時間新到舊
+//        ArrayList<Collect> collects = collectRepository.findByUserCollectId(user);
+//        ArrayList<Article> result;
+//        ChangleToArticle changleToArticle = new ChangleToArticle();
+//        result = changleToArticle.CollectChangleArticle(collects);
+//
+//        for (int i=pagenum*page; i<=result.size();i++){
+//            Article article1 = new Article();
+//            article1 = result.get(i);
+//        }
+//
+//            System.out.println("ArticleServiceImpl的 messageList" + messageList);
+//        return messageList;
+//    }
 
 //    @Override
 //    public List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect) {

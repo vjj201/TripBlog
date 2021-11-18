@@ -228,48 +228,48 @@
                 </div>
             </div>
             <!-- 上傳發票的上傳器 -->
-            <div class="col-md-5 mb-4">
-                <div class="input-group">
-                    <input type="file" class="form-control border-2 border-bl03 bg-gr0200 rounded-pill"
-                           id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"
-                           onchange="readBill(this)" targetID="bill_img" accept="image/gif, image/jpeg, image/png">
-                    <!-- 預覽光箱內的上傳發票收據 -->
-                    <button class="btn btn-light border-2 border-bl03 rounded-pill text-bl03 fw-bold "
-                            onclick="openbt()" type="button" id="inputGroupFileAddon04">上傳</button>
-                    <label class="titleText text-pk03">請上傳發票收據</label>
-                </div>
-            </div>
+            <!--            <div class="col-md-5 mb-4">-->
+            <!--                <div class="input-group">-->
+            <!--                    <input type="file" class="form-control border-2 border-bl03 bg-gr0200 rounded-pill"-->
+            <!--                           id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"-->
+            <!--                           onchange="readBill(this)" targetID="bill_img" accept="image/gif, image/jpeg, image/png">-->
+            <!-- 預覽光箱內的上傳發票收據 -->
+            <!--                    <button class="btn btn-light border-2 border-bl03 rounded-pill text-bl03 fw-bold "-->
+            <!--                            onclick="openbt()" type="button" id="inputGroupFileAddon04">上傳</button>-->
+            <!--                    <label class="titleText text-pk03">請上傳發票收據</label>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
             <!-- Button trigger modal -->
-            <div class="col-md-2 text-md-end mb-3">
-                <button type="button" id="bt" disabled="true"
-                        class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    發票收據
-                </button>
-            </div>
+            <!--            <div class="col-md-2 text-md-end mb-3">-->
+            <!--                <button type="button" id="bt" disabled="true"-->
+            <!--                        class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"-->
+            <!--                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">-->
+            <!--                    發票收據-->
+            <!--                </button>-->
+            <!--            </div>-->
             <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">預覽</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            上傳的圖檔
-                        </div>
-                        <div class="col-12">
-                            <img id="bill_img" width="100%" height="100%">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"-->
+            <!--                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
+            <!--                <div class="modal-dialog">-->
+            <!--                    <div class="modal-content">-->
+            <!--                        <div class="modal-header">-->
+            <!--                            <h5 class="modal-title" id="staticBackdropLabel">預覽</h5>-->
+            <!--                            <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+            <!--                                    aria-label="Close"></button>-->
+            <!--                        </div>-->
+            <!--                        <div class="modal-body">-->
+            <!--                            上傳的圖檔-->
+            <!--                        </div>-->
+            <!--                        <div class="col-12">-->
+            <!--                            <img id="bill_img" width="100%" height="100%">-->
+            <!--                        </div>-->
+            <!--                        <div class="modal-footer">-->
+            <!--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
         <!-- 裁切封面圖的欄位 -->
         <div class="row mt-3" id="main-cropper" style="display: none;">
@@ -340,40 +340,40 @@
 </form>
 
 <!-- 光箱必須的code -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-        crossorigin="anonymous"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"-->
+<!--        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"-->
+<!--        crossorigin="anonymous"></script>-->
 
 <script>
     // 激活按鈕的函式
-    function openbt(){
-        document.getElementById("bt").disabled = false;
-    }
+    // function openbt(){
+    //     document.getElementById("bt").disabled = false;
+    // }
     // 預覽上傳發票的函式
-    function readBill(input){
-        if(input.files && input.files[0]){
-            var imageTagID = input.getAttribute("targetID");
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var img = document.getElementById(imageTagID);
-                img.setAttribute("src", e.target.result)
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    // function readBill(input){
+    //     if(input.files && input.files[0]){
+    //         var imageTagID = input.getAttribute("targetID");
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             var img = document.getElementById(imageTagID);
+    //             img.setAttribute("src", e.target.result)
+    //         }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
 
     // 預覽上傳圖片的函式
-    function readURL(input){
-        if(input.files && input.files[0]){
-            var imageTagID = input.getAttribute("targetID");
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var img = document.getElementById(imageTagID);
-                img.setAttribute("src", e.target.result)
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    // function readURL(input){
+    //     if(input.files && input.files[0]){
+    //         var imageTagID = input.getAttribute("targetID");
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             var img = document.getElementById(imageTagID);
+    //             img.setAttribute("src", e.target.result)
+    //         }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
     //捨棄草稿
     function canceltext(){
         document.getElementById("formArticle").reset();

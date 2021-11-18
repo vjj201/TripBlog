@@ -136,10 +136,10 @@ $(function () {
             <!-- 文章內容 -->
             <div class="single-blog-content">
                 <h4><a href="https://localhost:8080/article/${articleTitle}" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
-                    ${articleTitle}   
+                    ${articleTitle.substring(0,30)}   
                     </a></h4>
 
-                <p class="text-bl04">${textEditor}</p>
+                <p class="text-bl04">${textEditor.substring(0,45)}...</p>
                 <div class="post-meta">
                     <p class="text-bl04">By <a href="#" class="text-bl04">${user}</a></p>
                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
@@ -302,10 +302,10 @@ $(function () {
             <!-- 文章內容 -->
             <div class="single-blog-content">
                 <h4><a href="https://localhost:8080/article/${articleTitle}" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
-                    ${articleTitle}   
+                    ${articleTitle.substring(0,30)}  
                     </a></h4>
 
-                <p class="text-bl04">${textEditor}</p>
+                <p class="text-bl04">${textEditor.substring(0,45)}...</p>
                 <div class="post-meta">
                     <p class="text-bl04">By <a href="#" class="text-bl04">${user}</a></p>
                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>

@@ -42,4 +42,9 @@ public class AdminPageController {
         return "/admin/admin_member";
     }
 
+    @GetMapping("/reportPage")
+    public String reportPage() {
+        return "/admin/admin_report";
+    }
+
 }

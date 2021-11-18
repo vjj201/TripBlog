@@ -38,8 +38,9 @@ public class Article{
 
     Integer collect = 0;
 
-    String saveImgPath;
+    String saveImgPath = "images/noPhoto.png";
 
+    Boolean isShow = true ;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "userId", referencedColumnName = "id")
@@ -218,6 +219,16 @@ public class Article{
     public void setFreeTag(String freeTag) {
         this.freeTag = freeTag;
     }
+
+    public Boolean getShow() {
+        return isShow;
+    }
+
+    public void setShow(Boolean show) {
+        isShow = show;
+    }
+
+
 
     @Override
     public String toString() {
