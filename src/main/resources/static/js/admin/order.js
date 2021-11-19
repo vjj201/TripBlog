@@ -24,8 +24,13 @@ $(document).ready(function () {
     }
 
     websocket.onmessage = function (event) {
-        alert('收到訊息:' + JSON.parse(event.data).message);
-        loadData();
+        let message = JSON.parse(event.data).message;
+        if("有新的訂單" === message){
+            alert('提醒:' + message);
+            loadData();
+            return;
+        }
+        $('#online').text(message);
     }
 
     websocket.onerror = function () {

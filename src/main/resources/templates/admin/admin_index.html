@@ -19,7 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- js -->
-
+    <script src="../../static/js/admin/adminSocket.js" th:src="@{/js/admin/adminSocket.js}"></script>
     <style>
         .my-nav-link:hover {
             color: rgb(127, 135, 156);
@@ -30,7 +30,7 @@
 
 <body>
 
-    <header class="navbar navbar-dark sticky-top bg-bl04 flex-md-nowrap p-0 shadow">
+    <header th:fragment="adminHeader" class="navbar navbar-dark sticky-top bg-bl04 flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-8 col-md-4 col-lg-2 me-0 px-3 p-3 text-center" href="#" th:href="@{/admin/index}">
             TripBlog
             後台管理
@@ -41,6 +41,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <div class="w-100 text-end mx-3">
+            <div class="text-bl01">商城會員在線人數:<span id="online"></span></div>
+        </div>
 
         <div class="navbar-nav">
             <div class="nav-item text-nowrap">

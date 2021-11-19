@@ -23,7 +23,7 @@ public class AdminSocket {
 
     private static final Logger log = LoggerFactory.getLogger(AdminSocket.class);
 
-    private static final Map<String, AdminSocket> webSocketSet = new ConcurrentHashMap<>();
+    private static final Map<String, AdminSocket> webSocket = new ConcurrentHashMap<>();
 
     private static int onlineCount;
 
@@ -36,17 +36,16 @@ public class AdminSocket {
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
         this.httpSession = httpSession;
         User user = (User) httpSession.getAttribute("user");
-        webSocketSet.put(user.getUsername(), this);
+        webSocket.put(user.getUsername(), this);
         addOnlineCount();
-        log.info("【websocket】帳號:" + user.getUsername() + "連線，在線數:{}", getOnlineCount());
+        sendInfo(Integer.toString(UserSocket.getOnlineCount()));
     }
 
     @OnClose
     public void onClose() {
         User user = (User) httpSession.getAttribute("user");
-        webSocketSet.remove(user.getUsername());
+        webSocket.remove(user.getUsername());
         subOnlineCount();
-        log.info("【websocket】帳號:" + user.getUsername() + "下線，在線數:{}", getOnlineCount());
     }
 
     @OnMessage
@@ -57,12 +56,11 @@ public class AdminSocket {
 
     //訂單廣播
     public static void sendInfo(String message) {
-        log.info("【websocket】廣播訊息, message={}", message);
-        for (String username : webSocketSet.keySet()) {
+        for (String username : webSocket.keySet()) {
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("message", message);
-                webSocketSet.get(username).session.getAsyncRemote().sendText(jsonObject.toString());
+                webSocket.get(username).session.getAsyncRemote().sendText(jsonObject.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
