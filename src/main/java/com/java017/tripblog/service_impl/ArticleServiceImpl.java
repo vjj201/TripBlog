@@ -294,23 +294,23 @@ public class ArticleServiceImpl implements ArticleService {
 
     //從collect找出文章
     @Override
-    public List<Collect> findCollectByUser(int page, int size,User userId,String subject, int timeDirect) {
+    public List<Collect> findCollectByUser(int page, int size, User userId, String subject, int timeDirect) {
 
         Pageable pageable = PageRequest.of(page,
                 size,
                 Sort.by("articlesCollectId_createDate").ascending().and(Sort.by("articlesCollectId_createTime")).ascending());
 
-        if(timeDirect == 100){
+        if (timeDirect == 100) {
             pageable = PageRequest.of(page,
                     size,
                     Sort.by("articlesCollectId_createDate").descending().and(Sort.by("articlesCollectId_createTime")).descending());
         }
         Page<Collect> pageResult;
 
-        if(!StringUtils.isEmpty(subject)) {
+        if (!StringUtils.isEmpty(subject)) {
             pageResult = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(userId, subject, pageable);
-        }else{
-            pageResult = collectRepository.findByUserCollectId(userId,pageable);
+        } else {
+            pageResult = collectRepository.findByUserCollectId(userId, pageable);
         }
         System.out.println("pageResult" + pageResult);
         List<Collect> messageList = pageResult.getContent();
@@ -341,6 +341,17 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public void deleteMyCollect(User userId, Article articleId) {
+        System.out.println("刪除收藏表格前面");
+        collectRepository.deleteArticlesCollectIdAndUserCollectId(articleId,userId);
+        Optional<Article> article = articleRepository.findById(articleId.getArticleId());
+        int collect = article.get().getCollect();
+        collect--;
+        article.get().setCollect(collect);
+        System.out.println("存回文章前面");
+        articleRepository.save(article.get());
+    }
 
 //    @Override
 //    public List<Article> getMyPagedArticlesForCollect(int page, User user) {

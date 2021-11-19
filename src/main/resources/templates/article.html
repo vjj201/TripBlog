@@ -274,7 +274,7 @@
                         <div class="row mt-5 justify-content-center align-items-center">
                             <div class="col-md-2" id="t1">
                                 <div class="ratio ratio-1x1">
-                                    <img src="https://semantic-ui.com/images/avatar2/small/elyse.png"
+                                    <img th:src="${session.user != null && session.user.isHasMemberPic()} ? '/user/memberPic' : @{/images/oman_10_ani_10.svg}" src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
                                          class="rounded-circle">
                                 </div>
                             </div>

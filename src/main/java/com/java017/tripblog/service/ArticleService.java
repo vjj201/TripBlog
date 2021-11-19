@@ -60,6 +60,9 @@ public interface ArticleService {
 
     Article findArticleById(Integer id);
 
+    //取消收藏
+    void deleteMyCollect(User userId,Article articleId);
+
 
 
 //    List<Article> getMyPagedArticlesForCollect(int page, int size, User user);

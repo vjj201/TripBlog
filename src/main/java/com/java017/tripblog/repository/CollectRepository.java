@@ -28,4 +28,9 @@ public interface CollectRepository extends JpaRepository<Collect,Integer> {
     @Transactional
     @Query("delete from Collect where articlesCollectId = ?1")
     void deleteByArticleId(Article id);
+
+    @Modifying
+    @Transactional
+    @Query("delete from Collect where articlesCollectId = ?1 and userCollectId = ?2")
+    void deleteArticlesCollectIdAndUserCollectId(Article articleId,User userId);
 }

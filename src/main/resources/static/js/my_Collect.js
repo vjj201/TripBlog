@@ -138,7 +138,7 @@ $(function () {
                                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
                                     <button
                                          class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/edit/${articleTitle}'">取消收藏</button>
+                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/deleteCollect/${articleId}'">取消收藏</button>
                                 </div>
                             </div>
                         </div>
