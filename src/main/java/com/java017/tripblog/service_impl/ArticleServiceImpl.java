@@ -291,16 +291,6 @@ public class ArticleServiceImpl implements ArticleService {
         return "ok";
     }
 
-    //從collect找出文章
-    @Override
-    public ArrayList<Collect> findCollectByUser(User userId) {
-        ArrayList<Collect> collects = collectRepository.findByUserCollectId(userId);
-//        ArrayList<Article> result;
-//        ChangleToArticle changleToArticle = new ChangleToArticle();
-//        result = changleToArticle.CollectChangleArticle(collects);
-        return collects;
-    }
-
     @Override
     public List<Article> findArticleIdArray(Integer id) {
         List<Article> result = articleRepository.findArticleIdArray(id);
@@ -310,6 +300,26 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article findArticleById(Integer id) {
         return articleRepository.findById(id).orElse(null);
+    }
+
+
+//    //康 收藏 點及換頁
+//    @Override
+//    public List<Collect> getMyPagedArticlesForCollect(int page, int size, User user) {
+//        Page<Collect> pageResult;
+//        Pageable pageable = PageRequest.of(page,size);
+//        pageResult = collectRepository.findByUserCollectId(user, pageable);
+//        List<Collect> messageList = pageResult.getContent();
+//        System.out.println("分頁的messageList" + messageList);
+//        return messageList;
+//    }
+//
+    //從collect找出文章
+    @Override
+    public ArrayList<Collect> findCollectByUser(User userId, String subject, int timeDirect) {
+        ArrayList<Collect> collects = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(userId,subject);
+        System.out.println("collects" + collects);
+        return collects;
     }
 
 

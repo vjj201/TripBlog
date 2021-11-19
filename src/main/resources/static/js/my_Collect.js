@@ -7,13 +7,24 @@ $(function () {
         xhr.setRequestHeader(header, token);
     });
     //不需判斷是否登入（我的空間已有filter攔截）
+
+    let subject = "";
+    let timeDirect;
+    let myArticle = {};
+
     loadPage();
+
 
     function loadPage() {
 
-        firstPage();
+        timeDirect = "000";
+        subject = "";
+        myArticle["subject"] = "";
+        myArticle["timeDirect"] = timeDirect;
+
+        // firstPage();
         newButton();
-        clickPage();
+        // clickPage();
 
     }
 
@@ -21,6 +32,7 @@ $(function () {
         $.ajax({
             url: "/user/newPageButtonForCollect",
             type: "GET",
+            data: myArticle,
             success: function(response){
                 console.log("按鈕換頁response=" + response);
                 let html = "";
@@ -48,6 +60,7 @@ $(function () {
         $.ajax({
             url: "/user/myFirstSearchOfPageEatTravelForCollect",
             type: "GET",
+            data: myArticle,
             success: function (response){  //response from 後端
                 console.log("第一頁文章response" + response);
                 console.log("建立空的html");
@@ -97,12 +110,6 @@ $(function () {
                                 <p class="text-bl04">${textEditor.substring(0,45)}...</p>
                                 <div class="post-meta">
                                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
-                                    <button
-                                         class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/edit/${articleTitle}'">編輯</button>
-                                            <button
-                                         class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/delete/${articleTitle}/${articleId}'">刪除</button>
                                 </div>
                             </div>
                         </div>

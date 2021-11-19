@@ -22,7 +22,7 @@ $(function () {
 
         timeDirect = "000";
         subject = "";
-        myArticle["subject"] = subject;
+        myArticle["subject"] = "美食";
         myArticle["timeDirect"] = timeDirect;
 
         firstPage();
