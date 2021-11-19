@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -294,40 +293,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     //從collect找出文章
     @Override
-    public List<Collect> findCollectByUser(int page, int size, User userId, String subject, int timeDirect) {
-
-        Pageable pageable = PageRequest.of(page,
-                size,
-                Sort.by("articlesCollectId_createDate").ascending().and(Sort.by("articlesCollectId_createTime")).ascending());
-
-        if (timeDirect == 100) {
-            pageable = PageRequest.of(page,
-                    size,
-                    Sort.by("articlesCollectId_createDate").descending().and(Sort.by("articlesCollectId_createTime")).descending());
-        }
-        Page<Collect> pageResult;
-
-        if (!StringUtils.isEmpty(subject)) {
-            pageResult = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(userId, subject, pageable);
-        } else {
-            pageResult = collectRepository.findByUserCollectId(userId, pageable);
-        }
-        System.out.println("pageResult" + pageResult);
-        List<Collect> messageList = pageResult.getContent();
-        return messageList;
-    }
-
-    //我的文章換頁按鈕生成
-    @Override
-    public List<Collect> findCollectByUserCollectForPage(User id, String subject) {
-        List<Collect> result = collectRepository.findByUserCollectId(id);
-        if (StringUtils.isEmpty(subject)) {
-            return result;
-        } else {
-            // 有填主題(subject)
-            result = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(id, subject);
-            return result;
-        }
+    public ArrayList<Collect> findCollectByUser(User userId) {
+        ArrayList<Collect> collects = collectRepository.findByUserCollectId(userId);
+//        ArrayList<Article> result;
+//        ChangleToArticle changleToArticle = new ChangleToArticle();
+//        result = changleToArticle.CollectChangleArticle(collects);
+        return collects;
     }
 
     @Override
@@ -341,17 +312,6 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public void deleteMyCollect(User userId, Article articleId) {
-        System.out.println("刪除收藏表格前面");
-        collectRepository.deleteArticlesCollectIdAndUserCollectId(articleId,userId);
-        Optional<Article> article = articleRepository.findById(articleId.getArticleId());
-        int collect = article.get().getCollect();
-        collect--;
-        article.get().setCollect(collect);
-        System.out.println("存回文章前面");
-        articleRepository.save(article.get());
-    }
 
 //    @Override
 //    public List<Article> getMyPagedArticlesForCollect(int page, User user) {

@@ -41,7 +41,6 @@ public class ArticleController {
         this.articleService = articleService;
         this.userService = userService;
     }
-
     //跳轉撰寫新文章頁
     @GetMapping("/write")
     public String writePage() {
@@ -149,9 +148,9 @@ public class ArticleController {
 
         List<Article> messagedList;
 
-        messagedList = articleService.getMyPagedArticles(0, 5, user.getId(), subject, timeDirect);
-        System.out.println("搜尋吧-順序timeDirect(myEat)=" + timeDirect);
-        System.out.println("搜尋吧-messageList(myEat)=" + messagedList);
+         messagedList = articleService.getMyPagedArticles(0, 5,user.getId(), subject, timeDirect);
+         System.out.println("搜尋吧-順序timeDirect(myEat)=" + timeDirect);
+         System.out.println("搜尋吧-messageList(myEat)=" + messagedList);
 
         return messagedList;
     }
@@ -188,7 +187,7 @@ public class ArticleController {
 
     //大方： 刪除文章 (My eat)
     @GetMapping("/delete/{articleTitle}/{articleId}")
-    private String deleteMyArticle(@PathVariable String articleTitle, @PathVariable String articleId) {
+    private String deleteMyArticle(@PathVariable String articleTitle,@PathVariable String articleId){
 
         System.out.println("刪除文章標題：" + articleTitle);
         articleService.deleteMyArticle(articleId);
@@ -221,10 +220,10 @@ public class ArticleController {
     @PostMapping("/updateArticle")
     public String upDateArticle(@RequestBody Article article, HttpSession session) {
         System.out.println(article.getArticleTitle());
+
         User user = (User) session.getAttribute("user");
         Double ma = (Double) session.getAttribute("ma");
         article.setUserId(userService.findUserById(user.getId()));
-
         if (ma != null) {
             String saveDir = "images/" + user.getId() + "/" + ma + "/articleImg.jpg";
             article.setSaveImgPath(saveDir);
@@ -234,50 +233,41 @@ public class ArticleController {
         return "編輯成功";
     }
 
-    //第一頁產生文章
+    //康test
     @ResponseBody
     @GetMapping("/myFirstSearchOfPageEatTravelForCollect")
-    public List<Collect> myFirstSearchOfPageForCollect(HttpSession session, @RequestParam String subject, @RequestParam int timeDirect) {
+    public ArrayList<Collect> myFirstSearchOfPageForCollect(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        List<Collect> messagedList;
-        messagedList = articleService.findCollectByUser(0, 5, user, subject, timeDirect);
+        ArrayList<Collect> messagedList;
+        messagedList = articleService.findCollectByUser(user);
         return messagedList;
     }
 
-    //我的會員收藏換頁數字
+    //康test
     @ResponseBody
     @GetMapping("/newPageButtonForCollect")
-    public Integer newChangePageButtonForCollect(HttpSession session, @RequestParam String subject) {
+    public Integer newChangePageButtonForCollect(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        List<Collect> list;
+        ArrayList<Collect> list;
 //        list = articleService.findByUserIdForPage(user);
-        list = articleService.findCollectByUserCollectForPage(user, subject);
+        list = articleService.findCollectByUser(user);
         double listSize = list.size();
         int pageMount = (int) Math.ceil(listSize / 5);
         return pageMount;
     }
+//TEST
+//    @ResponseBody
+//    @GetMapping("/myChangeSearchOfPageEatTravelForCollect")
+//    public List<Article> myChangeSearchOfPage(HttpSession session){
+//
+//        User user = (User) session.getAttribute("user");
+//        user = userService.findUserById(user.getId());
+//        List<Article> messageList;
+//        messageList = articleService.findCollectByUser(user);
+//        System.out.println("點擊換頁按鈕並換頁的my_messageList=" + messageList);
+//        return messageList;
+//    }
 
-    //我的會員收藏改換頁面
-    @ResponseBody
-    @GetMapping("/myChangeSearchOfPageEatTravelForCollect")
-    public List<Collect> myChangeSearchOfPage(HttpSession session, @RequestParam String subject, @RequestParam Integer page, @RequestParam Integer timeDirect) {
-
-        User user = (User) session.getAttribute("user");
-        user = userService.findUserById(user.getId());
-        List<Collect> messageList;
-        messageList = articleService.findCollectByUser(page, 5, user, subject, timeDirect);
-        System.out.println("點擊換頁按鈕並換頁的my_messageList=" + messageList);
-        return messageList;
-    }
-    //取消收藏
-    @GetMapping("/deleteCollect/{articleId}")
-    private String deleteMyCollect(@PathVariable Article articleId,HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        System.out.println("刪除文章標題：" + articleId);
-        articleService.deleteMyCollect(user,articleId);
-        System.out.println("執行刪除文章ok");
-        return "redirect:/user/collection";
-    }
 }
 
 

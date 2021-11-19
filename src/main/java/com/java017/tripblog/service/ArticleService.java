@@ -51,17 +51,12 @@ public interface ArticleService {
 
     String upDateArticle(Article inputArticle);
 
-    List<Collect> findCollectByUser(int page, int size, User userid, String subject, int timeDirect);
-
-    List<Collect> findCollectByUserCollectForPage(User userid, String subject);
+    ArrayList<Collect> findCollectByUser(User userId);
 
     //庭妤: 文章id搜尋，結果為list
     List<Article>findArticleIdArray(Integer id);
 
     Article findArticleById(Integer id);
-
-    //取消收藏
-    void deleteMyCollect(User userId,Article articleId);
 
 
 

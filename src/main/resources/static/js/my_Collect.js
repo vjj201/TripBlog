@@ -7,50 +7,13 @@ $(function () {
         xhr.setRequestHeader(header, token);
     });
     //不需判斷是否登入（我的空間已有filter攔截）
-
-    let subject = "";
-    let timeDirect;
-    let myArticle = {};
-
     loadPage();
-    function loadPage() {
 
-        timeDirect = "000";
-        subject = "";
-        myArticle["subject"] = subject;
-        myArticle["timeDirect"] = timeDirect;
+    function loadPage() {
 
         firstPage();
         newButton();
         clickPage();
-        $("#timeDirect").change(function (e1){
-            e1.preventDefault();
-            subject = $("#subject option:selected").val();
-            timeDirect = $("#timeDirect option:selected").val();
-            console.log("subject" + subject);
-            console.log("timeDirect" + timeDirect);
-            console.log("ajax前-輸入搜尋吧查詢並送出第一頁");
-            myArticle["subject"] = subject;
-            myArticle["timeDirect"] = timeDirect;
-
-            firstPage();
-            newButton();
-            // clickPage();
-        })
-        $("#subject").change(function (e1){
-            e1.preventDefault();
-            subject = $("#subject option:selected").val();
-            timeDirect = $("#timeDirect option:selected").val();
-            console.log("subject" + subject);
-            console.log("timeDirect" + timeDirect);
-            console.log("ajax前-輸入搜尋吧查詢並送出第一頁");
-            myArticle["subject"] = subject;
-            myArticle["timeDirect"] = timeDirect;
-
-            firstPage();
-            newButton();
-            clickPage();
-        })
 
     }
 
@@ -58,7 +21,6 @@ $(function () {
         $.ajax({
             url: "/user/newPageButtonForCollect",
             type: "GET",
-            data: myArticle,
             success: function(response){
                 console.log("按鈕換頁response=" + response);
                 let html = "";
@@ -86,7 +48,6 @@ $(function () {
         $.ajax({
             url: "/user/myFirstSearchOfPageEatTravelForCollect",
             type: "GET",
-            data: myArticle,
             success: function (response){  //response from 後端
                 console.log("第一頁文章response" + response);
                 console.log("建立空的html");
@@ -138,7 +99,10 @@ $(function () {
                                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
                                     <button
                                          class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/deleteCollect/${articleId}'">取消收藏</button>
+                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/edit/${articleTitle}'">編輯</button>
+                                            <button
+                                         class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+                                        type="submit" name="${articleTitle}" onclick="javascript:location.href='/user/delete/${articleTitle}/${articleId}'">刪除</button>
                                 </div>
                             </div>
                         </div>
@@ -153,8 +117,6 @@ $(function () {
             let page = pageValue - 1;
             let myArticle = {};
             myArticle["page"] = page;
-            myArticle["subject"] = subject;
-            myArticle["timeDirect"] = timeDirect;
 
             $.ajax({
                 url:"/user/myChangeSearchOfPageEatTravelForCollect",
