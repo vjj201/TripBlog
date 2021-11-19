@@ -277,7 +277,7 @@
 
         <!-- 裁切後的顯示頁面 cover photo -->
         <div class="container-fluid  overflow-hidden px-0" style="width:500px; height: 400px;">
-            <img th:src="${'/user/articlePhoto'}"
+            <img th:src="${session.user != null? '/images/noPhoto.png':'/user/articlePhoto'}"
                  id="mySpaceBannerImg" class="w-100 h-100" alt="封面">
         </div>
 
@@ -324,7 +324,7 @@
             <div class="col-4 mt-2">
                 <button type="button" id="canceldraft"
                         class="btn btn-light  border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm"
-                        onclick="canceltext()">捨棄草稿</button>
+                        onclick="canceltext()">清空內容</button>
             </div>
             <div class="col-8 text-end mt-2">
                 <button type="submit" id="pusharticle"
@@ -374,7 +374,7 @@
     //         reader.readAsDataURL(input.files[0]);
     //     }
     // }
-    //捨棄草稿
+    //清空內容
     function canceltext(){
         document.getElementById("formArticle").reset();
         const editorData = editor.setData( '' );

@@ -18,7 +18,7 @@ $(function() {
         else{
             $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q="+ $("#enteraddress").val());
         }
-});
+    });
 // -------上傳圖片----------
     (function($) {
         var width_crop = 500, // 圖片裁切寬度 px 值
@@ -158,12 +158,12 @@ $(function() {
         data: "json",
         success: function (response) {
             for (let tag of response) {
-         //       let id = tag.id;
-          //      let name = tag.name;
-           //      console.log(tag);
+                //       let id = tag.id;
+                //      let name = tag.name;
+                //      console.log(tag);
                 $("#articleTag").append(
                     $("<option></option>").text(tag)
-               );
+                );
             }
         },
     });
@@ -210,6 +210,7 @@ $(function() {
                 let articletitle = $('#articletitle').val();
                 let texteditor = editor.getData();
                 let freeTags =$("#articleTag").val();
+
                 //創建物件
                 let article = {};
                 article['subjectCategory'] = subjectcategory;
@@ -220,7 +221,7 @@ $(function() {
                 article['articleTitle'] = articletitle;
                 article['textEditor'] = texteditor;
                 article['free_Tags'] = freeTags;
-
+                article['show'] = true;
 
                 $.ajax({
                     url: '/user/newArticle',
@@ -229,8 +230,8 @@ $(function() {
                     contentType: 'application/json;charset=utf-8',
                     data: JSON.stringify(article),
                     success: function () {
-                            window.location.href='eat';
-                            console.log("跳轉EAT");
+                        window.location.href='eat';
+                        console.log("跳轉EAT");
                     }
                 });
             })
@@ -277,27 +278,35 @@ $(function() {
                 let articletitle = $('#articletitle').val();
                 let texteditor = editor.getData();
                 let freeTags =$("#articleTag").val();
+                let saveArticle = $('#savearticle').html();
+                console.log("saveArticle" + saveArticle)
                 //創建物件
-                let article = {};
-                article['subjectCategory'] = subjectcategory;
-                article['selectRegion'] = selectregion;
-                article['enterAddressName'] = enterAddressName;
-                article['enterAddressLng'] = enterAddressLng;
-                article['enterAddressLat'] = enterAddressLat;
-                article['articleTitle'] = articletitle;
-                article['textEditor'] = texteditor;
-                article['free_Tags'] = freeTags;
+                let articleForSave = {};
+                articleForSave['subjectCategory'] = subjectcategory;
+                articleForSave['selectRegion'] = selectregion;
+                articleForSave['enterAddressName'] = enterAddressName;
+                articleForSave['enterAddressLng'] = enterAddressLng;
+                articleForSave['enterAddressLat'] = enterAddressLat;
+                articleForSave['articleTitle'] = articletitle;
+                articleForSave['textEditor'] = texteditor;
+                articleForSave['free_Tags'] = freeTags;
+                articleForSave['show'] = false;
                 $.ajax({
                     url: '/user/newArticle',
                     type: 'POST',
                     async: false,
                     contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify(article),
-                    success: alert("已經為您儲存草稿")
+                    data: JSON.stringify(articleForSave),
+                    success:
+                        function () {
+                            alert("已經為您儲存草稿")
+                            window.location.href='eat';
+                            console.log("跳轉EAT");
+                        }
                 });
             })
-        }
-	
-    });
+    }
+
+});
 
 

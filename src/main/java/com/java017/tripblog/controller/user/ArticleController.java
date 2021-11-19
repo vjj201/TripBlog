@@ -115,6 +115,7 @@ public class ArticleController {
         article.setEnterAddressLat(articleParam.getEnterAddressLat());
         article.setSelectRegion(articleParam.getSelectRegion());
         article.setTextEditor(articleParam.getTextEditor());
+        article.setShow(articleParam.isShow());
         article.setSubjectCategory(articleParam.getSubjectCategory());
         article.setUserId(userService.findUserById(user.getId()));
         Double ma = (Double) session.getAttribute("ma");
@@ -230,40 +231,42 @@ public class ArticleController {
         articleService.upDateArticle(article);
         return "編輯成功";
     }
-//----------------------------------------------------------------------------------
-//    //康test 第一頁文章產生 and 換頁文章產生
-//    @ResponseBody
-//    @GetMapping("/myFirstSearchOfPageEatTravelForCollect")
-//    public ArrayList<Collect> myFirstSearchOfPageForCollect(HttpSession session,@RequestParam String subject,@RequestParam int timeDirect) {
-//        User user = (User) session.getAttribute("user");
-//        ArrayList<Collect> messagedList;
-//        messagedList = articleService.findCollectByUser(user,subject,timeDirect);
-//        return messagedList;
-//    }
-//    //康test 頁面頁數產生
+
+//第一頁產生文章
+    @ResponseBody
+    @GetMapping("/myFirstSearchOfPageEatTravelForCollect")
+    public List<Collect> myFirstSearchOfPageForCollect(HttpSession session,@RequestParam String subject,@RequestParam int timeDirect) {
+        User user = (User) session.getAttribute("user");
+        List<Collect> messagedList;
+        messagedList = articleService.findCollectByUser(0,5,user,subject,timeDirect);
+        return messagedList;
+    }
+
+ //我的會員收藏換頁數字
     @ResponseBody
     @GetMapping("/newPageButtonForCollect")
-    public Integer newChangePageButtonForCollect(HttpSession session,@RequestParam String subject,@RequestParam int timeDirect) {
+    public Integer newChangePageButtonForCollect(HttpSession session,@RequestParam String subject) {
         User user = (User) session.getAttribute("user");
-        ArrayList<Collect> list;
+        List<Collect> list;
 //        list = articleService.findByUserIdForPage(user);
-        list = articleService.findCollectByUser(user,subject,timeDirect);
+        list = articleService.findCollectByUserCollectForPage(user,subject);
         double listSize = list.size();
         int pageMount = (int) Math.ceil(listSize / 5);
         return pageMount;
     }
-//TEST 換頁文章產生
-//    @ResponseBody
-//    @GetMapping("/myChangeSearchOfPageEatTravelForCollect")
-//    public List<Collect> myChangeSearchOfPage(HttpSession session,int page){
-//
-//        User user = (User) session.getAttribute("user");
-//        user = userService.findUserById(user.getId());
-//        List<Collect> messageList;
-//        messageList = articleService.getMyPagedArticlesForCollect(page,5,user);
-//        System.out.println("點擊換頁按鈕並換頁的my_messageList=" + messageList);
-//        return messageList;
-//    }
+//我的會員收藏改換頁面
+    @ResponseBody
+    @GetMapping("/myChangeSearchOfPageEatTravelForCollect")
+    public List<Collect> myChangeSearchOfPage(HttpSession session,@RequestParam String subject, @RequestParam Integer page, @RequestParam Integer timeDirect){
+
+        User user = (User) session.getAttribute("user");
+        user = userService.findUserById(user.getId());
+        List<Collect> messageList;
+        messageList = articleService.findCollectByUser(page,5,user,subject,timeDirect);
+        System.out.println("點擊換頁按鈕並換頁的my_messageList=" + messageList);
+        return messageList;
+    }
+
 
 }
 

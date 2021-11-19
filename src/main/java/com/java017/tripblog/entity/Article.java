@@ -40,7 +40,7 @@ public class Article{
 
     String saveImgPath = "images/noPhoto.png";
 
-    Boolean isShow = true ;
+    Boolean isShow = true;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "userId", referencedColumnName = "id")

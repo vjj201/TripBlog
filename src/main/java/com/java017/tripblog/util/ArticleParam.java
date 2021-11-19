@@ -13,6 +13,7 @@ public class ArticleParam {
     String articleTitle;
     String textEditor;
     String[] free_Tags;
+    boolean show;
 
     public Integer getId() {
         return id;
@@ -80,6 +81,14 @@ public class ArticleParam {
 
     public String[] getFree_Tags() {
         return free_Tags;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
     }
 
     public void setFree_Tags(String[] free_Tags) {

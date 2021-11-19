@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -291,6 +292,44 @@ public class ArticleServiceImpl implements ArticleService {
         return "ok";
     }
 
+    //從collect找出文章
+    @Override
+    public List<Collect> findCollectByUser(int page, int size,User userId,String subject, int timeDirect) {
+
+        Pageable pageable = PageRequest.of(page,
+                size,
+                Sort.by("articlesCollectId_createDate").ascending().and(Sort.by("articlesCollectId_createTime")).ascending());
+
+        if(timeDirect == 100){
+            pageable = PageRequest.of(page,
+                    size,
+                    Sort.by("articlesCollectId_createDate").descending().and(Sort.by("articlesCollectId_createTime")).descending());
+        }
+        Page<Collect> pageResult;
+
+        if(!StringUtils.isEmpty(subject)) {
+            pageResult = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(userId, subject, pageable);
+        }else{
+            pageResult = collectRepository.findByUserCollectId(userId,pageable);
+        }
+        System.out.println("pageResult" + pageResult);
+        List<Collect> messageList = pageResult.getContent();
+        return messageList;
+    }
+
+    //我的文章換頁按鈕生成
+    @Override
+    public List<Collect> findCollectByUserCollectForPage(User id, String subject) {
+        List<Collect> result = collectRepository.findByUserCollectId(id);
+        if (StringUtils.isEmpty(subject)) {
+            return result;
+        } else {
+            // 有填主題(subject)
+            result = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(id, subject);
+            return result;
+        }
+    }
+
     @Override
     public List<Article> findArticleIdArray(Integer id) {
         List<Article> result = articleRepository.findArticleIdArray(id);
@@ -300,26 +339,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article findArticleById(Integer id) {
         return articleRepository.findById(id).orElse(null);
-    }
-
-
-//    //康 收藏 點及換頁
-//    @Override
-//    public List<Collect> getMyPagedArticlesForCollect(int page, int size, User user) {
-//        Page<Collect> pageResult;
-//        Pageable pageable = PageRequest.of(page,size);
-//        pageResult = collectRepository.findByUserCollectId(user, pageable);
-//        List<Collect> messageList = pageResult.getContent();
-//        System.out.println("分頁的messageList" + messageList);
-//        return messageList;
-//    }
-//
-    //從collect找出文章
-    @Override
-    public ArrayList<Collect> findCollectByUser(User userId, String subject, int timeDirect) {
-        ArrayList<Collect> collects = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(userId,subject);
-        System.out.println("collects" + collects);
-        return collects;
     }
 
 
