@@ -1,6 +1,7 @@
 package com.java017.tripblog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -35,6 +36,7 @@ public class ProductOrder {
     //訂單狀態(待出貨未查看-1、運送中0、已收件1)
     private Integer orderStatus;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderTime;
 
