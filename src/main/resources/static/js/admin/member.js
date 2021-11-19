@@ -24,37 +24,37 @@ $(document).ready(function () {
 
                     let trHTML = '';
 
-                        trHTML +=
-                            '<tr class="my-3 h-100">' +
-                            '<th scope="row">暱稱</th>' +
-                            '<td class="pt-2">' +
-                            response.nickname +
-                            '</td></tr>' +
-                            '<tr class="my-3 h-100">' +
-                            '<th scope="row">性別</th>' +
-                            '<td class="pt-2">' +
-                            response.gender +
-                            '</td></tr>' +
-                            '<tr class="my-3 h-100">' +
-                            '<th scope="row">生日</th>' +
-                            '<td class="pt-2">' +
-                            response.birthday +
-                            '</td></tr>' +
-                            '<tr class="my-3 h-100">' +
-                            '<th scope="row">信箱</th>' +
-                            '<td class="pt-2">' +
-                            response.email +
-                            '</td></tr>' +
-                            '<tr class="my-3 h-100">' +
-                            '<th scope="row">手機</th>' +
-                            '<td class="pt-2">' +
-                            response.phone +
-                            '</td></tr>' +
-                            '<tr class="my-3 h-100">' +
-                            '<th scope="row">註冊時間</th>' +
-                            '<td class="pt-2">' +
-                            response.signDate +
-                            '</td></tr>';
+                    trHTML +=
+                        '<tr class="my-3 h-100">' +
+                        '<th scope="row">暱稱</th>' +
+                        '<td class="pt-2">' +
+                        response.nickname +
+                        '</td></tr>' +
+                        '<tr class="my-3 h-100">' +
+                        '<th scope="row">性別</th>' +
+                        '<td class="pt-2">' +
+                        response.gender +
+                        '</td></tr>' +
+                        '<tr class="my-3 h-100">' +
+                        '<th scope="row">生日</th>' +
+                        '<td class="pt-2">' +
+                        response.birthday +
+                        '</td></tr>' +
+                        '<tr class="my-3 h-100">' +
+                        '<th scope="row">信箱</th>' +
+                        '<td class="pt-2">' +
+                        response.email +
+                        '</td></tr>' +
+                        '<tr class="my-3 h-100">' +
+                        '<th scope="row">手機</th>' +
+                        '<td class="pt-2">' +
+                        response.phone +
+                        '</td></tr>' +
+                        '<tr class="my-3 h-100">' +
+                        '<th scope="row">註冊時間</th>' +
+                        '<td class="pt-2">' +
+                        response.signDate +
+                        '</td></tr>';
 
                     $('#tbody2').html(trHTML);
                 },
@@ -79,7 +79,7 @@ $(document).ready(function () {
             url: "/admin/member/" + id + "/order",
             statusCode: {
                 200: function (response) {
-                console.log(response);
+                    console.log(response);
                     let trHTML = '';
                     $.each(response, function (i, userOrder) {
 
@@ -114,45 +114,78 @@ $(document).ready(function () {
 
     //會員訂單詳細列表按鈕
     $(document).on('click', 'button[name="getProductOrder"]', function () {
-            let uuid = $(this).text();
-            let orderStatus;
-            $('#orderId').text(uuid);
-            $.ajax({
-                type: 'GET',
-                url: "/admin/order/detail/" + uuid,
-                statusCode: {
-                    200: function (order) {
-                        if (order.orderStatus === -1) {
-                            $('#orderStatus').text("待出貨");
-                        }
-                        if (order.orderStatus === 0) {
-                            $('#orderStatus').text("運送中");
-                        }
-                        if (order.orderStatus === 1) {
-                            $('#orderStatus').text("已收件");
-                        }
-                        $('#payment').val(order.payment);
-                        $('#owner').val(order.cardOwner);
-                        $('#cardNumber').val(order.cardNumber);
-                        $('#deliver').val(order.deliver);
-                        $('#sendFor').val(order.receiver);
-                        $('#address').val(order.address);
-
-                        $('#freight').text(order.freight);
-                        $('#totalAmount').text(order.amounts);
-
-                        loadItem(uuid);
-                    },
-                    404: function () {
-                        let trHTML = '<tr class="my-3 h-100">' +
-                            '<td class="pt-2"></td>' +
-                            '<td class="pt-2">查無資訊</td>' +
-                            '<td class="pt-2"></td>' +
-                            '</tr>';
-                        $('#Modal4').html(trHTML);
+        let uuid = $(this).text();
+        let orderStatus;
+        $('#orderId').text(uuid);
+        $.ajax({
+            type: 'GET',
+            url: "/admin/order/detail/" + uuid,
+            statusCode: {
+                200: function (order) {
+                    if (order.orderStatus === -1) {
+                        $('#orderStatus').text("待出貨");
                     }
+                    if (order.orderStatus === 0) {
+                        $('#orderStatus').text("運送中");
+                    }
+                    if (order.orderStatus === 1) {
+                        $('#orderStatus').text("已收件");
+                    }
+                    $('#payment').val(order.payment);
+                    $('#owner').val(order.cardOwner);
+                    $('#cardNumber').val(order.cardNumber);
+                    $('#deliver').val(order.deliver);
+                    $('#sendFor').val(order.receiver);
+                    $('#address').val(order.address);
+
+                    $('#freight').text(order.freight);
+                    $('#totalAmount').text(order.amounts);
+
+                    loadItem(uuid);
+                },
+                404: function () {
+                    let trHTML = '<tr class="my-3 h-100">' +
+                        '<td class="pt-2"></td>' +
+                        '<td class="pt-2">查無資訊</td>' +
+                        '<td class="pt-2"></td>' +
+                        '</tr>';
+                    $('#Modal4').html(trHTML);
                 }
-            });
+            }
+        });
+    });
+
+    //封鎖按鈕
+    $(document).on('click', 'button[name="delete"]', function () {
+        let id = $(this).parent().parent().children().eq(0).text();
+        let lock;
+       if($(this).val() === "true") {
+           lock = false;
+       }else {
+           lock = true;
+        }
+
+        let data = {};
+        data['locked'] = lock;
+
+        $.ajax({
+            type: 'PUT',
+            url: "/admin/member/" + id + "/locked",
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(data),
+            statusCode: {
+                200: function () {
+                    alert('修改成功');
+                    loadData();
+                },
+                404: function () {
+                    alert('找不到用戶');
+                },
+                500: function () {
+                    alert('修改錯誤');
+                }
+            }
+        });
     });
 });
 
@@ -167,6 +200,19 @@ function loadData() {
                 let trHTML = '';
                 $.each(response, function (i, user) {
 
+                    let locked = user.locked;
+                    if (locked === undefined) {
+                        locked = false;
+                    }
+                    let lockOrUnlock;
+                    let btnColor;
+                    if (locked) {
+                        btnColor = "btn-warning";
+                        lockOrUnlock = "解除鎖定";
+                    } else {
+                        btnColor = "btn-danger";
+                        lockOrUnlock = "封鎖用戶";
+                    }
                     trHTML +=
                         '<tr class="my-3 h-100">' +
                         '<td class="pt-2">' +
@@ -185,7 +231,7 @@ function loadData() {
                         'data-bs-target="#Modal3">訂單查詢</button>' +
                         '</td>' +
                         '<td>' +
-                        '<button name="delete" type="button" class="btn btn-danger me-2">封鎖用戶</button>' +
+                        '<button name="delete" type="button" class="btn ' + btnColor + '  me-2" value="' + locked + '">' + lockOrUnlock + '</button>' +
                         '</td></tr>';
                 });
                 $('#tbody').html(trHTML);
