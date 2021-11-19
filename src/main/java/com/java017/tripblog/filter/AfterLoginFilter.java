@@ -45,7 +45,6 @@ public class AfterLoginFilter extends OncePerRequestFilter {
                     userSession.setHasMemberPic(userDetails.hasMemberPic());
                     session.setAttribute("user", userSession);
 
-
                 }
 
             }

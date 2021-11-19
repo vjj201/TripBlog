@@ -44,6 +44,10 @@ public class MyUserDetails implements UserDetails {
         return user.getEmail();
     }
 
+    public boolean isLocked() {
+        return user.isLocked();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();

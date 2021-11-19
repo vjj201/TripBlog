@@ -45,6 +45,10 @@ public class VerifiedInterceptor implements HandlerInterceptor {
                     response.sendRedirect("/user/signup-success");
                 }
             }
+
+            if(myUserDetails.isLocked()) {
+                response.sendRedirect("/banned");
+            }
         }
         return true;
     }
