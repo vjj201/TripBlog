@@ -2,6 +2,7 @@ package com.java017.tripblog.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -69,7 +70,8 @@ public class User{
     private boolean hasMemberPic;
 
     //自我介紹外來鍵
-    @OneToOne(cascade = {CascadeType.ALL})
+    @JsonIgnore
+    @OneToOne(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
