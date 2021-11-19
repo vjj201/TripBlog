@@ -223,6 +223,7 @@ public class ArticleController {
         User user = (User) session.getAttribute("user");
         Double ma = (Double) session.getAttribute("ma");
         article.setUserId(userService.findUserById(user.getId()));
+
         if (ma != null) {
             String saveDir = "images/" + user.getId() + "/" + ma + "/articleImg.jpg";
             article.setSaveImgPath(saveDir);
