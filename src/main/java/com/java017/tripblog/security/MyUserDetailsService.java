@@ -32,7 +32,7 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("查無帳號:" + username);
         } else {
             System.out.println("返回用戶資訊");
-                return new MyUserDetails(user);
+            return new MyUserDetails(user);
         }
     }
 

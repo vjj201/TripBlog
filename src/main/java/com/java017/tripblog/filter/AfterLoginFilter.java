@@ -35,18 +35,16 @@ public class AfterLoginFilter extends OncePerRequestFilter {
                 if (session.getAttribute("user") == null) {
                     System.out.println("首次進入，創建登入會話");
 
-                    if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-                        org.springframework.security.core.userdetails.User admin = (org.springframework.security.core.userdetails.User)authentication.getPrincipal();
-                    } else {
-                        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-                        User userSession = new User();
-                        userSession.setId(userDetails.getId());
-                        userSession.setUsername(userDetails.getUsername());
-                        userSession.setNickname(userDetails.getNickName());
-                        userSession.setEmail(userDetails.getEmail());
-                        userSession.setHasMemberPic(userDetails.hasMemberPic());
-                        session.setAttribute("user", userSession);
-                    }
+//                    if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {}
+                    MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+                    User userSession = new User();
+                    userSession.setId(userDetails.getId());
+                    userSession.setUsername(userDetails.getUsername());
+                    userSession.setNickname(userDetails.getNickName());
+                    userSession.setEmail(userDetails.getEmail());
+                    userSession.setHasMemberPic(userDetails.hasMemberPic());
+                    session.setAttribute("user", userSession);
+
 
                 }
 

@@ -5,7 +5,6 @@ import com.java017.tripblog.filter.BeforeLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,7 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import sun.security.util.Password;
 
 import javax.sql.DataSource;
 import java.util.Collections;
@@ -37,8 +35,19 @@ import java.util.Collections;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    private final DataSource dataSource;
+    private final UserDetailsService myUserDetailsService;
+    private final AuthenticationSuccessHandler mySuccessHandler;
+    private final AuthenticationFailureHandler myFailureHandler;
+
     @Autowired
-    private DataSource dataSource;
+    public WebSecurityConfig(DataSource dataSource, UserDetailsService myUserDetailsService, AuthenticationSuccessHandler mySuccessHandler, AuthenticationFailureHandler myFailureHandler) {
+        this.dataSource = dataSource;
+        this.myUserDetailsService = myUserDetailsService;
+        this.mySuccessHandler = mySuccessHandler;
+        this.myFailureHandler = myFailureHandler;
+    }
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
@@ -49,13 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return jdbcTokenRepository;
     }
 
-    @Autowired
-    private UserDetailsService myUserDetailsService;
-    @Autowired
-    private AuthenticationSuccessHandler mySuccessHandler;
-    @Autowired
-    private AuthenticationFailureHandler myFailureHandler;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -63,15 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        DaoAuthenticationProvider daoAuth = new DaoAuthenticationProvider();
-        daoAuth.setUserDetailsService(myUserDetailsService);
-        daoAuth.setPasswordEncoder(passwordEncoder());
-        auth.authenticationProvider(daoAuth);
-//        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
-
-        auth.inMemoryAuthentication().withUser("root017").
-                password(new BCryptPasswordEncoder().encode("root017")).
-                roles("ADMIN");
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
 
@@ -92,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/*", "/shop/**", "/MapSearch/*", "/user/signup", "/user/accountCheck/**", "/user/signup-success", "/captcha/**", "/**/*.js", "/**/*.css", "/**/*.svg", "/**/*.png", "/**/*.jpg")
                 .permitAll()
-                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/user/**", "/shop/orderList").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
