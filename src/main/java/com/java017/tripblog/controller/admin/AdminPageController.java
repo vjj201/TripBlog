@@ -18,7 +18,6 @@ public class AdminPageController {
         return "/admin/admin_index";
     }
 
-    //跳轉產品管理頁
     @GetMapping("/productPage")
     public String showProductsManagePage() {return "/admin/admin_product"; }
 
@@ -42,4 +41,8 @@ public class AdminPageController {
         return "/admin/admin_member";
     }
 
+    @GetMapping("/messagePage")
+    public String messagePage() {
+        return "/admin/admin_message";
+    }
 }
