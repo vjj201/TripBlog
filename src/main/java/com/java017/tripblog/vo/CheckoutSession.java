@@ -16,6 +16,7 @@ public class CheckoutSession {
     private String payment;
     private String cardOwner;
     private String cardNumber;
+    private String discountTitle;
 
     public Integer getFreight() {
         return freight;
@@ -99,6 +100,14 @@ public class CheckoutSession {
         String prefix = cardNumber.substring(0, length - 4);
         prefix = prefix.replaceAll("[0-9]", "*");
         this.cardNumber = prefix + suffix;
+    }
+
+    public String getDiscountTitle() {
+        return discountTitle;
+    }
+
+    public void setDiscountTitle(String discountTitle) {
+        this.discountTitle = discountTitle;
     }
 
     @Override

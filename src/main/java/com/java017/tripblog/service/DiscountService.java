@@ -21,6 +21,8 @@ public interface DiscountService {
     //id查詢
     Discount findDiscountById(Long id);
 
+    Discount findDiscountByTitle(String title);
+
     //查詢全部
     List<Discount> findAllDiscount();
 
