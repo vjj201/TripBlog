@@ -37,6 +37,19 @@ function doFirst() {
         });
     });
 
+    $('#back').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/shop/removeDiscount',
+            type: 'Get',
+            statusCode: {
+                200: function () {
+                   window.location.href = "/shop/payment";
+                }
+            }
+        });
+    });
+
     let itemString = storage.getItem('addItemList');
     items = itemString.substr(0, itemString.length - 2).split(', ');
     console.log(items);

@@ -48,12 +48,11 @@ $(document).ready(function () {
         //抓取彈跳式表單中輸入的值
         let addDiscountTitle = $('#addDiscountTitle').val();
         let addDiscountDetail = $('#addDiscountDetail').val();
-        let addDiscountRequirement = $('#addDiscountRequirement').val();
         let addDiscountNumber = $('#addDiscountNumber').val();
         let addDiscountExpiredTime = $('#addDiscountExpiredTime').val();
 
         //非空判斷
-        if (!addDiscountTitle || !addDiscountDetail || !addDiscountRequirement ||
+        if (!addDiscountTitle || !addDiscountDetail ||
             !addDiscountNumber || !addDiscountExpiredTime ) {
             if (!addDiscountTitle) {
                 $('#addNewDiscountCheck').addClass('disabled');
@@ -69,13 +68,7 @@ $(document).ready(function () {
                 $('#addNewDiscountCheck').removeClass('disabled');
                 $('#messageDiscountDetail').empty();
             }
-            if (!addDiscountRequirement) {
-                $('#addNewDiscountCheck').addClass('disabled');
-                $('#messageDiscountRequirement').text('請輸入優惠低消');
-            } else {
-                $('#addNewDiscountCheck').removeClass('disabled');
-                $('#messageDiscountRequirement').empty();
-            }
+
             if (!addDiscountNumber) {
                 $('#addNewDiscountCheck').addClass('disabled');
                 $('#messageDiscountNumber').text('請輸入優惠折數');
@@ -96,7 +89,6 @@ $(document).ready(function () {
             let discount = {};
             discount['title'] = addDiscountTitle;
             discount['detail'] = addDiscountDetail;
-            discount['requirement'] = addDiscountRequirement;
             discount['discountNumber'] = addDiscountNumber;
             discount['expiredTime'] = addDiscountExpiredTime;
             console.log(discount);
@@ -154,8 +146,6 @@ function loadDiscountList() {
                     'data-bs-toggle="modal" data-bs-target="#Modal">' +
                     discount.title +
                     '</button></td><td class="pt-2">' +
-                    discount.requirement +
-                    'TWD</td><td class="pt-2">' +
                     discount.discountNumber +
                     '%</td><td class="pt-2">' +
                     discount.createDate +

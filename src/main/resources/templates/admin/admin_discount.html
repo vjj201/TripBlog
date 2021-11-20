@@ -159,7 +159,6 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">優惠代碼</th>
-                                    <th scope="col">低消</th>
                                     <th scope="col">折數</th>
                                     <th scope="col">創建日期</th>
                                     <th scope="col">使用期限</th>
@@ -174,7 +173,6 @@
                                             data-bs-toggle="modal" data-bs-target="#Modal2">B11M8DD
                                         </button>
                                     </td>
-                                    <td class="pt-2">100TWD</td>
                                     <td class="pt-2">80%</td>
                                     <td class="pt-2">2021-11-18 21:43:52</td>
                                     <td class="pt-2">2021-11-18 21:43:52</td>
@@ -206,13 +204,7 @@
                                 <textarea class="form-control" id="addDiscountDetail"rows="2"></textarea>
                                 <p id="messageDiscountDetail" style="color: red"></p>
                             </div>
-                            <div class="mb-3">
-                                <label for="addDiscountRequirement" class="form-label">低消(TWD)</label>
-                                <input type="number" class="form-control" id="addDiscountRequirement"
-                                       oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}
-                                                   else{this.value=this.value.replace(/\D/g,'')}">
-                                <p id="messageDiscountRequirement" style="color: red"></p>
-                            </div>
+
                             <div class="mb-3">
                                 <label for="addDiscountNumber" class="form-label">優惠折數(%)</label>
                                 <input type="number" class="form-control" id="addDiscountNumber"

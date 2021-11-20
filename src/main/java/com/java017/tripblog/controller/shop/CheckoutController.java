@@ -143,6 +143,14 @@ public class CheckoutController {
         return new ResponseEntity<>(discountByTitle.getDiscountNumber(),HttpStatus.OK);
     }
 
+    @GetMapping("/removeDiscount")
+    public ResponseEntity<HttpStatus> removeDiscount(@SessionAttribute(name = "checkout", required = false) CheckoutSession checkout,
+                                                     Model model) {
+        checkout.setDiscountTitle(null);
+        model.addAttribute("checkout", checkout);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     //訂單完成
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @ResponseBody

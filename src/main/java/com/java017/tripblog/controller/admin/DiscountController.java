@@ -1,20 +1,12 @@
 package com.java017.tripblog.controller.admin;
 
-import com.java017.tripblog.entity.Brand;
 import com.java017.tripblog.entity.Discount;
-import com.java017.tripblog.entity.Product;
-import com.java017.tripblog.entity.ProductTag;
 import com.java017.tripblog.service.DiscountService;
-import com.java017.tripblog.util.FileUploadUtils;
-import com.java017.tripblog.vo.ProductQuery;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -45,7 +37,6 @@ public class DiscountController {
         System.out.println("傳進來的資訊: "  + discount);
         newDiscount.setTitle(discount.getTitle());
         newDiscount.setDetail(discount.getDetail());
-        newDiscount.setRequirement(discount.getRequirement());
         newDiscount.setDiscountNumber(discount.getDiscountNumber());
         newDiscount.setCreateDate(new Date());
         newDiscount.setExpiredTime(discount.getExpiredTime());
@@ -78,8 +69,8 @@ public class DiscountController {
 
     //刪除
     @DeleteMapping("/discount/{id}")
-    public ResponseEntity deleteDiscount(@PathVariable Long id){
+    public ResponseEntity<HttpStatus> deleteDiscount(@PathVariable Long id){
         discountService.deleteDiscountById(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

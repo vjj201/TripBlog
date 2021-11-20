@@ -23,8 +23,7 @@ public class Discount {
     private String title;
     //詳情說明
     private String detail;
-    //低消
-    private int requirement;
+
     //折數
     private int discountNumber;
 
@@ -61,14 +60,6 @@ public class Discount {
         this.detail = detail;
     }
 
-    public int getRequirement() {
-        return requirement;
-    }
-
-    public void setRequirement(int requirement) {
-        this.requirement = requirement;
-    }
-
     public int getDiscountNumber() {
         return discountNumber;
     }
@@ -99,7 +90,6 @@ public class Discount {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", detail='" + detail + '\'' +
-                ", requirement=" + requirement +
                 ", discountNumber=" + discountNumber +
                 ", createDate=" + createDate +
                 ", expiredTime=" + expiredTime +
