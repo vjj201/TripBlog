@@ -39,6 +39,25 @@ $(document).ready(function () {
         websocket.close();
     }
 
+    $('#getOnline').click(function () {
+        $.ajax({
+            url: '/admin/onlineUserSet/',
+            type: 'GET',
+            statusCode: {
+                200: function (response) {
+                    let userSet = '商城在線會員\n';
+                    $.each(response, function (i, username) {
+                        userSet += '帳號:' + username + '\n';
+                    });
+                    alert(userSet);
+                },
+                204: function () {
+                    alert('查無上線會員');
+                }
+            }
+        });
+    });
+
 });
 
 

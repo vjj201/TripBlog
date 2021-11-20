@@ -10,6 +10,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -52,6 +53,10 @@ public class UserSocket {
             return;
         }
         subOnlineCount();
+    }
+
+    public static Set<String> getAllOnlineUsername() {
+        return webSocket.keySet();
     }
 
     public static int getOnlineCount() {

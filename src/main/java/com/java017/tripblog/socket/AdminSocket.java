@@ -54,7 +54,7 @@ public class AdminSocket {
         log.info("【websocket】收到客戶端:" + user.getUsername() + "發來的訊息:{}", message);
     }
 
-    //訂單廣播
+    //通知廣播
     public static void sendInfo(String message) {
         for (String username : webSocket.keySet()) {
             try {
@@ -66,6 +66,7 @@ public class AdminSocket {
             }
         }
     }
+
 
     public static int getOnlineCount() {
         return onlineCount;
