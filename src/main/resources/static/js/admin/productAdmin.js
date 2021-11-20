@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 let page = 1;
 $(document).ready(function () {
     //csrf防護
