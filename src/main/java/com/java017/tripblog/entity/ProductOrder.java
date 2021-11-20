@@ -36,7 +36,7 @@ public class ProductOrder {
     //訂單狀態(待出貨未查看-1、運送中0、已收件1)
     private Integer orderStatus;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderTime;
 
