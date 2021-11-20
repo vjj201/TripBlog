@@ -7,6 +7,7 @@ import com.java017.tripblog.repository.UserRepository;
 import com.java017.tripblog.service.NotifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2021/11/20 - 下午 03:50
  */
 
+@Transactional
 @Service
 public class NotifyServiceImpl implements NotifyService {
 
@@ -31,11 +33,16 @@ public class NotifyServiceImpl implements NotifyService {
     @Override
     public boolean createNotify(Notify notify) {
         User user = userRepository.findByUsername(notify.getUsername());
-        if(ObjectUtils.isEmpty(user)) {
+        if (ObjectUtils.isEmpty(user)) {
             return false;
         }
         notifyRepository.save(notify);
         return true;
+    }
+
+    @Override
+    public Notify findById(Long id) {
+        return notifyRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -45,6 +52,17 @@ public class NotifyServiceImpl implements NotifyService {
 
     @Override
     public void deleteById(Long id) {
-     notifyRepository.deleteById(id);
+        notifyRepository.deleteById(id);
+    }
+
+    @Override
+    public Long count(String username, boolean alreadyRead) {
+        return notifyRepository.countAllByUsernameAndAlreadyRead(username, alreadyRead);
+    }
+
+    @Override
+    public boolean updateNotify(Notify notify) {
+        notifyRepository.save(notify);
+        return false;
     }
 }

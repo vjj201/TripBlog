@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface NotifyRepository extends JpaRepository<Notify, Long> {
     List<Notify> findAllByUsername(String username);
+
+    Long countAllByUsernameAndAlreadyRead(String username, boolean alreadyRead);
 }

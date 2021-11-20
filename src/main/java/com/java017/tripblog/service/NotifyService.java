@@ -12,7 +12,13 @@ public interface NotifyService {
 
     boolean createNotify(Notify notify);
 
+    Notify findById(Long id);
+
     List<Notify> findAllByUsername(String username);
 
     void deleteById(Long id);
+
+    Long count(String username, boolean alreadyRead);
+
+    boolean updateNotify(Notify notify);
 }

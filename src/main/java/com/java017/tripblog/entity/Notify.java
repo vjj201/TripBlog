@@ -30,6 +30,8 @@ public class Notify {
 
     private String username;
 
+    private boolean alreadyRead;
+
     public Long getId() {
         return id;
     }
@@ -70,13 +72,23 @@ public class Notify {
         this.username = username;
     }
 
+    public boolean isAlreadyRead() {
+        return alreadyRead;
+    }
+
+    public void setAlreadyRead(boolean alreadyRead) {
+        this.alreadyRead = alreadyRead;
+    }
+
     @Override
     public String toString() {
-        return "notify{" +
+        return "Notify{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", sendTime=" + sendTime +
+                ", username='" + username + '\'' +
+                ", alreadyRead=" + alreadyRead +
                 '}';
     }
 }
