@@ -52,6 +52,14 @@
       height: 65%;
     } */
 
+    #map{
+      height:75vh;
+    }
+
+    .article-part{
+      height: 48vh;
+    }
+
     @media screen and (max-width: 768px) {
 
       .mapbox{
@@ -59,39 +67,63 @@
         padding-right: 1px;
         }
 
-      .googlemap{
+      #map{
         height: 40vh;
         width: 100%;
         padding-right: 0px;
         }
 
+      .googlemap{
+        margin-right: 0px;
+      }
+
+      .searchbox{
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .filterbox{
+        display: flex;
+        justify-content: space-around;
+        transform: translateX(-13%);
+      }
+
+      .btbox{
+        transform: translateX(-5%);
+        /* padding-left: 4%;
+        padding-right: 0px; */
+      }
+
+      #btsearch{
+        transform: translateX(3%);
+      }
+
       .filterad{
-        margin-left:6vw;
-        margin-right: 20px;
-        width: 80vw;
+        margin:auto;
+        width: 82vw;
         text-align: left;
         }
 
       .filtersub{
-        margin: 0 10rem 0 6vw;
+        margin: 0 ;
         width:37.5vw;
       /* //  padding: auto; */
         }
 
       .filterloc{
-        margin:0 0 0 33vw;
+        margin:0;
         width:37.5vw;
       /* //  padding:auto; */
 
         }
 
       #btsearch{
-        margin:0 5vw 0 0;
+        margin:0 0 0 0;
 
         }
 
       #btclear{
-        margin:0 0 0 6vw;
+        margin:0 0 0 7vw;
         }
     }
 
@@ -105,12 +137,12 @@
 
 
 <!-- 總導覽列 -->
-    <nav th:replace="fragments :: nav(2)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
+    <nav th:replace="fragments :: nav(3)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
       <div class="container-fluid">
 
         <!-- 左邊網站名稱 -->
         <div class="col-2 mb-2">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="../index.html">
             <img src="../static/images/nav_logo_05.svg" class="w-100">
           </a>
         </div>
@@ -189,8 +221,8 @@
   <div class="row">
     <div class="mapbox d-flex d-md-flex flex-wrap">
       <!-- 地圖 -->
-      <div class="googlemap col-sm-12 col-md-8 col-8 px-2 ps-0 ms-0 map-pack ">
-        <div id="map" style="height: 800px; width: 100%;"></div>
+      <div class="googlemap col-sm-12 col-md-8 col-lg-8 px-2 ps-0 ms-0 map-pack ">
+        <div id="map" style="width: 100%;"></div>
         <script
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&callback=initMap&libraries=&v=weekly"
         ></script>
@@ -198,12 +230,12 @@
 
       <!-- 搜尋&搜尋結果 -->
       <div class="col-sm-12 col-md-4 col-lg-4">
-        <div class="container-fluid">
+        <div class="container-fluid mt-3">
           <div class="row" >
             <!-- 搜尋 -->
-            <div class="up-pack d-flex flex-column">
+            <div class="searchbox up-pack d-flex flex-column">
               <!-- 地址搜尋 -->
-              <div class="col mt-3 mb-2 px-2" style="width:28vw">
+              <div class="col mt-3 mb-2 px-2">
                 <input id="searchAddress" class="filterad form-control border-2 border-bl03 bg-gr0200 rounded-pill " placeholder="輸入地址" type="text">
               </div>
 
@@ -229,7 +261,7 @@
               </div>
 
               <!-- 按鈕>送出/清除選取 -->
-              <div class="col-12 mb-2 px-2 d-flex justify-content-lg-center d-flex ">
+              <div class="btbox col-12 mb-2 px-2 d-flex justify-content-lg-center d-flex ">
                 <button class="col-3  btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btclear">清除</button>
                 <button type="submit"
                         class="col ms-1 btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold" id="btsearch">搜尋</button>
@@ -239,14 +271,14 @@
 
           <!-- 搜尋結果(文章列表/換頁) -->
           <div class="row flex-column">
-            <div class=" article-part low-pack overflow-auto mt-1 bg-gr0201 rounded-3 px-1" style="height:48vh" >
+            <div class=" article-part low-pack overflow-auto bg-gr0201 rounded-3 px-1" >
               <!-- 文章列表 -->
               <div id="travelArticleBox">
               </div>
               <!-- 換頁 -->
               <div class="row justify-content-center">
-                <div id="changePageAll" class="col-1 d-flex  my-3">
-                  <select  id="changePageBox" class="col-1 form-select border-bl03 rounded-pill" aria-label="Default select example">
+                <div id="changePageAll" class="col-2 d-flex my-3" style="width: 11vw;">
+                  <select  id="changePageBox" class="form-select border-bl03 rounded-pill" aria-label="Default select example">
 
                   </select>
                   <button id="pageSearch"

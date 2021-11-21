@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
 
 
+
     <style>
         /* 字數提醒 */
         .titleText {
@@ -65,7 +66,8 @@
 <body onload="ShowTime()">
 
 <!-- 總導覽列 -->
-<nav th:replace="fragments :: nav(0)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
+<nav th:replace="fragments :: nav(0)"
+     class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
     <div class="container-fluid">
 
         <!-- 左邊網站名稱 -->
@@ -131,17 +133,18 @@
                     <!-- 選單內容 -->
                     <ul class="dropdown-menu dropdown-menu-end border-5 border-jumpBorderGreen rounded"
                         aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item rounded fw-bold" href="../user/write_article.html">撰寫文章</a></li>
-                        <li><a class="dropdown-item rounded fw-bold" href="../user/my_space.html">我的空間</a></li>
-                        <li><a class="dropdown-item rounded fw-bold" href="../user/my_notify.html">訊息通知</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="user/write_article.html">撰寫文章</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="user/my_space.html"
+                               th:href="@{/user/profile}">我的空間</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="user/my_notify.html">訊息通知</a></li>
                         <hr class="dropdown-divider rounded fw-bold">
-                        <li><a class="dropdown-item rounded fw-bold" href="../user/signup.html">註冊</a></li>
-                        <li><a class="dropdown-item rounded fw-bold" href="loginPage.html">登入</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="user/signup.html"
+                               th:href="@{/user/signup}">註冊</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="user/loginPage.html"
+                               th:href="@{/user/login}">登入</a></li>
                     </ul>
                 </div>
-
             </div>
-
         </div>
     </div>
 </nav>
@@ -191,28 +194,44 @@
                 <input class="form-control border-2 border-bl03 bg-gr0200 rounded-pill" id="articletitle" placeholder="文章標題"
                        type="text">
             </div>
-            <div class="col-md-1 col-sm-12 txt-block-1">
+            <div class="col-md-1 col-sm-12 px-0 txt-block-1">
                 <label class="text-pk03">標題可輸入30字</label>
             </div>
         </div>
 
-        <div class="container">
-            <!--            標籤-->
-            <div class="row">
-                <div class="col-md-11 col-sm-12 mt-1 mb-4 ">
-                    <h4>標籤</h4>
-                    <select  id="articleTag" class="form-select col-md-11" multiple>
-                        <!-- name="articleTag[]" -->
-                        <!-- class="form-control border-2 border-bl03 bg-gr0200 rounded-pill" -->
-                    </select>
-                </div>
-                <div class="col-md-11 col-sm-12 txt-block-1">
-                    <label class="text-pk03">標籤最多5個</label>
+        <!-- <div class="container">
+                      標籤-->
+        <!-- <div class="row">-->
+            <!--           <div class="row">
+                   <div class="col-md-11 col-sm-12 mt-1 mb-4 ">
+                       <h4>標籤</h4>
+                       <select  id="articleTag" class="form-select col-md-11" multiple>
+                          name="articleTag[]" -->
+            <!-- class="form-control border-2 border-bl03 bg-gr0200 rounded-pill" -->
+            <!--                  </select>
+                  </div>
+                  <div class="col-md-11 col-sm-12 txt-block-1">
+                      <label class="text-pk03">標籤最多5個</label>
+                  </div>
+              </div>
+          </div> -->
+
+            <div class="container">
+                <!--            標籤-->
+                <div class="row">
+                    <div class="col-md-11 col-sm-12 mt-1 mb-4 ">
+                        <h4>請選擇文章標籤</h4>
+                        <select  id="articleTag" class="form-select" multiple aria-label="multiple select example">
+
+                        </select>
+                    </div>
+                    <div class="col-md-11 col-sm-12 txt-block-1">
+                        <label class="text-pk03">標籤最多5個</label>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 封面圖---------------------------------------------------- -->
+            <!-- 封面圖---------------------------------------------------- -->
         <div class="row">
             <!-- 上傳封面圖的上傳器 -->
             <div class="col-md-5 mb-3">
@@ -222,7 +241,7 @@
                            accept="image/*" onchange="readFile(this)"
                            targetID="main-cropper">
 
-                    <button class="btn btn-light border-2 border-bl03 rounded-pill text-bl03 fw-bold" type="button"
+                    <button class="btn btn-light border-2 border-bl03 rounded-pill text-bl03 fw-bold ms-2" type="button"
                             id="uploadIntroBanner">上傳</button>
                     <label class="titleText text-pk03">請選擇封面圖片</label>
                 </div>
@@ -340,9 +359,9 @@
 </form>
 
 <!-- 光箱必須的code -->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"-->
-<!--        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"-->
-<!--        crossorigin="anonymous"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
 
 <script>
     // 激活按鈕的函式
