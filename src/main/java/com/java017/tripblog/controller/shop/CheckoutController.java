@@ -197,12 +197,16 @@ public class CheckoutController {
         }
 
         amounts += checkout.getFreight();
+
+        ProductOrder productOrder = new ProductOrder();
+
         if(!ObjectUtils.isEmpty(checkout.getDiscountTitle())) {
             int discountNumber = discountService.findDiscountByTitle(checkout.getDiscountTitle()).getDiscountNumber();
             amounts =  (int)Math.ceil(amounts * discountNumber / 10);
+            productOrder.setDiscountNumber(discountNumber);
         }
         System.out.println("訂單總金額" + amounts);
-        ProductOrder productOrder = new ProductOrder();
+
         productOrder.setUuid(OrderIdCreator.createOrderNumber());
         productOrder.setAmounts(amounts);
         productOrder.setReceiver(checkout.getReceiver());

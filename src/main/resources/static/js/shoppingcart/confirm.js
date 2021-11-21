@@ -88,6 +88,7 @@ function doFirst() {
             let title = itemInfo.split('|')[0];
             let quantity = itemInfo.split('|')[3];
             let price = itemInfo.split('|')[2];
+            
 
             JData[i] = {productId, title, quantity, price};
         }

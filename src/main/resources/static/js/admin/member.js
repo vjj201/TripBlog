@@ -139,8 +139,11 @@ $(document).ready(function () {
                     $('#address').val(order.address);
 
                     $('#freight').text(order.freight);
-                    $('#totalAmount').text(order.amounts);
-
+                    if(order.discountNumber == 0) {
+                        $('#discount').text("無");
+                    } else {
+                        $('#discount').text(order.discountNumber);
+                    }                    $('#totalAmount').text(order.amounts);
                     loadItem(uuid);
                 },
                 404: function () {
