@@ -50,6 +50,7 @@ public class User {
     private Date birthday;
 
     //信箱
+    @Column(unique = true, nullable = false)
     private String email;
 
     //手機

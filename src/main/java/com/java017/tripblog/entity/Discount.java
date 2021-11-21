@@ -19,7 +19,9 @@ public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     //優惠名稱
+    @Column(unique = true, nullable = false)
     private String title;
     //詳情說明
     private String detail;

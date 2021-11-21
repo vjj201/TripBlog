@@ -14,9 +14,9 @@ import java.util.ArrayList;
 @Service
 public class ReportServicelmpl implements ReportService {
 
-    @Autowired
     private final ReportRepository reportRepository;
 
+    @Autowired
     public ReportServicelmpl(ReportRepository repository) {
         this.reportRepository = repository;
     }

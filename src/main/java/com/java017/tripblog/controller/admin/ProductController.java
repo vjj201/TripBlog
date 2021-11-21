@@ -2,7 +2,6 @@ package com.java017.tripblog.controller.admin;
 
 import com.java017.tripblog.entity.Brand;
 import com.java017.tripblog.entity.Product;
-import com.java017.tripblog.entity.ProductOrder;
 import com.java017.tripblog.entity.ProductTag;
 import com.java017.tripblog.service.BrandService;
 import com.java017.tripblog.service.ProductService;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

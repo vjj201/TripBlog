@@ -39,7 +39,7 @@ public class CaptchaUtils {
         Font font = new Font("宋體", Font.BOLD, 16);
         graphics.setFont(font);
         //文字
-        StringBuffer buffer = new StringBuffer(charCount);
+        StringBuilder buffer = new StringBuilder(charCount);
         graphics.setColor(Color.BLACK);
         for (int i = 0; i < charCount; i++) {
             int random = new Random().nextInt(chars.length);
