@@ -147,7 +147,7 @@ function loadDiscountList() {
                     discount.title +
                     '</button></td><td class="pt-2">' +
                     discount.discountNumber +
-                    '%</td><td class="pt-2">' +
+                    '折</td><td class="pt-2">' +
                     discount.createDate +
                     '</td><td class="pt-2">' +
                     discount.expiredTime +

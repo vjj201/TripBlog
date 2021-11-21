@@ -213,10 +213,13 @@
                                 </tbody>
                                 <!-- 動態新增部分 結束-->
                             </table>
-
                             <li class="row w-100 mb-2 px-2 flex-wrap col-sm-1">
                                 <div class="col-md-10 text-end">運費</div>
                                 <div class="col-md-2 text-end"><span id="freight" th:text="${productOrder.freight}">60</span>TWD</div>
+                            </li>
+                            <li class="row w-100 mb-2 px-2 flex-wrap col-sm-1">
+                                <div class="col-md-10 text-end">已使用優惠</div>
+                                <div class="col-md-2 text-end"><span id="discount" th:text="${productOrder.discountNumber == 0} ? '無折扣' : ${productOrder.discountNumber}+'折'">60</span></div>
                             </li>
                             <div class="row w-100 mb-2 px-2 flex-wrap col-sm-1">
                                 <div class="col-md-10 text-end">總金額</div>

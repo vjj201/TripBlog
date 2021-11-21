@@ -68,6 +68,11 @@ $(document).ready(function () {
                     $('#address').val(order.address);
 
                     $('#freight').text(order.freight);
+                    if(order.discountNumber == 0) {
+                        $('#discount').text("無");
+                    } else {
+                        $('#discount').text(order.discountNumber);
+                    }
                     $('#totalAmount').text(order.amounts);
                     loadItem(uuid);
                     if (!order.adminCheck) {
