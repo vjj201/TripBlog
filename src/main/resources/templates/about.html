@@ -13,374 +13,419 @@
 
 <body class="bg-bl03">
 
-    <!-- 頁首 -->
-    <!-- 總導覽列 -->
-    <nav th:replace="fragments :: nav(4)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
-        <div class="container-fluid">
+<!-- 頁首 -->
+<!-- 總導覽列 -->
+<nav th:replace="fragments :: nav(4)" class="navbar-head navbar  navbar-expand-lg navbar-dark shadow p-2 rounded bg-bl04">
+    <div class="container-fluid">
 
-            <!-- 左邊網站名稱 -->
-            <div class="col-2 mb-2">
-                <a class="navbar-brand" href="index.html">
-                    <img src="../static/images/nav_logo_05.svg" class="w-100">
-                </a>
-            </div>
-            <!-- 折疊插件 -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        <!-- 左邊網站名稱 -->
+        <div class="col-2 mb-2">
+            <a class="navbar-brand" href="index.html">
+                <img src="../static/images/nav_logo_05.svg" class="w-100">
+            </a>
+        </div>
+        <!-- 折疊插件 -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- 中間連接清單 -->
-                <ul class="navbar-nav mx-auto mb-0 mb-lg-0">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- 中間連接清單 -->
+            <ul class="navbar-nav mx-auto mb-0 mb-lg-0">
 
-                    <li class="nav-item me-5 d-flex">
-                        <a class="nav-link p-0 mt-3 " href="article_travel.html">
-                            <div class="fs-5 fw-bolder ">Travel</div>
-                        </a>
-                    </li>
+                <li class="nav-item me-5 d-flex">
+                    <a class="nav-link p-0 mt-3 " href="article_travel.html">
+                        <div class="fs-5 fw-bolder ">Travel</div>
+                    </a>
+                </li>
 
-                    <li class="nav-item me-5">
-                        <a class="nav-link  p-0 mt-3" href="article_eat.html">
-                            <div class="fs-5 fw-bolder ">Eat</div>
-                        </a>
-                    </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link  p-0 mt-3" href="article_eat.html">
+                        <div class="fs-5 fw-bolder ">Eat</div>
+                    </a>
+                </li>
 
-                    <li class="nav-item me-5">
-                        <a class="nav-link  p-0 mt-3" href="map_search.html">
-                            <div class="fs-5 fw-bolder">MapSearch</div>
-                        </a>
-                    </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link  p-0 mt-3" href="map_search.html">
+                        <div class="fs-5 fw-bolder">MapSearch</div>
+                    </a>
+                </li>
 
-                    <li class="nav-item me-5">
-                        <a class="nav-link  p-0 mt-3 active disabled" href="about.html">
-                            <div class="fs-5 fw-bolder">AboutUs</div>
-                        </a>
-                    </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link  p-0 mt-3 active disabled" href="about.html">
+                        <div class="fs-5 fw-bolder">AboutUs</div>
+                    </a>
+                </li>
 
-                </ul>
-
-
-                <!-- 導覽右邊 -->
-                <div class="d-flex align-items-center">
-
-                    <!-- 頭像 -->
-                    <img src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
-                        class="me-3 rounded-circle" style="width: 3rem;">
+            </ul>
 
 
-                    <!-- 下拉選單 -->
-                    <div class="dropdown">
-                        <!-- 選單標題 -->
-                        <a class="btn  btn-info dropdown-toggle btn-milkyellow text-bl04 fw-bold rounded-pill" href="#"
-                            role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                            訪客
-                        </a>
-                        <!-- 選單內容 -->
-                        <ul class="dropdown-menu dropdown-menu-end border-5 border-jumpBorderGreen rounded"
-                            aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item rounded fw-bold" href="user/write_article.html">撰寫文章</a></li>
-                            <li><a class="dropdown-item rounded fw-bold" href="user/my_space.html">我的空間</a></li>
-                            <li><a class="dropdown-item rounded fw-bold" href="user/my_notify.html">訊息通知</a></li>
-                            <hr class="dropdown-divider rounded fw-bold">
-                            <li><a class="dropdown-item rounded fw-bold" href="user/signup.html">註冊</a></li>
-                            <li><a class="dropdown-item rounded fw-bold" href="user/loginPage.html">登入</a></li>
+            <!-- 導覽右邊 -->
+            <div class="d-flex align-items-center">
+
+                <!-- 頭像 -->
+                <img src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
+                     class="me-3 rounded-circle" style="width: 3rem;">
+
+
+                <!-- 下拉選單 -->
+                <div class="dropdown">
+                    <!-- 選單標題 -->
+                    <a class="btn  btn-info dropdown-toggle btn-milkyellow text-bl04 fw-bold rounded-pill" href="#"
+                       role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        訪客
+                    </a>
+                    <!-- 選單內容 -->
+                    <ul class="dropdown-menu dropdown-menu-end border-5 border-jumpBorderGreen rounded"
+                        aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item rounded fw-bold" href="user/write_article.html">撰寫文章</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="user/my_space.html">我的空間</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="user/my_notify.html">訊息通知</a></li>
+                        <hr class="dropdown-divider rounded fw-bold">
+                        <li><a class="dropdown-item rounded fw-bold" href="user/signup.html">註冊</a></li>
+                        <li><a class="dropdown-item rounded fw-bold" href="user/loginPage.html">登入</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</nav>
+<!-- 結束:總導覽列 -->
+
+<!-- main content -->
+<div class="container px-5">
+    <div class="row pt-4">
+
+        <!-- 品牌故事 -->
+        <div class="col text-center align-self-center pt-5">
+            <img src="../static/images/nav_logo_05.svg" alt="圖片" style="height: 35vh;" th:src="@{/images/nav_logo_05.svg}">
+            <!-- <figcaption class="blockquote-footer">
+                            透過探索，解鎖在地私房景點 ; 深入巷口，品嚐只有 TRIBlogger 知道的美味 </figcaption>  -->
+
+
+        </div>
+        <div class="col pt-4 ps-5 fw-bold text-gr0200">
+            <h2>品牌故事</h2>
+
+            <p class="text-break  " style="width: 18rem;">面對疫情衝擊，巷口美食人龍不再</p>
+            <p style="width: 18rem; ">有感於現下不公平的曝光機會，
+                期許透過旅遊分享平台TripBlog，以用戶真實回饋深入在地，</p>
+            <p style="width: 18rem;">再小的創作者，再隱匿的店家都能發光發熱
+                即便在陌生城市都能體驗最美好的旅行、感受相同的悸動</p>
+
+        </div>
+    </div>
+    <hr class="bg-bl04">
+
+    <!-- 團隊介紹 -->
+    <div class="container px-0">
+        <div class="row  pb-3">
+            <h2 class="pt-4 px-4 text-milkyellow fw-bold">團隊介紹</h2>
+            <div class="card-group text-center my-2">
+
+                <!-- 1 -->
+                <div class="card m-1 shadow bg-milkyellow" style="border-radius: 10px;">
+                    <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
+                         src="../static/images/aboutUs-kang.svg" alt="..." th:src="@{/images/aboutUs-kang.svg}">
+                    <div class="card-body text-bl04 fw-bold">
+                        <h5 class="card-title ">康子晉</h5>
+                        <h6 class="card-subtitle mb-1 ">組長</h6>
+                        <p class="card-text">
+                        <ul class="p-0" style="font-size: small;list-style: none;">
+                            <li>後端文章系統撰寫:</li>
+                            <li>tag標籤</li>
+                            <li>留言板</li>
+                            <li>發票收據上傳系統</li>
                         </ul>
+
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                     </div>
-
                 </div>
 
-            </div>
-        </div>
-    </nav>
-    <!-- 結束:總導覽列 -->
 
-    <!-- main content -->
-    <div class="container px-5">
-        <div class="row pt-4">
+                <!-- 2 -->
+                <div class="card m-1 shadow" style="border-radius: 10px;">
+                    <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
+                         src="../static/images/aboutUs-li.svg" alt="..."
+                         th:src="@{/images/aboutUs-li.svg}">
+                    <div class="card-body text-bl04 fw-bold">
+                        <h5 class="card-title ">李庭妤</h5>
+                        <h6 class="card-subtitle mb-1 ">副組長</h6>
+                        <p class="card-text">
+                        <ul class="p-0" style="font-size: small;list-style: none;">
+                            <li>整體UI &Logo設計</li>
+                            <li>前端版面配置</li>
+                            <li>搜尋系統撰寫:</li>
+                            <li>TAG標籤篩選</li>
+                        </ul>
 
-            <!-- 品牌故事 -->
-            <div class="col text-center align-self-center pt-5">
-                <img src="../static/images/nav_logo_05.svg" alt="圖片" style="height: 35vh;" th:src="@{/images/nav_logo_05.svg}">
-                <!-- <figcaption class="blockquote-footer">
-                                透過探索，解鎖在地私房景點 ; 深入巷口，品嚐只有 TRIBlogger 知道的美味 </figcaption>  -->
-
-
-            </div>
-            <div class="col pt-4 ps-5 fw-bold text-gr0200">
-                <h2>品牌故事</h2>
-
-                <p class="text-break  " style="width: 18rem;">面對疫情衝擊，巷口美食人龍不再</p>
-                <p style="width: 18rem; ">有感於現下不公平的曝光機會，
-                    期許透過旅遊分享平台TripBlog，以用戶真實回饋深入在地，</p>
-                <p style="width: 18rem;">再小的創作者，再隱匿的店家都能發光發熱
-                    即便在陌生城市都能體驗最美好的旅行、感受相同的悸動</p>
-
-            </div>
-        </div>
-        <hr class="bg-bl04">
-
-        <!-- 團隊介紹 -->
-        <div class="container px-0">
-            <div class="row  pb-3">
-                <h2 class="pt-4 px-4 text-milkyellow fw-bold">團隊介紹</h2>
-                <div class="card-group text-center my-2">
-
-                    <!-- 1 -->
-                    <div class="card m-1 shadow bg-milkyellow" style="border-radius: 10px;">
-                        <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
-                            src="../static/images/aboutUs-kang.svg" alt="..." th:src="@{/images/aboutUs-kang.svg}">
-                        <div class="card-body text-bl04 fw-bold">
-                            <h5 class="card-title ">康子晉</h5>
-                            <h6 class="card-subtitle mb-1 ">組長</h6>
-                            <p class="card-text">
-                            <ul class="p-0" style="font-size: small;list-style: none;">
-                                <li>後端文章系統撰寫:</li>
-                                <li>tag標籤</li>
-                                <li>留言板</li>
-                                <li>發票收據上傳系統</li>
-                            </ul>
-
-                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                        </div>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                     </div>
+                </div>
 
+                <!-- 3 -->
+                <div class="card m-1 shadow bg-milkyellow" style="border-radius: 10px;">
+                    <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
+                         src="../static/images/aboutUs-zheng.svg" alt="..."
+                         th:src="@{/images/aboutUs-zheng.svg}">
+                    <div class="card-body text-bl04 fw-bold">
+                        <h5 class="card-title">鄭宇呈</h5>
+                        <h6 class="card-subtitle mb-1">技術長</h6>
+                        <p class="card-text">
+                        <ul class="p-0" style="font-size: small;list-style: none;">
+                            <li>後端會員系統撰寫: </li>
+                            <li>會員帳號建立</li>
+                            <li>會員空間系統撰寫:</li>
+                            <li>行程規劃功能</li>
+                        </ul>
 
-                    <!-- 2 -->
-                    <div class="card m-1 shadow" style="border-radius: 10px;">
-                        <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
-                            src="../static/images/aboutUs-li.svg" alt="..."
-                             th:src="@{/images/aboutUs-li.svg}">
-                        <div class="card-body text-bl04 fw-bold">
-                            <h5 class="card-title ">李庭妤</h5>
-                            <h6 class="card-subtitle mb-1 ">副組長</h6>
-                            <p class="card-text">
-                            <ul class="p-0" style="font-size: small;list-style: none;">
-                                <li>整體UI &Logo設計</li>
-                                <li>前端版面配置</li>
-                                <li>搜尋系統撰寫:</li>
-                                <li>TAG標籤篩選</li>
-                            </ul>
-
-                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                        </div>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                     </div>
+                </div>
 
-                    <!-- 3 -->
-                    <div class="card m-1 shadow bg-milkyellow" style="border-radius: 10px;">
-                        <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
-                            src="../static/images/aboutUs-zheng.svg" alt="..."
-                             th:src="@{/images/aboutUs-zheng.svg}">
-                        <div class="card-body text-bl04 fw-bold">
-                            <h5 class="card-title">鄭宇呈</h5>
-                            <h6 class="card-subtitle mb-1">技術長</h6>
-                            <p class="card-text">
-                            <ul class="p-0" style="font-size: small;list-style: none;">
-                                <li>後端會員系統撰寫: </li>
-                                <li>會員帳號建立</li>
-                                <li>會員空間系統撰寫:</li>
-                                <li>行程規劃功能</li>
-                            </ul>
+                <!-- 4 -->
+                <div class="card m-1 shadow" style="border-radius: 10px;">
+                    <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
+                         src="../static/images/aboutUs-yang.svg"  alt="..."
+                         th:src="@{/images/aboutUs-yang.svg}">
+                    <div class="card-body text-bl04 fw-bold ">
+                        <h5 class="card-title">楊秉峰</h5>
+                        <!-- <h6 class="card-subtitle mb-1 text-muted">組長</h6> -->
+                        <p class="card-text">
+                        <ul class="p-0" style="font-size: small;list-style: none;">
+                            <li>後端文章系統撰寫:</li>
+                            <li>文章內容</li>
+                            <li>照片</li>
+                            <li>加關注</li>
+                        </ul>
 
-                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                        </div>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                     </div>
+                </div>
 
-                    <!-- 4 -->
-                    <div class="card m-1 shadow" style="border-radius: 10px;">
-                        <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
-                            src="../static/images/aboutUs-yang.svg"  alt="..."
-                             th:src="@{/images/aboutUs-yang.svg}">
-                        <div class="card-body text-bl04 fw-bold ">
-                            <h5 class="card-title">楊秉峰</h5>
-                            <!-- <h6 class="card-subtitle mb-1 text-muted">組長</h6> -->
-                            <p class="card-text">
-                            <ul class="p-0" style="font-size: small;list-style: none;">
-                                <li>後端文章系統撰寫:</li>
-                                <li>文章內容</li>
-                                <li>照片</li>
-                                <li>加關注</li>
-                            </ul>
+                <!-- 5 -->
+                <div class="card m-1 shadow bg-milkyellow" style="border-radius: 10px;">
+                    <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
+                         src="../static/images/aboutUs-shan.svg" alt="..."
+                         th:src="@{/images/aboutUs-shan.svg}">
+                    <div class="card-body text-bl04 fw-bold">
+                        <h5 class="card-title">李佩珊</h5>
+                        <!-- <h6 class="card-subtitle mb-1 text-muted">組長</h6> -->
+                        <p class="card-text">
+                        <ul class="p-0" style="font-size: small;list-style: none;">
+                            <li>後端會員系統撰寫:</li>
+                            <li>帳號建立</li>
+                            <li>會員空間系統撰寫:</li>
+                            <li>資料設定更改功能</li>
+                        </ul>
 
-                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                        </div>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                     </div>
+                </div>
 
-                    <!-- 5 -->
-                    <div class="card m-1 shadow bg-milkyellow" style="border-radius: 10px;">
-                        <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185);"
-                            src="../static/images/aboutUs-shan.svg" alt="..."
-                             th:src="@{/images/aboutUs-shan.svg}">
-                        <div class="card-body text-bl04 fw-bold">
-                            <h5 class="card-title">李佩珊</h5>
-                            <!-- <h6 class="card-subtitle mb-1 text-muted">組長</h6> -->
-                            <p class="card-text">
-                            <ul class="p-0" style="font-size: small;list-style: none;">
-                                <li>後端會員系統撰寫:</li>
-                                <li>帳號建立</li>
-                                <li>會員空間系統撰寫:</li>
-                                <li>資料設定更改功能</li>
-                            </ul>
+                <!-- 6 -->
+                <div class="card m-1 shadow" style="border-radius: 10px;">
+                    <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185) ;"
+                         src="../static/images/aboutUs-hsu.svg" alt="..."
+                         th:src="@{/images/aboutUs-hsu.svg}">
+                    <div class="card-body  text-bl04 fw-bold">
+                        <h5 class="card-title">徐大方</h5>
+                        <!-- <h6 class="card-subtitle mb-1 text-muted">組長</h6> -->
+                        <p class="card-text">
+                        <ul class="p-0" style="font-size: small;list-style: none;">
+                            <li>UI 設計</li>
+                            <li>前端版面配置</li>
+                            <li>搜尋系統撰寫:</li>
+                            <li>TAG標籤篩選</li>
+                        </ul>
 
-                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                        </div>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                     </div>
-
-                    <!-- 6 -->
-                    <div class="card m-1 shadow" style="border-radius: 10px;">
-                        <img class="align-self-center pt-3 pb-2" style="border-bottom: 2px solid rgb(105,150,185) ;"
-                            src="../static/images/aboutUs-hsu.svg" alt="..."
-                             th:src="@{/images/aboutUs-hsu.svg}">
-                        <div class="card-body  text-bl04 fw-bold">
-                            <h5 class="card-title">徐大方</h5>
-                            <!-- <h6 class="card-subtitle mb-1 text-muted">組長</h6> -->
-                            <p class="card-text">
-                            <ul class="p-0" style="font-size: small;list-style: none;">
-                                <li>UI 設計</li>
-                                <li>前端版面配置</li>
-                                <li>搜尋系統撰寫:</li>
-                                <li>TAG標籤篩選</li>
-                            </ul>
-
-                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <hr>
-        <!-- 使用技術 -->
-        <div class="container px-0 mb-5 fw-bold text-gr0200">
-            <h2 class="py-3 px-3">使用技術</h2>
-            <div class="col d-flex flex-row flex-wrap justify-content-evenly">
-                <!-- java icon -->
-                <div class="col-md-2 col-sm-3">
-                    <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
-                        <path fill="#0074BD"
-                            d="M52.581 67.817s-3.284 1.911 2.341 2.557c6.814.778 10.297.666 17.805-.753 0 0 1.979 1.237 4.735 2.309-16.836 7.213-38.104-.418-24.881-4.113zm-2.059-9.415s-3.684 2.729 1.945 3.311c7.28.751 13.027.813 22.979-1.103 0 0 1.373 1.396 3.536 2.157-20.352 5.954-43.021.469-28.46-4.365z">
-                        </path>
-                        <path fill="#EA2D2E"
-                            d="M67.865 42.431c4.151 4.778-1.088 9.074-1.088 9.074s10.533-5.437 5.696-12.248c-4.519-6.349-7.982-9.502 10.771-20.378.001 0-29.438 7.35-15.379 23.552z">
-                        </path>
-                        <path fill="#0074BD"
-                            d="M90.132 74.781s2.432 2.005-2.678 3.555c-9.716 2.943-40.444 3.831-48.979.117-3.066-1.335 2.687-3.187 4.496-3.576 1.887-.409 2.965-.334 2.965-.334-3.412-2.403-22.055 4.719-9.469 6.762 34.324 5.563 62.567-2.506 53.665-6.524zm-35.97-26.134s-15.629 3.713-5.534 5.063c4.264.57 12.758.439 20.676-.225 6.469-.543 12.961-1.704 12.961-1.704s-2.279.978-3.93 2.104c-15.874 4.175-46.533 2.23-37.706-2.038 7.463-3.611 13.533-3.2 13.533-3.2zM82.2 64.317c16.135-8.382 8.674-16.438 3.467-15.353-1.273.266-1.845.496-1.845.496s.475-.744 1.378-1.063c10.302-3.62 18.223 10.681-3.322 16.345 0 0 .247-.224.322-.425z">
-                        </path>
-                        <path fill="#EA2D2E"
-                            d="M72.474 1.313s8.935 8.939-8.476 22.682c-13.962 11.027-3.184 17.313-.006 24.498-8.15-7.354-14.128-13.828-10.118-19.852 5.889-8.842 22.204-13.131 18.6-27.328z">
-                        </path>
-                        <path fill="#0074BD"
-                            d="M55.749 87.039c15.484.99 39.269-.551 39.832-7.878 0 0-1.082 2.777-12.799 4.981-13.218 2.488-29.523 2.199-39.191.603 0 0 1.98 1.64 12.158 2.294z">
-                        </path>
-                        <path fill="#EA2D2E"
-                            d="M94.866 100.181h-.472v-.264h1.27v.264h-.47v1.317h-.329l.001-1.317zm2.535.066h-.006l-.468 1.251h-.216l-.465-1.251h-.005v1.251h-.312v-1.581h.457l.431 1.119.432-1.119h.454v1.581h-.302v-1.251zm-44.19 14.79c-1.46 1.266-3.004 1.978-4.391 1.978-1.974 0-3.045-1.186-3.045-3.085 0-2.055 1.146-3.56 5.738-3.56h1.697v4.667h.001zm4.031 4.548v-14.077c0-3.599-2.053-5.973-6.997-5.973-2.886 0-5.416.714-7.473 1.622l.592 2.493c1.62-.595 3.715-1.147 5.771-1.147 2.85 0 4.075 1.147 4.075 3.521v1.779h-1.424c-6.921 0-10.044 2.685-10.044 6.723 0 3.479 2.058 5.456 5.933 5.456 2.49 0 4.351-1.028 6.088-2.533l.316 2.137h3.163v-.001zm13.452 0h-5.027l-6.051-19.689h4.391l3.756 12.099.835 3.635c1.896-5.258 3.24-10.596 3.912-15.733h4.271c-1.143 6.481-3.203 13.598-6.087 19.688zm19.288-4.548c-1.465 1.266-3.01 1.978-4.392 1.978-1.976 0-3.046-1.186-3.046-3.085 0-2.055 1.149-3.56 5.736-3.56h1.701v4.667h.001zm4.033 4.548v-14.077c0-3.599-2.059-5.973-6.999-5.973-2.889 0-5.418.714-7.475 1.622l.593 2.493c1.62-.595 3.718-1.147 5.774-1.147 2.846 0 4.074 1.147 4.074 3.521v1.779h-1.424c-6.923 0-10.045 2.685-10.045 6.723 0 3.479 2.056 5.456 5.93 5.456 2.491 0 4.349-1.028 6.091-2.533l.318 2.137h3.163v-.001zm-56.693 3.346c-1.147 1.679-3.005 3.008-5.037 3.757l-1.989-2.345c1.547-.794 2.872-2.075 3.489-3.269.532-1.063.753-2.43.753-5.701V92.891h4.284v22.173c0 4.375-.348 6.144-1.5 7.867z">
-                        </path>
-                    </svg>
                 </div>
 
-                <!-- js icon -->
-                <div class="col-md-2 col-sm-3">
-                    <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
-                        <path fill="#F0DB4F"
-                            d="M2 1v125h125V1H2zm66.119 106.513c-1.845 3.749-5.367 6.212-9.448 7.401-6.271 1.44-12.269.619-16.731-2.059-2.986-1.832-5.318-4.652-6.901-7.901l9.52-5.83c.083.035.333.487.667 1.071 1.214 2.034 2.261 3.474 4.319 4.485 2.022.69 6.461 1.131 8.175-2.427 1.047-1.81.714-7.628.714-14.065C58.433 78.073 58.48 68 58.48 58h11.709c0 11 .06 21.418 0 32.152.025 6.58.596 12.446-2.07 17.361zm48.574-3.308c-4.07 13.922-26.762 14.374-35.83 5.176-1.916-2.165-3.117-3.296-4.26-5.795 4.819-2.772 4.819-2.772 9.508-5.485 2.547 3.915 4.902 6.068 9.139 6.949 5.748.702 11.531-1.273 10.234-7.378-1.333-4.986-11.77-6.199-18.873-11.531-7.211-4.843-8.901-16.611-2.975-23.335 1.975-2.487 5.343-4.343 8.877-5.235l3.688-.477c7.081-.143 11.507 1.727 14.756 5.355.904.916 1.642 1.904 3.022 4.045-3.772 2.404-3.76 2.381-9.163 5.879-1.154-2.486-3.069-4.046-5.093-4.724-3.142-.952-7.104.083-7.926 3.403-.285 1.023-.226 1.975.227 3.665 1.273 2.903 5.545 4.165 9.377 5.926 11.031 4.474 14.756 9.271 15.672 14.981.882 4.916-.213 8.105-.38 8.581z">
-                        </path>
-                    </svg>
-                </div>
-
-                <!-- mysql icon -->
-                <div class="col-md-2 col-sm-3">
-                    <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
-                        <path fill="#00618A"
-                            d="M2.001 90.458h4.108V74.235l6.36 14.143c.75 1.712 1.777 2.317 3.792 2.317s3.003-.605 3.753-2.317l6.36-14.143v16.223h4.108V74.262c0-1.58-.632-2.345-1.936-2.739-3.121-.974-5.215-.131-6.163 1.976l-6.241 13.958-6.043-13.959c-.909-2.106-3.042-2.949-6.163-1.976C2.632 71.917 2 72.681 2 74.261v16.197zm31.898-13.206h4.107v8.938c-.038.485.156 1.625 2.406 1.661 1.148.018 8.862 0 8.934 0V77.208h4.117c.019 0-.004 14.514-.004 14.574.022 3.58-4.441 4.357-6.499 4.417H33.988v-2.764c.022 0 12.963.003 12.995-.001 2.645-.279 2.332-1.593 2.331-2.035v-1.078h-8.731c-4.062-.037-6.65-1.81-6.683-3.85-.002-.187.089-9.129-.001-9.219z">
-                        </path>
-                        <path fill="#E48E00"
-                            d="M56.63 90.458h11.812c1.383 0 2.727-.289 3.793-.789 1.777-.816 2.646-1.922 2.646-3.372v-3.002c0-1.185-.987-2.292-2.923-3.028-1.027-.396-2.292-.605-3.517-.605h-4.978c-1.659 0-2.449-.5-2.646-1.606-.039-.132-.039-.237-.039-.369v-1.87c0-.105 0-.211.039-.342.197-.843.632-1.08 2.094-1.212l.395-.026h11.733v-2.738H63.504c-1.659 0-2.528.105-3.318.342-2.449.764-3.517 1.975-3.517 4.082v2.396c0 1.844 2.095 3.424 5.61 3.793.396.025.79.053 1.185.053h4.267c.158 0 .316 0 .435.025 1.304.105 1.856.343 2.252.816a.98.98 0 01.315.737v2.397c0 .289-.197.658-.592.974-.355.316-.948.527-1.738.58l-.435.026H56.63v2.738zm43.881-4.766c0 2.817 2.094 4.397 6.32 4.714.395.026.79.052 1.185.052h10.706V87.72h-10.784c-2.41 0-3.318-.606-3.318-2.055V71.497h-4.108v14.195zm-23.008.142v-9.765c0-2.48 1.742-3.985 5.186-4.46a7.8 7.8 0 011.108-.079h7.799c.396 0 .752.026 1.147.079 3.444.475 5.187 1.979 5.187 4.46v9.765c0 2.014-.74 3.09-2.445 3.792l4.048 3.653h-4.771l-3.274-2.956-3.296.209h-4.395a9.075 9.075 0 01-2.414-.343c-2.613-.712-3.88-2.085-3.88-4.355zm4.434-.237c0 .132.039.265.079.423.237 1.135 1.307 1.768 2.929 1.768h3.732l-3.428-3.095h4.771l2.989 2.7c.552-.295.914-.743 1.041-1.32.039-.132.039-.264.039-.396v-9.368c0-.105 0-.238-.039-.37-.238-1.056-1.307-1.662-2.89-1.662h-6.216c-1.82 0-3.008.792-3.008 2.032v9.288z">
-                        </path>
-                        <path fill="#00618A"
-                            d="M122.336 66.952c-2.525-.069-4.454.166-6.104.861-.469.198-1.216.203-1.292.79.257.271.297.674.502 1.006.394.637 1.059 1.491 1.652 1.938.647.489 1.315 1.013 2.011 1.437 1.235.754 2.615 1.184 3.806 1.938.701.446 1.397 1.006 2.082 1.509.339.247.565.634 1.006.789v-.071c-.231-.294-.291-.698-.503-1.006l-.934-.934c-.913-1.212-2.071-2.275-3.304-3.159-.982-.705-3.18-1.658-3.59-2.801l-.072-.071c.696-.079 1.512-.331 2.154-.503 1.08-.29 2.045-.215 3.16-.503l1.508-.432v-.286c-.563-.578-.966-1.344-1.58-1.867-1.607-1.369-3.363-2.737-5.17-3.879-1.002-.632-2.241-1.043-3.304-1.579-.356-.181-.984-.274-1.221-.575-.559-.711-.862-1.612-1.293-2.441a93.068 93.068 0 01-2.585-5.458c-.544-1.245-.9-2.473-1.579-3.59-3.261-5.361-6.771-8.597-12.208-11.777-1.157-.677-2.55-.943-4.021-1.292l-2.37-.144c-.481-.201-.983-.791-1.436-1.077-1.802-1.138-6.422-3.613-7.756-.358-.842 2.054 1.26 4.058 2.011 5.099.527.73 1.203 1.548 1.58 2.369.248.54.29 1.081.503 1.652.521 1.406.976 2.937 1.651 4.236.341.658.718 1.351 1.149 1.939.264.36.718.52.789 1.077-.443.62-.469 1.584-.718 2.369-1.122 3.539-.699 7.938.934 10.557.501.805 1.681 2.529 3.303 1.867 1.419-.578 1.103-2.369 1.509-3.95.092-.357.035-.621.215-.861v.072l1.293 2.585c.957 1.541 2.654 3.15 4.093 4.237.746.563 1.334 1.538 2.298 1.867v-.073h-.071c-.188-.291-.479-.411-.719-.646-.562-.551-1.187-1.235-1.651-1.867-1.309-1.776-2.465-3.721-3.519-5.745-.503-.966-.94-2.032-1.364-3.016-.164-.379-.162-.953-.502-1.148-.466.72-1.149 1.303-1.509 2.154-.574 1.36-.648 3.019-.861 4.739l-.144.071c-1.001-.241-1.352-1.271-1.724-2.154-.94-2.233-1.115-5.83-.287-8.401.214-.666 1.181-2.761.789-3.376-.187-.613-.804-.967-1.148-1.437a11.222 11.222 0 01-1.149-2.011c-.77-1.741-1.129-3.696-1.938-5.457-.388-.842-1.042-1.693-1.58-2.441-.595-.83-1.262-1.44-1.724-2.442-.164-.356-.387-.927-.144-1.293.077-.247.188-.35.432-.431.416-.321 1.576.107 2.01.287 1.152.479 2.113.934 3.089 1.58.468.311.941.911 1.508 1.077h.646c1.011.232 2.144.071 3.088.358 1.67.508 3.166 1.297 4.524 2.155 4.139 2.614 7.522 6.334 9.838 10.772.372.715.534 1.396.861 2.154.662 1.528 1.496 3.101 2.154 4.596.657 1.491 1.298 2.996 2.227 4.237.488.652 2.374 1.002 3.231 1.364.601.254 1.585.519 2.154.861 1.087.656 2.141 1.437 3.16 2.155.509.362 2.076 1.149 2.154 1.798zM90.237 39.593a5.124 5.124 0 00-1.293.144v.071h.072c.251.517.694.849 1.005 1.293l.719 1.508.071-.071c.445-.313.648-.814.646-1.58-.179-.188-.205-.423-.359-.646-.204-.3-.602-.468-.861-.719z">
-                        </path>
-                    </svg>
-                </div>
-
-                <!-- spring icon -->
-                <div class="col-md-2 col-sm-3">
-                    <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
-                        <style></style>
-                        <g id="spring-plain-wordmark-surface1">
-                            <path
-                                d="M1.7 98.6c-.6-.3-1-1-1-1.8 0-1.2.9-2.1 2.1-2.1.4 0 .8.1 1.1.3 2.2 1.5 4.6 2.2 6.7 2.2 2.3 0 3.6-1 3.6-2.5v-.1c0-1.8-2.5-2.4-5.2-3.2-3.4-1-7.2-2.4-7.2-6.8v-.1c0-4.4 3.6-7 8.2-7 2.5 0 5 .7 7.3 1.9.7.4 1.3 1.1 1.3 2 0 1.2-1 2.1-2.2 2.1-.4 0-.7-.1-1.1-.3-1.9-1-3.8-1.6-5.4-1.6-2.1 0-3.2 1-3.2 2.3v.1c0 1.7 2.5 2.4 5.2 3.3 3.4 1 7.2 2.6 7.2 6.7v.1c0 4.9-3.8 7.3-8.6 7.3-2.9 0-6.1-.9-8.8-2.8M39.8 89.5c0-4.5-3-7.4-6.6-7.4s-6.7 3-6.7 7.4v.1c0 4.4 3.1 7.4 6.7 7.4 3.6-.2 6.6-3 6.6-7.5m-18.4-9.3c0-1.5 1.1-2.7 2.6-2.7s2.7 1.2 2.7 2.7v1.6c1.7-2.4 4.1-4.3 7.8-4.3 5.4 0 10.7 4.3 10.7 11.9v.1c0 7.6-5.2 11.9-10.7 11.9-3.8 0-6.2-1.9-7.8-4v8.1c0 1.5-1.2 2.6-2.7 2.6-1.4 0-2.6-1.1-2.6-2.6V80.2M47.4 80.1c0-1.5 1.1-2.7 2.6-2.7s2.7 1.2 2.7 2.7v1.3c.3-2 3.5-3.9 5.8-3.9 1.7 0 2.6 1.1 2.6 2.6 0 1.4-.9 2.3-2.1 2.5-3.8.7-6.4 3.9-6.4 8.5v7.6c0 1.4-1.2 2.6-2.7 2.6-1.4 0-2.6-1.1-2.6-2.6V80.1M63.5 80.1c0-1.5 1.2-2.7 2.7-2.7 1.5 0 2.7 1.2 2.7 2.7v18.6c0 1.5-1.2 2.6-2.7 2.6-1.5 0-2.7-1.1-2.7-2.6V80.1M71.2 80.2c0-1.5 1.2-2.7 2.7-2.7s2.8 1.2 2.8 2.7v1.1c1.5-2.1 3.8-3.8 7.5-3.8 5.4 0 8.5 3.5 8.5 8.8v12.4c0 1.5-1.2 2.6-2.7 2.6s-2.8-1.1-2.8-2.6V87.9c0-3.6-1.9-5.6-5.1-5.6-3.2 0-5.4 2.1-5.4 5.7v10.7c0 1.5-1.2 2.6-2.8 2.6-1.5 0-2.7-1.1-2.7-2.6V80.2M106.5 96.9c-3.7 0-6.8-2.8-6.8-7.4v-.1c0-4.5 3.1-7.4 6.8-7.4 3.7 0 6.9 3 6.9 7.4v.1c0 4.4-3.2 7.4-6.9 7.4m9.5-19.3c-1.5 0-2.7 1.2-2.7 2.7v1.6c-1.8-2.4-4.2-4.3-8.1-4.3-5.6 0-11 4.3-11 12v.1c0 7.6 5.4 12 11 12 3.9 0 6.4-1.9 8.1-4-.3 4.2-2.9 6.3-7.5 6.3-2.7 0-5.1-.7-7.3-1.8-.3-.1-.6-.2-1-.2-1.3 0-2.3 1-2.3 2.2 0 1 .6 1.7 1.5 2.1 2.9 1.4 5.8 2.1 9.2 2.1 4.3 0 7.6-1 9.8-3.1 2-1.9 3.1-4.8 3.1-8.7V80.2c-.1-1.5-1.3-2.6-2.8-2.6M68.9 71.1c0 1.4-1.2 2.6-2.7 2.6-1.5 0-2.7-1.2-2.7-2.6 0-1.4 1.2-2.6 2.7-2.6 1.5 0 2.7 1.2 2.7 2.6M82.9 53.8C77 61.6 64.3 59 56.1 59.3c0 0-1.4.1-2.9.3 0 0 .6-.2 1.2-.5 5.7-1.9 8.4-2.3 11.9-4.1 6.5-3.3 13-10.4 14.3-17.8-2.5 7.1-10 13.2-16.9 15.7-4.7 1.7-13.2 3.3-13.2 3.3l-.3-.2c-5.8-2.7-6-15 4.6-18.9 4.6-1.7 9-.8 14-1.9 5.3-1.2 11.5-5.1 14-10.2 2.8 8.3 6.2 21 .1 28.8zm.1-31.2c-.7 1.6-1.6 3.1-2.6 4.4-4.4-4.4-10.5-7.1-17.3-7.1C49.8 19.9 39 30.5 39 43.4c0 6.8 3 12.9 7.7 17.2l.5.5c-.9-.7-1-2-.3-2.8.7-.9 2-1 2.9-.3s1 2 .3 2.8c-.7.9-2 1-2.9.3l.4.3c4.2 3.4 9.6 5.5 15.5 5.5 12.7 0 23.1-9.7 24-21.8.8-5.9-1-13.5-4.1-22.5M125.1 79.2h-.9v1.2h.9c.3 0 .6-.2.6-.6 0-.4-.3-.6-.6-.6zm.5 3l-.9-1.4h-.6v1.4h-.5v-3.4h1.4c.6 0 1.1.4 1.1 1 0 .8-.7 1-.9 1l.9 1.4h-.5zm-.8-4.3c-1.4 0-2.6 1.1-2.6 2.5s1.2 2.5 2.6 2.5c1.4 0 2.6-1.1 2.6-2.5 0-1.3-1.2-2.5-2.6-2.5zm0 5.6c-1.7 0-3.1-1.3-3.1-3s1.4-3 3.1-3c1.7 0 3.1 1.3 3.1 3 0 1.6-1.4 3-3.1 3">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-
-                <!-- google icon -->
-                <div class="col-md-2 col-sm-3">
-                    <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
-                        <path fill="#fff"
-                            d="M44.59 4.21a63.28 63.28 0 004.33 120.9 67.6 67.6 0 0032.36.35 57.13 57.13 0 0025.9-13.46 57.44 57.44 0 0016-26.26 74.33 74.33 0 001.61-33.58H65.27v24.69h34.47a29.72 29.72 0 01-12.66 19.52 36.16 36.16 0 01-13.93 5.5 41.29 41.29 0 01-15.1 0A37.16 37.16 0 0144 95.74a39.3 39.3 0 01-14.5-19.42 38.31 38.31 0 010-24.63 39.25 39.25 0 019.18-14.91A37.17 37.17 0 0176.13 27a34.28 34.28 0 0113.64 8q5.83-5.8 11.64-11.63c2-2.09 4.18-4.08 6.15-6.22A61.22 61.22 0 0087.2 4.59a64 64 0 00-42.61-.38z">
-                        </path>
-                        <path fill="#e33629"
-                            d="M44.59 4.21a64 64 0 0142.61.37 61.22 61.22 0 0120.35 12.62c-2 2.14-4.11 4.14-6.15 6.22Q95.58 29.23 89.77 35a34.28 34.28 0 00-13.64-8 37.17 37.17 0 00-37.46 9.74 39.25 39.25 0 00-9.18 14.91L8.76 35.6A63.53 63.53 0 0144.59 4.21z">
-                        </path>
-                        <path fill="#f8bd00"
-                            d="M3.26 51.5a62.93 62.93 0 015.5-15.9l20.73 16.09a38.31 38.31 0 000 24.63q-10.36 8-20.73 16.08a63.33 63.33 0 01-5.5-40.9z">
-                        </path>
-                        <path fill="#587dbd"
-                            d="M65.27 52.15h59.52a74.33 74.33 0 01-1.61 33.58 57.44 57.44 0 01-16 26.26c-6.69-5.22-13.41-10.4-20.1-15.62a29.72 29.72 0 0012.66-19.54H65.27c-.01-8.22 0-16.45 0-24.68z">
-                        </path>
-                        <path fill="#319f43"
-                            d="M8.75 92.4q10.37-8 20.73-16.08A39.3 39.3 0 0044 95.74a37.16 37.16 0 0014.08 6.08 41.29 41.29 0 0015.1 0 36.16 36.16 0 0013.93-5.5c6.69 5.22 13.41 10.4 20.1 15.62a57.13 57.13 0 01-25.9 13.47 67.6 67.6 0 01-32.36-.35 63 63 0 01-23-11.59A63.73 63.73 0 018.75 92.4z">
-                        </path>
-                    </svg>
-                </div>
-
-                <!-- github icon -->
-                <div class="col-md-2 col-sm-3">
-                    <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
-                        <g fill="#181616">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M64 1.512c-23.493 0-42.545 19.047-42.545 42.545 0 18.797 12.19 34.745 29.095 40.37 2.126.394 2.907-.923 2.907-2.047 0-1.014-.04-4.366-.058-7.92-11.837 2.573-14.334-5.02-14.334-5.02-1.935-4.918-4.724-6.226-4.724-6.226-3.86-2.64.29-2.586.29-2.586 4.273.3 6.523 4.385 6.523 4.385 3.794 6.504 9.953 4.623 12.38 3.536.383-2.75 1.485-4.628 2.702-5.69-9.45-1.075-19.384-4.724-19.384-21.026 0-4.645 1.662-8.44 4.384-11.42-.442-1.072-1.898-5.4.412-11.26 0 0 3.572-1.142 11.7 4.363 3.395-.943 7.035-1.416 10.65-1.432 3.616.017 7.258.49 10.658 1.432 8.12-5.504 11.688-4.362 11.688-4.362 2.316 5.86.86 10.187.418 11.26 2.728 2.978 4.378 6.774 4.378 11.42 0 16.34-9.953 19.938-19.427 20.99 1.526 1.32 2.886 3.91 2.886 7.88 0 5.692-.048 10.273-.048 11.674 0 1.13.766 2.458 2.922 2.04 16.896-5.632 29.07-21.574 29.07-40.365C106.545 20.56 87.497 1.512 64 1.512z">
-                            </path>
-                            <path
-                                d="M37.57 62.596c-.095.212-.428.275-.73.13-.31-.14-.482-.427-.382-.64.09-.216.424-.277.733-.132.31.14.486.43.38.642zM39.293 64.52c-.203.187-.6.1-.87-.198-.278-.297-.33-.694-.124-.884.208-.188.593-.1.87.197.28.3.335.693.123.884zm1.677 2.448c-.26.182-.687.012-.95-.367-.262-.377-.262-.83.005-1.013.264-.182.684-.018.95.357.262.385.262.84-.005 1.024zm2.298 2.368c-.233.257-.73.188-1.093-.163-.372-.343-.475-.83-.242-1.087.237-.257.736-.185 1.102.163.37.342.482.83.233 1.086zm3.172 1.374c-.104.334-.582.485-1.064.344-.482-.146-.796-.536-.7-.872.1-.336.582-.493 1.067-.342.48.144.795.53.696.87zm3.48.255c.013.35-.396.642-.902.648-.508.012-.92-.272-.926-.618 0-.354.4-.642.908-.65.506-.01.92.272.92.62zm3.24-.551c.06.342-.29.694-.793.787-.494.092-.95-.12-1.014-.46-.06-.35.297-.7.79-.792.503-.088.953.118 1.017.466zm0 0">
-                            </path>
-                        </g>
-                        <path
-                            d="M24.855 108.302h-10.7a.5.5 0 00-.5.5v5.232a.5.5 0 00.5.5h4.173v6.5s-.937.32-3.53.32c-3.056 0-7.327-1.116-7.327-10.508 0-9.393 4.448-10.63 8.624-10.63 3.614 0 5.17.636 6.162.943.31.094.6-.216.6-.492l1.193-5.055a.468.468 0 00-.192-.39c-.403-.288-2.857-1.66-9.058-1.66-7.144 0-14.472 3.038-14.472 17.65 0 14.61 8.39 16.787 15.46 16.787 5.854 0 9.405-2.502 9.405-2.502.146-.08.162-.285.162-.38v-16.316a.5.5 0 00-.5-.5zM79.506 94.81H73.48a.5.5 0 00-.498.503l.002 11.644h-9.392V95.313a.5.5 0 00-.497-.503H57.07a.5.5 0 00-.498.503v31.53c0 .277.224.503.498.503h6.025a.5.5 0 00.497-.504v-13.486h9.392l-.016 13.486c0 .278.224.504.5.504h6.038a.5.5 0 00.497-.504v-31.53a.497.497 0 00-.497-.502zm-47.166.717c-2.144 0-3.884 1.753-3.884 3.923 0 2.167 1.74 3.925 3.884 3.925 2.146 0 3.885-1.758 3.885-3.925 0-2.17-1.74-3.923-3.885-3.923zm2.956 9.608H29.29c-.276 0-.522.284-.522.56v20.852c0 .613.382.795.876.795h5.41c.595 0 .74-.292.74-.805v-20.899a.5.5 0 00-.498-.502zm67.606.047h-5.98a.5.5 0 00-.496.504v15.46s-1.52 1.11-3.675 1.11-2.727-.977-2.727-3.088v-13.482a.5.5 0 00-.497-.504h-6.068a.502.502 0 00-.498.504v14.502c0 6.27 3.495 7.804 8.302 7.804 3.944 0 7.124-2.18 7.124-2.18s.15 1.15.22 1.285c.07.136.247.273.44.273l3.86-.017a.502.502 0 00.5-.504l-.003-21.166a.504.504 0 00-.5-.502zm16.342-.708c-3.396 0-5.706 1.515-5.706 1.515V95.312a.5.5 0 00-.497-.503H107a.5.5 0 00-.5.503v31.53a.5.5 0 00.5.503h4.192c.19 0 .332-.097.437-.268.103-.17.254-1.454.254-1.454s2.47 2.34 7.148 2.34c5.49 0 8.64-2.784 8.64-12.502s-5.03-10.988-8.428-10.988zm-2.36 17.764c-2.073-.063-3.48-1.004-3.48-1.004v-9.985s1.388-.85 3.09-1.004c2.153-.193 4.228.458 4.228 5.594 0 5.417-.935 6.486-3.837 6.398zm-63.689-.118c-.263 0-.937.107-1.63.107-2.22 0-2.973-1.032-2.973-2.368v-8.866h4.52a.5.5 0 00.5-.504v-4.856a.5.5 0 00-.5-.502h-4.52l-.007-5.97c0-.227-.116-.34-.378-.34h-6.16c-.238 0-.367.106-.367.335v6.17s-3.087.745-3.295.805a.5.5 0 00-.36.48v3.877a.5.5 0 00.497.503h3.158v9.328c0 6.93 4.86 7.61 8.14 7.61 1.497 0 3.29-.48 3.586-.59.18-.067.283-.252.283-.453l.004-4.265a.51.51 0 00-.5-.502z"
-                            fill="#100E0F"></path>
-                    </svg>
-                </div>
             </div>
         </div>
     </div>
-    <!-- 頁尾 -->
 
-    <!-- 尾頁 -->
-    <footer class="bg-bl04 py-5">
-        <div class="container px-4 px-lg-5 py-2">
-            <div class="small text-center text-milkyellow ">
-                Copyright &copy; 2021 - TripBlog
+    <hr>
+    <!-- 使用技術 -->
+    <div class="container px-0 mb-5 fw-bold text-gr0200">
+        <h2 class="py-3 px-3">使用技術及開發工具</h2>
+        <div class="col d-flex flex-row flex-wrap justify-content-evenly ms-5">
+
+            <!-- java icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill="#0074BD" d="M52.581 67.817s-3.284 1.911 2.341 2.557c6.814.778 10.297.666 17.805-.753 0 0 1.979 1.237 4.735 2.309-16.836 7.213-38.104-.418-24.881-4.113zm-2.059-9.415s-3.684 2.729 1.945 3.311c7.28.751 13.027.813 22.979-1.103 0 0 1.373 1.396 3.536 2.157-20.352 5.954-43.021.469-28.46-4.365z"></path>
+                    <path fill="#EA2D2E" d="M67.865 42.431c4.151 4.778-1.088 9.074-1.088 9.074s10.533-5.437 5.696-12.248c-4.519-6.349-7.982-9.502 10.771-20.378.001 0-29.438 7.35-15.379 23.552z"></path>
+                    <path fill="#0074BD" d="M90.132 74.781s2.432 2.005-2.678 3.555c-9.716 2.943-40.444 3.831-48.979.117-3.066-1.335 2.687-3.187 4.496-3.576 1.887-.409 2.965-.334 2.965-.334-3.412-2.403-22.055 4.719-9.469 6.762 34.324 5.563 62.567-2.506 53.665-6.524zm-35.97-26.134s-15.629 3.713-5.534 5.063c4.264.57 12.758.439 20.676-.225 6.469-.543 12.961-1.704 12.961-1.704s-2.279.978-3.93 2.104c-15.874 4.175-46.533 2.23-37.706-2.038 7.463-3.611 13.533-3.2 13.533-3.2zM82.2 64.317c16.135-8.382 8.674-16.438 3.467-15.353-1.273.266-1.845.496-1.845.496s.475-.744 1.378-1.063c10.302-3.62 18.223 10.681-3.322 16.345 0 0 .247-.224.322-.425z"></path>
+                    <path fill="#EA2D2E" d="M72.474 1.313s8.935 8.939-8.476 22.682c-13.962 11.027-3.184 17.313-.006 24.498-8.15-7.354-14.128-13.828-10.118-19.852 5.889-8.842 22.204-13.131 18.6-27.328z"></path>
+                    <path fill="#0074BD" d="M55.749 87.039c15.484.99 39.269-.551 39.832-7.878 0 0-1.082 2.777-12.799 4.981-13.218 2.488-29.523 2.199-39.191.603 0 0 1.98 1.64 12.158 2.294z"></path>
+                    <path fill="#EA2D2E" d="M94.866 100.181h-.472v-.264h1.27v.264h-.47v1.317h-.329l.001-1.317zm2.535.066h-.006l-.468 1.251h-.216l-.465-1.251h-.005v1.251h-.312v-1.581h.457l.431 1.119.432-1.119h.454v1.581h-.302v-1.251zm-44.19 14.79c-1.46 1.266-3.004 1.978-4.391 1.978-1.974 0-3.045-1.186-3.045-3.085 0-2.055 1.146-3.56 5.738-3.56h1.697v4.667h.001zm4.031 4.548v-14.077c0-3.599-2.053-5.973-6.997-5.973-2.886 0-5.416.714-7.473 1.622l.592 2.493c1.62-.595 3.715-1.147 5.771-1.147 2.85 0 4.075 1.147 4.075 3.521v1.779h-1.424c-6.921 0-10.044 2.685-10.044 6.723 0 3.479 2.058 5.456 5.933 5.456 2.49 0 4.351-1.028 6.088-2.533l.316 2.137h3.163v-.001zm13.452 0h-5.027l-6.051-19.689h4.391l3.756 12.099.835 3.635c1.896-5.258 3.24-10.596 3.912-15.733h4.271c-1.143 6.481-3.203 13.598-6.087 19.688zm19.288-4.548c-1.465 1.266-3.01 1.978-4.392 1.978-1.976 0-3.046-1.186-3.046-3.085 0-2.055 1.149-3.56 5.736-3.56h1.701v4.667h.001zm4.033 4.548v-14.077c0-3.599-2.059-5.973-6.999-5.973-2.889 0-5.418.714-7.475 1.622l.593 2.493c1.62-.595 3.718-1.147 5.774-1.147 2.846 0 4.074 1.147 4.074 3.521v1.779h-1.424c-6.923 0-10.045 2.685-10.045 6.723 0 3.479 2.056 5.456 5.93 5.456 2.491 0 4.349-1.028 6.091-2.533l.318 2.137h3.163v-.001zm-56.693 3.346c-1.147 1.679-3.005 3.008-5.037 3.757l-1.989-2.345c1.547-.794 2.872-2.075 3.489-3.269.532-1.063.753-2.43.753-5.701V92.891h4.284v22.173c0 4.375-.348 6.144-1.5 7.867z"></path>
+                </svg>
             </div>
-            <div class="small text-center text-milkyellow ">
-                國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
+
+            <!-- spring icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <g id="spring-plain-wordmark-surface1">
+                        <path d="M1.7 98.6c-.6-.3-1-1-1-1.8 0-1.2.9-2.1 2.1-2.1.4 0 .8.1 1.1.3 2.2 1.5 4.6 2.2 6.7 2.2 2.3 0 3.6-1 3.6-2.5v-.1c0-1.8-2.5-2.4-5.2-3.2-3.4-1-7.2-2.4-7.2-6.8v-.1c0-4.4 3.6-7 8.2-7 2.5 0 5 .7 7.3 1.9.7.4 1.3 1.1 1.3 2 0 1.2-1 2.1-2.2 2.1-.4 0-.7-.1-1.1-.3-1.9-1-3.8-1.6-5.4-1.6-2.1 0-3.2 1-3.2 2.3v.1c0 1.7 2.5 2.4 5.2 3.3 3.4 1 7.2 2.6 7.2 6.7v.1c0 4.9-3.8 7.3-8.6 7.3-2.9 0-6.1-.9-8.8-2.8M39.8 89.5c0-4.5-3-7.4-6.6-7.4s-6.7 3-6.7 7.4v.1c0 4.4 3.1 7.4 6.7 7.4 3.6-.2 6.6-3 6.6-7.5m-18.4-9.3c0-1.5 1.1-2.7 2.6-2.7s2.7 1.2 2.7 2.7v1.6c1.7-2.4 4.1-4.3 7.8-4.3 5.4 0 10.7 4.3 10.7 11.9v.1c0 7.6-5.2 11.9-10.7 11.9-3.8 0-6.2-1.9-7.8-4v8.1c0 1.5-1.2 2.6-2.7 2.6-1.4 0-2.6-1.1-2.6-2.6V80.2M47.4 80.1c0-1.5 1.1-2.7 2.6-2.7s2.7 1.2 2.7 2.7v1.3c.3-2 3.5-3.9 5.8-3.9 1.7 0 2.6 1.1 2.6 2.6 0 1.4-.9 2.3-2.1 2.5-3.8.7-6.4 3.9-6.4 8.5v7.6c0 1.4-1.2 2.6-2.7 2.6-1.4 0-2.6-1.1-2.6-2.6V80.1M63.5 80.1c0-1.5 1.2-2.7 2.7-2.7 1.5 0 2.7 1.2 2.7 2.7v18.6c0 1.5-1.2 2.6-2.7 2.6-1.5 0-2.7-1.1-2.7-2.6V80.1M71.2 80.2c0-1.5 1.2-2.7 2.7-2.7s2.8 1.2 2.8 2.7v1.1c1.5-2.1 3.8-3.8 7.5-3.8 5.4 0 8.5 3.5 8.5 8.8v12.4c0 1.5-1.2 2.6-2.7 2.6s-2.8-1.1-2.8-2.6V87.9c0-3.6-1.9-5.6-5.1-5.6-3.2 0-5.4 2.1-5.4 5.7v10.7c0 1.5-1.2 2.6-2.8 2.6-1.5 0-2.7-1.1-2.7-2.6V80.2M106.5 96.9c-3.7 0-6.8-2.8-6.8-7.4v-.1c0-4.5 3.1-7.4 6.8-7.4 3.7 0 6.9 3 6.9 7.4v.1c0 4.4-3.2 7.4-6.9 7.4m9.5-19.3c-1.5 0-2.7 1.2-2.7 2.7v1.6c-1.8-2.4-4.2-4.3-8.1-4.3-5.6 0-11 4.3-11 12v.1c0 7.6 5.4 12 11 12 3.9 0 6.4-1.9 8.1-4-.3 4.2-2.9 6.3-7.5 6.3-2.7 0-5.1-.7-7.3-1.8-.3-.1-.6-.2-1-.2-1.3 0-2.3 1-2.3 2.2 0 1 .6 1.7 1.5 2.1 2.9 1.4 5.8 2.1 9.2 2.1 4.3 0 7.6-1 9.8-3.1 2-1.9 3.1-4.8 3.1-8.7V80.2c-.1-1.5-1.3-2.6-2.8-2.6M68.9 71.1c0 1.4-1.2 2.6-2.7 2.6-1.5 0-2.7-1.2-2.7-2.6 0-1.4 1.2-2.6 2.7-2.6 1.5 0 2.7 1.2 2.7 2.6M82.9 53.8C77 61.6 64.3 59 56.1 59.3c0 0-1.4.1-2.9.3 0 0 .6-.2 1.2-.5 5.7-1.9 8.4-2.3 11.9-4.1 6.5-3.3 13-10.4 14.3-17.8-2.5 7.1-10 13.2-16.9 15.7-4.7 1.7-13.2 3.3-13.2 3.3l-.3-.2c-5.8-2.7-6-15 4.6-18.9 4.6-1.7 9-.8 14-1.9 5.3-1.2 11.5-5.1 14-10.2 2.8 8.3 6.2 21 .1 28.8zm.1-31.2c-.7 1.6-1.6 3.1-2.6 4.4-4.4-4.4-10.5-7.1-17.3-7.1C49.8 19.9 39 30.5 39 43.4c0 6.8 3 12.9 7.7 17.2l.5.5c-.9-.7-1-2-.3-2.8.7-.9 2-1 2.9-.3s1 2 .3 2.8c-.7.9-2 1-2.9.3l.4.3c4.2 3.4 9.6 5.5 15.5 5.5 12.7 0 23.1-9.7 24-21.8.8-5.9-1-13.5-4.1-22.5M125.1 79.2h-.9v1.2h.9c.3 0 .6-.2.6-.6 0-.4-.3-.6-.6-.6zm.5 3l-.9-1.4h-.6v1.4h-.5v-3.4h1.4c.6 0 1.1.4 1.1 1 0 .8-.7 1-.9 1l.9 1.4h-.5zm-.8-4.3c-1.4 0-2.6 1.1-2.6 2.5s1.2 2.5 2.6 2.5c1.4 0 2.6-1.1 2.6-2.5 0-1.3-1.2-2.5-2.6-2.5zm0 5.6c-1.7 0-3.1-1.3-3.1-3s1.4-3 3.1-3c1.7 0 3.1 1.3 3.1 3 0 1.6-1.4 3-3.1 3"></path>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Https icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <img  style="width: 80px;height: 80px;"  src="https://img.icons8.com/cute-clipart/64/000000/security-ssl.png"/>
+            </div>
+
+            <!-- CKEditor5 icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg style="width: 80px;height: 80px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 63 59"><g fill="none" fill-rule="evenodd">
+                    <path fill="#1EBC61" d="M31.485 2.22l16.4 9.47a10 10 0 0 1 5 8.66v18.937a10 10 0 0 1-5 8.66l-16.4 9.47a10 10 0 0 1-10 0l-16.4-9.47a10 10 0 0 1-5-8.66V20.35a10 10 0 0 1 5-8.66l16.4-9.469a10 10 0 0 1 10 0z"/><g fill="#FFF" transform="translate(15.053 20.292)"><rect width="24.327" height="3.436" rx="1.718"/><path d="M1.718 8.543h14.909a1.718 1.718 0 1 1 0 3.436H1.717a1.718 1.718 0 1 1 0-3.436z"/><rect width="24.327" height="3.436" y="17.085" rx="1.718"/></g><g transform="translate(41.727 5.05)"><circle cx="10.003" cy="10.003" r="10.003" fill="#1EBC61" stroke="#FFF" stroke-width="2"/><path fill="#FFF" d="M13.338 11.548c0 .534-.095.995-.283 1.385-.189.39-.441.711-.757.965a3.273 3.273 0 0 1-1.077.573c-.402.127-.816.19-1.242.19-.394 0-.77-.05-1.126-.153a3.608 3.608 0 0 1-.972-.437 2.956 2.956 0 0 1-.751-.695 2.779 2.779 0 0 1-.461-.93l1.882-.578c.09.304.26.554.51.75a1.4 1.4 0 0 0 .893.296c.353 0 .658-.107.917-.32.258-.213.387-.529.387-.947 0-.255-.053-.468-.16-.64a1.238 1.238 0 0 0-.412-.412 1.708 1.708 0 0 0-.572-.216 3.381 3.381 0 0 0-.64-.061c-.312 0-.666.035-1.064.104-.398.07-.753.162-1.065.277l.21-4.983h5.34v1.772H9.388l-.074 1.378a2.64 2.64 0 0 1 .437-.068c.16-.012.305-.018.437-.018.434 0 .845.057 1.23.172.386.115.72.29 1.003.523.283.234.507.523.67.867.165.345.247.747.247 1.206z"/></g></g>
+                </svg>
+            </div>
+
+            <!-- js icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill="#F0DB4F" d="M2 1v125h125V1H2zm66.119 106.513c-1.845 3.749-5.367 6.212-9.448 7.401-6.271 1.44-12.269.619-16.731-2.059-2.986-1.832-5.318-4.652-6.901-7.901l9.52-5.83c.083.035.333.487.667 1.071 1.214 2.034 2.261 3.474 4.319 4.485 2.022.69 6.461 1.131 8.175-2.427 1.047-1.81.714-7.628.714-14.065C58.433 78.073 58.48 68 58.48 58h11.709c0 11 .06 21.418 0 32.152.025 6.58.596 12.446-2.07 17.361zm48.574-3.308c-4.07 13.922-26.762 14.374-35.83 5.176-1.916-2.165-3.117-3.296-4.26-5.795 4.819-2.772 4.819-2.772 9.508-5.485 2.547 3.915 4.902 6.068 9.139 6.949 5.748.702 11.531-1.273 10.234-7.378-1.333-4.986-11.77-6.199-18.873-11.531-7.211-4.843-8.901-16.611-2.975-23.335 1.975-2.487 5.343-4.343 8.877-5.235l3.688-.477c7.081-.143 11.507 1.727 14.756 5.355.904.916 1.642 1.904 3.022 4.045-3.772 2.404-3.76 2.381-9.163 5.879-1.154-2.486-3.069-4.046-5.093-4.724-3.142-.952-7.104.083-7.926 3.403-.285 1.023-.226 1.975.227 3.665 1.273 2.903 5.545 4.165 9.377 5.926 11.031 4.474 14.756 9.271 15.672 14.981.882 4.916-.213 8.105-.38 8.581z"></path>
+                </svg>
+            </div>
+
+            <!-- jQuery icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill="#0868AC" d="M27.758 20.421c-7.352 10.565-6.437 24.312-.82 35.54l.411.798.263.506.164.291.293.524c.174.307.353.612.536.919l.306.504c.203.326.41.65.622.973l.265.409c.293.437.592.872.901 1.301l.026.033.152.205c.267.368.542.732.821 1.093l.309.393c.249.313.502.623.759.934l.29.346c.345.406.698.812 1.057 1.208l.021.022.041.045c.351.383.71.758 1.075 1.133l.344.347c.282.284.569.563.858.841l.351.334c.387.364.777.722 1.176 1.07l.018.016.205.174c.351.305.708.605 1.068.902l.442.353c.294.235.591.468.89.696l.477.361c.33.243.663.482.999.717l.363.258.101.072c.318.22.645.431.97.642l.42.28c.5.315 1.007.628 1.519.93l.42.237c.377.217.756.431 1.14.639l.631.326.816.424.188.091.334.161c.427.204.858.405 1.293.599l.273.122c.498.218 1.001.427 1.508.628l.368.144c.469.182.945.359 1.423.527l.179.062c.524.184 1.054.353 1.587.52l.383.114c.542.164 1.079.358 1.638.462 35.553 6.483 45.88-21.364 45.88-21.364-8.674 11.3-24.069 14.28-38.656 10.962-.553-.125-1.089-.298-1.628-.456l-.406-.124a44.793 44.793 0 01-1.568-.51l-.215-.077a49.537 49.537 0 01-1.382-.513l-.388-.152c-.501-.198-1-.405-1.492-.62l-.298-.133a55.398 55.398 0 01-1.259-.585l-.364-.175c-.327-.159-.65-.328-.974-.495l-.649-.341c-.395-.21-.782-.43-1.167-.654l-.394-.219a58.203 58.203 0 01-1.52-.932l-.41-.273a40.515 40.515 0 01-1.081-.719l-.349-.245a54.203 54.203 0 01-1.022-.738l-.453-.343c-.31-.237-.618-.476-.922-.721l-.411-.33c-.388-.318-.771-.64-1.149-.969l-.126-.105a54.797 54.797 0 01-1.208-1.098l-.34-.328a33.158 33.158 0 01-.868-.851l-.34-.34c-.362-.37-.717-.745-1.065-1.126l-.053-.057a41.973 41.973 0 01-1.08-1.229l-.283-.336a44.66 44.66 0 01-.777-.961l-.285-.355a52.469 52.469 0 01-.898-1.195c-8.098-11.047-11.008-26.283-4.535-38.795m17.081-1.626c-5.316 7.65-5.028 17.893-.88 25.983a33.747 33.747 0 002.351 3.925c.796 1.143 1.68 2.501 2.737 3.418.383.422.784.834 1.193 1.238l.314.311c.397.385.801.764 1.218 1.132l.05.043.012.012c.462.405.939.794 1.423 1.178l.323.252c.486.372.981.738 1.489 1.087l.043.033.68.447.322.213c.363.233.73.459 1.104.676l.156.092c.322.185.648.367.975.545l.347.18.682.354.103.047c.469.23.941.453 1.424.663l.314.13c.386.163.775.323 1.167.473l.5.184c.356.132.712.253 1.072.373l.484.155c.511.158 1.017.359 1.549.448 27.45 4.547 33.787-16.588 33.787-16.588-5.712 8.228-16.775 12.153-28.58 9.089a34.726 34.726 0 01-1.555-.449l-.467-.151a29 29 0 01-1.087-.374l-.491-.183a38.673 38.673 0 01-1.171-.473l-.315-.133a32.78 32.78 0 01-1.432-.666l-.718-.365-.414-.213c-.306-.166-.61-.338-.909-.514l-.217-.123a30.75 30.75 0 01-1.1-.672l-.332-.221-.712-.472a37.364 37.364 0 01-1.484-1.085l-.334-.264c-5.167-4.079-9.263-9.655-11.21-15.977-2.041-6.557-1.601-13.917 1.935-19.891m14.847-.518c-3.134 4.612-3.442 10.341-1.267 15.435 2.293 5.407 6.992 9.648 12.477 11.66l.682.235.3.096c.323.102.644.22.978.282 15.157 2.929 19.268-7.777 20.362-9.354-3.601 5.185-9.653 6.43-17.079 4.627a18.837 18.837 0 01-1.796-.555 22.303 22.303 0 01-2.134-.886 22.19 22.19 0 01-3.741-2.282c-6.645-5.042-10.772-14.659-6.436-22.492"></path><path fill="#131B28" d="M66.359 96.295h-4.226a.556.556 0 00-.517.417l-1.5 6.94-1.5 6.94a.554.554 0 01-.516.417h-2.991c-2.959 0-2.617-2.047-2.011-4.851l.018-.085.066-.354.012-.066.135-.72.145-.771.154-.785.682-3.332.683-3.332a.336.336 0 00-.341-.419h-4.337a.55.55 0 00-.514.418l-.933 4.424-.932 4.425-.002.006-.086.412c-1.074 4.903-.79 9.58 5.048 9.727l.17.003h9.163a.554.554 0 00.516-.417l1.976-9.289 1.976-9.29c.049-.23-.103-.417-.338-.418zm-45.256-.049h-4.64a.562.562 0 00-.521.416l-.44 1.942-.44 1.942c-.051.229.098.416.333.416h4.676a.556.556 0 00.518-.417l.425-1.941.425-1.941c.049-.229-.101-.417-.336-.417zm-1.346 6.044H15.08a.563.563 0 00-.521.416l-.657 2.91-.656 2.909-.183.834-.631 2.97-.63 2.971c-.049.229-.15.599-.225.821 0 0-.874 2.6-2.343 2.57l-.184-.004-1.271-.023h-.001a.558.558 0 00-.524.407l-.485 2.039-.484 2.038c-.055.228.093.416.326.42.833.01 2.699.031 3.828.031 3.669 0 5.604-2.033 6.843-7.883l1.451-6.714 1.361-6.297c.049-.227-.103-.415-.337-.415zm86.117-1.574l-.194-.801-.191-.82-.097-.414c-.38-1.477-1.495-2.328-3.917-2.328l-3.77-.004-3.472-.005h-3.907a.552.552 0 00-.515.417l-.173.816-.204.964-.057.271-1.759 8.24-1.67 7.822c-.05.23-.066.512-.038.626.028.115.479.209.713.209h3.524c.235 0 .532-.042.66-.094s.317-.513.364-.742l.626-3.099.627-3.1.001-.005.084-.413.76-3.56.671-3.144a.555.555 0 01.515-.417l11.089-.005c.235.002.383-.185.33-.414zm14.275-7.24l-.854.003h-3.549a.904.904 0 00-.667.353l-7.849 11.498c-.132.194-.283.166-.335-.062l-.578-2.533a.562.562 0 00-.522-.416h-5.045c-.235 0-.374.184-.31.409l2.261 7.921c.064.226.069.596.011.824l-.985 3.833c-.059.228.085.413.32.413h4.987a.58.58 0 00.532-.413l.986-3.833a2.52 2.52 0 01.363-.755l12.742-16.911c.142-.188.065-.341-.169-.339l-1.339.008zm-40.086 9.919v-.004a.514.514 0 01-.499.441h-6.397c-.222 0-.334-.15-.301-.336l.006-.015-.004.002.003-.021.029-.109c.611-1.624 1.855-2.69 4.194-2.69 2.634-.001 3.148 1.285 2.969 2.732zm-1.877-7.384c-8.211 0-10.157 4.984-11.249 10.015-1.091 5.128-.998 9.921 7.5 9.921h1.03l.256-.001h.06l1.02-.003h.018c2.244-.009 4.495-.026 5.406-.033a.553.553 0 00.509-.42l.344-1.681.067-.327.41-2.006a.335.335 0 00-.341-.418h-7.639c-3.039 0-3.941-.807-3.608-3.181H84.18l-.001.001.008-.001a.503.503 0 00.445-.315l.029-.106-.001.001c1.813-6.839 1.293-11.445-6.474-11.446zm-38.81 7.358l-.116.409v.001l-.922 3.268-.922 3.267a.596.596 0 01-.543.411h-4.88c-3.702 0-4.604-2.896-3.702-7.166.901-4.368 2.668-7.083 6.312-7.358 4.98-.376 5.976 3.126 4.773 7.168zm3.348 7.105s2.301-5.588 2.823-8.814c.713-4.319-1.45-10.585-9.804-10.585-8.306 0-11.914 5.981-13.29 12.484-1.376 6.55.427 12.293 8.686 12.246l6.516-.024 6.089-.022a.59.59 0 00.534-.414l1.061-4.046c.059-.228-.084-.414-.319-.416l-1.017-.006-1.017-.006c-.199-.001-.313-.131-.289-.302l.027-.095zm41.12-3.741a.28.28 0 11-.56.001.28.28 0 01.56-.001z"></path>
+                </svg>
+            </div>
+
+            <!-- Bootstrap icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128"  style="width: 80px;height: 80px;">
+                    <path fill="#5B4282" d="M9.531 112.586h4.161c1.896 0 3.273.27 4.129.81.857.54 1.285 1.398 1.285 2.575 0 .799-.188 1.454-.563 1.966s-.874.82-1.496.924v.091c.848.189 1.459.543 1.834 1.061s.563 1.207.563 2.067c0 1.22-.44 2.171-1.322 2.854-.881.683-2.078 1.024-3.59 1.024H9.531v-13.372zm2.835 5.296h1.646c.768 0 1.325-.119 1.669-.356.345-.238.517-.631.517-1.18 0-.512-.187-.879-.562-1.102s-.968-.334-1.779-.334h-1.491v2.972zm0 2.25v3.485h1.848c.78 0 1.356-.149 1.729-.448s.558-.756.558-1.372c0-1.109-.793-1.665-2.378-1.665h-1.757zm21.886-.878c0 2.213-.549 3.915-1.646 5.104s-2.67 1.784-4.719 1.784-3.622-.595-4.719-1.784c-1.098-1.189-1.646-2.896-1.646-5.122s.55-3.925 1.651-5.099 2.678-1.761 4.733-1.761 3.626.592 4.715 1.774c1.087 1.183 1.631 2.885 1.631 5.104zm-9.758 0c0 1.494.283 2.619.851 3.375.567.756 1.414 1.134 2.542 1.134 2.262 0 3.393-1.503 3.393-4.509 0-3.012-1.125-4.518-3.375-4.518-1.128 0-1.979.379-2.552 1.139s-.859 1.885-.859 3.379zm24.667 0c0 2.213-.549 3.915-1.646 5.104s-2.67 1.784-4.719 1.784-3.622-.595-4.719-1.784c-1.098-1.189-1.646-2.896-1.646-5.122s.55-3.925 1.651-5.099 2.678-1.761 4.733-1.761 3.626.592 4.715 1.774c1.086 1.183 1.631 2.885 1.631 5.104zm-9.759 0c0 1.494.283 2.619.851 3.375.567.756 1.414 1.134 2.542 1.134 2.262 0 3.393-1.503 3.393-4.509 0-3.012-1.125-4.518-3.375-4.518-1.128 0-1.979.379-2.552 1.139s-.859 1.885-.859 3.379zm17.688 6.704h-2.835v-11.012h-3.631v-2.36h10.097v2.36H57.09v11.012zm13.581-3.713c0 1.208-.434 2.159-1.303 2.854-.869.695-2.078 1.043-3.626 1.043-1.427 0-2.689-.269-3.786-.805v-2.634c.902.402 1.666.686 2.291.851s1.196.247 1.715.247c.622 0 1.099-.119 1.431-.356.333-.238.499-.591.499-1.061 0-.262-.073-.495-.219-.7-.146-.204-.361-.401-.645-.59s-.861-.491-1.733-.905c-.817-.384-1.43-.753-1.838-1.107a4.158 4.158 0 01-.979-1.234c-.244-.47-.366-1.019-.366-1.646 0-1.183.401-2.113 1.203-2.79s1.91-1.015 3.325-1.015c.695 0 1.358.082 1.989.247.631.165 1.291.396 1.98.695l-.915 2.204c-.713-.292-1.303-.497-1.77-.613a5.69 5.69 0 00-1.376-.174c-.537 0-.948.125-1.235.375-.287.25-.43.576-.43.979 0 .25.058.468.174.654.116.186.3.366.553.54.253.174.852.486 1.797.938 1.25.598 2.107 1.197 2.57 1.797s.694 1.334.694 2.206zm7.583 3.713h-2.835v-11.012h-3.631v-2.36h10.097v2.36h-3.631v11.012zm8.524-5.131v5.131h-2.835v-13.372h3.896c1.817 0 3.161.331 4.033.992.872.662 1.308 1.667 1.308 3.014 0 .787-.216 1.486-.649 2.099s-1.046 1.093-1.838 1.44c2.012 3.006 3.323 4.948 3.933 5.826H91.48l-3.192-5.131h-1.51zm0-2.305h.915c.896 0 1.558-.149 1.985-.448s.64-.769.64-1.409c0-.634-.218-1.085-.654-1.354-.436-.268-1.111-.402-2.026-.402h-.86v3.613zm17.716 7.436l-.97-3.183h-4.875l-.97 3.183h-3.055l4.719-13.426h3.466l4.738 13.426h-3.053zm-1.647-5.561a1027.84 1027.84 0 01-1.514-4.893 13.862 13.862 0 01-.242-.896c-.201.78-.777 2.71-1.729 5.789h3.485zm15.622-3.64c0 1.439-.45 2.54-1.349 3.301-.899.763-2.178 1.144-3.837 1.144h-1.216v4.756h-2.835v-13.372h4.271c1.622 0 2.855.349 3.7 1.047.844.699 1.266 1.74 1.266 3.124zm-6.402 2.122H113c.872 0 1.524-.172 1.957-.517.433-.345.649-.846.649-1.504 0-.665-.182-1.156-.544-1.473-.363-.317-.932-.476-1.706-.476h-1.29v3.97zm-38.116-62.12c-1.983-.653-4.838-.759-8.565-.759H52v20h14.424c2.502 0 4.259-.249 5.271-.437 1.783-.318 3.274-.93 4.472-1.676 1.198-.744 2.183-1.869 2.955-3.293.771-1.424 1.158-3.087 1.158-4.951 0-2.184-.559-3.98-1.677-5.59-1.117-1.611-2.668-2.642-4.652-3.294zm-2.056-8.612c1.97-.586 3.455-1.646 4.452-3.003.999-1.357 1.498-3.103 1.498-5.154 0-1.943-.466-3.675-1.398-5.154-.932-1.478-2.263-2.481-3.992-3.027-1.732-.544-4.7-.809-8.906-.809H52v18h12.507c3.435 0 5.897-.399 7.388-.853zM117 16.126C117 8.324 110.675 2 102.873 2H25.127C17.325 2 11 8.324 11 16.126v77.748C11 101.676 17.325 108 25.127 108h77.746c7.802 0 14.127-6.324 14.127-14.126V16.126zM86.57 73.27c-1.157 2.356-2.589 4.173-4.292 5.451-1.704 1.277-3.841 2.446-6.41 3.098A38.022 38.022 0 0166.424 83H44V24h22.065c4.473 0 8.059.62 10.761 1.804 2.703 1.185 4.818 3.021 6.351 5.483 1.53 2.463 2.296 5.046 2.296 7.735 0 2.502-.68 4.861-2.036 7.071-1.358 2.21-3.408 3.995-6.15 5.352 3.54 1.038 6.263 2.811 8.166 5.313 1.903 2.503 2.855 5.458 2.855 8.866-.001 2.742-.579 5.291-1.738 7.646z"></path>
+                </svg>
+            </div>
+
+            <!-- SASS icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128"  style="width: 80px;height: 80px;">
+                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#CB6699" d="M1.219 56.156c0 .703.207 1.167.323 1.618.756 2.933 2.381 5.45 4.309 7.746 2.746 3.272 6.109 5.906 9.554 8.383 2.988 2.148 6.037 4.248 9.037 6.38.515.366 1.002.787 1.561 1.236-.481.26-.881.489-1.297.7-3.959 2.008-7.768 4.259-11.279 6.986-2.116 1.644-4.162 3.391-5.607 5.674-2.325 3.672-3.148 7.584-1.415 11.761.506 1.22 1.278 2.274 2.367 3.053.353.252.749.502 1.162.6 1.058.249 2.136.412 3.207.609l3.033-.002c3.354-.299 6.407-1.448 9.166-3.352 4.312-2.976 7.217-6.966 8.466-12.087.908-3.722.945-7.448-.125-11.153a11.696 11.696 0 00-.354-1.014c-.13-.333-.283-.657-.463-1.072l6.876-3.954.103.088c-.125.409-.258.817-.371 1.23-.817 2.984-1.36 6.02-1.165 9.117.208 3.3 1.129 6.389 3.061 9.146 1.562 2.23 5.284 2.313 6.944.075.589-.795 1.16-1.626 1.589-2.513 1.121-2.315 2.159-4.671 3.23-7.011l.187-.428c-.077 1.108-.167 2.081-.208 3.055-.064 1.521.025 3.033.545 4.48.445 1.238 1.202 2.163 2.62 2.326.97.111 1.743-.333 2.456-.896a10.384 10.384 0 002.691-3.199c1.901-3.491 3.853-6.961 5.576-10.54 1.864-3.871 3.494-7.855 5.225-11.792l.286-.698c.409 1.607.694 3.181 1.219 4.671.61 1.729 1.365 3.417 2.187 5.058.389.775.344 1.278-.195 1.928-2.256 2.72-4.473 5.473-6.692 8.223-.491.607-.98 1.225-1.389 1.888a3.701 3.701 0 00-.48 1.364 1.737 1.737 0 001.383 1.971 9.661 9.661 0 002.708.193c3.097-.228 5.909-1.315 8.395-3.157 3.221-2.386 4.255-5.642 3.475-9.501-.211-1.047-.584-2.065-.947-3.074-.163-.455-.174-.774.123-1.198 2.575-3.677 4.775-7.578 6.821-11.569.081-.157.164-.314.306-.482.663 3.45 1.661 6.775 3.449 9.792-.912.879-1.815 1.676-2.632 2.554-1.799 1.934-3.359 4.034-4.173 6.595-.35 1.104-.619 2.226-.463 3.405.242 1.831 1.742 3.021 3.543 2.604 3.854-.892 7.181-2.708 9.612-5.925 1.636-2.166 1.785-4.582 1.1-7.113-.188-.688-.411-1.365-.651-2.154.951-.295 1.878-.649 2.837-.868 4.979-1.136 9.904-.938 14.702.86 2.801 1.05 5.064 2.807 6.406 5.571 1.639 3.379.733 6.585-2.452 8.721-.297.199-.637.356-.883.605a.869.869 0 00-.205.67c.021.123.346.277.533.275 1.047-.008 1.896-.557 2.711-1.121 2.042-1.413 3.532-3.314 3.853-5.817l.063-.188-.077-1.63c-.031-.094.023-.187.016-.258-.434-3.645-2.381-6.472-5.213-8.688-3.28-2.565-7.153-3.621-11.249-3.788a25.401 25.401 0 00-9.765 1.503c-.897.325-1.786.71-2.688 1.073-.121-.219-.251-.429-.358-.646-.926-1.896-2.048-3.708-2.296-5.882-.176-1.544-.392-3.086-.025-4.613.353-1.469.813-2.913 1.246-4.362.223-.746.066-1.164-.646-1.5a2.854 2.854 0 00-.786-.258c-1.75-.254-3.476-.109-5.171.384-.6.175-1.036.511-1.169 1.175-.076.381-.231.746-.339 1.122-.443 1.563-.757 3.156-1.473 4.645-1.794 3.735-3.842 7.329-5.938 10.897-.227.385-.466.763-.752 1.23-.736-1.54-1.521-2.922-1.759-4.542-.269-1.832-.481-3.661-.025-5.479.339-1.356.782-2.687 1.19-4.025.193-.636.104-.97-.472-1.305-.291-.169-.62-.319-.948-.368a11.643 11.643 0 00-5.354.438c-.543.176-.828.527-.994 1.087-.488 1.652-.904 3.344-1.589 4.915-2.774 6.36-5.628 12.687-8.479 19.013-.595 1.321-1.292 2.596-1.963 3.882-.17.326-.418.613-.63.919-.17-.201-.236-.339-.235-.477.005-.813-.092-1.65.063-2.436a172.189 172.189 0 011.578-7.099c.47-1.946 1.017-3.874 1.538-5.807.175-.647.178-1.252-.287-1.796-.781-.911-2.413-1.111-3.381-.409l-.428.242.083-.69c.204-1.479.245-2.953-.161-4.41-.506-1.816-1.802-2.861-3.686-2.803-.878.027-1.8.177-2.613.497-3.419 1.34-6.048 3.713-8.286 6.568a2.592 2.592 0 01-.757.654c-2.893 1.604-5.795 3.188-8.696 4.778l-3.229 1.769c-.866-.826-1.653-1.683-2.546-2.41-2.727-2.224-5.498-4.393-8.244-6.592-2.434-1.949-4.792-3.979-6.596-6.56-1.342-1.92-2.207-4.021-2.29-6.395-.105-3.025.753-5.789 2.293-8.362 1.97-3.292 4.657-5.934 7.611-8.327 3.125-2.53 6.505-4.678 10.008-6.639 4.901-2.743 9.942-5.171 15.347-6.774 5.542-1.644 11.165-2.585 16.965-1.929 2.28.258 4.494.78 6.527 1.895 1.557.853 2.834 1.97 3.428 3.716.586 1.718.568 3.459.162 5.204-.825 3.534-2.76 6.447-5.195 9.05-3.994 4.267-8.866 7.172-14.351 9.091a39.478 39.478 0 01-9.765 2.083c-2.729.229-5.401-.013-7.985-.962-1.711-.629-3.201-1.591-4.399-2.987-.214-.25-.488-.521-.887-.287-.391.23-.46.602-.329.979.219.626.421 1.278.762 1.838.857 1.405 2.107 2.424 3.483 3.298 2.643 1.681 5.597 2.246 8.66 2.377 4.648.201 9.183-.493 13.654-1.74 6.383-1.78 11.933-4.924 16.384-9.884 3.706-4.13 6.353-8.791 6.92-14.419.277-2.747-.018-5.438-1.304-7.944-1.395-2.715-3.613-4.734-6.265-6.125C68.756 18.179 64.588 17 60.286 17h-4.31c-5.21 0-10.247 1.493-15.143 3.274-3.706 1.349-7.34 2.941-10.868 4.703-7.683 3.839-14.838 8.468-20.715 14.833-2.928 3.171-5.407 6.67-6.833 10.79a40.494 40.494 0 00-1.111 3.746m27.839 36.013c-.333 4.459-2.354 8.074-5.657 11.002-1.858 1.646-3.989 2.818-6.471 3.23-.9.149-1.821.185-2.694-.188-1.245-.532-1.524-1.637-1.548-2.814-.037-1.876.62-3.572 1.521-5.186 1.176-2.104 2.9-3.708 4.741-5.206 2.9-2.361 6.046-4.359 9.268-6.245l.243-.1c.498 1.84.735 3.657.597 5.507zM54.303 70.98c-.235 1.424-.529 2.849-.945 4.229-1.438 4.777-3.285 9.406-5.282 13.973-.369.845-.906 1.616-1.373 2.417a1.689 1.689 0 01-.283.334c-.578.571-1.126.541-1.418-.206-.34-.868-.549-1.797-.729-2.716-.121-.617-.092-1.265-.13-1.897.039-4.494 1.41-8.578 3.736-12.38.959-1.568 2.003-3.062 3.598-4.054a6.27 6.27 0 011.595-.706c.85-.239 1.372.154 1.231 1.006zm17.164 21.868l6.169-7.203c.257 2.675-4.29 8.015-6.169 7.203zm19.703-4.847c-.436.25-.911.43-1.358.661-.409.212-.544-.002-.556-.354a2.385 2.385 0 01.093-.721c.833-2.938 2.366-5.446 4.647-7.486l.16-.082c1.085 3.035-.169 6.368-2.986 7.982z"></path>
+                </svg>
+            </div>
+
+            <!-- JSON icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 80px;height: 80px;" x="0px" y="0px" viewBox="0 0 122.88 90.332" enable-background="new 0 0 122.88 90.332" xml:space="preserve"><g>
+                        <path fill-rule="evenodd" clip-rule="evenodd" fill="#262626" d="M19.962,0h82.962c1.578,0,3.023,0.653,4.07,1.7l0,0l0.008,0.007 l0.007,0.009l0.009,0.007c1.046,1.054,1.691,2.492,1.691,4.069v11.784h5.303c2.443,0,4.66,1.004,6.262,2.605 c1.608,1.608,2.606,3.834,2.606,6.266v37.439c0,2.433-1.004,4.653-2.61,6.26c-0.122,0.122-0.249,0.236-0.38,0.343 c-1.569,1.403-3.637,2.267-5.878,2.267h-5.303v11.791c0,1.593-0.653,3.038-1.7,4.085c-1.045,1.046-2.492,1.7-4.085,1.7H19.962 c-1.578,0-3.023-0.647-4.078-1.7l-0.007-0.009l-0.009-0.007l-0.007-0.008c-1.047-1.054-1.693-2.492-1.693-4.07V72.756H8.871 c-2.432,0-4.657-0.997-6.265-2.607C1.004,68.547,0,66.332,0,63.887V26.447c0-2.446,0.998-4.664,2.602-6.269 c0.122-0.122,0.249-0.237,0.382-0.344c1.569-1.402,3.633-2.258,5.887-2.258h5.297V5.777c0.016-1.592,0.662-3.039,1.709-4.085 c0.061-0.063,0.122-0.124,0.192-0.178C17.1,0.577,18.468,0,19.962,0L19.962,0L19.962,0z M52.729,7.431 c2.056,0,3.724,1.669,3.724,3.724c0,2.057-1.668,3.726-3.724,3.726c-2.057,0-3.725-1.669-3.725-3.726 C49.004,9.1,50.671,7.431,52.729,7.431L52.729,7.431z M39.558,7.431c2.055,0,3.724,1.669,3.724,3.724 c0,2.057-1.669,3.726-3.724,3.726c-2.057,0-3.727-1.669-3.727-3.726C35.831,9.1,37.5,7.431,39.558,7.431L39.558,7.431z M26.387,7.431c2.055,0,3.724,1.669,3.724,3.724c0,2.057-1.669,3.726-3.724,3.726c-2.057,0-3.727-1.669-3.727-3.726 C22.66,9.1,24.33,7.431,26.387,7.431L26.387,7.431z M8.873,22.378h105.154c2.24,0,4.068,1.894,4.068,4.069v37.439 c0,2.175-1.894,4.068-4.068,4.068H8.873c-2.175,0-4.069-1.829-4.069-4.068V26.447C4.804,24.208,6.633,22.378,8.873,22.378 L8.873,22.378z M103.485,72.756H19.408v0.102v11.674v0.002v0.026l0.003,0.029l0.002,0.026l0.002,0.002l0.003,0.026l0.005,0.027 h0.002l0.005,0.025h0.002l0.007,0.026h0.001l0.008,0.025h0.001l0.009,0.023h0.001l0.011,0.025h0.002 c0.025,0.047,0.052,0.089,0.086,0.127l0,0l0.009,0.007c0.098,0.101,0.229,0.154,0.393,0.154h82.962l0.041-0.002 c0.306,0,0.553-0.245,0.553-0.55V72.857c0-0.028-0.013-0.056-0.032-0.073V72.756L103.485,72.756z"/><path fill="#FF0000" d="M23.82,32.662h7.747V46.23c0,2.85-0.25,5.02-0.756,6.509c-0.506,1.482-1.523,2.745-3.053,3.78 c-1.53,1.029-3.489,1.547-5.874,1.547c-2.524,0-4.479-0.343-5.863-1.023c-1.39-0.681-2.46-1.675-3.216-2.989 c-0.756-1.31-1.204-2.932-1.337-4.862l7.363-1.001c0.012,1.094,0.111,1.908,0.291,2.438c0.18,0.535,0.489,0.959,0.925,1.291 c0.296,0.215,0.715,0.319,1.262,0.319c0.866,0,1.5-0.319,1.907-0.959c0.402-0.64,0.605-1.722,0.605-3.239V32.662L23.82,32.662z M34.207,49.383l7.328-0.459c0.157,1.187,0.483,2.094,0.972,2.71c0.797,1.006,1.931,1.513,3.408,1.513 c1.099,0,1.948-0.257,2.542-0.774c0.599-0.518,0.896-1.116,0.896-1.797c0-0.646-0.279-1.228-0.843-1.739s-1.878-0.988-3.943-1.447 c-3.385-0.757-5.793-1.769-7.235-3.031c-1.454-1.256-2.181-2.861-2.181-4.816c0-1.279,0.372-2.489,1.117-3.629 c0.744-1.146,1.861-2.042,3.356-2.693s3.542-0.977,6.142-0.977c3.193,0,5.624,0.593,7.299,1.785 c1.675,1.187,2.669,3.077,2.989,5.671l-7.258,0.43c-0.192-1.134-0.599-1.959-1.216-2.472c-0.622-0.518-1.477-0.773-2.564-0.773 c-0.896,0-1.576,0.192-2.03,0.57c-0.454,0.378-0.68,0.843-0.68,1.39c0,0.396,0.186,0.75,0.553,1.07 c0.354,0.332,1.215,0.634,2.576,0.919c3.374,0.727,5.787,1.465,7.241,2.21c1.46,0.745,2.524,1.664,3.187,2.769 c0.663,1.099,0.995,2.333,0.995,3.699c0,1.6-0.442,3.077-1.326,4.432c-0.89,1.35-2.123,2.379-3.716,3.077 c-1.588,0.698-3.588,1.047-6.008,1.047c-4.246,0-7.188-0.82-8.823-2.454C35.347,53.978,34.422,51.901,34.207,49.383L34.207,49.383z M58.593,45.172c0-4.077,1.134-7.252,3.408-9.521c2.274-2.274,5.438-3.408,9.498-3.408c4.158,0,7.362,1.117,9.613,3.344 c2.251,2.233,3.374,5.362,3.374,9.381c0,2.92-0.489,5.31-1.472,7.177s-2.408,3.321-4.264,4.362c-1.86,1.041-4.176,1.559-6.95,1.559 c-2.814,0-5.146-0.448-6.996-1.344c-1.844-0.901-3.345-2.32-4.49-4.263C59.168,50.523,58.593,48.092,58.593,45.172L58.593,45.172z M66.305,45.189c0,2.519,0.472,4.333,1.408,5.433c0.941,1.099,2.222,1.651,3.838,1.651c1.658,0,2.949-0.541,3.856-1.616 c0.913-1.082,1.367-3.014,1.367-5.811c0-2.35-0.478-4.065-1.426-5.147c-0.953-1.087-2.239-1.628-3.867-1.628 c-1.559,0-2.815,0.552-3.758,1.652C66.776,40.822,66.305,42.648,66.305,45.189L66.305,45.189z M87.545,32.662h7.206l9.369,13.796 V32.662h7.294v24.986h-7.294l-9.317-13.72v13.72h-7.258V32.662L87.545,32.662z"/></g>
+                    </svg>
+            </div>
+
+            <!-- mysql icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill="#00618A" d="M2.001 90.458h4.108V74.235l6.36 14.143c.75 1.712 1.777 2.317 3.792 2.317s3.003-.605 3.753-2.317l6.36-14.143v16.223h4.108V74.262c0-1.58-.632-2.345-1.936-2.739-3.121-.974-5.215-.131-6.163 1.976l-6.241 13.958-6.043-13.959c-.909-2.106-3.042-2.949-6.163-1.976C2.632 71.917 2 72.681 2 74.261v16.197zm31.898-13.206h4.107v8.938c-.038.485.156 1.625 2.406 1.661 1.148.018 8.862 0 8.934 0V77.208h4.117c.019 0-.004 14.514-.004 14.574.022 3.58-4.441 4.357-6.499 4.417H33.988v-2.764c.022 0 12.963.003 12.995-.001 2.645-.279 2.332-1.593 2.331-2.035v-1.078h-8.731c-4.062-.037-6.65-1.81-6.683-3.85-.002-.187.089-9.129-.001-9.219z"></path>
+                    <path fill="#E48E00" d="M56.63 90.458h11.812c1.383 0 2.727-.289 3.793-.789 1.777-.816 2.646-1.922 2.646-3.372v-3.002c0-1.185-.987-2.292-2.923-3.028-1.027-.396-2.292-.605-3.517-.605h-4.978c-1.659 0-2.449-.5-2.646-1.606-.039-.132-.039-.237-.039-.369v-1.87c0-.105 0-.211.039-.342.197-.843.632-1.08 2.094-1.212l.395-.026h11.733v-2.738H63.504c-1.659 0-2.528.105-3.318.342-2.449.764-3.517 1.975-3.517 4.082v2.396c0 1.844 2.095 3.424 5.61 3.793.396.025.79.053 1.185.053h4.267c.158 0 .316 0 .435.025 1.304.105 1.856.343 2.252.816a.98.98 0 01.315.737v2.397c0 .289-.197.658-.592.974-.355.316-.948.527-1.738.58l-.435.026H56.63v2.738zm43.881-4.766c0 2.817 2.094 4.397 6.32 4.714.395.026.79.052 1.185.052h10.706V87.72h-10.784c-2.41 0-3.318-.606-3.318-2.055V71.497h-4.108v14.195zm-23.008.142v-9.765c0-2.48 1.742-3.985 5.186-4.46a7.8 7.8 0 011.108-.079h7.799c.396 0 .752.026 1.147.079 3.444.475 5.187 1.979 5.187 4.46v9.765c0 2.014-.74 3.09-2.445 3.792l4.048 3.653h-4.771l-3.274-2.956-3.296.209h-4.395a9.075 9.075 0 01-2.414-.343c-2.613-.712-3.88-2.085-3.88-4.355zm4.434-.237c0 .132.039.265.079.423.237 1.135 1.307 1.768 2.929 1.768h3.732l-3.428-3.095h4.771l2.989 2.7c.552-.295.914-.743 1.041-1.32.039-.132.039-.264.039-.396v-9.368c0-.105 0-.238-.039-.37-.238-1.056-1.307-1.662-2.89-1.662h-6.216c-1.82 0-3.008.792-3.008 2.032v9.288z"></path>
+                    <path fill="#00618A" d="M122.336 66.952c-2.525-.069-4.454.166-6.104.861-.469.198-1.216.203-1.292.79.257.271.297.674.502 1.006.394.637 1.059 1.491 1.652 1.938.647.489 1.315 1.013 2.011 1.437 1.235.754 2.615 1.184 3.806 1.938.701.446 1.397 1.006 2.082 1.509.339.247.565.634 1.006.789v-.071c-.231-.294-.291-.698-.503-1.006l-.934-.934c-.913-1.212-2.071-2.275-3.304-3.159-.982-.705-3.18-1.658-3.59-2.801l-.072-.071c.696-.079 1.512-.331 2.154-.503 1.08-.29 2.045-.215 3.16-.503l1.508-.432v-.286c-.563-.578-.966-1.344-1.58-1.867-1.607-1.369-3.363-2.737-5.17-3.879-1.002-.632-2.241-1.043-3.304-1.579-.356-.181-.984-.274-1.221-.575-.559-.711-.862-1.612-1.293-2.441a93.068 93.068 0 01-2.585-5.458c-.544-1.245-.9-2.473-1.579-3.59-3.261-5.361-6.771-8.597-12.208-11.777-1.157-.677-2.55-.943-4.021-1.292l-2.37-.144c-.481-.201-.983-.791-1.436-1.077-1.802-1.138-6.422-3.613-7.756-.358-.842 2.054 1.26 4.058 2.011 5.099.527.73 1.203 1.548 1.58 2.369.248.54.29 1.081.503 1.652.521 1.406.976 2.937 1.651 4.236.341.658.718 1.351 1.149 1.939.264.36.718.52.789 1.077-.443.62-.469 1.584-.718 2.369-1.122 3.539-.699 7.938.934 10.557.501.805 1.681 2.529 3.303 1.867 1.419-.578 1.103-2.369 1.509-3.95.092-.357.035-.621.215-.861v.072l1.293 2.585c.957 1.541 2.654 3.15 4.093 4.237.746.563 1.334 1.538 2.298 1.867v-.073h-.071c-.188-.291-.479-.411-.719-.646-.562-.551-1.187-1.235-1.651-1.867-1.309-1.776-2.465-3.721-3.519-5.745-.503-.966-.94-2.032-1.364-3.016-.164-.379-.162-.953-.502-1.148-.466.72-1.149 1.303-1.509 2.154-.574 1.36-.648 3.019-.861 4.739l-.144.071c-1.001-.241-1.352-1.271-1.724-2.154-.94-2.233-1.115-5.83-.287-8.401.214-.666 1.181-2.761.789-3.376-.187-.613-.804-.967-1.148-1.437a11.222 11.222 0 01-1.149-2.011c-.77-1.741-1.129-3.696-1.938-5.457-.388-.842-1.042-1.693-1.58-2.441-.595-.83-1.262-1.44-1.724-2.442-.164-.356-.387-.927-.144-1.293.077-.247.188-.35.432-.431.416-.321 1.576.107 2.01.287 1.152.479 2.113.934 3.089 1.58.468.311.941.911 1.508 1.077h.646c1.011.232 2.144.071 3.088.358 1.67.508 3.166 1.297 4.524 2.155 4.139 2.614 7.522 6.334 9.838 10.772.372.715.534 1.396.861 2.154.662 1.528 1.496 3.101 2.154 4.596.657 1.491 1.298 2.996 2.227 4.237.488.652 2.374 1.002 3.231 1.364.601.254 1.585.519 2.154.861 1.087.656 2.141 1.437 3.16 2.155.509.362 2.076 1.149 2.154 1.798zM90.237 39.593a5.124 5.124 0 00-1.293.144v.071h.072c.251.517.694.849 1.005 1.293l.719 1.508.071-.071c.445-.313.648-.814.646-1.58-.179-.188-.205-.423-.359-.646-.204-.3-.602-.468-.861-.719z"></path>
+                </svg>
+            </div>
+
+            <!-- Figma icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill="#0acf83" d="M45.5 129c11.9 0 21.5-9.6 21.5-21.5V86H45.5C33.6 86 24 95.6 24 107.5S33.6 129 45.5 129zm0 0"></path><path fill="#a259ff" d="M24 64.5C24 52.6 33.6 43 45.5 43H67v43H45.5C33.6 86 24 76.4 24 64.5zm0 0"></path><path fill="#f24e1e" d="M24 21.5C24 9.6 33.6 0 45.5 0H67v43H45.5C33.6 43 24 33.4 24 21.5zm0 0"></path><path fill="#ff7262" d="M67 0h21.5C100.4 0 110 9.6 110 21.5S100.4 43 88.5 43H67zm0 0"></path><path fill="#1abcfe" d="M110 64.5c0 11.9-9.6 21.5-21.5 21.5S67 76.4 67 64.5 76.6 43 88.5 43 110 52.6 110 64.5zm0 0"></path>
+                </svg>
+            </div>
+
+            <!-- AI icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FAA625" d="M47.955 69h15.371c-2.646-9-5.252-17.32-7.816-25.776C53.022 51.71 50.498 60 47.955 69zm76.157-68H2.873C.687 1 1 1.476 1 3.585v121.394C1 127.086.687 127 2.719 127h121.547c2.031 0 2.734.086 2.734-2.022V3.739C127 1.476 126.298 1 124.112 1zM77.298 96c-1.637 0-3.28-.133-4.909-.016-1.175.088-1.568-.406-1.881-1.426-1.514-4.931-3.123-9.86-4.638-14.79-.305-.992-.741-1.354-1.816-1.341-5.523.064-11.049.058-16.573-.007-1.163-.014-1.698.296-2.03 1.45-1.406 4.904-2.944 9.768-4.365 14.667-.308 1.062-.776 1.433-1.904 1.404-3.318-.083-6.641-.032-10.274-.032.959-3.045 1.829-5.861 2.729-8.665 5.514-17.2 11.047-34.4 16.521-51.611.382-1.198.913-1.567 2.143-1.54 3.886.086 7.775.022 11.663 0 .727-.005 1.223.038 1.489.864 6.505 20.116 13.033 40.356 19.555 60.47.028.091.01.573.025.573h-5.735zM98 96H86V51h12v45zm-6.35-51.071c-3.665-.005-6.289-2.528-6.314-6.07-.024-3.532 2.707-6.159 6.406-6.163 3.728-.004 6.355 2.537 6.384 6.171.026 3.545-2.667 6.068-6.476 6.062z"></path>
+                </svg>
+            </div>
+
+            <!-- Tomcat icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill="#d1a41a" d="M22.148 62.305a80.73 80.73 0 004.857 5.446c-5.186 1.56-8.586 4.458-10.706 7.016-3.356 4.05-5.132 9.398-4.723 13.988h-8.93c1.79-3.887 8.94-15.114 19.503-26.45zm103.45 28.885M125.597 91.19H114.74c-24.91-12.998-46.78-22.164-70.012-24.167.049-3.232.624-6.893 1.731-10.971l-2.14-.576c-1.136 4.192-1.732 7.985-1.8 11.38-2.421-.162-4.857-.241-7.317-.241-2.081 0-3.98.192-5.712.526-2.258-2.253-4.182-4.408-5.815-6.45 10.715-11.158 28.364-21.254 43.724-25.053 4.325 14.377 13.609 24.227 24.876 30.854a47.543 47.543 0 002.435-1.486l19.656 21.161.86-.074c5.368-.462 8.419 2.45 9.226 3.356.595.66.95 1.265 1.146 1.742z"></path><path fill="#ffdc76" d="M116.008 20.41c.399 19.528-9.564 35.07-23.513 43.041C68.82 51.658 64.362 21.774 68.397 5.744c1.122 6.13 3.164 9.974 7.572 11.858 9.614-2.75 22.844-2.967 32.59-.28 4.06-2.953 5.634-7.464 6.495-11.405 1.072 4.585.95 14.494.954 14.494z"></path><path d="M60.067 49.601l-10.971-7.357 7.36-3.345zM49.765 50.27l-8.161-4.146 4.284-2.542zM38.928 55.49l-5.62-3.881 3.747-2.81zM93.38 72.081l6.156-2.81-2.677-2.543zM96.727 77.163l7.763-2.007-2.145-2.273zM92.85 23.914l2.676-9.232-6.824.134zM74.252 31.54l-5.89.402-.669-3.88zM73.312 36.759l-3.346.936-.669-2.542zM110.778 32.879l4.413.669.94-2.944zM109.838 38.364l3.346 1.204.802-2.408z"></path><g><path d="M65.538 47.202h12.913v1.593H65.538zM65.538 43.375h12.913v1.594H65.538zM104.968 47.202h12.912v1.593h-12.912zM104.968 43.375h12.912v1.594h-12.912zM100.417 33.924H79.374V32.49h6.548c.807-3.452.966-6.752-.006-8.425-.416-.711-.99-1.044-1.808-1.044-3.744 0-5.29 3.96-5.355 4.128l.001-.001-1.343-.504c.077-.207 1.95-5.057 6.697-5.057 1.325 0 2.378.608 3.046 1.756 1.186 2.038 1.047 5.562.243 9.148h11.49c1.527-4.485 4.714-6.6 10.04-6.6v1.435c-5.772 0-7.39 2.447-8.544 5.165h6.27l-.015 1.427-6.222.007zm.944 7.086l.01-.001m-.01.001l.01-.001"></path><path d="M101.361 41.01l.01-.001c-1.702-2.51-2.242-4.652-1.53-7.092l-1.462.008c-.509 1.624-.305 4.07.95 6.17h-14.6c.888-1.78 1.711-3.95 2.313-6.17h-1.486c-.664 2.355-1.595 4.686-2.644 6.532l-.339.597 8.193 5.157-4.612 3.04.79 1.198 5.155-3.4 5.566 3.633.764-1.215-5.16-3.192s7.716-5.012 8.099-5.256l-.006-.01zm-9.279 4.334l-6.06-3.816 11.843.003-5.783 3.813z"></path></g><g><path d="M118.414 18.68c-.009-2.494-.786-13.038-2.214-15.94-3.872 1.47-10.917 6.238-12.512 11.113-7.642-1.141-16.257-1.006-23.804.3-1.26-5.245-7.588-9.259-12.362-11.52-2.014 3.398-2.906 11.277-2.68 16.865l-.026.018c.886 23.469 12.399 38.08 27.453 46.937 15.49-8.85 26.555-26.105 26.126-47.783l.02.01zm-12.888-4.524l.169.031-.17-.031zm-.964-.167c.136.022.273.047.409.07l-.409-.07zm11.443 6.385c.398 19.527-9.565 35.07-23.513 43.04C68.818 51.618 64.358 21.736 68.395 5.707c1.123 6.128 3.16 9.972 7.574 11.857 9.61-2.75 22.84-2.968 32.586-.28 4.061-2.953 5.636-7.464 6.496-11.405 1.075 4.586.95 14.492.954 14.494zm10.1 67.56"></path><path d="M126.104 87.933c-2.431-2.72-7.194-4.007-11.172-3.912-2.823-3.36-19.19-20.595-19.19-20.595l-1.134 1.428 19.76 21.273.857-.073c5.369-.46 8.42 2.452 9.229 3.355.592.663.95 1.267 1.144 1.741h-10.86c-24.911-12.999-46.78-22.165-70.013-24.162.05-3.233.626-6.893 1.73-10.971l-2.136-.58c-1.135 4.193-1.734 7.989-1.801 11.382-2.42-.16-4.857-.243-7.315-.243-2.085 0-3.983.193-5.714.53-2.259-2.257-4.182-4.408-5.817-6.45 10.79-11.242 28.61-21.402 44.048-25.138l-.502-2.163C50.594 37.364 32.396 48.278 22.256 58.82c-4.706-6.352-6.573-11.563-7.128-15.513-.7-4.99.49-9.566 3.444-13.235 4.623-5.744 11.192-6.148 17.946-5.012-.131 1.067.009 2.086.436 2.717 1.786 2.638 11.387 3.565 17.117 1.008-4.229-5.926-12.795-8.82-15.168-7.66-.786.384-1.38 1.09-1.786 1.912-2.335-.417-4.654-.728-6.348-.716-5.957.044-10.511 2.125-13.922 6.363-3.347 4.158-4.7 9.32-3.912 14.931.746 5.314 3.377 10.965 7.786 16.826-.732.785-1.44 1.561-2.122 2.323C7.853 74.79-.003 87.685-.003 89.822v1.107h14.177l-.248-1.312c-.8-4.232.798-9.521 4.073-13.474 2.057-2.482 5.462-5.314 10.809-6.62 4.754 4.64 10.812 9.567 17.554 14.32h10.536v-1.106c0-1.25-.62-2.343-1.744-3.079-1.665-1.088-4.234-1.238-6.594-.433-2.25-2.506-3.512-5.853-3.784-10.01 22.865 2.024 44.736 11.258 69.412 24.15h13.578l.178-.89c.254-1.268-.437-2.965-1.846-4.541zM16.3 74.728c-3.354 4.048-5.132 9.394-4.724 13.985H2.643c1.795-3.884 8.943-15.11 19.505-26.45a80.408 80.408 0 004.858 5.448c-5.186 1.558-8.586 4.457-10.707 7.017z"></path></g><path d="M12.122 98.818v2.695h6.783v19.204h2.973v-19.204h6.783v-2.695zm97.155 1.64l-1.046 3.493-2.342 1.03v1.571h2.3v9.31c0 1.674.4 2.97 1.231 3.847s2.073 1.301 3.669 1.301c.425 0 .897-.045 1.413-.134h.005c.528-.08.935-.184 1.235-.33l.137-.065v-2.334l-.31.09c-.218.064-.527.13-.918.198h-.002c-.388.056-.79.085-1.208.085-.75 0-1.297-.23-1.71-.695-.409-.462-.627-1.137-.627-2.066v-9.207h4.658v-2.373h-4.658v-3.72h-1.827zM37.78 103.89c-2.375 0-4.274.76-5.63 2.278-1.356 1.51-2.024 3.613-2.024 6.27 0 1.718.309 3.23.933 4.528.623 1.297 1.516 2.304 2.67 3.002 1.152.698 2.475 1.046 3.948 1.046 2.375 0 4.278-.76 5.644-2.277 1.366-1.528 2.04-3.641 2.04-6.299 0-2.59-.68-4.68-2.054-6.225-1.363-1.545-3.227-2.323-5.527-2.323zm18.823 0c-1.069 0-2.048.229-2.924.687h-.001c-.74.391-1.313.945-1.774 1.6l-.358-1.994h-2.421v16.539h2.915v-8.665c0-2.052.355-3.496 1.003-4.334l.001-.001c.662-.851 1.689-1.283 3.163-1.283 1.117 0 1.887.302 2.38.882h.001c.495.575.762 1.47.762 2.714v10.686h2.914v-9.206c0-1.775.359-3.053 1.029-3.86.67-.805 1.7-1.216 3.168-1.216 1.107 0 1.872.3 2.365.882h.001c.494.575.762 1.469.762 2.714v10.686h2.915v-10.716c0-2.085-.46-3.643-1.43-4.634v-.001c-.956-.996-2.39-1.48-4.247-1.48-1.196 0-2.273.253-3.219.761a5.384 5.384 0 00-2.01 1.873c-.857-1.728-2.549-2.634-4.995-2.634zm27.232 0c-2.442 0-4.371.759-5.719 2.278v.001c-1.338 1.52-1.994 3.662-1.994 6.386 0 2.656.647 4.75 1.965 6.24h.001c1.328 1.48 3.212 2.219 5.585 2.219 1.659 0 3.05-.282 4.17-.862l.13-.068v-2.66l-.334.137c-1.381.566-2.72.846-4.024.846-1.508 0-2.598-.493-3.353-1.487-.747-.997-1.137-2.455-1.137-4.394 0-2.049.404-3.553 1.172-4.531s1.899-1.468 3.478-1.468c.465 0 1.01.07 1.631.213h.002l.001.001a10.69 10.69 0 011.72.516l.232.092.904-2.5-.19-.097c-.469-.24-1.09-.438-1.875-.607a11.216 11.216 0 00-2.365-.255zm13.754.03c-.968 0-1.936.124-2.902.373a11.7 11.7 0 00-2.648 1.033l-.189.103.924 2.3.233-.113c1.667-.81 3.147-1.207 4.436-1.207 1.15 0 1.934.289 2.412.828h.001l.001.003c.49.533.757 1.395.757 2.62v.761l-2.49.081c-2.618.08-4.603.543-5.959 1.431-1.355.888-2.054 2.223-2.054 3.908 0 1.562.474 2.809 1.427 3.68.961.867 2.28 1.293 3.913 1.293 1.215 0 2.24-.178 3.072-.548.77-.347 1.517-1 2.258-1.875l.45 2.13h2.24v-11.198c0-1.915-.477-3.355-1.47-4.264-.979-.907-2.462-1.34-4.412-1.34zm-59.884 2.52c1.558 0 2.682.498 3.456 1.502h.001l.001.002c.783.995 1.193 2.486 1.193 4.494 0 2.028-.41 3.539-1.195 4.554-.774 1.005-1.889 1.503-3.427 1.503-1.537 0-2.651-.502-3.426-1.517-.775-1.015-1.18-2.521-1.18-4.54 0-2.039.401-3.542 1.164-4.525.764-.985 1.874-1.474 3.413-1.474zm62.851 6.396v1.198c0 1.447-.412 2.531-1.229 3.311v.001c-.81.781-1.923 1.178-3.393 1.178-.917 0-1.6-.217-2.082-.63h-.001c-.47-.41-.707-.994-.707-1.824 0-1.062.376-1.784 1.16-2.27.795-.497 2.158-.805 4.07-.872h.002l2.18-.092z" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;solid-color:#000;text-decoration-color:#000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"></path>
+                </svg>
+            </div>
+
+            <!-- Intellij icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <img style="width: 80px;height: 80px;" src="https://img.icons8.com/color/48/000000/intellij-idea.png"/>
+            </div>
+
+            <!-- VScode icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path d="M3.656 45.043s-3.027-2.191.61-5.113l8.468-7.594s2.426-2.559 4.989-.328l78.175 59.328v28.45s-.039 4.468-5.757 3.976zm0 0" fill="#2489ca"></path><path d="M23.809 63.379L3.656 81.742s-2.07 1.543 0 4.305l9.356 8.527s2.222 2.395 5.508-.328l21.359-16.238zm0 0" fill="#1070b3"></path><path d="M59.184 63.531l36.953-28.285-.239-28.297S94.32.773 89.055 3.99L39.879 48.851zm0 0" fill="#0877b9"></path><path d="M90.14 123.797c2.145 2.203 4.747 1.48 4.747 1.48l28.797-14.222c3.687-2.52 3.171-5.645 3.171-5.645V20.465c0-3.735-3.812-5.024-3.812-5.024L98.082 3.38c-5.453-3.379-9.027.61-9.027.61s4.593-3.317 6.843 2.96v112.317c0 .773-.164 1.53-.492 2.214-.656 1.332-2.086 2.57-5.504 2.051zm0 0" fill="#3c99d4"></path>
+                </svg>
+            </div>
+
+            <!-- github icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;"><g fill="#181616">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M64 1.512c-23.493 0-42.545 19.047-42.545 42.545 0 18.797 12.19 34.745 29.095 40.37 2.126.394 2.907-.923 2.907-2.047 0-1.014-.04-4.366-.058-7.92-11.837 2.573-14.334-5.02-14.334-5.02-1.935-4.918-4.724-6.226-4.724-6.226-3.86-2.64.29-2.586.29-2.586 4.273.3 6.523 4.385 6.523 4.385 3.794 6.504 9.953 4.623 12.38 3.536.383-2.75 1.485-4.628 2.702-5.69-9.45-1.075-19.384-4.724-19.384-21.026 0-4.645 1.662-8.44 4.384-11.42-.442-1.072-1.898-5.4.412-11.26 0 0 3.572-1.142 11.7 4.363 3.395-.943 7.035-1.416 10.65-1.432 3.616.017 7.258.49 10.658 1.432 8.12-5.504 11.688-4.362 11.688-4.362 2.316 5.86.86 10.187.418 11.26 2.728 2.978 4.378 6.774 4.378 11.42 0 16.34-9.953 19.938-19.427 20.99 1.526 1.32 2.886 3.91 2.886 7.88 0 5.692-.048 10.273-.048 11.674 0 1.13.766 2.458 2.922 2.04 16.896-5.632 29.07-21.574 29.07-40.365C106.545 20.56 87.497 1.512 64 1.512z"></path><path d="M37.57 62.596c-.095.212-.428.275-.73.13-.31-.14-.482-.427-.382-.64.09-.216.424-.277.733-.132.31.14.486.43.38.642zM39.293 64.52c-.203.187-.6.1-.87-.198-.278-.297-.33-.694-.124-.884.208-.188.593-.1.87.197.28.3.335.693.123.884zm1.677 2.448c-.26.182-.687.012-.95-.367-.262-.377-.262-.83.005-1.013.264-.182.684-.018.95.357.262.385.262.84-.005 1.024zm2.298 2.368c-.233.257-.73.188-1.093-.163-.372-.343-.475-.83-.242-1.087.237-.257.736-.185 1.102.163.37.342.482.83.233 1.086zm3.172 1.374c-.104.334-.582.485-1.064.344-.482-.146-.796-.536-.7-.872.1-.336.582-.493 1.067-.342.48.144.795.53.696.87zm3.48.255c.013.35-.396.642-.902.648-.508.012-.92-.272-.926-.618 0-.354.4-.642.908-.65.506-.01.92.272.92.62zm3.24-.551c.06.342-.29.694-.793.787-.494.092-.95-.12-1.014-.46-.06-.35.297-.7.79-.792.503-.088.953.118 1.017.466zm0 0"></path></g><path d="M24.855 108.302h-10.7a.5.5 0 00-.5.5v5.232a.5.5 0 00.5.5h4.173v6.5s-.937.32-3.53.32c-3.056 0-7.327-1.116-7.327-10.508 0-9.393 4.448-10.63 8.624-10.63 3.614 0 5.17.636 6.162.943.31.094.6-.216.6-.492l1.193-5.055a.468.468 0 00-.192-.39c-.403-.288-2.857-1.66-9.058-1.66-7.144 0-14.472 3.038-14.472 17.65 0 14.61 8.39 16.787 15.46 16.787 5.854 0 9.405-2.502 9.405-2.502.146-.08.162-.285.162-.38v-16.316a.5.5 0 00-.5-.5zM79.506 94.81H73.48a.5.5 0 00-.498.503l.002 11.644h-9.392V95.313a.5.5 0 00-.497-.503H57.07a.5.5 0 00-.498.503v31.53c0 .277.224.503.498.503h6.025a.5.5 0 00.497-.504v-13.486h9.392l-.016 13.486c0 .278.224.504.5.504h6.038a.5.5 0 00.497-.504v-31.53a.497.497 0 00-.497-.502zm-47.166.717c-2.144 0-3.884 1.753-3.884 3.923 0 2.167 1.74 3.925 3.884 3.925 2.146 0 3.885-1.758 3.885-3.925 0-2.17-1.74-3.923-3.885-3.923zm2.956 9.608H29.29c-.276 0-.522.284-.522.56v20.852c0 .613.382.795.876.795h5.41c.595 0 .74-.292.74-.805v-20.899a.5.5 0 00-.498-.502zm67.606.047h-5.98a.5.5 0 00-.496.504v15.46s-1.52 1.11-3.675 1.11-2.727-.977-2.727-3.088v-13.482a.5.5 0 00-.497-.504h-6.068a.502.502 0 00-.498.504v14.502c0 6.27 3.495 7.804 8.302 7.804 3.944 0 7.124-2.18 7.124-2.18s.15 1.15.22 1.285c.07.136.247.273.44.273l3.86-.017a.502.502 0 00.5-.504l-.003-21.166a.504.504 0 00-.5-.502zm16.342-.708c-3.396 0-5.706 1.515-5.706 1.515V95.312a.5.5 0 00-.497-.503H107a.5.5 0 00-.5.503v31.53a.5.5 0 00.5.503h4.192c.19 0 .332-.097.437-.268.103-.17.254-1.454.254-1.454s2.47 2.34 7.148 2.34c5.49 0 8.64-2.784 8.64-12.502s-5.03-10.988-8.428-10.988zm-2.36 17.764c-2.073-.063-3.48-1.004-3.48-1.004v-9.985s1.388-.85 3.09-1.004c2.153-.193 4.228.458 4.228 5.594 0 5.417-.935 6.486-3.837 6.398zm-63.689-.118c-.263 0-.937.107-1.63.107-2.22 0-2.973-1.032-2.973-2.368v-8.866h4.52a.5.5 0 00.5-.504v-4.856a.5.5 0 00-.5-.502h-4.52l-.007-5.97c0-.227-.116-.34-.378-.34h-6.16c-.238 0-.367.106-.367.335v6.17s-3.087.745-3.295.805a.5.5 0 00-.36.48v3.877a.5.5 0 00.497.503h3.158v9.328c0 6.93 4.86 7.61 8.14 7.61 1.497 0 3.29-.48 3.586-.59.18-.067.283-.252.283-.453l.004-4.265a.51.51 0 00-.5-.502z" fill="#100E0F"></path>
+                </svg>
+            </div>
+
+            <!-- Git icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill="#31251C" d="M76.397 55.676c-2.737 0-4.775 1.344-4.775 4.579 0 2.437 1.343 4.129 4.628 4.129 2.784 0 4.676-1.641 4.676-4.23 0-2.934-1.693-4.478-4.529-4.478zm-5.471 22.84c-.648.795-1.294 1.64-1.294 2.637 0 1.989 2.536 2.587 6.021 2.587 2.885 0 6.816-.202 6.816-2.885 0-1.595-1.892-1.693-4.281-1.843l-7.262-.496zm14.725-22.69c.895 1.145 1.842 2.737 1.842 5.026 0 5.522-4.329 8.756-10.597 8.756-1.594 0-3.037-.198-3.932-.447l-1.642 2.637 4.875.297c8.608.549 13.682.798 13.682 7.413 0 5.723-5.024 8.955-13.682 8.955-9.006 0-12.438-2.289-12.438-6.218 0-2.24.996-3.431 2.737-5.076-1.643-.694-2.189-1.937-2.189-3.281 0-1.095.547-2.09 1.443-3.036.896-.944 1.891-1.891 3.084-2.985-2.438-1.194-4.278-3.781-4.278-7.464 0-5.721 3.781-9.65 11.393-9.65 2.14 0 3.435.197 4.578.498h9.703v4.228l-4.579.347zm13.332-9.04c-2.837 0-4.479-1.643-4.479-4.48 0-2.833 1.642-4.377 4.479-4.377 2.886 0 4.527 1.543 4.527 4.377.001 2.837-1.641 4.48-4.527 4.48zm-6.42 29.9v-3.929l2.539-.348c.696-.1.795-.249.795-.997V56.785c0-.546-.148-.896-.647-1.044l-2.687-.946.547-4.028h10.301v20.646c0 .798.048.896.796.997l2.538.348v3.929H92.563v-.001zm33.857-1.93c-2.141 1.043-5.274 1.99-8.112 1.99-5.92 0-8.158-2.386-8.158-8.011V55.7c0-.297 0-.497-.399-.497h-3.482v-4.428c4.38-.499 6.12-2.688 6.667-8.111h4.728v7.067c0 .347 0 .498.398.498h7.015v4.975h-7.413v11.89c0 2.935.697 4.079 3.383 4.079 1.395 0 2.836-.347 4.03-.795l1.343 4.378z"></path><path fill="#F34F29" d="M52.7 61.7L29.951 38.952a3.355 3.355 0 00-4.744 0l-4.724 4.724 5.991 5.992a3.983 3.983 0 014.1.956 3.988 3.988 0 01.947 4.125l5.775 5.775a3.988 3.988 0 014.125 6.593 3.992 3.992 0 01-6.516-4.342l-5.386-5.386-.001 14.174a3.992 3.992 0 011.056 6.401 3.993 3.993 0 11-4.339-6.518V57.141a3.99 3.99 0 01-2.167-5.236l-5.906-5.908L2.563 61.595a3.356 3.356 0 000 4.747L25.312 89.09a3.357 3.357 0 004.746 0L52.7 66.446a3.355 3.355 0 000-4.746z"></path><path fill="none" d="M1.58 37.928h124.84v52.143H1.58z"></path>
+                </svg>
+            </div>
+
+            <!-- notion icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg style="width: 80px;height: 80px;" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 128.1"><defs><style>.cls-1{fill-rule:evenodd;}</style></defs><title>notion</title>
+                    <path class="cls-1" d="M21.19,22.46c4,3.23,5.48,3,13,2.49l70.53-4.24c1.5,0,.25-1.49-.25-1.74L92.72,10.5a14.08,14.08,0,0,0-11-3.23l-68.29,5c-2.49.24-3,1.49-2,2.49l9.73,7.72ZM25.42,38.9v74.21c0,4,2,5.48,6.48,5.23l77.52-4.48c4.49-.25,5-3,5-6.23V33.91c0-3.23-1.25-5-4-4.73l-81,4.73c-3,.25-4,1.75-4,5Zm76.53,4c.49,2.24,0,4.48-2.25,4.73L96,48.36v54.79c-3.24,1.74-6.23,2.73-8.72,2.73-4,0-5-1.24-8-5L54.83,62.55V99.66l7.73,1.74s0,4.48-6.23,4.48l-17.2,1c-.5-1,0-3.48,1.75-4l4.48-1.25V52.59l-6.23-.5a4.66,4.66,0,0,1,4.24-5.73l18.44-1.24L87.24,84V49.6l-6.48-.74a4.21,4.21,0,0,1,4-5l17.21-1ZM7.72,5.52l71-5.23C87.49-.46,89.73.05,95.21,4L117.89,20c3.74,2.74,5,3.48,5,6.47v87.42c0,5.47-2,8.71-9,9.21l-82.5,5c-5.24.25-7.73-.5-10.47-4L4.24,102.4c-3-4-4.24-7-4.24-10.46V14.24C0,9.76,2,6,7.72,5.52Z"/>
+                </svg>
+            </div>
+
+            <!-- google icon -->
+            <div class="col-md-2 col-sm-3 my-1">
+                <svg viewBox="0 0 128 128" style="width: 80px;height: 80px;">
+                    <path fill="#fff" d="M44.59 4.21a63.28 63.28 0 004.33 120.9 67.6 67.6 0 0032.36.35 57.13 57.13 0 0025.9-13.46 57.44 57.44 0 0016-26.26 74.33 74.33 0 001.61-33.58H65.27v24.69h34.47a29.72 29.72 0 01-12.66 19.52 36.16 36.16 0 01-13.93 5.5 41.29 41.29 0 01-15.1 0A37.16 37.16 0 0144 95.74a39.3 39.3 0 01-14.5-19.42 38.31 38.31 0 010-24.63 39.25 39.25 0 019.18-14.91A37.17 37.17 0 0176.13 27a34.28 34.28 0 0113.64 8q5.83-5.8 11.64-11.63c2-2.09 4.18-4.08 6.15-6.22A61.22 61.22 0 0087.2 4.59a64 64 0 00-42.61-.38z"></path>
+                    <path fill="#e33629" d="M44.59 4.21a64 64 0 0142.61.37 61.22 61.22 0 0120.35 12.62c-2 2.14-4.11 4.14-6.15 6.22Q95.58 29.23 89.77 35a34.28 34.28 0 00-13.64-8 37.17 37.17 0 00-37.46 9.74 39.25 39.25 0 00-9.18 14.91L8.76 35.6A63.53 63.53 0 0144.59 4.21z"></path>
+                    <path fill="#f8bd00" d="M3.26 51.5a62.93 62.93 0 015.5-15.9l20.73 16.09a38.31 38.31 0 000 24.63q-10.36 8-20.73 16.08a63.33 63.33 0 01-5.5-40.9z"></path>
+                    <path fill="#587dbd" d="M65.27 52.15h59.52a74.33 74.33 0 01-1.61 33.58 57.44 57.44 0 01-16 26.26c-6.69-5.22-13.41-10.4-20.1-15.62a29.72 29.72 0 0012.66-19.54H65.27c-.01-8.22 0-16.45 0-24.68z"></path>
+                    <path fill="#319f43" d="M8.75 92.4q10.37-8 20.73-16.08A39.3 39.3 0 0044 95.74a37.16 37.16 0 0014.08 6.08 41.29 41.29 0 0015.1 0 36.16 36.16 0 0013.93-5.5c6.69 5.22 13.41 10.4 20.1 15.62a57.13 57.13 0 01-25.9 13.47 67.6 67.6 0 01-32.36-.35 63 63 0 01-23-11.59A63.73 63.73 0 018.75 92.4z"></path>
+                </svg>
             </div>
         </div>
-    </footer>
-    <!-- 結束:尾頁 -->
+    </div>
+</div>
+<!-- 頁尾 -->
+
+<!-- 尾頁 -->
+<footer class="bg-bl04 py-5">
+    <div class="container px-4 px-lg-5 py-2">
+        <div class="small text-center text-milkyellow ">
+            Copyright &copy; 2021 - TripBlog
+        </div>
+        <div class="small text-center text-milkyellow ">
+            國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
+        </div>
+    </div>
+</footer>
+<!-- 結束:尾頁 -->
 
 
 
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-    crossorigin="anonymous"></script>
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
-    integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
-    crossorigin="anonymous"></script>
+        integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
+        crossorigin="anonymous"></script>
 
 </html>

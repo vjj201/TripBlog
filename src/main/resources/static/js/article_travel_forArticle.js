@@ -541,7 +541,7 @@ $(function () {
         <div class=" d-flex align-items-md-center hot-article-container p-md-3 " id="photoChange">
             <!-- 熱門文章 -->
             <div class="carousel-item active overflow-hidden hot-carousel-item ">
-                <img src="${articlePathArray1}" class="d-block mx-auto" alt="...">
+                <img src="${articlePathArray1}" class="d-block mx-auto" width="1000px" height="600px" alt="...">
                 <div class="article-item carousel-caption" >
                     <h1 class="fw-bold"><a href="https://localhost:8080/article/${articleTitleArray1}" style="text-decoration:none;color: white" target="_blank">${articleTitleArray1}</a></h1>
                     
@@ -549,14 +549,14 @@ $(function () {
             </div>
             <!-- 最新發布 -->
             <div class="carousel-item  overflow-hidden hot-carousel-item  ">
-                <img src="${articlePathArray2}" class="d-block mx-auto" alt="...">
+                <img src="${articlePathArray2}" class="d-block mx-auto" width="1000px" height="600px" alt="...">
                 <div class="article-item carousel-caption">
                     <h1 class="fw-bold"><a href="https://localhost:8080/article/${articleTitleArray2}"  style="text-decoration:none;color: white" target="_blank" >${articleTitleArray2}</a></h1>
                 </div>
             </div>
             <!-- 優質作家 -->
             <div class="carousel-item  overflow-hidden hot-carousel-item ">
-                <img src="${articlePathArray3}" class="d-block mx-auto" alt="...">
+                <img src="${articlePathArray3}" class="d-block mx-auto" width="1000px" height="600px" alt="...">
                 <div class="article-item carousel-caption">
                     <h1 class="fw-bold "><a href="https://localhost:8080/article/${articleTitleArray3}" style="text-decoration:none;color: white" target="_blank">${articleTitleArray3}</a></h1>
                 </div>
