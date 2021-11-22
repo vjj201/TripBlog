@@ -48,11 +48,12 @@ public class ArticleController {
         return "user/write_article";
     }
 
-    @ResponseBody
-    @GetMapping("/findtags")
-    public TagEnum[] showTags() {
-        return TagEnum.values();
-    }
+    //1116更 -> /user/newFindTags
+//    @ResponseBody
+//    @GetMapping("/findtags")
+//    public TagEnum[] showTags() {
+//        return TagEnum.values();
+//    }
 
     //上傳文章圖片
     @ResponseBody
