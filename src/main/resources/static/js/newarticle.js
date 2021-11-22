@@ -275,7 +275,7 @@ $(function() {
                 let enterAddressLat = position.lat;
                 let enterAddressLng = position.lng;
                 let selectregion = $('#selectregion').val();
-                let articletitle = $('#articletitle').val();
+                let articletitle = $('#articletitle').val()+"(草稿)";
                 let texteditor = editor.getData();
                 let freeTags =$("#articleTag").val();
                 let saveArticle = $('#savearticle').html();

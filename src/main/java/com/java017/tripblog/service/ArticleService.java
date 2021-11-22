@@ -63,6 +63,9 @@ public interface ArticleService {
     //取消收藏
     void deleteMyCollect(User userId,Article articleId);
 
+    //幻燈片
+    List<Article> changeImg();
+
 
 
 //    List<Article> getMyPagedArticlesForCollect(int page, int size, User user);

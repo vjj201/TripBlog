@@ -22,4 +22,7 @@ public interface RecommendRepository extends JpaRepository<Recommend,Integer> {
      @Query("delete from Recommend where articlesRecommendId = ?1")
      void deleteByArticleId(Article id);
 
+
+
+
 }

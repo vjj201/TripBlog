@@ -69,6 +69,9 @@ $(function () {
                 }
                 console.log("迴圈外面 " + points);
 
+        $(marker).click(function(){
+            console.log("有執行產生資訊視窗")
+        });
 
 
 //---------------執行自動調整視窗方法-------------------------

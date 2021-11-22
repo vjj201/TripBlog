@@ -190,7 +190,7 @@
             <div class="col-md-11 col-sm-12 mb-4 txt-block">
                 <input id="surprise" th:value="${editArticle.getArticleId()}" hidden>
                 <input class="form-control border-2 border-bl03 bg-gr0200 rounded-pill" id="articletitle" placeholder="文章標題"
-                       type="text" th:value="${editArticle.getArticleTitle()}">
+                       type="text" th:value="${editArticle.getArticleTitle().substring(0,editArticle.getArticleTitle().length()-4)}">
             </div>
             <div class="col-md-1 col-sm-12 txt-block-1">
                 <label class="text-pk03">標題可輸入30字</label>
@@ -341,9 +341,9 @@
 </form>
 
 <!-- 光箱必須的code -->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"-->
-<!--        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"-->
-<!--        crossorigin="anonymous"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
 
 <script>
     // 激活按鈕的函式

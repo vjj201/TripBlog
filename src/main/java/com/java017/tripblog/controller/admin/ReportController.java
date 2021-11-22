@@ -70,25 +70,20 @@ public class ReportController {
 
     @PutMapping("/report/{id}")
     public String updateReportById(@PathVariable Integer id, @RequestBody String status) {
+        System.out.println("status=>"+status);
+        String Used = "\"使用中\"";
         Article report = articleService.findArticleById(id);
         Boolean result;
-        if("使用中".equals(status)){
+        if( Used.equals(status)){
             result = true;
             report.setShow(result);
+            System.out.println("印出[使用中]的getShow()"+report.getShow());
         }else{
             result = false;
-            report.setShow(result);}
+            report.setShow(result);
+            System.out.println("印出[停用中]的getShow()"+report.getShow());
+        }
         return "成功執行";
-//        result.setShow();
-//        Brand brandById = brandService.findBrandById(id);
-//        if (ObjectUtils.isEmpty(brandById)) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        brandById.setBrandName(brand.getBrandName());
-//        brandById.setLocation(brand.getLocation());
-//        brandById.setAboutBrand(brand.getAboutBrand());
-//        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 }
