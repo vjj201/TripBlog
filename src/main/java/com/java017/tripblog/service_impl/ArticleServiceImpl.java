@@ -1,6 +1,7 @@
 package com.java017.tripblog.service_impl;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.Collect;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.repository.ArticleRepository;
 import com.java017.tripblog.repository.CollectRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +134,7 @@ public class ArticleServiceImpl implements ArticleService {
         return "推薦成功";
     }
 
-
+    ;
 
     @Override
     public String updateCollect(String articleTitle) {
@@ -144,7 +146,7 @@ public class ArticleServiceImpl implements ArticleService {
         return "收藏成功";
     }
 
-
+    ;
 
     @Override
     public String updateReport(String articleTitle) {
@@ -284,10 +286,90 @@ public class ArticleServiceImpl implements ArticleService {
         article1.setTextEditor(inputArticle.getTextEditor());
         article1.setFreeTag(inputArticle.getFreeTag());
         article1.setCreateTime(inputArticle.getCreateTime());
+        article1.setSelectRegion(inputArticle.getSelectRegion());
         article1.setUserId(inputArticle.getUserId());
         articleRepository.save(article1);
         return "ok";
     }
+
+    //從collect找出文章
+    @Override
+    public List<Collect> findCollectByUser(int page, int size, User userId, String subject, int timeDirect) {
+
+        Pageable pageable = PageRequest.of(page,
+                size,
+                Sort.by("articlesCollectId_createDate").ascending().and(Sort.by("articlesCollectId_createTime")).ascending());
+
+        if (timeDirect == 100) {
+            pageable = PageRequest.of(page,
+                    size,
+                    Sort.by("articlesCollectId_createDate").descending().and(Sort.by("articlesCollectId_createTime")).descending());
+        }
+        Page<Collect> pageResult;
+
+        if (!StringUtils.isEmpty(subject)) {
+            pageResult = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(userId, subject, pageable);
+        } else {
+            pageResult = collectRepository.findByUserCollectId(userId, pageable);
+        }
+        System.out.println("pageResult" + pageResult);
+        List<Collect> messageList = pageResult.getContent();
+        return messageList;
+    }
+
+    //我的文章換頁按鈕生成
+    @Override
+    public List<Collect> findCollectByUserCollectForPage(User id, String subject) {
+        List<Collect> result = collectRepository.findByUserCollectId(id);
+        if (StringUtils.isEmpty(subject)) {
+            return result;
+        } else {
+            // 有填主題(subject)
+            result = collectRepository.findByUserCollectIdAndArticlesCollectId_SubjectCategory(id, subject);
+            return result;
+        }
+    }
+
+    @Override
+    public List<Article> findArticleIdArray(Integer id) {
+        List<Article> result = articleRepository.findArticleIdArray(id);
+        return result;
+    }
+
+    @Override
+    public Article findArticleById(Integer id) {
+        return articleRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteMyCollect(User userId, Article articleId) {
+        System.out.println("刪除收藏表格前面");
+        collectRepository.deleteArticlesCollectIdAndUserCollectId(articleId,userId);
+        Optional<Article> article = articleRepository.findById(articleId.getArticleId());
+        int collect = article.get().getCollect();
+        collect--;
+        article.get().setCollect(collect);
+        System.out.println("存回文章前面");
+        articleRepository.save(article.get());
+    }
+
+//    @Override
+//    public List<Article> getMyPagedArticlesForCollect(int page, User user) {
+//        int pagenum = 5;
+//        //時間新到舊
+//        ArrayList<Collect> collects = collectRepository.findByUserCollectId(user);
+//        ArrayList<Article> result;
+//        ChangleToArticle changleToArticle = new ChangleToArticle();
+//        result = changleToArticle.CollectChangleArticle(collects);
+//
+//        for (int i=pagenum*page; i<=result.size();i++){
+//            Article article1 = new Article();
+//            article1 = result.get(i);
+//        }
+//
+//            System.out.println("ArticleServiceImpl的 messageList" + messageList);
+//        return messageList;
+//    }
 
 //    @Override
 //    public List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect) {
@@ -313,6 +395,13 @@ public class ArticleServiceImpl implements ArticleService {
 //        return messageList;
 //
 //    }
+
+@Override
+    public List<Article> changeImg(){
+        List<Article> result =articleRepository.findAll();
+        return result;
+    }
+
 
 }
 

@@ -35,19 +35,8 @@ import java.util.Collections;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-    private final DataSource dataSource;
-    private final UserDetailsService myUserDetailsService;
-    private final AuthenticationSuccessHandler mySuccessHandler;
-    private final AuthenticationFailureHandler myFailureHandler;
-
     @Autowired
-    public WebSecurityConfig(DataSource dataSource, UserDetailsService myUserDetailsService, AuthenticationSuccessHandler mySuccessHandler, AuthenticationFailureHandler myFailureHandler) {
-        this.dataSource = dataSource;
-        this.myUserDetailsService = myUserDetailsService;
-        this.mySuccessHandler = mySuccessHandler;
-        this.myFailureHandler = myFailureHandler;
-    }
+    private DataSource dataSource;
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
@@ -57,6 +46,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
+
+    @Autowired
+    private UserDetailsService myUserDetailsService;
+    @Autowired
+    private AuthenticationSuccessHandler mySuccessHandler;
+    @Autowired
+    private AuthenticationFailureHandler myFailureHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -86,8 +82,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/*", "/shop/**", "/MapSearch/*", "/user/signup", "/user/accountCheck/**", "/user/signup-success", "/captcha/**", "/**/*.js", "/**/*.css", "/**/*.svg", "/**/*.png", "/**/*.jpg")
                 .permitAll()
-                .antMatchers("/user/**", "/shop/orderList").hasRole("USER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
 

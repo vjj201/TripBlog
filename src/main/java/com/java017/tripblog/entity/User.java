@@ -1,16 +1,12 @@
 package com.java017.tripblog.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +16,7 @@ import java.util.Set;
  * @author YuCheng
  * @date 2021/9/26 - 下午 10:27
  */
-//@JsonIgnoreProperties("intro")
+
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "User")
@@ -79,26 +75,6 @@ public class User{
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private ShopCart shopCart;
-    @OneToMany(mappedBy="userRecommendId",cascade=CascadeType.ALL)
-    private Set<Recommend> recommendSet ;
-
-    @OneToMany(mappedBy="userReportId",cascade=CascadeType.ALL)
-    private Set<Report> reportSet ;
-
-    @OneToMany(mappedBy="userCollectId",cascade=CascadeType.ALL)
-    private Set<Collect> collectSet ;
-
-
-
-
-
-    //是否有頭貼
-    private boolean hasMemberPic;
-
-
-    public boolean isMailVerified() {
-        return mailVerified;
-    }
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -239,9 +215,6 @@ public class User{
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
                 ", hasMemberPic=" + hasMemberPic +
-                ", intro=" + intro +
-                ", shopCart=" + shopCart +
-                ", productOrderList=" + productOrderList +
                 '}';
     }
 }

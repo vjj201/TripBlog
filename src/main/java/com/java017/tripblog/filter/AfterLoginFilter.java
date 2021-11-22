@@ -29,23 +29,20 @@ public class AfterLoginFilter extends OncePerRequestFilter {
         if (authentication != null) {
             if (!AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass()) && authentication.isAuthenticated()) {
 
+                System.out.println("認證用戶");
                 HttpSession session = request.getSession();
 
                 if (session.getAttribute("user") == null) {
                     System.out.println("首次進入，創建登入會話");
-
-//                    if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {}
                     MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
                     User userSession = new User();
                     userSession.setId(userDetails.getId());
-                    userSession.setUsername(userDetails.getUsername());
                     userSession.setNickname(userDetails.getNickName());
                     userSession.setEmail(userDetails.getEmail());
                     userSession.setHasMemberPic(userDetails.hasMemberPic());
                     session.setAttribute("user", userSession);
-
                 }
-
+                System.out.println("已有登入會話");
             }
         }
 

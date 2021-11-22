@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -61,6 +62,10 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     @Query("delete from Article where ArticleId = ?1")
     void deleteByArticleId(Integer id);
 
+
+    //庭妤: 文章id搜尋，結果為list
+    @Query(" select c from Article c where c.ArticleId = ?1")
+    List<Article> findArticleIdArray(Integer id);
 
 
 //   Page<Article> findByUserIdAndSubjectCategory(User user, String subject);

@@ -32,7 +32,7 @@
     .hot-container {
         background-color: rgb(174, 202, 209);
         box-shadow: 3px 5px 10px rgba(75, 43, 7, 0.7);
-        width: 90vw;
+        width: 80vw;
         height: 85vh;
         margin-bottom: 10vh;
     }
@@ -150,55 +150,8 @@
         <div class="hot-container container mt-5 p-0">
         <div class="row  p-0">
             <!-- 按鈕>換頁>幻燈片文章 -->
-            <div class=" hot-slide p-0 m-0">
-                <div id="carouselExampleCaptions-hot" class="d-flex justify-content-center justify-content-md-center carousel slide p-0  " data-bs-ride="carousel">
-                    <div class="carousel-indicators hot-carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions-hot" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions-hot" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions-hot" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
-                    </div>
-                    <!-- 幻燈片文章 -->
-                    <div class=" d-flex align-items-md-center hot-article-container p-md-3 ">
-                        <!-- 熱門文章 -->
-                        <div class="carousel-item active overflow-hidden hot-carousel-item ">
-                            <img src="https://picsum.photos/1300/1000?random=1" class="d-block" alt="...">
-                            <div class="article-item carousel-caption">
-                                <h1 class="fw-bold">熱門文章</h1>
-                                <p class="fw-bolder">Some representative placeholder content for the first slide.</p>
-                            </div>
-                        </div>
-                        <!-- 最新發布 -->
-                        <div class="carousel-item  overflow-hidden hot-carousel-item ">
-                            <img src="https://picsum.photos/1300/1000?random=2" class="d-block" alt="...">
-                            <div class="article-item carousel-caption">
-                                <h1 class="fw-bold">最新發布</h1>
-                                <p class="fw-bolder">Some representative placeholder content for the second slide.</p>
-                            </div>
-                        </div>
-                        <!-- 優質作家 -->
-                        <div class="carousel-item  overflow-hidden hot-carousel-item">
-                            <img src="https://picsum.photos/1300/1000?random=3" class="d-block " alt="...">
-                            <div class="article-item carousel-caption">
-                                <h1 class="fw-bold">優質作家</h1>
-                                <p class="fw-bolder">Some representative placeholder content for the third slide.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 按鈕>左右置換 -->
-                    <button class="carousel-control-prev hot-switch-button" type="button" data-bs-target="#carouselExampleCaptions-hot"
-                            data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next hot-switch-button" type="button" data-bs-target="#carouselExampleCaptions-hot"
-                            data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+            <div class=" hot-slide p-0 m-0" id="photoChangeBigBox">
+
             </div>
         </div>
     </div>
@@ -261,10 +214,10 @@
 
 <div class="row justify-content-center">
     <div id="changePageAll" class="col-1 d-flex  my-6">
-            <select  id="changePageBox" class="col-1 form-select border-bl03 rounded-pill" aria-label="Default select example">
+            <select  id="changePageBox" class="col-1 form-select border-bl03 rounded-pill mb-2" aria-label="Default select example">
               </select>
               <button id="pageSearch"
-              class="mx-1 btn btn-outline-bl04 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
+              class="mb-2 mx-1 btn btn-outline-bl04 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
               type="submit">Go</button>
     </div>
 </div>

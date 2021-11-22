@@ -60,9 +60,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllProduct() { return productRepository.findAll();}
-
-    @Override
     public Page<Product> findProductPageOrderBy(int page, int size, Sort sort) {
         return productRepository.findAll(PageRequest.of(page, size, sort));
     }

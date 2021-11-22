@@ -104,17 +104,15 @@
     <br><br><br><br><br><br>
 
     <!--錯誤訊息-->
-    <!--錯誤訊息-->
     <div class="container w-50  mx-auto m-5" style="height: 30vh;">
-        <div class="alert alert-danger d-flex justify-content-center" role="alert">
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill" />
+            </svg>
             <div class="fs-2 fw-bolder">
-                [500] 未預期的錯誤，請稍後再次嘗試
+                500 Internal Server Error
             </div>
         </div>
-        <div class="d-flex justify-content-center my-4">
-            <button type="button" class="form-control btn btn-secondary w-50" onclick="back()">返回</button>
-        </div>
-
     </div>
 
     <br><br><br><br><br><br>
@@ -138,12 +136,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
-
-    <script>
-        function back() {
-            window.history.back();
-        }
-    </script>
 
 </body>
 

@@ -1,6 +1,7 @@
 package com.java017.tripblog.service;
 
 import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.Collect;
 import com.java017.tripblog.entity.User;
 
 import java.util.ArrayList;
@@ -49,6 +50,25 @@ public interface ArticleService {
     ArrayList<Article> findAll();
 
     String upDateArticle(Article inputArticle);
+
+    List<Collect> findCollectByUser(int page, int size, User userid, String subject, int timeDirect);
+
+    List<Collect> findCollectByUserCollectForPage(User userid, String subject);
+
+    //庭妤: 文章id搜尋，結果為list
+    List<Article>findArticleIdArray(Integer id);
+
+    Article findArticleById(Integer id);
+
+    //取消收藏
+    void deleteMyCollect(User userId,Article articleId);
+
+    //幻燈片
+    List<Article> changeImg();
+
+
+
+//    List<Article> getMyPagedArticlesForCollect(int page, int size, User user);
 
 
 //     List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect);

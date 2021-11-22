@@ -140,9 +140,12 @@ public class UserArticleController {
     }
 
 
-
-
-
+    @ResponseBody
+    @GetMapping("/photoImgChange")
+    public List<Article> changeImg(){
+        List<Article> result = articleService.changeImg();
+        return result;
+    }
 
 
 }
