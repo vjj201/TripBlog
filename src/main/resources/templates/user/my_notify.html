@@ -8,19 +8,23 @@
     <meta name="description" content="MyNotify">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Johnny">
+    <!--csrf防護-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../static/css/all_css.css" th:href="@{/css/all_css.css}">
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="../../static/js/userNotify.js" th:src="@{/js/userNotify.js}"></script>
     <style>
-        #memberPic{
-            width:6.5vw;
-            min-width:32.5px;
+        #memberPic {
+            width: 6.5vw;
+            min-width: 32.5px;
         }
     </style>
-
-
 </head>
 
 <body class="bg-light">
@@ -112,7 +116,8 @@
 
 <!-- 首頁背景圖 cover photo -->
 <div class="container-fluid  overflow-hidden px-0" style="width: auto; height: 400px;">
-    <img th:src="${session.user != null && intro.hasBanner ? '/user/introBanner' : '/images/mySpace-bg.svg'}"  id="mySpaceBannerImg" class="w-100 h-100" alt="封面">
+    <img th:src="${session.user != null && intro.hasBanner ? '/user/introBanner' : '/images/mySpace-bg.svg'}"
+         id="mySpaceBannerImg" class="w-100 h-100" alt="封面">
 </div>
 <!-- 首頁背景圖 cover photo 結束-->
 
@@ -125,11 +130,12 @@
         <!-- 頭貼 -->
         <div class="col-1 p-2">
             <!-- 頭像 -->
-            <img th:src="${session.user != null && session.user.isHasMemberPic()} ? '/user/memberPic' : @{/images/oman_10_ani_10.svg}" src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
+            <img th:src="${session.user != null && session.user.isHasMemberPic()} ? '/user/memberPic' : @{/images/oman_10_ani_10.svg}"
+                 src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
                  id="memberPic" class="rounded-circle w-100 ms-3 mt-2" style="width: 3rem;">
         </div>
 
-        <!-- 會員暱稱、註冊日期 -->
+        <!-- 會員暱稱 -->
         <div class="col-7">
             <div class="row h-25"></div>
             <div class="row h-50 ms-2">
@@ -140,19 +146,19 @@
         </div>
 
         <!-- 閱讀資訊 -->
-        <div class="col-4 d-none d-lg-flex">
-            <ul class="list-group list-group-horizontal align-items-end mb-2">
-                <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總閱讀：
-                    <span></span>
-                </li>
-                <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總推薦：
-                    <span></span>
-                </li>
-                <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總收藏：
-                    <span></span>
-                </li>
-            </ul>
-        </div>
+        <!--        <div class="col-4 d-none d-lg-flex">-->
+        <!--            <ul class="list-group list-group-horizontal align-items-end mb-2">-->
+        <!--                <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總閱讀：-->
+        <!--                    <span></span>-->
+        <!--                </li>-->
+        <!--                <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總推薦：-->
+        <!--                    <span></span>-->
+        <!--                </li>-->
+        <!--                <li class="list-group-item text-bl04" style="background-color: transparent; border: none;">總收藏：-->
+        <!--                    <span></span>-->
+        <!--                </li>-->
+        <!--            </ul>-->
+        <!--        </div>-->
 
     </div>
 
@@ -165,7 +171,8 @@
             <div class="card border border-2 rounded-0 border-top-0">
 
                 <!-- 會員導航欄 -->
-                <div th:replace="user/fragments :: userNav(5)" class="card-header d-flex sticky-top bg-gr0201 rounded-3">
+                <div th:replace="user/fragments :: userNav(5)"
+                     class="card-header d-flex sticky-top bg-gr0201 rounded-3">
                     <ul class="nav nav-tabs card-header-tabs h4 mx-auto">
                         <li class="nav-item me-3">
                             <a class="nav-link" href="my_space.html">Introduce</a>
@@ -194,17 +201,12 @@
                 </div>
                 <!-- 會員導航欄 END-->
 
-                <!-- 卡片內容 -->
                 <div class="card-body">
                     <!-- 標題 -->
                     <div class="row justify-content-center">
-                        <div class="col-6 mt-4">
-                            <h3 class="fw-bold text-pk03">通知 <i class="far fa-bell text-pk03"></i> 9
+                        <div class="col-8 mt-4">
+                            <h3 class="fw-bold text-pk03">新通知 <i class="far fa-bell text-pk03"></i> <span id="count">0</span>
                             </h3>
-                        </div>
-
-                        <div class="col-2 mt-4 d-flex justify-content-end align-items-end">
-                            <a id="dismiss-all" href="#" class="text-pk03 fw-bold">全部刪除</a>
                         </div>
 
                         <div class="col-8">
@@ -214,10 +216,10 @@
 
                     <!-- 卡片列表 -->
 
-                    <div class="row justify-content-center mt-5">
-
+                    <div id="cardList" class="row justify-content-center mt-5">
 
                         <!-- 未讀卡片 -->
+
                         <div class="col-8 m-2">
 
                             <div class="card border border-2 border-pk01 shadow-sm rounded-3">
@@ -227,21 +229,18 @@
                                             <!-- 卡片標題 -->
                                             <h5 class="card-title fs-3 text-bl04 fw-bold"><span
                                                     class="btn rounded-circle p-3 me-3 btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm ">未讀</span>
-                                                新留言 :
+
                                                 <span>食記-咖啡喝到飽</span>
                                             </h5>
 
                                             <!-- 卡片內容 -->
-                                            <p class="card-text">
-
+                                            <p class="card-text mt-3">
+                                                您好
                                             </p>
                                         </div>
 
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2  border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn  border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
+                                        <div name="delete" class="col-2 d-flex justify-content-end align-items-center">
+                                            <a id="1" class="btn  border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
                                         </div>
 
                                     </div>
@@ -249,406 +248,6 @@
                                 <!-- 卡片底 -->
                                 <div class="card-footer bg-pk01">
                                     <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-                                        <p>會員 : <span>可可</span></p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
-
-                                        <p>時間 : <span>1997/11/18</span></p>
-                                    </small>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <!-- 已讀卡片 -->
-                        <div class="col-8 m-2">
-
-                            <div class="card border border-2 border-bl01 shadow-sm rounded-3">
-                                <div class="card-body my-2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-10">
-                                            <!-- 卡片標題 -->
-                                            <h5 class="card-title fs-3 text-bl04 fw-bold"><span
-                                                    class="btn rounded-circle p-3 me-3 btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold shadow-sm">已讀</span>
-                                                新留言 :
-                                                <span>食記-咖啡喝到飽</span>
-                                            </h5>
-
-                                            <!-- 卡片內容 -->
-                                            <p class="card-text">
-
-                                            </p>
-                                        </div>
-
-                                        <div class="col-2 d-flex justify-content-end align-items-center">
-                                            <a href="#"
-                                               class="btn me-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">查看</a>
-                                            <a href="#"
-                                               class="btn border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">刪除</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- 卡片底 -->
-                                <div class="card-footer bg-bl01">
-                                    <small class="text-bl04 fw-bold d-flex justify-content-between mt-3">
-
-                                        <p>
-                                            會員 : <span>可可</span>
-                                        </p>
 
                                         <p>時間 : <span>1997/11/18</span></p>
                                     </small>
@@ -660,30 +259,10 @@
 
                     </div>
                 </div>
+
+
                 <!-- 卡片列表END -->
 
-                <!-- 分頁 -->
-                <div class="row justify-content-center">
-                    <div class="col-8 d-flex justify-content-center my-3">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link text-gr03" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link text-gr03" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link text-gr03" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link text-gr03" href="#">3</a></li>
-                                <li class="page-item text-gr03">
-                                    <a class="page-link text-gr03" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
             </div>
             <!-- 卡片內容-END -->
 

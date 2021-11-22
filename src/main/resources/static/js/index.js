@@ -24,6 +24,7 @@ function initMap() {
     let bounds = new google.maps.LatLngBounds();
     // article['enterAddressName'] = enteraddress;
 
+
     $.ajax({
         url: '/randomArticle',
         type: 'GET',
@@ -59,6 +60,8 @@ function initMap() {
 //---------------執行自動調整視窗方法結束-------------------------
         }
     });
+    // 載入最新商品
+    getNewestProducts();
 }
 
 //-----------------------------------------------------------------------
@@ -116,7 +119,38 @@ $(function () {
 });
 //-----------------------------------------------------------------------
 
-
+function getNewestProducts() {
+    $.ajax({
+        url: '/newestProduct',
+        type: 'GET',
+        statusCode: {
+            200: function (response) {
+                let products = response.content;
+                let trHTML = '';
+                $.each(products, function (i, product) {
+                    trHTML +=
+                        '<div class="col-12 col-md-6 col-xl-3 mb-4">' +
+                        '<div class="card mr-3" style="height: 500px; overflow: hidden">' +
+                        '<img src="/shop/productPic/' +
+                        product.id +
+                        '" class="card-img-top object-cover" alt="..." style="height: 400px; overflow: hidden">' +
+                        '<div class="card-body">' +
+                        '<h4 class="card-title">' +
+                        product.productName +
+                        '</h4>' +
+                        '<p class="card-text" style="height: 100px; overflow: hidden; object-fit: cover">' +
+                        product.productDetail +
+                        '</p>' +
+                        '<a href="/shop/product/' +
+                        product.id +
+                        '" class="btn btn-primary">看看商品詳細介紹</a>' +
+                        '</div></div></div>';
+                })
+                $('#newestProductBody').html(trHTML);
+            }
+        }
+    })
+}
 
 
 

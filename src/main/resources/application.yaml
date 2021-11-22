@@ -43,7 +43,7 @@ spring:
 logging:
   level:
     root: info
-    com.java017: error
+    com.java017: info
     org:
       springframework:
         security: WARN

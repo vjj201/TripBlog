@@ -64,4 +64,10 @@ public class PageController {
 
 
 
+    //跳轉作者介紹頁面
+    @GetMapping("/banned")
+    public String banned() {
+        return "/user/banned";
+    }
+
 }

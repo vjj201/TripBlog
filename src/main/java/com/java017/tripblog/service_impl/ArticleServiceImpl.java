@@ -134,7 +134,7 @@ public class ArticleServiceImpl implements ArticleService {
         return "推薦成功";
     }
 
-    ;
+
 
     @Override
     public String updateCollect(String articleTitle) {
@@ -146,7 +146,7 @@ public class ArticleServiceImpl implements ArticleService {
         return "收藏成功";
     }
 
-    ;
+
 
     @Override
     public String updateReport(String articleTitle) {

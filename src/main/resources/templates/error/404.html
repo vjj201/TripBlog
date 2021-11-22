@@ -105,14 +105,15 @@
 
     <!--錯誤訊息-->
     <div class="container w-50  mx-auto m-5" style="height: 30vh;">
-        <div class="alert alert-danger d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                <use xlink:href="#exclamation-triangle-fill" />
-            </svg>
+        <div class="alert alert-danger d-flex justify-content-center" role="alert">
             <div class="fs-2 fw-bolder">
-                404 Not Found
+                [404] 找尋的路徑不存在
             </div>
         </div>
+        <div class="d-flex justify-content-center my-4">
+            <button type="button" class="form-control btn btn-secondary w-50" onclick="back()">返回</button>
+        </div>
+
     </div>
 
     <br><br><br><br><br><br>
@@ -128,6 +129,11 @@
                 國立臺北科技大學 JAVA 程式設計人才養成班第十七屆 第四組專題
             </div>
         </div>
+        <script>
+            function back() {
+                window.history.back();
+            }
+        </script>
     </footer>
 
 

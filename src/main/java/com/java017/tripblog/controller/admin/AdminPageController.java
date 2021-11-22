@@ -2,7 +2,6 @@ package com.java017.tripblog.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -13,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminPageController {
 
-    @GetMapping("")
+    @GetMapping("/index")
     public String adminIndexPage() {
         return "/admin/admin_index";
     }
 
-    //跳轉產品管理頁
     @GetMapping("/productPage")
     public String showProductsManagePage() {return "/admin/admin_product"; }
 
@@ -42,9 +40,11 @@ public class AdminPageController {
         return "/admin/admin_member";
     }
 
-    @GetMapping("/reportPage")
-    public String reportPage() {
-        return "/admin/admin_report";
+    @GetMapping("/messagePage")
+    public String messagePage() {
+        return "/admin/admin_message";
     }
+    @GetMapping("/discountPage")
+    public String discountPage() { return "/admin/admin_discount"; }
 
 }

@@ -52,6 +52,22 @@ public class ProductQuery {
             return Sort.by("price").descending();
         }
 
+        if(sort.equals(5)) {
+            return Sort.by("inStock");
+        }
+
+        if(sort.equals(6)) {
+            return Sort.by("inStock").descending();
+        }
+
+        if(sort.equals(7)) {
+            return Sort.by("alreadySold");
+        }
+
+        if(sort.equals(8)) {
+            return Sort.by("alreadySold").descending();
+        }
+
         return Sort.by("launchedTime").descending();
     }
 

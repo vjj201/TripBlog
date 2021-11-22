@@ -61,6 +61,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item me-5" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link  p-0 mt-3" th:href="@{/admin/index}">
+                        <div class="fs-5 fw-bolder">後台</div>
+                    </a>
+                </li>
+
+
             </ul>
 
 
@@ -83,11 +90,11 @@
                     <!-- 選單內容 -->
                     <ul class="dropdown-menu dropdown-menu-end border-5 border-jumpBorderGreen rounded"
                         aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item rounded fw-bold" href="user/write_article.html" th:href="@{/user/write}">撰寫文章</a></li>
-                        <li><a class="dropdown-item rounded fw-bold" href="user/my_space.html" th:href="@{/user/space}">我的空間</a></li>
-                        <li><a class="dropdown-item rounded fw-bold" href="" th:href="@{/shop/shopcart}">購物清單</a></li>
-                        <li><a class="dropdown-item rounded fw-bold" href="" th:href="@{/shop/orderList}">訂單查詢</a></li>
-                        <hr class="dropdown-divider rounded fw-bold">
+                        <li sec:authorize="hasRole('USER')"><a class="dropdown-item rounded fw-bold" href="user/write_article.html" th:href="@{/user/write}">撰寫文章</a></li>
+                        <li sec:authorize="hasRole('USER')"><a class="dropdown-item rounded fw-bold" href="user/my_space.html" th:href="@{/user/space}">我的空間</a></li>
+                        <li sec:authorize="hasRole('USER')"><a class="dropdown-item rounded fw-bold" href="" th:href="@{/shop/shopcart}">購物清單</a></li>
+                        <li sec:authorize="hasRole('USER')"><a class="dropdown-item rounded fw-bold" href="" th:href="@{/shop/orderList}">訂單查詢</a></li>
+                        <hr sec:authorize="hasRole('USER')" class="dropdown-divider rounded fw-bold">
                         <li><a class="dropdown-item" href="user/signup.html" th:href="@{/user/signup}" th:if="${session.user==null}">註冊</a></li>
                         <li><a class="dropdown-item" href="user/loginPage.html" th:href="@{/user/loginPage}" th:if="${session.user==null}">登入</a></li>
                         <li><a class="dropdown-item" href="#" th:href="@{/user/logout}" th:if="${session.user!=null}">登出</a></li>
