@@ -1,25 +1,30 @@
 package com.java017.tripblog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * @author YuCheng
  * @date 2021/9/26 - 下午 10:27
  */
-
+//@JsonIgnoreProperties("intro")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "User")
-public class User {
+public class User{
 
     //會員編號
     @Id
@@ -50,17 +55,10 @@ public class User {
     private Date birthday;
 
     //信箱
-    @Column(unique = true, nullable = false)
     private String email;
 
     //手機
     private String phone;
-
-    //角色
-    private String role;
-
-    //封鎖
-    private boolean locked;
 
     //註冊日期
     @Temporal(TemporalType.TIMESTAMP)
@@ -75,17 +73,35 @@ public class User {
     private boolean hasMemberPic;
 
     //自我介紹外來鍵
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private ShopCart shopCart;
+    @OneToMany(mappedBy="userRecommendId",cascade=CascadeType.ALL)
+    private Set<Recommend> recommendSet ;
+
+    @OneToMany(mappedBy="userReportId",cascade=CascadeType.ALL)
+    private Set<Report> reportSet ;
+
+    @OneToMany(mappedBy="userCollectId",cascade=CascadeType.ALL)
+    private Set<Collect> collectSet ;
+
+
+
+
+
+    //是否有頭貼
+    private boolean hasMemberPic;
+
+
+    public boolean isMailVerified() {
+        return mailVerified;
+    }
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<ProductOrder> productOrderList = new HashSet<>();
 
     public Long getId() {
@@ -208,22 +224,6 @@ public class User {
         this.shopCart = shopCart;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -236,11 +236,12 @@ public class User {
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", role='" + role + '\'' +
-                ", locked=" + locked +
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
                 ", hasMemberPic=" + hasMemberPic +
+                ", intro=" + intro +
+                ", shopCart=" + shopCart +
+                ", productOrderList=" + productOrderList +
                 '}';
     }
 }
