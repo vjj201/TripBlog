@@ -115,7 +115,8 @@ $(function () {
         let saveImgPath = myArticleAll.articlesCollectId.saveImgPath;
         let articleId = myArticleAll.articlesCollectId.articleId;
         const imgPath = "https://localhost:8080/";
-
+        let isShow = myArticleAll.articlesCollectId.show;
+        if (isShow == true) {
         return `
         <!-- 文章圖片  -->
                      <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
@@ -144,7 +145,11 @@ $(function () {
                         </div>
                     </div>
                 </div>
-        `;}
+        `;}else {
+            return "";
+          }
+    
+    }
 
     function clickPage(){
         $("#changePageAll").on("click", "#pageSearch", function (event) {

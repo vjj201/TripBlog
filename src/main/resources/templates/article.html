@@ -182,12 +182,12 @@
         <div class="col-md-2 mt-2 text-md-start">
             位於><span th:text="${showArticle.enterAddressName}"></span>
         </div>
-<!--        <div class="col-md-2 mt-2 text-md-end">-->
-<!--            <button type="button" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"-->
-<!--                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">-->
-<!--                發票收據-->
-<!--            </button>-->
-<!--        </div>-->
+        <!--        <div class="col-md-2 mt-2 text-md-end">-->
+        <!--            <button type="button" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"-->
+        <!--                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">-->
+        <!--                發票收據-->
+        <!--            </button>-->
+        <!--        </div>-->
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -234,7 +234,7 @@
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
                         <iframe
-                                th:src="${'https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q=' + showArticle.getEnterAddressName()}"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.0267172529916!2d121.56283948366875!3d25.03316736004655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb6da80a7ad%3A0xacc4d11dc963103c!2z5Y-w5YyXMTAx!5e0!3m2!1szh-TW!2stw!4v1633222107600!5m2!1szh-TW!2stw"
                                 class="d-block" width="100%" height="400px" style="border:0;" allowfullscreen=""
                                 loading="lazy"></iframe>
 
@@ -258,9 +258,9 @@
 <div class="container ">
     <div class="row mt-5 mb-5 justify-content-center text-secondary ">
         <div class="col-md-9  bg-white rounded-3">
-            <span th:utext="${showArticle.getTextEditor()}"></span>
-            <hr>
-            標籤 :<span th:text="${showArticle.freeTag}"></span>
+<!--            <span th:utext="${showArticle.getTextEditor()}"></span>-->
+<!--            <hr>-->
+<!--            標籤 :<span th:text="${showArticle.freeTag}"></span>-->
         </div>
     </div>
 </div>
@@ -283,7 +283,7 @@
                                     <span th:text="${showUser.nickname}"></span>
                                 </h3>
                                 <h6 class="authorHome text-bl04">
-                                    <span th:text="${showUser.intro.getIntroContent()}"></span>
+<!--                                    <span th:text="${showUser.getIntro().getIntroContent()}"></span>-->
                                 </h6>
                                 <h6>推薦數<span id="recommendCount"  th:text="${showArticle.getRecommend()}"></span> 收藏數<span id="collectCount" th:text="${showArticle.getCollect()}"></span>
                                 </h6>

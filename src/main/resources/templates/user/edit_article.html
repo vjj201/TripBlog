@@ -192,7 +192,7 @@
                 <input class="form-control border-2 border-bl03 bg-gr0200 rounded-pill" id="articletitle" placeholder="文章標題"
                        type="text" th:value="${editArticle.getArticleTitle().substring(0,editArticle.getArticleTitle().length()-4)}">
             </div>
-            <div class="col-md-1 col-sm-12 txt-block-1">
+            <div class="col-md-1 col-sm-12 px-0 txt-block-1">
                 <label class="text-pk03">標題可輸入30字</label>
             </div>
         </div>
@@ -223,7 +223,7 @@
                            accept="image/*" onchange="readFile(this)"
                            targetID="main-cropper">
 
-                    <button class="btn btn-light border-2 border-bl03 rounded-pill text-bl03 fw-bold" type="button"
+                    <button class="btn btn-light border-2 border-bl03 rounded-pill text-bl03 fw-bold ms-2" type="button"
                             id="uploadIntroBanner">上傳</button>
                     <label class="titleText text-pk03">請重新選擇圖片</label>
                 </div>
