@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: j123
+    password: joanna0412
     url: jdbc:mysql://localhost:3306/tripblog?serverTimezone=Asia/Taipei&Encoding=utf-8
   jpa:
     properties:
@@ -43,7 +43,7 @@ spring:
 logging:
   level:
     root: info
-    com.java017: info
+    com.java017: error
     org:
       springframework:
         security: WARN

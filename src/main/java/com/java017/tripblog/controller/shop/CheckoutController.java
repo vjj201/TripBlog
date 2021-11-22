@@ -1,8 +1,13 @@
 package com.java017.tripblog.controller.shop;
 
-import com.java017.tripblog.entity.*;
-import com.java017.tripblog.service.*;
-import com.java017.tripblog.socket.AdminSocket;
+import com.java017.tripblog.entity.Item;
+import com.java017.tripblog.entity.Product;
+import com.java017.tripblog.entity.ProductOrder;
+import com.java017.tripblog.entity.User;
+import com.java017.tripblog.service.CityService;
+import com.java017.tripblog.service.ProductOrderService;
+import com.java017.tripblog.service.ProductService;
+import com.java017.tripblog.service.UserService;
 import com.java017.tripblog.util.OrderIdCreator;
 import com.java017.tripblog.vo.CheckoutSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author YuCheng
@@ -35,15 +41,13 @@ public class CheckoutController {
     private final ProductService productService;
     private final ProductOrderService productOrderService;
     private final UserService userService;
-    private final DiscountService discountService;
 
     @Autowired
-    public CheckoutController(CityService cityService, ProductService productService, ProductOrderService productOrderService, UserService userService, DiscountService discountService) {
+    public CheckoutController(CityService cityService, ProductService productService, ProductOrderService productOrderService, UserService userService) {
         this.cityService = cityService;
         this.productService = productService;
         this.productOrderService = productOrderService;
         this.userService = userService;
-        this.discountService = discountService;
     }
 
     //配送方式頁
@@ -115,42 +119,6 @@ public class CheckoutController {
         return "/shop/shop_confirm";
     }
 
-    //折扣輸入
-    @Transactional
-    @PostMapping("/discount")
-    @ResponseBody
-    public ResponseEntity<Integer> getDiscount(@RequestBody Discount discount,
-                                               @SessionAttribute(name = "checkout", required = false) CheckoutSession checkout,
-                                               Model model) {
-        Discount discountByTitle = discountService.findDiscountByTitle(discount.getTitle());
-        if(!ObjectUtils.isEmpty(checkout.getDiscountTitle())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-
-        if(ObjectUtils.isEmpty(discountByTitle)) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        Date expiredTime = discountByTitle.getExpiredTime();
-        Date today = new Date();
-
-        if (expiredTime.before(today)) {
-            System.out.println("優惠過期");
-            discountService.deleteDiscountById(discountByTitle.getId());
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        checkout.setDiscountTitle(discountByTitle.getTitle());
-        model.addAttribute("checkout", checkout);
-        return new ResponseEntity<>(discountByTitle.getDiscountNumber(),HttpStatus.OK);
-    }
-
-    @GetMapping("/removeDiscount")
-    public ResponseEntity<HttpStatus> removeDiscount(@SessionAttribute(name = "checkout", required = false) CheckoutSession checkout,
-                                                     Model model) {
-        checkout.setDiscountTitle(null);
-        model.addAttribute("checkout", checkout);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     //訂單完成
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @ResponseBody
@@ -197,16 +165,8 @@ public class CheckoutController {
         }
 
         amounts += checkout.getFreight();
-
-        ProductOrder productOrder = new ProductOrder();
-
-        if(!ObjectUtils.isEmpty(checkout.getDiscountTitle())) {
-            int discountNumber = discountService.findDiscountByTitle(checkout.getDiscountTitle()).getDiscountNumber();
-            amounts =  (int)Math.ceil(amounts * discountNumber / 10);
-            productOrder.setDiscountNumber(discountNumber);
-        }
         System.out.println("訂單總金額" + amounts);
-
+        ProductOrder productOrder = new ProductOrder();
         productOrder.setUuid(OrderIdCreator.createOrderNumber());
         productOrder.setAmounts(amounts);
         productOrder.setReceiver(checkout.getReceiver());
@@ -239,7 +199,6 @@ public class CheckoutController {
                 append("，請妥善保存");
 
         sessionStatus.setComplete();
-        AdminSocket.sendInfo("有新的訂單");
         return new ResponseEntity<>(message.toString(), HttpStatus.OK);
     }
 

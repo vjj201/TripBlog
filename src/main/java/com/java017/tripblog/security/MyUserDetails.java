@@ -2,12 +2,9 @@ package com.java017.tripblog.security;
 
 import com.java017.tripblog.entity.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author YuCheng
@@ -19,13 +16,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-        if(user.getRole() != null && "ADMIN".equals(user.getRole())) {
-            list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-        return list;
+        return null;
     }
 
     public MyUserDetails(User user) {
@@ -42,10 +33,6 @@ public class MyUserDetails implements UserDetails {
 
     public String getEmail() {
         return user.getEmail();
-    }
-
-    public boolean isLocked() {
-        return user.isLocked();
     }
 
     @Override

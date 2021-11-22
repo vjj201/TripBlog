@@ -23,7 +23,6 @@ public class Product {
     private Long id;
 
     //產品名稱
-    @Column(unique = true, nullable = false)
     private String productName;
 
     //上市日期

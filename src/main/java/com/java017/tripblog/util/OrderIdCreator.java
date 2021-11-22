@@ -18,7 +18,7 @@ public class OrderIdCreator {
 
         DateFormat format = new SimpleDateFormat("yyMMdd");
         Date date = new Date();
-        StringBuilder buffer = new StringBuilder();
+        StringBuffer buffer = new StringBuffer();
         buffer.append(format.format(date));
         buffer.append((date.getTime() + "").substring(9));
         buffer.append(getRandNumber(4));
@@ -27,7 +27,7 @@ public class OrderIdCreator {
 
     public static String getRandNumber(int length){
         Random random = new Random();
-        StringBuilder result = new StringBuilder();
+        StringBuffer result = new StringBuffer();
         for (int i = 0; i < length; i++) {
             result.append(random.nextInt(10));
         }

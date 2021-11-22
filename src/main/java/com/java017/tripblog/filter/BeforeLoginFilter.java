@@ -27,10 +27,10 @@ public class BeforeLoginFilter extends OncePerRequestFilter {
 
         //登入阻擋，驗證圖形碼
         if (!"/user/login".equals(uri)) {
-            //請求不等於登入直接通過
+            //請求不等於登於直接通過
             filterChain.doFilter(request, response);
         } else {
-            System.out.println("確認帳密前圖形驗證");
+            System.out.println("驗證帳密前");
             try {
                 verifyCode(request);
                 filterChain.doFilter(request, response);

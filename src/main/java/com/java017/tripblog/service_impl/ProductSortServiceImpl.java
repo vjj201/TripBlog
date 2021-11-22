@@ -4,7 +4,6 @@ import com.java017.tripblog.entity.ProductSort;
 import com.java017.tripblog.repository.ProductSortRepository;
 import com.java017.tripblog.service.ProductSortService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class ProductSortServiceImpl implements ProductSortService {
 
     @Override
     public List<ProductSort> findAllProductSort() {
-        return productSortRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return productSortRepository.findAll();
     }
 
     @Override

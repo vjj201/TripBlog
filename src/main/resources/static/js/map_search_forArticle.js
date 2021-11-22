@@ -1,4 +1,3 @@
-console.log("有抓到這個js");
 // --------------------------------------
 $(function () {
         //csrf防護
@@ -118,9 +117,9 @@ $(function () {
             let createTime = articleAll.createTime;
             let saveImgPath = articleAll.saveImgPath;
             let user = articleAll.userId.nickname;
-
-
-            return `
+            let isShow = articleAll.show;
+            if (isShow == true) {
+                return `
 
 <!-- 文章圖片  -->
      <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
@@ -135,10 +134,10 @@ $(function () {
             <!-- 文章內容 -->
             <div class="single-blog-content">
                 <h4><a href="https://localhost:8080/article/${articleTitle}" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
-                    ${articleTitle}   
+                    ${articleTitle.substring(0, 12)}   
                     </a></h4>
 
-                <p class="text-bl04">${textEditor}</p>
+                <p class="text-bl04">${textEditor.substring(0, 20)}...</p>
                 <div class="post-meta">
                     <p class="text-bl04">By <a href="#" class="text-bl04">${user}</a></p>
                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
@@ -160,8 +159,10 @@ $(function () {
     </div>
 </div>
 `;
+            }else {
+                return "";
+            }
         }
-
 
         // ~~~第一頁~~~
         function unloginFirstPage() {
@@ -280,11 +281,12 @@ $(function () {
             let saveImgPath = articleAll.saveImgPath;
             let user = articleAll.userId.nickname;
             let articleId = articleAll.articleId;
+            let isShow = articleAll.show;
             console.log("articleId=  " + articleId);
             console.log("recommend   " + recommend)
             console.log("recommend   " + collect)
-
-            return `
+            if (isShow == true) {
+                return `
 
 <!-- 文章圖片  -->
      <div class="single-blog-area bg-gr0200 blog-style-2 mb-5 wow fadeInUp " data-wow-delay="0.2s"
@@ -299,10 +301,10 @@ $(function () {
             <!-- 文章內容 -->
             <div class="single-blog-content">
                 <h4><a href="https://localhost:8080/article/${articleTitle}" class="post-headline  btn-outline-bl01 text-bl04 fw-bold">
-                    ${articleTitle}   
+                    ${articleTitle.substring(0, 12)}  
                     </a></h4>
 
-                <p class="text-bl04">${textEditor}</p>
+                <p class="text-bl04">${textEditor.substring(0, 20)}...</p>
                 <div class="post-meta">
                     <p class="text-bl04">By <a href="#" class="text-bl04">${user}</a></p>
                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
@@ -310,31 +312,33 @@ $(function () {
                     name="${articleTitle}"
                         class="btn-recommend btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
                         type="submit" value="${getRecommendStatus(
-                articleId,
-                recommend
-            )}">
+                    articleId,
+                    recommend
+                )}">
                     <input
                     name="${articleTitle}"
                         class="btn btn-sm btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
                         type="submit" value="${getCollectStatus(
-                articleId,
-                collect
-            )}">
+                    articleId,
+                    collect
+                )}">
                     <input
                     name="${articleTitle}"
                         class="btn btn-sm btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
                         type="submit" value="${getReportStatus(
-                articleId,
-                report
-            )}">
+                    articleId,
+                    report
+                )}">
                 </div>
             </div>
         </div>
     </div>
 </div>
 `;
+            }else {
+                return "";
+            }
         }
-
         //~~~[已推薦]放進html方法~~~
         function getRecommendStatus(articleId, recommend) {
             if (recommend.includes(articleId)) {

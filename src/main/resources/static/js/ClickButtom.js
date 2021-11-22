@@ -10,7 +10,7 @@ $(function () {
             $(this).val("已推薦");
         }else if(choose == "檢舉"){
             $(this).val("已檢舉");
-        }else{
+        }else if(choose == "收藏"){
             $(this).val("已收藏");
         }
         article["articleTitle"] = articleTitle;

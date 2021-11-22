@@ -182,12 +182,12 @@
         <div class="col-md-2 mt-2 text-md-start">
             位於><span th:text="${showArticle.enterAddressName}"></span>
         </div>
-        <div class="col-md-2 mt-2 text-md-end">
-            <button type="button" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"
-                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                發票收據
-            </button>
-        </div>
+<!--        <div class="col-md-2 mt-2 text-md-end">-->
+<!--            <button type="button" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"-->
+<!--                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">-->
+<!--                發票收據-->
+<!--            </button>-->
+<!--        </div>-->
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -274,7 +274,7 @@
                         <div class="row mt-5 justify-content-center align-items-center">
                             <div class="col-md-2" id="t1">
                                 <div class="ratio ratio-1x1">
-                                    <img src="https://semantic-ui.com/images/avatar2/small/elyse.png"
+                                    <img th:src="${session.user != null && session.user.isHasMemberPic()} ? '/user/memberPic' : @{/images/oman_10_ani_10.svg}" src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
                                          class="rounded-circle">
                                 </div>
                             </div>
@@ -285,9 +285,7 @@
                                 <h6 class="authorHome text-bl04">
                                     <span th:text="${showUser.intro.getIntroContent()}"></span>
                                 </h6>
-                                <h6>推薦數<span id="recommendCount"  th:text="${numRecommend}">0</span> 收藏數<span id="collectCount">0</span>
-                                </h6>
-
+                                <h6>推薦數<span id="recommendCount"  th:text="${showArticle.getRecommend()}"></span> 收藏數<span id="collectCount" th:text="${showArticle.getCollect()}"></span>
                                 </h6>
                             </div>
                             <div class="col-md-3" id="t3">

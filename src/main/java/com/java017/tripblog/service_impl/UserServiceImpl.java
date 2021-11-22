@@ -1,7 +1,6 @@
 package com.java017.tripblog.service_impl;
 
-import com.java017.tripblog.entity.Intro;
-import com.java017.tripblog.entity.User;
+import com.java017.tripblog.entity.*;
 import com.java017.tripblog.repository.IntroRepository;
 import com.java017.tripblog.repository.UserRepository;
 import com.java017.tripblog.security.MyUserDetails;
@@ -14,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -65,6 +65,11 @@ public class UserServiceImpl implements UserService {
         Intro intro = new Intro();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIntro(intro);
+
+//        ShopCart shopCart = new ShopCart();
+//        ProductOrder productOrder = new ProductOrder();
+//        shopCart.setUser(user);
+//        productOrder.setUser(user);
 
         try {
             userRepository.save(user);

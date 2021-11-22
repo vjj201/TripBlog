@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.util.Date;
 
 @EntityListeners(AuditingEntityListener.class)
@@ -28,6 +29,7 @@ public class Article{
 
     String articleTitle;
 
+    @Column( nullable = false, length = 1000)
     String textEditor;
 
     String freeTag;
@@ -38,8 +40,9 @@ public class Article{
 
     Integer collect = 0;
 
-    String saveImgPath;
+    String saveImgPath = "images/noPhoto.png";
 
+    Boolean isShow = true;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "userId", referencedColumnName = "id")
@@ -218,6 +221,16 @@ public class Article{
     public void setFreeTag(String freeTag) {
         this.freeTag = freeTag;
     }
+
+    public Boolean getShow() {
+        return isShow;
+    }
+
+    public void setShow(Boolean show) {
+        isShow = show;
+    }
+
+
 
     @Override
     public String toString() {

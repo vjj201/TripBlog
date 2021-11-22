@@ -100,9 +100,6 @@ $(function () {
                 200: function () {
                     document.location.href = "/user/afterLogin";
                 },
-                201: function () {
-                    document.location.href = "/admin/index";
-                },
                 202: function () {
                     $('#message').text('驗證碼錯誤');
                     $('#changeCode').trigger('click');

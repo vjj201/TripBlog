@@ -23,12 +23,15 @@ function initMap() {
 $(function () {
     let markers = [];
     let bounds = new google.maps.LatLngBounds();
+    initMap();
     firstinitmap();
     $('#btsearch').click(function (e) {
         e.preventDefault();
+        initMap();
         firstinitmap();
     });
     $("#changePageAll").on("click", "#pageSearch", function () {
+        initMap();
         changlePageMap();
     });
     function firstinitmap(){
@@ -66,6 +69,9 @@ $(function () {
                 }
                 console.log("迴圈外面 " + points);
 
+        $(marker).click(function(){
+            console.log("有執行產生資訊視窗")
+        });
 
 
 //---------------執行自動調整視窗方法-------------------------

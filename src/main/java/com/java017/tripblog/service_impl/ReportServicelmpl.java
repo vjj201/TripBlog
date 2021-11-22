@@ -9,14 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
 public class ReportServicelmpl implements ReportService {
 
+    @Autowired
     private final ReportRepository reportRepository;
 
-    @Autowired
     public ReportServicelmpl(ReportRepository repository) {
         this.reportRepository = repository;
     }
@@ -45,5 +46,13 @@ public class ReportServicelmpl implements ReportService {
     @Override
     public ArrayList<Report> findByUserReportId(User userReportId) {
         return reportRepository.findByUserReportId(userReportId);
+    }
+
+    @Override
+    public List<Report> findAllReport() {
+
+        return reportRepository.findAll();
+
+
     }
 }
