@@ -163,7 +163,6 @@ $(function() {
         tag["freeTagId"] = freeTagId;
         tag["freeTagName"] = freeTagName;
 
-
         console.log("開始跑標籤")
 
         $.ajax({
@@ -176,7 +175,7 @@ $(function() {
                 for (let tag of response) {
                     freeTagName = tag.freeTagName;
                     console.log(freeTagName)
-                    let htmlTag = `<option value='${freeTagName}'>${freeTagName}</option>`;
+                    let htmlTag = `<option style="transform: translateX(5%);"value='${freeTagName}'>${freeTagName}</option>`;
                     $("#articleTag").append(htmlTag);
                     console.log()
                 }
