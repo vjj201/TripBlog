@@ -40,8 +40,15 @@ public class UserServiceImpl implements UserService {
     //獲取當前使用者
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-        return userDetails.getUser();
+        Object principal = authentication.getPrincipal();
+
+
+        if(principal instanceof MyUserDetails) {
+            MyUserDetails userDetails = (MyUserDetails) principal;
+            return userDetails.getUser();
+
+        }
+        return null;
     }
 
     //判斷記住帳號

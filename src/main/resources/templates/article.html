@@ -280,7 +280,7 @@
                             </div>
                             <div class="col-md-4 text-bl04" id="t2">
                                 <h3 class="authorName text-bl04">
-                                    <span th:text="${showUser.nickname}"></span>
+                                    <span th:text="${showUser != null ? showUser.nickname : '訪客'}"></span>
                                 </h3>
                                 <h6 class="authorHome text-bl04">
 <!--                                    <span th:text="${showUser.getIntro().getIntroContent()}"></span>-->
