@@ -12,7 +12,7 @@ public interface ReportService {
     ArrayList<Report> findByUserReportId(User userReportId);
 
     //庭妤 找到所有檢舉文章
-    List<Report> findAllReport();
+//    List<Report> findAllReport();
 
 
 }

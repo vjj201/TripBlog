@@ -36,11 +36,12 @@ public class ReportController {
 
 
     @GetMapping("/report")
-    public ResponseEntity<List<Report>> findAllReport() {
-        List<Report> reportList = reportService.findAllReport();
+    public ResponseEntity<List<Article>> findAllReport() {
+        List<Article> reportList = articleService.findArticleIdReport();
         if (reportList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        System.out.println("印出reportList=>"+reportList);
         return new ResponseEntity<>(reportList, HttpStatus.OK);
     }
 
@@ -67,7 +68,7 @@ public class ReportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+   //put封鎖與顯示
     @PutMapping("/report/{id}")
     public String updateReportById(@PathVariable Integer id, @RequestBody String status) {
         System.out.println("status=>"+status);
@@ -85,5 +86,4 @@ public class ReportController {
         }
         return "成功執行";
     }
-
 }

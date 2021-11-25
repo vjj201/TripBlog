@@ -47,4 +47,10 @@ public class AdminPageController {
     @GetMapping("/discountPage")
     public String discountPage() { return "/admin/admin_discount"; }
 
+    @GetMapping("/reportPage")
+    public String reportPage() {
+        return "/admin/admin_report";
+    }
+
+
 }

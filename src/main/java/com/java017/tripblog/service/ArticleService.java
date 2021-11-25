@@ -58,6 +58,9 @@ public interface ArticleService {
     //庭妤: 文章id搜尋，結果為list
     List<Article>findArticleIdArray(Integer id);
 
+    //庭妤: 檢舉文章_文章id搜尋，結果為list
+    List<Article>findArticleIdReport();
+
     Article findArticleById(Integer id);
 
     //取消收藏

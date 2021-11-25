@@ -126,6 +126,7 @@ public class ArticleController {
             article.setSaveImgPath(saveDir);
             session.setAttribute("ma", null);
         }
+        System.out.println("存入的資料" + article);
         articleService.insertArticle(article);
 
         return "ok";

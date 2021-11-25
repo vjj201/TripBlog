@@ -280,6 +280,7 @@ $(function () {
             let createTime = articleAll.createTime;
             let saveImgPath = articleAll.saveImgPath;
             let user = articleAll.userId.nickname;
+            let userId = articleAll.userId.username;
             let articleId = articleAll.articleId;
             let isShow = articleAll.show;
             console.log("articleId=  " + articleId);
@@ -306,7 +307,7 @@ $(function () {
 
                 <p class="text-bl04">${textEditor.substring(0, 20)}...</p>
                 <div class="post-meta">
-                    <p class="text-bl04">By <a href="#" class="text-bl04">${user}</a></p>
+                    <p class="text-bl04">By <a href="/visitorsSpace/${userId}" class="text-bl04">${user}</a></p>
                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
                     <input
                     name="${articleTitle}"
