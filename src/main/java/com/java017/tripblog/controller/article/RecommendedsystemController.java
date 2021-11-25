@@ -45,10 +45,8 @@ public class RecommendedsystemController {
         System.out.println("文章Id (存入articleId): " + articleId);
         System.out.println("推薦者 (recommend)：" + recommend);
 
-//        System.out.println("是不是從這裡開始有問題");
         if (recommend.getUserRecommendId() != null && recommend.getArticlesRecommendId() != null) {
-//            System.out.println("4你？");
-//            System.out.println(recommend);
+
             recommendService.updateUserRecommend(recommend);
 
             System.out.println("成功往service傳");

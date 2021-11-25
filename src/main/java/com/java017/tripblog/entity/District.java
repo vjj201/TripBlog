@@ -1,7 +1,6 @@
 package com.java017.tripblog.entity;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlID;
 
 /**
  * @author YuCheng

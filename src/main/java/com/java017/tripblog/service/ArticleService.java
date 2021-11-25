@@ -66,10 +66,4 @@ public interface ArticleService {
     //幻燈片
     List<Article> changeImg();
 
-
-
-//    List<Article> getMyPagedArticlesForCollect(int page, int size, User user);
-
-
-//     List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect);
 }

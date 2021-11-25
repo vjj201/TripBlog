@@ -15,14 +15,14 @@ import java.util.List;
 @Controller
 public class UserArticleController {
 
-    @Autowired
+
     private final ArticleService articleService;
     private final UserService userService;
     private final RecommendService recommendService;
     private final CollectService collectService;
     private final ReportService reportService;
 
-
+    @Autowired
     public UserArticleController(ArticleService articleService, UserService userService, RecommendService recommendService, CollectService collectService, ReportService reportService) {
         this.articleService = articleService;
         this.userService = userService;

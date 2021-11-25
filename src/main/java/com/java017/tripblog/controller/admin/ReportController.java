@@ -23,15 +23,11 @@ public class ReportController {
 
     private final ReportService reportService;
     private final ArticleService articleService;
-    private final UserService userService;
-    private final ReportRepository reportRepository;
 
     @Autowired
-    public ReportController(ReportService reportService, ArticleService articleService, UserService userService, ReportRepository reportRepository) {
+    public ReportController(ReportService reportService, ArticleService articleService) {
         this.reportService = reportService;
         this.articleService = articleService;
-        this.userService = userService;
-        this.reportRepository = reportRepository;
     }
 
 
@@ -46,7 +42,7 @@ public class ReportController {
 
     //渲染會員文章畫面
     @GetMapping("/report/{articleId}/product")
-    public ResponseEntity<List<Article>> articlePage(@PathVariable  Integer articleId) {
+    public ResponseEntity<List<Article>> articlePage(@PathVariable Integer articleId) {
         System.out.println(articleId);
         List<Article> result = articleService.findArticleIdArray(articleId);
 
@@ -70,18 +66,18 @@ public class ReportController {
 
     @PutMapping("/report/{id}")
     public String updateReportById(@PathVariable Integer id, @RequestBody String status) {
-        System.out.println("status=>"+status);
+        System.out.println("status=>" + status);
         String Used = "\"使用中\"";
         Article report = articleService.findArticleById(id);
         Boolean result;
-        if( Used.equals(status)){
+        if (Used.equals(status)) {
             result = true;
             report.setShow(result);
-            System.out.println("印出[使用中]的getShow()"+report.getShow());
-        }else{
+            System.out.println("印出[使用中]的getShow()" + report.getShow());
+        } else {
             result = false;
             report.setShow(result);
-            System.out.println("印出[停用中]的getShow()"+report.getShow());
+            System.out.println("印出[停用中]的getShow()" + report.getShow());
         }
         return "成功執行";
     }

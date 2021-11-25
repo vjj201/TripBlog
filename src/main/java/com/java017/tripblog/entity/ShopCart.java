@@ -4,7 +4,6 @@ package com.java017.tripblog.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

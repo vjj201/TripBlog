@@ -1,13 +1,16 @@
 package com.java017.tripblog.controller.article;
 
-import com.java017.tripblog.entity.*;
+import com.java017.tripblog.entity.Article;
+import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
