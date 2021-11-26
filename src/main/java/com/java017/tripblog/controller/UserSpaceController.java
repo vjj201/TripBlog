@@ -68,7 +68,7 @@ public class UserSpaceController {
         User user = (User) session.getAttribute("user");
         User userId;
         userId = userService.findUserById(user.getId());  //userId
-        ArrayList<Recommend> messageList;;
+        ArrayList<Recommend> messageList;
         messageList = recommendService.findByUserRecommendId(userId);
         System.out.println("messageList" + messageList);
         return messageList;

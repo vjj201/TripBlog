@@ -1,11 +1,8 @@
 package com.java017.tripblog.service;
 
-import com.java017.tripblog.entity.Brand;
 import com.java017.tripblog.entity.Product;
-import com.java017.tripblog.entity.ProductOrder;
 import com.java017.tripblog.vo.ProductQuery;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;

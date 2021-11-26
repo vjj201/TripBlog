@@ -13,9 +13,9 @@ import java.util.ArrayList;
 @Service
 public class CollectServicelmpl implements CollectService {
 
-    @Autowired
     private final CollectRepository collectRepository;
 
+    @Autowired
     public CollectServicelmpl(CollectRepository collectRepository) {
         this.collectRepository = collectRepository;
     }

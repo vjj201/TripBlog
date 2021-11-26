@@ -15,7 +15,7 @@ public class FreetagController {
     private static final Logger log
             = LoggerFactory.getLogger(FreetagController.class);
 
-    private FreeTagService freeTagService;
+    private final FreeTagService freeTagService;
 
     @Autowired
     public FreetagController(FreeTagService freeTagService) {

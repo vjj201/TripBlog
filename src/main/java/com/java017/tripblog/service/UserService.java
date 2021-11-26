@@ -1,6 +1,5 @@
 package com.java017.tripblog.service;
 
-import com.java017.tripblog.entity.Brand;
 import com.java017.tripblog.entity.Intro;
 import com.java017.tripblog.entity.User;
 

@@ -1,12 +1,11 @@
 package com.java017.tripblog.controller.user;
 
+import com.java017.tripblog.entity.Article;
 import com.java017.tripblog.entity.Collect;
 import com.java017.tripblog.entity.User;
 import com.java017.tripblog.service.ArticleService;
 import com.java017.tripblog.service.UserService;
-import com.java017.tripblog.service_impl.ArticleServiceImpl;
 import com.java017.tripblog.util.ArticleParam;
-import com.java017.tripblog.entity.Article;
 import com.java017.tripblog.util.FileUploadUtils;
 import com.java017.tripblog.util.TagEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +47,6 @@ public class ArticleController {
         return "user/write_article";
     }
 
-    //1116更 -> /user/newFindTags
-//    @ResponseBody
-//    @GetMapping("/findtags")
-//    public TagEnum[] showTags() {
-//        return TagEnum.values();
-//    }
-
     //上傳文章圖片
     @ResponseBody
     @PostMapping("/updateArticleImg")
@@ -78,9 +70,7 @@ public class ArticleController {
             session.setAttribute("ma", ma);
 
             FileUploadUtils.saveUploadFile(dir, fileName, multipartFile);
-//            user = userService.findUserById(user.getId());
-//            user.getIntro().setHasBanner(true);
-//            userService.updateUser(user);
+
             return true;
         }
         return false;
@@ -132,14 +122,6 @@ public class ArticleController {
         return "ok";
     }
 
-//    @ResponseBody
-//    @GetMapping("/findByUserId")
-//    public ArrayList<Article> findByUserId(HttpSession session) {
-//        User user = (User) session.getAttribute("user");
-//        ArrayList<Article> result = articleService.findUserById(user);
-//        System.out.println("檢查controller 回傳直" + result);
-//        return result;
-//    }
 
     //大方: 文章自動生成_輸入搜尋吧查詢並送出第一頁 1113更 (原findByUserId
     @ResponseBody
@@ -158,18 +140,6 @@ public class ArticleController {
         return messagedList;
     }
 
-    //自動生成換頁按鈕
-//    @ResponseBody
-//    @GetMapping("/newPageButtonForUser")
-//    public Integer newChangePageButton(HttpSession session) {
-//        User user = (User) session.getAttribute("user");
-//        ArrayList<Article> list;
-//        list = articleService.findByUserIdForPage(user);
-//        System.out.println("分頁按鈕" + list);
-//        double listSize = list.size();
-//        int pageMount = (int) Math.ceil(listSize / 5);
-//        return pageMount;
-//    }
 
     //大方： 自動生成換頁按鈕(myEat) 1113更
     @ResponseBody

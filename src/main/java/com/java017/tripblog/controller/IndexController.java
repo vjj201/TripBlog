@@ -1,6 +1,5 @@
 package com.java017.tripblog.controller;
 
-import com.java017.tripblog.entity.Brand;
 import com.java017.tripblog.entity.Product;
 import com.java017.tripblog.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.List;
 
 /**
  * @author leepeishan
