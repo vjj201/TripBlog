@@ -202,7 +202,7 @@ public class CheckoutController {
 
         if(!ObjectUtils.isEmpty(checkout.getDiscountTitle())) {
             int discountNumber = discountService.findDiscountByTitle(checkout.getDiscountTitle()).getDiscountNumber();
-            amounts =  (int)Math.ceil(amounts * discountNumber / 10);
+            amounts =  (int)Math.ceil(amounts * discountNumber / 10.0);
             productOrder.setDiscountNumber(discountNumber);
         }
         System.out.println("訂單總金額" + amounts);
