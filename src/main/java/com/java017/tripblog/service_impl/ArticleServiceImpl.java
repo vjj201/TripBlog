@@ -10,6 +10,7 @@ import com.java017.tripblog.repository.ReportRepository;
 import com.java017.tripblog.service.ArticleService;
 import com.java017.tripblog.util.ArticleParam;
 import com.java017.tripblog.util.TagEnum;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Page;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -164,7 +166,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArrayList<Article> findByRandomArticle() {
         ArrayList<Article> list = articleRepository.findAll();
-        Optional<Article> OpArticle;
         List<Article> resultList = new ArrayList<>();
         int listSize = list.size();
         System.out.println(listSize);
@@ -172,7 +173,7 @@ public class ArticleServiceImpl implements ArticleService {
             Article article = new Article();
             Integer math = (int) (Math.random() * listSize) + 1;
             System.out.println("Math" + math);
-            OpArticle = articleRepository.findById(math);
+            Optional<Article> OpArticle = articleRepository.findById(math);
             if (OpArticle.isPresent()) {
                 System.out.println("OpArticle" + OpArticle.get().getArticleTitle());
                 article.setEnterAddressLat(OpArticle.get().getEnterAddressLat());
@@ -189,10 +190,19 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
-    @Override
+
+
     public ArrayList<Article> findUserById(User id) {
-        ArrayList<Article> result = articleRepository.findByUserId(id);
-        return result;
+        if (id == null)
+        {
+            throw new NullPointerException();
+        }
+        if (id.getId() <=0)
+        {
+            return null;
+        }
+
+        return articleRepository.findByUserId(id);
     }
 
     @Override
@@ -208,10 +218,10 @@ public class ArticleServiceImpl implements ArticleService {
 
         if (StringUtils.isEmpty(subject)) {
             return result;
-        } else {
-            // 有填主題(subject)
-            return articleRepository.findByUserIdAndSubjectCategory(id, subject);
         }
+            // 有填主題(subject)
+        return articleRepository.findByUserIdAndSubjectCategory(id, subject);
+
     }
 
     //大方:  我的空間 - 文章首頁&文章換頁
@@ -223,7 +233,12 @@ public class ArticleServiceImpl implements ArticleService {
         //預設-時間舊到新
         Pageable pageable = PageRequest.of(page,
                 size,
-                Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
+                Sort.by("createDate").ascending()
+                        .and(Sort.by("createTime")).ascending()
+                        .and(Sort.by("subjectCategory"))
+                        .and(Sort.by("articleTitle"))
+                        .and(Sort.by("textEditor"))
+                        .and(Sort.by("freeTag")));
 
 
         System.out.println("實作service的排序" + timeDirect);
@@ -257,13 +272,16 @@ public class ArticleServiceImpl implements ArticleService {
     //大方:    我的空間 - 刪除文章
     public String deleteMyArticle(String articleId) {
         System.out.println(articleId);
+
         Integer articleIdNum = Integer.parseInt(articleId);
+        articleRepository.deleteByArticleId(articleIdNum);
+
         Article article = new Article();
         article.setArticleId(articleIdNum);
         reportRepository.deleteByArticleId(article);
         collectRepository.deleteByArticleId(article);
         recommendRepository.deleteByArticleId(article);
-        articleRepository.deleteByArticleId(articleIdNum);
+
         System.out.println("執行刪除文章");
         return "文章刪除(Service)";
     }
@@ -277,23 +295,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public String upDateArticle(Article inputArticle) {
         Optional<Article> article = articleRepository.findById(inputArticle.getArticleId());
-        Article article1 = new Article();
+        inputArticle.setArticleId(article.get().getArticleId());
 
-        article1.setArticleId(article.get().getArticleId());
-        article1.setArticleTitle(inputArticle.getArticleTitle());
-        article1.setSubjectCategory(inputArticle.getSubjectCategory());
-        article1.setEnterAddressLat(inputArticle.getEnterAddressLat());
-        article1.setEnterAddressLng(inputArticle.getEnterAddressLng());
-        article1.setEnterAddressName(inputArticle.getEnterAddressName());
-        article1.setSaveImgPath(inputArticle.getSaveImgPath());
-        article1.setTextEditor(inputArticle.getTextEditor());
-        article1.setFreeTag(inputArticle.getFreeTag());
-        article1.setCreateTime(inputArticle.getCreateTime());
-        article1.setSelectRegion(inputArticle.getSelectRegion());
-        article1.setUserId(inputArticle.getUserId());
-        articleRepository.save(article1);
+        articleRepository.save(inputArticle);
         return "ok";
     }
+
 
     //從collect找出文章
     @Override
@@ -343,12 +350,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> findArticleIdReport() {
         ArrayList<Article> result = articleRepository.findAll();
+        List<Article> reportArticles = result.stream().filter(m->m.getReport()!=0).collect(Collectors.toList());
+
         List<Article> newResult = new ArrayList<>();
-        for (Article loopdata : result) {
-            if (loopdata.getReport()!=0) {
-                newResult.add(loopdata);
-            }
-        }
+        newResult.addAll(reportArticles);
+
         return newResult;
     }
 
@@ -370,54 +376,13 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(article.get());
     }
 
-//    @Override
-//    public List<Article> getMyPagedArticlesForCollect(int page, User user) {
-//        int pagenum = 5;
-//        //時間新到舊
-//        ArrayList<Collect> collects = collectRepository.findByUserCollectId(user);
-//        ArrayList<Article> result;
-//        ChangleToArticle changleToArticle = new ChangleToArticle();
-//        result = changleToArticle.CollectChangleArticle(collects);
-//
-//        for (int i=pagenum*page; i<=result.size();i++){
-//            Article article1 = new Article();
-//            article1 = result.get(i);
-//        }
-//
-//            System.out.println("ArticleServiceImpl的 messageList" + messageList);
-//        return messageList;
-//    }
-
-//    @Override
-//    public List<Article> getPagedArticlesId(int page, int size, User user,String subject,int timeDirect) {
-//
-//        //預設-時間舊到新
-//        Pageable pageable = PageRequest.of(page, size,Sort.by("createDate").ascending().and(Sort.by("createTime")).ascending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
-//        System.out.println("實作service裡面的排序" + timeDirect);
-//        //時間新到舊
-//        if( 100 == timeDirect){
-//            System.out.println("desc有抓到[IF新到舊]");
-//            pageable = PageRequest.of(page, size, Sort.by("createDate").descending().and(Sort.by("createTime")).descending().and(Sort.by("subjectCategory")).and(Sort.by("enterAddressName")).and(Sort.by("articleTitle")).and(Sort.by("textEditor")).and(Sort.by("freeTag")));
-//        }
-//
-//        Page<Article> pageResult;
-//
-//        if(StringUtils.isEmpty(subject)){
-//            pageResult = articleRepository.findByUserId(user);
-//        }else {
-//            pageResult = articleRepository.findByUserIdAndSubjectCategory(user,subject);
-//        }
-//
-//        Page<Article> pageResult;
-//        return messageList;
-//
-//    }
-
-@Override
     public List<Article> changeImg(){
         List<Article> result =articleRepository.findAll();
         return result;
     }
+
+
+
 
 
 }
