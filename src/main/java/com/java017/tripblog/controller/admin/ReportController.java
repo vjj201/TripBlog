@@ -23,11 +23,15 @@ public class ReportController {
 
     private final ReportService reportService;
     private final ArticleService articleService;
+    private final UserService userService;
+    private final ReportRepository reportRepository;
 
     @Autowired
-    public ReportController(ReportService reportService, ArticleService articleService) {
+    public ReportController(ReportService reportService, ArticleService articleService, UserService userService, ReportRepository reportRepository) {
         this.reportService = reportService;
         this.articleService = articleService;
+        this.userService = userService;
+        this.reportRepository = reportRepository;
     }
 
 
@@ -43,7 +47,7 @@ public class ReportController {
 
     //渲染會員文章畫面
     @GetMapping("/report/{articleId}/product")
-    public ResponseEntity<List<Article>> articlePage(@PathVariable Integer articleId) {
+    public ResponseEntity<List<Article>> articlePage(@PathVariable  Integer articleId) {
         System.out.println(articleId);
         List<Article> result = articleService.findArticleIdArray(articleId);
 

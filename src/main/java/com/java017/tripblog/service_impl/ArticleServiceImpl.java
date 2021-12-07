@@ -385,5 +385,12 @@ public class ArticleServiceImpl implements ArticleService {
 
 
 
+@Override
+    public List<Article> changeImg(){
+        List<Article> result =articleRepository.findAll();
+        return result;
+    }
+
+
 }
 
