@@ -9,15 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
 public class ReportServicelmpl implements ReportService {
 
-    @Autowired
     private final ReportRepository reportRepository;
 
+    @Autowired
     public ReportServicelmpl(ReportRepository repository) {
         this.reportRepository = repository;
     }
@@ -47,12 +49,54 @@ public class ReportServicelmpl implements ReportService {
     public ArrayList<Report> findByUserReportId(User userReportId) {
         return reportRepository.findByUserReportId(userReportId);
     }
-
-    @Override
-    public List<Report> findAllReport() {
-
-        return reportRepository.findAll();
-
-
-    }
 }
+
+//---------------------------------------------------------------
+//    @Override
+//    public List<Report> findAllReport() {}
+//
+//    public List<Report> findAllReport() {
+//
+//        return reportRepository.findAll();}
+//
+//    --------------------------------------------------------------
+//List<Report> All = reportRepository.findAll();
+//    List<Report> newAll =  new ArrayList<>();
+//    //SET存入不重複的值
+//    Set<Integer> repeatIdSet = new HashSet<Integer>();
+//    Object[] repeatIdArray = repeatIdSet.toArray();
+////        ArrayList<Report> repeatIdList = new ArrayList<>();
+//
+//        for (int i =1;i< All.size();i++) {
+//        Integer articleId = All.get(i-1).getArticlesReportId().getArticleId();
+//        Integer articleIdNew = All.get(i).getArticlesReportId().getArticleId();
+//        if (articleId != articleIdNew) {
+//            newAll.add(All.get(i-1));
+//            System.out.println("All.get(i)=>"+All.get(i-1));
+//        }else {
+//            repeatIdSet.add(articleId);
+//        }
+//    }
+//    //將set-repeatIdSet裝入List-repeatIdList
+////        for(int j = 0;j<repeatIdArray.length;j++){
+////            repeatIdList[j] =(List<Report>)repeatIdArray[j];
+////        }
+//
+//
+//    //
+//        for(int k =0;k< All.size();k++){
+//        Integer articleId2 =All.get(k).getArticlesReportId().getArticleId();
+//        for( int r=0;r<repeatIdSet.size();r++){
+//            Integer repeatId = (Integer) repeatIdArray[r];
+//            if (articleId2 == repeatId){
+////                    newAll.add(All.get(k));
+////                    應該是article屬性，然後用get存入資料
+//            }
+//        }
+//
+//
+//    }
+//
+//          return newAll;
+//
+//}

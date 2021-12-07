@@ -1,6 +1,7 @@
 package com.java017.tripblog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -30,11 +31,13 @@ public class ProductOrder {
     private String cardOwner;
     private String cardNumber;
     private String username;
+    private int discountNumber;
     private boolean adminCheck;
 
     //訂單狀態(待出貨未查看-1、運送中0、已收件1)
     private Integer orderStatus;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderTime;
 
@@ -177,6 +180,10 @@ public class ProductOrder {
         this.username = username;
     }
 
+    public int getDiscountNumber() { return discountNumber; }
+
+    public void setDiscountNumber(int discountNumber) { this.discountNumber = discountNumber; }
+
     @Override
     public String toString() {
         return "ProductOrder{" +
@@ -191,9 +198,13 @@ public class ProductOrder {
                 ", cardOwner='" + cardOwner + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", username='" + username + '\'' +
+                ", discountNumber=" + discountNumber +
                 ", adminCheck=" + adminCheck +
                 ", orderStatus=" + orderStatus +
                 ", orderTime=" + orderTime +
+                ", user=" + user +
+                ", orderItems=" + orderItems +
                 '}';
     }
 }
+

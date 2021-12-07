@@ -6,7 +6,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,25 +24,32 @@ public class VerifiedInterceptor implements HandlerInterceptor {
                              HttpServletResponse response, Object handler)
             throws Exception {
 
-        boolean mailVerified = false;
+        boolean mailVerified;
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
-        // 確認是否啟用
-        if (myUserDetails != null) {
-            mailVerified = myUserDetails.isMailVerified();
+        if (authentication.getPrincipal() instanceof MyUserDetails) {
+            MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
 
-            if (!mailVerified) {
-                HttpSession session = request.getSession();
-                User userSession = new User();
-                userSession.setId(myUserDetails.getId());
-                userSession.setNickname(myUserDetails.getNickName());
-                userSession.setEmail(myUserDetails.getEmail());
-                session.setAttribute("user", userSession);
-                response.sendRedirect("/user/signup-success");
+            // 確認是否啟用
+            if (myUserDetails != null) {
+                mailVerified = myUserDetails.isMailVerified();
+
+                if (!mailVerified) {
+                    HttpSession session = request.getSession();
+                    User userSession = new User();
+                    userSession.setId(myUserDetails.getId());
+                    userSession.setNickname(myUserDetails.getNickName());
+                    userSession.setEmail(myUserDetails.getEmail());
+                    session.setAttribute("user", userSession);
+                    response.sendRedirect("/user/signup-success");
+                }
+
+                if(myUserDetails.isLocked()) {
+                    response.sendRedirect("/banned");
+                }
             }
         }
-        return mailVerified;
+        return true;
     }
 
 }

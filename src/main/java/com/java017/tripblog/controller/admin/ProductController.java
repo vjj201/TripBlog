@@ -7,14 +7,16 @@ import com.java017.tripblog.service.BrandService;
 import com.java017.tripblog.service.ProductService;
 import com.java017.tripblog.service.ProductTagService;
 import com.java017.tripblog.util.FileUploadUtils;
+import com.java017.tripblog.vo.ProductQuery;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +25,7 @@ import java.util.List;
  * @date 2021/11/6 - 下午 04:11
  */
 
+@Transactional
 @RestController
 @RequestMapping("/admin")
 public class ProductController {
@@ -38,49 +41,18 @@ public class ProductController {
         this.productTagService = productTagService;
     }
 
-    //查詢
-    //商品管理頁
-    @GetMapping("/product/manage")
-    public ResponseEntity<String> showProductsManage() {
-        try {
-            List<JSONObject> productsInfo = new ArrayList<>();
-            Long id = 1L;
-            for (int i = 1; i <= productService.countProduct(); i++) {
-                if (productService.findProductById(id) != null){
-                    Product product = productService.findProductById(id);
-                    System.out.println(product);
-                    JSONObject JSONproduct = new JSONObject();
-                    JSONproduct.put("productID", id);
-                    JSONproduct.put("productName", product.getProductName());
-                    JSONproduct.put("aboutProduct", product.getAboutProduct());
-                    JSONproduct.put("productDetail", product.getProductDetail());
-                    JSONproduct.put("price", product.getPrice());
-                    JSONproduct.put("inStock", product.getInStock());
-                    JSONproduct.put("alreadySold", product.getAlreadySold());
-                    if (product.getBrand() != null) {
-                        JSONproduct.put("brand", product.getBrand().getBrandName());
-                    } else {
-                        JSONproduct.put("brand", "未設定");
-                    }
-                    if (product.getProductTag() != null) {
-                        JSONproduct.put("productTag", product.getProductTag().getTagName());
-                    } else {
-                        JSONproduct.put("productTag", "未設定");
-                    }
-                    productsInfo.add(JSONproduct);
-                    System.out.println(productsInfo);
-                    id++;
-                } else {
-                    id++;
-                    i--;
-                }
-            }
-            return new ResponseEntity<>(productsInfo.toString(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    //根據頁數、搜尋條件回傳商品資訊
+    @PostMapping("/product/manage/page/{page}")
+    public ResponseEntity<Page<Product>> findAllProductByQuery(@PathVariable int page,
+                                                               @RequestBody(required = false) ProductQuery productQuery) {
+        Page<Product> productPage = productService.findProductPageByQuery(page, productQuery);
+        if (productPage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
 
+    //查詢
     //獲取商品資訊
     @GetMapping("/product/manage/{id}")
     public ResponseEntity<String> showProduct(@PathVariable Long id) {
@@ -278,5 +250,4 @@ public class ProductController {
         }
         return false;
     }
-
 }

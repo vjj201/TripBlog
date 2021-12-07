@@ -182,12 +182,12 @@
         <div class="col-md-2 mt-2 text-md-start">
             位於><span th:text="${showArticle.enterAddressName}"></span>
         </div>
-<!--        <div class="col-md-2 mt-2 text-md-end">-->
-<!--            <button type="button" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"-->
-<!--                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">-->
-<!--                發票收據-->
-<!--            </button>-->
-<!--        </div>-->
+        <!--        <div class="col-md-2 mt-2 text-md-end">-->
+        <!--            <button type="button" class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold"-->
+        <!--                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">-->
+        <!--                發票收據-->
+        <!--            </button>-->
+        <!--        </div>-->
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -234,7 +234,7 @@
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
                         <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.0267172529916!2d121.56283948366875!3d25.03316736004655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb6da80a7ad%3A0xacc4d11dc963103c!2z5Y-w5YyXMTAx!5e0!3m2!1szh-TW!2stw!4v1633222107600!5m2!1szh-TW!2stw"
+                                th:src="${'https://www.google.com/maps/embed/v1/place?key=AIzaSyDHO6WziMRpUayXSQnX8Xth566rnsZdQeY&q=' + showArticle.getEnterAddressName()}"
                                 class="d-block" width="100%" height="400px" style="border:0;" allowfullscreen=""
                                 loading="lazy"></iframe>
 
@@ -274,27 +274,22 @@
                         <div class="row mt-5 justify-content-center align-items-center">
                             <div class="col-md-2" id="t1">
                                 <div class="ratio ratio-1x1">
-                                    <img th:src="${session.user != null && session.user.isHasMemberPic()} ? '/user/memberPic' : @{/images/oman_10_ani_10.svg}" src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
+                                    <img th:src="${showArticle.getUserId().isHasMemberPic() == true} ? @{/images/userPhoto/}+${showArticle.getUserId().Id}+'/memberPic.jpg' : @{/images/oman_10_ani_10.svg}" src="https://semantic-ui.com/images/avatar2/small/elyse.png" alt="頭貼"
                                          class="rounded-circle">
                                 </div>
                             </div>
                             <div class="col-md-4 text-bl04" id="t2">
                                 <h3 class="authorName text-bl04">
-                                    <span th:text="${showUser.nickname}"></span>
+                                    <span th:text="${showArticle.getUserId().nickname}"></span>
                                 </h3>
                                 <h6 class="authorHome text-bl04">
-                                    <span th:text="${showUser.intro.getIntroContent()}"></span>
+<!--                                    <span th:text="${showUser.getIntro().getIntroContent()}"></span>-->
                                 </h6>
                                 <h6>推薦數<span id="recommendCount"  th:text="${showArticle.getRecommend()}"></span> 收藏數<span id="collectCount" th:text="${showArticle.getCollect()}"></span>
                                 </h6>
                             </div>
                             <div class="col-md-3" id="t3">
-                                <button type="button" id="recommendBt"
-                                        class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold ">推薦</button>
-                                <button type="button" id="collectBt"
-                                        class="btn btn-bl03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold ">收藏</button>
-                                <button type="button" id="ReportBt"
-                                        class="btn btn-pk03 border-2 border-gr0200 rounded-pill text-gr0200 fw-bold ">檢舉</button>
+
                             </div>
                         </div>
                     </div>
@@ -304,43 +299,9 @@
     </div>
 </div>
 <!-- 留言區 -->
-<div class="container">
-    <div class="row mt-5 mb-5 justify-content-center">
-        <div class="col-2 col-md-1">
-            <div class="ratio ratio-1x1">
-                <img src="https://semantic-ui.com/images/avatar2/small/elyse.png"
-                     class="rounded-circle">
-            </div>
-        </div>
-        <div class="col-8 text-end" id="messagehight">
-            <div class="form-group rounded-3">
-                <label for="exampleFormControlTextarea1"></label>
-                <textarea class="form-control bg-gr0200" id="exampleFormControlTextarea1" rows="2"
-                          placeholder="新增公開留言..."></textarea>
-            </div>
-            <button type="button"
-                    class="btn btn-light mt-2  border-2 border-pk03 rounded-pill text-pk03 fw-bold shadow-sm">取消</button>
-            <button type="button"
-                    class="btn btn-light mt-2 border-2 border-bl03 rounded-pill text-bl03 fw-bold">留言</button>
-        </div>
-    </div>
-</div>
+
 <!-- 回復區 -->
-<div class="container">
-    <div class="row mt-5 justify-content-center">
-        <div class="col-2 col-md-1">
-            <div class="ratio ratio-1x1">
-                <img src="https://puui.qpic.cn/media_img/0/1087981546998118/0" class="rounded-circle">
-            </div>
-        </div>
-        <div class="col-8 mb-5 text-end">
-            <h6 class="replyText text-start text-bl04 fw-bold">訪客沈玉琳簽到訪客沈玉琳簽到訪客沈玉琳簽到訪客沈玉琳簽到訪客沈玉琳簽到訪客沈玉琳簽到訪客沈玉琳簽到訪客
-            </h6>
-            <button type="button"
-                    class="btn btn-light border-2 border-bl03 rounded-pill text-bl03 fw-bold">回覆</button>
-        </div>
-    </div>
-</div>
+
 
 <!-- 右側邊欄，快速回到頂部和目錄自動生成 -->
 <a class="btn btn-default" href="#" role="button"

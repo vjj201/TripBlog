@@ -1,5 +1,5 @@
 package com.java017.tripblog.util;
     public enum TagEnum {
-        咖啡,紅茶,拉麵,蛋糕,餅乾,義大利麵,汽水
+        牛排,燒肉,早午餐,咖啡,火鍋,踏青,曬太陽,健行,光合作用,淨化心靈
     }
 

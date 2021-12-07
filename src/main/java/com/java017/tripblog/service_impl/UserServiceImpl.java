@@ -1,6 +1,7 @@
 package com.java017.tripblog.service_impl;
 
-import com.java017.tripblog.entity.*;
+import com.java017.tripblog.entity.Intro;
+import com.java017.tripblog.entity.User;
 import com.java017.tripblog.repository.IntroRepository;
 import com.java017.tripblog.repository.UserRepository;
 import com.java017.tripblog.security.MyUserDetails;
@@ -13,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,8 +40,15 @@ public class UserServiceImpl implements UserService {
     //獲取當前使用者
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-        return userDetails.getUser();
+        Object principal = authentication.getPrincipal();
+
+
+        if(principal instanceof MyUserDetails) {
+            MyUserDetails userDetails = (MyUserDetails) principal;
+            return userDetails.getUser();
+
+        }
+        return null;
     }
 
     //判斷記住帳號
@@ -65,11 +72,6 @@ public class UserServiceImpl implements UserService {
         Intro intro = new Intro();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIntro(intro);
-
-//        ShopCart shopCart = new ShopCart();
-//        ProductOrder productOrder = new ProductOrder();
-//        shopCart.setUser(user);
-//        productOrder.setUser(user);
 
         try {
             userRepository.save(user);

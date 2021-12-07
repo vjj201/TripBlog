@@ -60,5 +60,14 @@ public class PageController {
     public String userSpace() {
         return "/user_space";
     }
+//------------------------------------------------------------------------------------------
+
+
+
+    //跳轉作者介紹頁面
+    @GetMapping("/banned")
+    public String banned() {
+        return "/user/banned";
+    }
 
 }

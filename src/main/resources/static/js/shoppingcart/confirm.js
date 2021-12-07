@@ -1,5 +1,4 @@
 let storage = localStorage;
-
 function doFirst() {
 
     //csrf防護
@@ -9,7 +8,47 @@ function doFirst() {
         xhr.setRequestHeader(header, token);
     });
 
+    $('#discount').on('click', function (e) {
+        e.preventDefault();
 
+        let totalMoney = parseInt($('#totalAmount').text());
+        let title = $('#discountTitle').val();
+        let data = {};
+        data['title'] = title;
+        $.ajax({
+            url: '/shop/discount',
+            type: 'POST',
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(data),
+            statusCode: {
+                200: function (response) {
+                    alert(response + '折優惠新增成功');
+
+                    let newTotal = totalMoney  * response / 10;
+                    $('#totalAmount').text(Math.ceil(newTotal));
+                },
+                204: function () {
+                    alert('找不到優惠');
+                },
+                403: function () {
+                    alert('已使用優惠');
+                }
+            }
+        });
+    });
+
+    $('#back').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/shop/removeDiscount',
+            type: 'Get',
+            statusCode: {
+                200: function () {
+                   window.location.href = "/shop/payment";
+                }
+            }
+        });
+    });
 
     let itemString = storage.getItem('addItemList');
     items = itemString.substr(0, itemString.length - 2).split(', ');
@@ -49,6 +88,7 @@ function doFirst() {
             let title = itemInfo.split('|')[0];
             let quantity = itemInfo.split('|')[3];
             let price = itemInfo.split('|')[2];
+            
 
             JData[i] = {productId, title, quantity, price};
         }

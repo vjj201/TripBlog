@@ -8,6 +8,8 @@ import com.java017.tripblog.repository.CollectRepository;
 import com.java017.tripblog.repository.RecommendRepository;
 import com.java017.tripblog.repository.ReportRepository;
 import com.java017.tripblog.service.ArticleService;
+import com.java017.tripblog.util.ArticleParam;
+import com.java017.tripblog.util.TagEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -134,7 +136,7 @@ public class ArticleServiceImpl implements ArticleService {
         return "推薦成功";
     }
 
-    ;
+
 
     @Override
     public String updateCollect(String articleTitle) {
@@ -146,7 +148,7 @@ public class ArticleServiceImpl implements ArticleService {
         return "收藏成功";
     }
 
-    ;
+
 
     @Override
     public String updateReport(String articleTitle) {
@@ -276,6 +278,7 @@ public class ArticleServiceImpl implements ArticleService {
     public String upDateArticle(Article inputArticle) {
         Optional<Article> article = articleRepository.findById(inputArticle.getArticleId());
         Article article1 = new Article();
+
         article1.setArticleId(article.get().getArticleId());
         article1.setArticleTitle(inputArticle.getArticleTitle());
         article1.setSubjectCategory(inputArticle.getSubjectCategory());
@@ -284,7 +287,7 @@ public class ArticleServiceImpl implements ArticleService {
         article1.setEnterAddressName(inputArticle.getEnterAddressName());
         article1.setSaveImgPath(inputArticle.getSaveImgPath());
         article1.setTextEditor(inputArticle.getTextEditor());
-        article1.setFreeTag(inputArticle.getFreeTag());
+//        article1.setFreeTag(inputArticle.getFreeTag());
         article1.setCreateTime(inputArticle.getCreateTime());
         article1.setSelectRegion(inputArticle.getSelectRegion());
         article1.setUserId(inputArticle.getUserId());
@@ -335,6 +338,20 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> result = articleRepository.findArticleIdArray(id);
         return result;
     }
+
+    //庭妤: 檢舉文章_文章id搜尋，結果為list
+    @Override
+    public List<Article> findArticleIdReport() {
+        ArrayList<Article> result = articleRepository.findAll();
+        List<Article> newResult = new ArrayList<>();
+        for (Article loopdata : result) {
+            if (loopdata.getReport()!=0) {
+                newResult.add(loopdata);
+            }
+        }
+        return newResult;
+    }
+
 
     @Override
     public Article findArticleById(Integer id) {

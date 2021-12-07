@@ -150,23 +150,57 @@ $(function() {
 // -------------結束
 
     //-------------------------顯示資料庫裏面的標籤------------------
-    $.ajax({
-        url: "/user/findtags",
-        type: "GET",
-        // async: false,
-        contentType: 'application/json;charset=utf-8',
-        data: "json",
-        success: function (response) {
-            for (let tag of response) {
-                //       let id = tag.id;
-                //      let name = tag.name;
-                //      console.log(tag);
-                $("#articleTag").append(
-                    $("<option></option>").text(tag)
-                );
-            }
-        },
-    });
+    // $.ajax({
+    //     url: "/user/findtags",
+    //     type: "GET",
+    //     // async: false,
+    //     contentType: 'application/json;charset=utf-8',
+    //     data: "json",
+    //     success: function (response) {
+    //         for (let tag of response) {
+    //             //       let id = tag.id;
+    //             //      let name = tag.name;
+    //             //      console.log(tag);
+    //             $("#articleTag").append(
+    //                 $("<option></option>").text(tag)
+    //             );
+    //         }
+    //     },
+    // });
+
+    //大方  新增文章畫面tag標籤生成   start 1117
+    let tag = {};
+    let freeTagId = "";
+    let freeTagName = "";
+
+    loadTags();
+
+    function loadTags() {
+
+        tag["freeTagId"] = freeTagId;
+        tag["freeTagName"] = freeTagName;
+
+        console.log("開始跑標籤")
+
+        $.ajax({
+            url: "/user/newFindTags",
+            type: "GET",
+            contentType: 'application/json;charset=utf-8',
+            success: function (response) {
+                console.log(response);
+                console.log("tag標籤開始");
+                for (let tag of response) {
+                    freeTagName = tag.freeTagName;
+                    console.log(freeTagName)
+                    let htmlTag = `<option style="transform: translateX(5%);"value='${freeTagName}'>${freeTagName}</option>`;
+                    $("#articleTag").append(htmlTag);
+                    console.log()
+                }
+                console.log("tag標籤結束")
+            },
+        });
+    }
+    //大方  新增文章畫面tag標籤生成 end  1117
 
 //提交按鈕發表AJAX請求
     $('#pusharticle').click(function (e) {

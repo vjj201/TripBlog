@@ -16,8 +16,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public MyUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,7 +32,9 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("查無帳號:" + username);
         } else {
             System.out.println("返回用戶資訊");
-                return new MyUserDetails(user);
+            return new MyUserDetails(user);
         }
     }
+
+
 }

@@ -9,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,7 +19,7 @@ import java.util.Set;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "User")
-public class User{
+public class User {
 
     //會員編號
     @Id
@@ -51,10 +50,17 @@ public class User{
     private Date birthday;
 
     //信箱
+    @Column(unique = true, nullable = false)
     private String email;
 
     //手機
     private String phone;
+
+    //角色
+    private String role;
+
+    //封鎖
+    private boolean locked;
 
     //註冊日期
     @Temporal(TemporalType.TIMESTAMP)
@@ -69,15 +75,17 @@ public class User{
     private boolean hasMemberPic;
 
     //自我介紹外來鍵
-    @OneToOne(cascade = {CascadeType.ALL})
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "intro", referencedColumnName = "id")
     private Intro intro;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private ShopCart shopCart;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<ProductOrder> productOrderList = new HashSet<>();
 
     public Long getId() {
@@ -200,6 +208,22 @@ public class User{
         this.shopCart = shopCart;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -212,6 +236,8 @@ public class User{
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", role='" + role + '\'' +
+                ", locked=" + locked +
                 ", signDate=" + signDate +
                 ", mailVerified=" + mailVerified +
                 ", hasMemberPic=" + hasMemberPic +

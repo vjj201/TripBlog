@@ -142,7 +142,7 @@ $(function () {
 
                 <p class="text-bl04">${textEditor.substring(0, 45)}...</p>
                 <div class="post-meta">
-                    <p class="text-bl04">By <a href="#" class="text-bl04">${user}</a></p>
+                    <p class="text-bl04">By <a href="/changeToUserIntro/${user}"  class="text-bl04">${user}</a></p>
                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
                     <input
                     name="${articleTitle}"
@@ -280,6 +280,7 @@ $(function () {
     let createTime = articleAll.createTime;
     let saveImgPath = articleAll.saveImgPath;
     let user = articleAll.userId.nickname;
+    let userId = articleAll.userId.username;
     let isShow = articleAll.show;
     let articleId = articleAll.articleId;
     console.log("articleId=  " + articleId);
@@ -305,7 +306,7 @@ $(function () {
 
                 <p class="text-bl04">${textEditor.substring(0, 45)}...</p>
                 <div class="post-meta">
-                    <p class="text-bl04">By <a href="#" class="text-bl04">${user}</a></p>
+                    <p class="text-bl04">By <a href="/visitorsSpace/${userId}" class="text-bl04">${user}</a></p>
                    <p class="text-bl04">發表於:&nbsp${createDate}&nbsp${createTime}</p>
                     <input
                     name="${articleTitle}"
@@ -481,6 +482,24 @@ $(function () {
 
   //-------------------------------------------------------
   //幻燈片變換
+  //~~生成html_幻燈片
+  //   function getPhotoChange(changeImg) {
+  //     console.log("幻燈片-html有進來");
+  //     let articleTitle = changeImg.articleTitle;
+  //     let saveImgPath = changeImg.saveImgPath;
+  //     console.log("幻燈片-html的articleTitle"+articleTitle);
+  //     console.log("幻燈片-html的saveImgPath"+saveImgPath);
+
+  //     return `
+  //                     <div class="carousel-item overflow-hidden hot-carousel-item ">
+  //                         <img src="${saveImgPath}" class="d-block" alt="...">
+  //                         <div class="article-item carousel-caption">
+  //                             <h1 class="fw-bold">${articleTitle}</h1>
+  //                             <p class="fw-bolder">ent for the first slide.</p>
+  //                         </div>
+  //                     </div>
+  //         `;
+  //   }
   //~~get幻燈片資料
   function photoChange() {
     $.ajax({

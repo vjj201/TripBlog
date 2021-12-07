@@ -35,7 +35,7 @@ $(function () {
 
             firstPage();
             newButton();
-            // clickPage();
+            clickPage();
         })
         $("#subject").change(function (e1){
             e1.preventDefault();

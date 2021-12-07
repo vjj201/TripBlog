@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -93,6 +90,22 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(userOrderList, HttpStatus.OK);
+    }
+
+    //鎖定會員
+    @PutMapping("/member/{id}/locked")
+    public ResponseEntity<HttpStatus> lockedUser(@PathVariable Long id, @RequestBody User user) {
+        User userById = userService.findUserById(id);
+        if(ObjectUtils.isEmpty(userById)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        userById.setLocked(user.isLocked());
+        try {
+            userService.updateUser(userById);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
 

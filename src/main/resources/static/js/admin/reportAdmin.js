@@ -115,13 +115,13 @@ $(document).ready(function () {
           // (開始)檢舉列表迴圈生成
           for (let reports of response) {
             // 文章ID
-            let ArticleId = reports.articlesReportId.articleId;
+            let ArticleId = reports.articleId;
             // 文章標題
-            let articleTitle = reports.articlesReportId.articleTitle;
+            let articleTitle = reports.articleTitle;
             // 檢舉次數
-            let Report = reports.articlesReportId.report;
+            let Report = reports.report;
             //文章顯示狀態
-            let isShow = reports.articlesReportId.show;
+            let isShow = reports.show;
             let show;
             if (isShow == true) {
               show = "使用中";

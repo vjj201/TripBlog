@@ -1,5 +1,6 @@
-'use strict'
-$(function(){
+'use strict';
+let page = 1;
+$(document).ready(function () {
     //csrf防護
     let token = $("meta[name='_csrf']").attr("content");
     let header = $("meta[name='_csrf_header']").attr("content");
@@ -7,99 +8,90 @@ $(function(){
         xhr.setRequestHeader(header, token);
     });
 
-    //Get後端資料庫資料
+    createProductList();
+
+    // 搜尋bar店家、標籤下拉式選單載入
+    // 取得商家資訊
     $.ajax({
-        url: 'product/manage',
+        url: 'product/showBrands',
         type: 'GET',
         dataType: 'json',
-        success: function (data) {
-            console.log(data);            
-            createProductList(data);
+        success: function (brands) {
+            createBrandsList(brands);
         }
     });
-    //將獲取的資料動態新增欄位
-    function createProductList(data){
-        //動態新增商品開始
-        let newTbody = document.createElement('tbody');
-        // 將 tbody 放進 productAdmin
-        document.getElementById('productAdmin').appendChild(newTbody);
-        
-        for(let i = 0; i < data.length; i++){
-        // 建立每個品項的清單區域 -- tr
-            let trItemList = document.createElement('tr');
-            newTbody.appendChild(trItemList);
-        // 建立商品ID -- th
-            let thItemId = document.createElement('th');
-            thItemId.scope = "row";
-            thItemId.innerText = data[i].productID;
-            trItemList.appendChild(thItemId);
-
-        // 建立商品圖片-- 第一個 td
-            let tdImage = document.createElement('td');
-            let image = document.createElement('img');
-            image.src = "/shop/productPic/" + data[i].productID;
-            image.style.width = '70px';
-            tdImage.appendChild(image);
-            trItemList.appendChild(tdImage);
-        // 建立商品名稱-- 第二個 td
-            let tdTitle = document.createElement('td');
-            tdTitle.innerText = data[i].productName;
-            trItemList.appendChild(tdTitle);
-        // 建立商品簡介-- 第三個 td
-            let tdAbout = document.createElement('td');
-            tdAbout.innerText = data[i].aboutProduct;
-            trItemList.appendChild(tdAbout);
-        // 建立商品詳細-- 第四個 td
-            let tdDetail = document.createElement('td');
-            tdDetail.innerText = data[i].productDetail;
-            trItemList.appendChild(tdDetail);
-        // 建立商品價格-- 第五個 td
-            let tdPrice = document.createElement('td');
-            tdPrice.innerText = data[i].price + "TWD";
-            trItemList.appendChild(tdPrice);
-        // 建立商品庫存-- 第六個 td
-            let tdStock = document.createElement('td');
-            tdStock.innerText = data[i].inStock;
-            trItemList.appendChild(tdStock);
-        // 建立商品已售出-- 第七個 td
-            let tdSold = document.createElement('td');
-            tdSold.innerText = data[i].alreadySold;
-            trItemList.appendChild(tdSold);
-        // 建立商品店家-- 第八個 td
-            let tdBrand = document.createElement('td');
-            tdBrand.innerText = data[i].brand;
-            trItemList.appendChild(tdBrand);
-        // 建立商品標籤-- 第九個 td
-            let tdTag = document.createElement('td');
-            tdTag.innerText = data[i].productTag;
-            trItemList.appendChild(tdTag);
-        // 建立商品編輯、移除按鈕-- 第十個 td
-            let tdButton = document.createElement('td');
-            let btEdit = document.createElement('button');
-            let btRemove = document.createElement('button');
-
-            btEdit.id = data[i].productID;
-            btEdit.innerHTML = `data-bs-toggle="modal" data-bs-target = "#editModal"`;
-            btEdit.type = "button"; 
-            btEdit.className = "btn btn-primary m-1";
-            btEdit.innerText = "編輯";
-            btEdit.addEventListener('click', editProduct);
-
-            btRemove.id = data[i].productID;
-            btRemove.type = "button";
-            btRemove.className = "btn btn-danger m-1";
-            btRemove.innerText = "移除";
-            btRemove.addEventListener('click', removeProduct);
-
-            trItemList.appendChild(tdButton);
-            tdButton.appendChild(btEdit);
-            tdButton.appendChild(btRemove);
+    // 取得標籤資訊
+    $.ajax({
+        url: 'product/showProductTags',
+        type: 'GET',
+        dataType: 'json',
+        success: function (pTags) {
+            createTagsList(pTags);
         }
+    });
 
+    // 動態新增店家下拉式選單部分
+    function createBrandsList(brands) {
+        let opBrands = document.createElement('option');
+        opBrands.selected;
+        opBrands.value = "0";
+        opBrands.innerText = '選擇店家'
+        document.getElementById('searchProductBrand').appendChild(opBrands);
+        for (let i = 0; i < brands.length; i++) {
+            let opBrand = document.createElement('option');
+            opBrand.value = brands[i].id;
+            opBrand.innerText = brands[i].brandName;
+            document.getElementById('searchProductBrand').appendChild(opBrand);
+        }
     }
 
+    // 動態新增標籤下拉式選單部分
+    function createTagsList(pTags) {
+        let opTags = document.createElement('option');
+        opTags.selected;
+        opTags.value = "0";
+        opTags.innerText = '選擇標籤'
+        document.getElementById('searchProductTag').appendChild(opTags);
+        for (let i = 0; i < pTags.length; i++) {
+            let opTag = document.createElement('option');
+            opTag.value = pTags[i].id;
+            opTag.innerText = pTags[i].tagName;
+            document.getElementById('searchProductTag').appendChild(opTag);
+        }
+    }
+
+    //搜尋按鈕
+    $('#button-addon5').on('click', function () {
+        page = 1;
+        createProductList();
+    });
+
+    //排序條件改變
+    $(document).on('change', "[name='sort']", function () {
+        page = 1;
+        createProductList();
+    });
+
+    //下一頁按鈕
+    $('#next').on('click', function () {
+        page = ++page;
+        createProductList();
+    });
+
+    //上一頁按鈕
+    $('#pre').on('click', function () {
+        page = --page;
+        createProductList();
+    });
+
+    //頁數改變
+    $('#pageZone').on('change', function () {
+        page = $(this).val();
+        createProductList();
+    });
+
     //上架新商品按鈕
-    $('#addNewProduct').click(function(e) {
+    $('#addNewProduct').click(function (e) {
         e.preventDefault();
         // 取得商家資訊
         $.ajax({
@@ -108,7 +100,7 @@ $(function(){
             dataType: 'json',
             success: function (brands) {
                 console.log(brands);
-                createBrandsList(brands);            
+                createBrandsList(brands);
             }
         });
         // 取得標籤資訊
@@ -117,32 +109,34 @@ $(function(){
             type: 'GET',
             dataType: 'json',
             success: function (pTags) {
-                console.log(pTags);  
-                createTagsList(pTags);         
+                console.log(pTags);
+                createTagsList(pTags);
             }
         });
+
         // 動態新增店家下拉式選單部分
-        function createBrandsList(brands){
+        function createBrandsList(brands) {
             let opBrands = document.createElement('option');
             opBrands.selected;
             opBrands.value = "0";
             opBrands.innerText = '選擇店家'
             document.getElementById('addProductBrand').appendChild(opBrands);
-            for(let i = 0; i < brands.length; i++){
+            for (let i = 0; i < brands.length; i++) {
                 let opBrand = document.createElement('option');
                 opBrand.value = brands[i].id;
                 opBrand.innerText = brands[i].brandName;
                 document.getElementById('addProductBrand').appendChild(opBrand);
             }
         }
+
         // 動態新增標籤下拉式選單部分
-        function createTagsList(pTags){
+        function createTagsList(pTags) {
             let opTags = document.createElement('option');
             opTags.selected;
             opTags.value = "0";
             opTags.innerText = '選擇商品標籤'
             document.getElementById('addProductTag').appendChild(opTags);
-            for(let i = 0; i < pTags.length; i++){
+            for (let i = 0; i < pTags.length; i++) {
                 let opTag = document.createElement('option');
                 opTag.value = pTags[i].id;
                 opTag.innerText = pTags[i].tagName;
@@ -232,7 +226,7 @@ $(function(){
 
     //上架新商品的所有Modal頁面(兩頁)
     // 第一頁完成 下一步按鈕
-    $('#addNewProductNext').click(function(e) {
+    $('#addNewProductNext').click(function (e) {
         e.preventDefault();
 
         //抓取彈跳式表單中輸入的值
@@ -245,7 +239,7 @@ $(function(){
         let addNewProductTag = $('#addProductTag').val();
 
         //非空判斷
-        if(!addNewProductName || !addNewAboutProduct || !addNewAboutProduct ||
+        if (!addNewProductName || !addNewAboutProduct || !addNewAboutProduct ||
             !addNewProductPrice || !addNewProductStock ||
             addNewProductBrand == '0' || addNewProductTag == '0') {
             if (!addNewProductName) {
@@ -401,13 +395,13 @@ $(function(){
                                 success: function (response) {
                                     if (response) {
                                         alert('商品成功上架');
-                                        window.location.href = "product";
+                                        window.location.href = "productPage";
                                     } else {
                                         alert('商品上架失敗');
-                                        window.location.href = "product";
+                                        window.location.href = "productPage";
                                     }
                                 },
-                                error: function() {
+                                error: function () {
                                     alert('圖片檔案過大');
                                 }
                             });
@@ -437,25 +431,9 @@ $(function(){
     });
     //上架新商品的所有Modal頁面(兩頁) 結束
 
-    //移除商品按鈕函式
-    function removeProduct(){
-        console.log("移除商品：" + this.id);
-        $.ajax({
-            type: "DELETE",
-            url: "product/manage/" + this.id,
-            data: this.id,
-            contentType: 'application/json;charset=utf-8',
-            dataType: 'json',
-            success: function () {
-                console.log("成功刪除產品Id：" + this.id);
-            }
-        });
-        window.location.href = "product"
-    }
-
     let editId;
-    // 編輯商品按鈕函式
-    function editProduct() {
+
+    $(document).on('click', "[name='editBtn']", function () {
         // 跳轉編輯商品頁modal
         const editModal = document.getElementById('editModal');
         const myModal = new bootstrap.Modal(editModal); // 建構式
@@ -500,12 +478,12 @@ $(function(){
             }
         });
         // 動態新增店家下拉式選單部分
-        function createBrandsList(brands, brand){
+        function createBrandsList(brands, brand) {
             let opBrands = document.createElement('option');
             opBrands.value = '0';
             opBrands.innerText = brand;
             document.getElementById('editProductBrand').appendChild(opBrands);
-            for(let i = 0; i < brands.length; i++){
+            for (let i = 0; i < brands.length; i++) {
                 let opBrand = document.createElement('option');
                 opBrand.value = brands[i].id;
                 opBrand.innerText = brands[i].brandName;
@@ -513,29 +491,44 @@ $(function(){
             }
         }
         // 動態新增標籤下拉式選單部分
-        function createTagsList(pTags, tag){
+        function createTagsList(pTags, tag) {
             let opTags = document.createElement('option');
             opTags.value = '0';
             opTags.innerText = tag;
             document.getElementById('editProductTag').appendChild(opTags);
-            for(let i = 0; i < pTags.length; i++){
+            for (let i = 0; i < pTags.length; i++) {
                 let opTag = document.createElement('option');
                 opTag.value = pTags[i].id;
                 opTag.innerText = pTags[i].tagName;
                 document.getElementById('editProductTag').appendChild(opTag);
             }
         }
-    }
+    });
+    $(document).on('click', "[name='removeBtn']",function () {
+        console.log("移除商品：" + this.id);
+        $.ajax({
+            type: "DELETE",
+            url: "product/manage/" + this.id,
+            data: this.id,
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: function () {
+                console.log("成功刪除產品Id：" + this.id);
+            }
+        });
+        alert("成功移除商品（Id：" + this.id + "）");
+        window.location.href = "productPage"
+    });
 
     //編輯商品的所有Modal頁面(兩頁)
     // 離開編輯商品第一頁頁面
     $('#editProductExit').click(function (e) {
         e.preventDefault();
-        window.location.href = "product"
+        window.location.href = "productPage"
     });
 
     // 第一頁完成 下一步按鈕
-    $('#editProductNext').click(function(e) {
+    $('#editProductNext').click(function (e) {
         e.preventDefault();
 
         //抓取彈跳式表單中輸入的值
@@ -548,7 +541,7 @@ $(function(){
         let editProductTag = $('#editProductTag').val();
 
         //非空判斷
-        if(!editProductName && !editAboutProduct && !editAboutProduct &&
+        if (!editProductName && !editAboutProduct && !editAboutProduct &&
             !editProductPrice && !editProductStock &&
             editProductBrand == '0' && editProductTag == '0') {
             alert("尚未輸入欲變更的資訊");
@@ -608,7 +601,7 @@ $(function(){
     });
 
     // 第一頁前往更新圖片按鈕
-    $('#toEditProductImg').click(function() {
+    $('#toEditProductImg').click(function () {
         // 關閉第一頁modal
         const editModal = document.getElementById('editModal');
         const myEditModal = bootstrap.Modal.getInstance(editModal); // 建構式
@@ -676,9 +669,9 @@ $(function(){
 
                     success: function () {
                         alert('商品照片已更新');
-                        window.location.href = "product";
+                        window.location.href = "productPage";
                     },
-                    error: function() {
+                    error: function () {
                         alert('圖片檔案過大');
                     }
                 });
@@ -689,9 +682,105 @@ $(function(){
         }
     });
 
-    $('#closeEditProduct').click(function() {
-        window.location.href = "product";
+    $('#closeEditProduct').click(function () {
+        window.location.href = "productPage";
     });
     //編輯商品的所有Modal頁面(兩頁) 結束
-});
 
+    //將獲取的商品列表資料動態新增欄位
+    function createProductList() {
+        let brand = $('select[name="productBrand"]').val();
+        let tag = $('select[name="productTag"]').val();
+        let productName = $('input[name="productName"]').val();
+        let sort = $("[name='sort']").val();
+
+
+        let productQuery = {};
+        productQuery['brandId'] = brand;
+        productQuery['tagId'] = tag;
+        productQuery['productName'] = productName;
+        productQuery['sort'] = sort;
+        console.log(productQuery);
+
+        $.ajax({
+            type: 'POST',
+            url: "/admin/product/manage/page/" + page,
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(productQuery),
+            statusCode: {
+                200: function (response) {
+                    let totalPage = response.totalPages;
+                    let productList = response.content;
+                    let first = response.first;
+                    let last = response.last;
+                    console.log(response);
+
+                    // 頁數處理
+                    let pageZone = '';
+                    for (let i = 1; i <= totalPage; i++) {
+                        if (page == i) {
+                            pageZone += '<option selected>' + i + '</option>';
+                        } else {
+                            pageZone += '<option>' + i + '</option>';
+                        }
+                    }
+
+                    if (first) {
+                        $('#pre').attr("disabled", true);
+                    } else {
+                        $('#pre').removeAttr("disabled");
+                    }
+
+                    if (last) {
+                        $('#next').attr("disabled", true);
+                    } else {
+                        $('#next').removeAttr("disabled");
+                    }
+
+                    //動態新增商品開始
+                    let trHTML = '';
+                    $.each(productList, function (i, data) {
+
+                        trHTML +=
+                            '<tr><th scope="row">' +
+                            data.id +
+                            '</th>' +
+                            '<td>' +
+                            '<img src="/shop/productPic/' +
+                            data.id +
+                            '" style="width: 70px;"></td><td>' +
+                            data.productName +
+                            '</td><td>' +
+                            data.aboutProduct +
+                            '</td><td>' +
+                            data.productDetail +
+                            '</td><td>' +
+                            data.price +
+                            'TWD</td><td>' +
+                            data.inStock +
+                            '</td><td>' +
+                            data.alreadySold +
+                            '</td><td>' +
+                            data.brand.brandName +
+                            '</td><td>' +
+                            data.productTag.tagName +
+                            '</td>' +
+                            '<td><button name="editBtn" id="' +
+                            data.id +
+                            '" type="button" class="btn btn-primary m-1">編輯</button>' +
+                            '<button name="removeBtn" id="' +
+                            data.id +
+                            '" type="button" class="btn btn-danger m-1">移除</button></td>' +
+                            '</tr>';
+                        $('#tbody').html(trHTML);
+                        $('#pageZone').html(pageZone);
+                        $('#totalPage').text(totalPage);
+                    });
+                },
+                204: function () {
+                    $('#tbody').html('<tr><td colspan="12" class="text-center p-5 m-5"><h3>查無資料</h3></td></tr>');
+                }
+            }
+        });
+    }
+});
